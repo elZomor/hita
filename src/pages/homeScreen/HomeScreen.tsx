@@ -39,19 +39,13 @@ const HomeScreen: React.FC = () => {
     fetchActors();
   }, []);
 
-  // const skeleton = [1, 2, 3, 4, 5, 6].map((item) => (
-  //   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-  //     <CardSkeleton key={item} />
-  //   </div>
-  // );
-
   return (
     <Container>
       <div className="flex flex-row gap-8">
         <Filters />
 
         <div className="flex-1">
-          {true ? (
+          {loading ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[...Array(6).keys()].map((item) => (
                 <CardSkeleton key={item} />
