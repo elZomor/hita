@@ -1,4 +1,4 @@
-import { MapPin, GraduationCap } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import { clsx } from 'clsx';
 import { Actor } from '../../models/Actor.ts';
 

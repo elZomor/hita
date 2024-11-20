@@ -7,7 +7,7 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <div>profile</div>
+      <div>profile {name}</div>
     </Container>
   );
 };

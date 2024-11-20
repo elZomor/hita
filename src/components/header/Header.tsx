@@ -43,7 +43,9 @@ export default function Header() {
           <div className="md:hidden">
             <BurgerMenuBtn
               isOpen={showMOblieMenu}
-              clickHandler={() => setShowMOblieMenu((prev) => !prev)}
+              clickHandler={() => {
+                setShowMOblieMenu((prev) => !prev);
+              }}
             />
           </div>
 

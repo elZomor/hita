@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface IProps {
   clickHandler: () => void;
   isOpen: boolean;
 }
 
-const BurgerMenuBtn: React.FC<IProps> = ({ clickHandler, isOpen }) => {
-  useState;
+const BurgerMenuBtn: React.FC<IProps> = ({
+  clickHandler = () => '',
+  isOpen,
+}) => {
   return (
     <div
       onClick={clickHandler}

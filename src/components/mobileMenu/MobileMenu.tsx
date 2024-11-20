@@ -20,6 +20,7 @@ const MobileMenu: React.FC<IProps> = ({ closeMenu }) => {
   const clickTabHandler = (index: number, route: string): void => {
     setSelectedTab(index);
     closeMenu();
+    console.log(route);
   };
 
   return (
