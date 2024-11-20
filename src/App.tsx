@@ -3,7 +3,7 @@ import './App.css'
 import {ClerkProvider} from "@clerk/clerk-react";
 import {useTranslation} from "react-i18next";
 import {arSA, enUS} from "@clerk/localizations";
-import ClerkAccount from "./components/clerkAccount/ClerkAccount.tsx";
+import HomeScreen from "./components/homeScreen/HomeScreen.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -33,9 +33,7 @@ export const App = () => {
                 publishableKey={PUBLISHABLE_KEY}
                 afterSignOutUrl="/"
             >
-                <div className='bg-amber-400'>
-                    <ClerkAccount/>
-                </div>
+                <HomeScreen/>
             </ClerkProvider>
         </Suspense>
     )

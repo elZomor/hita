@@ -4,15 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#8B0000',
-        secondaryColor: '#E17055',
-        accentColor: '#F9A825',
-        neutralColorOne: '#F5F5F5',
-        neutralColorTwo: '#FAF3E0',
-        textColorMain: '#333333',
-        textColorAlt: '#3E2723',
-        darkRed: '#531812',
-        gold: '#db9241',
+        purple: {
+          50: '#faf5ff',
+          100: '#f3e8ff',
+          200: '#e9d5ff',
+          300: '#d8b4fe',
+          400: '#c084fc',
+          500: '#a855f7',
+          600: '#9333ea',
+          700: '#7e22ce',
+          800: '#6b21a8',
+          900: '#581c87',
+        },
       },
     },
   },
