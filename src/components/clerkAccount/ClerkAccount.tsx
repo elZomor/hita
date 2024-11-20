@@ -14,18 +14,10 @@ function ClerkAccount() {
   return (
     <div>
       <SignedOut>
-        <a
-          onClick={handleLogin}
-        >
-          {t('LOGIN')}
-        </a>
+        <a onClick={handleLogin}>{t('LOGIN')}</a>
       </SignedOut>
       <SignedIn>
-        <a
-          onClick={handleLogout}
-        >
-          {t('LOGOUT')}
-        </a>
+        <a onClick={handleLogout}>{t('LOGOUT')}</a>
       </SignedIn>
     </div>
   );
