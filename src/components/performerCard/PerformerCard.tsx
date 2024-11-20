@@ -10,8 +10,8 @@ interface ActorCardProps {
 export function ActorCard({ actor }: ActorCardProps) {
   const { t } = useTranslation();
   return (
-    <div className="p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md">
-      <div className="relative h-[250px] rounded-md overflow-hidden mb-2">
+    <div className="w-[95%] m-auto max-w-[370px] p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md">
+      <div className="relative h-[310px] rounded-md overflow-hidden mb-2">
         <img
           className="absolute top-0 left-0 w-full h-full"
           src={actor.profilePicture}
