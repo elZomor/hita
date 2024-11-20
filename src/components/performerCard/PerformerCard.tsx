@@ -1,18 +1,20 @@
 import { GraduationCap } from 'lucide-react';
 import { clsx } from 'clsx';
-import { Actor } from '../../models/Actor.ts';
+import { Performer } from '../../models/Performer.ts';
+import { useTranslation } from 'react-i18next';
 
 interface ActorCardProps {
-  actor: Actor;
+  actor: Performer;
 }
 
 export function ActorCard({ actor }: ActorCardProps) {
+  const { t } = useTranslation();
   return (
     <div className="p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md">
       <div className="relative h-[250px] rounded-md overflow-hidden mb-2">
         <img
           className="absolute top-0 left-0 w-full h-full"
-          src={actor.imageUrl}
+          src={actor.profilePicture}
           alt={actor.name}
         />
       </div>
@@ -27,34 +29,33 @@ export function ActorCard({ actor }: ActorCardProps) {
               <div
                 className={clsx(
                   'w-2.5 h-2.5 rounded-full flex-shrink-0',
-                  actor.availability.toLowerCase().includes('this week')
+                  actor.status.toLowerCase().includes('available')
                     ? 'bg-green-500'
                     : 'bg-red-500'
                 )}
-                title={`Available ${actor.availability}`}
               />
             </div>
             <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
               <GraduationCap className="flex-shrink-0 w-4 h-4" />
-              <span className="break-words">{actor.location}</span>
+              <span className="break-words">{t(actor.department)}</span>
             </div>
           </div>
         </div>
 
         <div className="mt-3">
           <div className="flex flex-wrap gap-1.5">
-            {actor.specialties.map((specialty) => (
+            {actor.skills?.map((skill) => (
               <span
-                key={specialty}
+                key={skill}
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
               >
-                {specialty}
+                {t(skill)}
               </span>
             ))}
           </div>
         </div>
 
-        <p className="mt-3 text-sm text-gray-600">{actor.bio}</p>
+        <p className="mt-3 text-sm text-gray-600">{actor.biography}</p>
       </div>
     </div>
   );
