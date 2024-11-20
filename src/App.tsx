@@ -38,6 +38,7 @@ export const App = () => {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
+              <Route path="/profile/:name" element={<HomeScreen />} />
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
           </Routes>
