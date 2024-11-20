@@ -1,6 +1,6 @@
-import { Performer } from '../models/Performer.ts';
+import { Actor } from '../models/Actor.ts';
 
-export const actors: Performer[] = [
+export const actors: Actor[] = [
   {
     id: 1,
     name: 'Emma Thompson',
