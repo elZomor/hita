@@ -1,12 +1,11 @@
-import { baseUrl, devToken } from './constants.ts';
+import {baseUrl, DEBUG, devToken} from './constants.ts';
 
 export const get_request = async (
     url: string,
     token: string | null
 ): Promise<Response> => {
-    // const headers = {"Authorization": `Bearer ${token}`}
-    console.log(token);
-    const headers = { Authorization: `Bearer ${devToken}` };
+    const bearerToken: string = DEBUG ? devToken : token;
+    const headers = { Authorization: `Bearer ${bearerToken}` };
     return await fetch(`${baseUrl}/${url}`, {
         method: 'GET',
         headers: headers,

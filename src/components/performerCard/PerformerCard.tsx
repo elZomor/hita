@@ -29,7 +29,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                             <div
                                 className={clsx(
                                     'w-2.5 h-2.5 rounded-full flex-shrink-0',
-                                    actor.availability.toLowerCase().includes('available')
+                                    actor.status.toLowerCase().includes('available')
                                         ? 'bg-green-500'
                                         : 'bg-red-500'
                                 )}
@@ -44,7 +44,7 @@ export function ActorCard({ actor }: ActorCardProps) {
 
                 <div className="mt-3">
                     <div className="flex flex-wrap gap-1.5">
-                        {actor.skills.map((skill) => (
+                        {actor.skills?.map((skill) => (
                             <span
                                 key={skill}
                                 className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
