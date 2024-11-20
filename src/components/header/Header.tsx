@@ -1,12 +1,24 @@
-import { Search, Filter, Star } from 'lucide-react';
+import { Search, Star } from 'lucide-react';
 import ClerkAccount from '../clerkAccount/ClerkAccount.tsx';
 import Container from '../container/Container.tsx';
 import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
+import { useTranslation } from 'react-i18next';
+import useIsEng from '../../hooks/useIsEng.tsx';
 
 export default function Header() {
   const [showMOblieMenu, setShowMOblieMenu] = useState(false);
+  const { i18n } = useTranslation();
+  const { isEng } = useIsEng();
+
+  const changeLanguage = () => {
+    if (i18n.language === 'ar') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage('ar');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -17,7 +29,7 @@ export default function Header() {
             <span className="ml-2 text-xl font-bold">ActorsList</span>
           </div>
 
-          <div className="hidden max-w-2xl mx-8 md:flex-1">
+          <div className="hidden max-w-2xl mx-8 md:flex">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <Search className="w-5 h-5 text-gray-400" />
@@ -30,23 +42,28 @@ export default function Header() {
             </div>
           </div>
 
-          <div className="items-center hidden gap-4 md:flex">
-            <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+          <div className="flex items-center gap-4">
+            {/* <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
               <Filter className="w-4 h-4 mr-2" />
               Filters
-            </button>
-            <button className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700">
+            </button> */}
+            <button className="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg md:block hover:bg-purple-700">
               <ClerkAccount />
             </button>
-          </div>
-
-          <div className="md:hidden">
-            <BurgerMenuBtn
-              isOpen={showMOblieMenu}
-              clickHandler={() => {
-                setShowMOblieMenu((prev) => !prev);
-              }}
-            />
+            <button
+              onClick={changeLanguage}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              {isEng() ? 'EN' : 'AR'}
+            </button>
+            <div className="md:hidden">
+              <BurgerMenuBtn
+                isOpen={showMOblieMenu}
+                clickHandler={() => {
+                  setShowMOblieMenu((prev) => !prev);
+                }}
+              />
+            </div>
           </div>
 
           {showMOblieMenu && (

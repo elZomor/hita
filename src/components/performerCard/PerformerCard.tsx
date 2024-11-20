@@ -11,7 +11,7 @@ export function ActorCard({ actor }: ActorCardProps) {
     <div className="p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md">
       <div className="relative h-[250px] rounded-md overflow-hidden mb-2">
         <img
-          className="absolute top-0 left-0 object-cover w-full h-full"
+          className="absolute top-0 left-0 w-full h-full"
           src={actor.imageUrl}
           alt={actor.name}
         />
