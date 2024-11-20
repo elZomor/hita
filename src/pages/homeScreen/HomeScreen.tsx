@@ -9,6 +9,7 @@ import {
 } from '../../models/Performer.ts';
 import { useAuth } from '@clerk/clerk-react';
 import { get_request } from '../../rest_utils.ts';
+import { CardSkeleton } from '../../components/cardSkeleton/CardSkeleton.tsx';
 
 const HomeScreen: React.FC = () => {
   const [performers, setPerformers] = useState<Performer[]>([]);
@@ -38,14 +39,24 @@ const HomeScreen: React.FC = () => {
     fetchActors();
   }, []);
 
+  // const skeleton = [1, 2, 3, 4, 5, 6].map((item) => (
+  //   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+  //     <CardSkeleton key={item} />
+  //   </div>
+  // );
+
   return (
     <Container>
       <div className="flex flex-row gap-8">
         <Filters />
 
         <div className="flex-1">
-          {loading ? (
-            <p>Loading...</p>
+          {true ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[...Array(6).keys()].map((item) => (
+                <CardSkeleton key={item} />
+              ))}
+            </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {performers.map((actor: Performer) => (
