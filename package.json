@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint ./src/ --fix",
+    "preview": "vite preview",
+    "format": "prettier --write 'src/**/*.{ts,tsx,html,js,json}' '*.ts' '*.html' '*.js' '*.json'",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx,html,js,json}' '*.ts' '*.html' '*.js' '*.json'",
+    "eslint:check": "eslint --no-fix"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.15.1",
@@ -18,10 +21,12 @@
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.1.1",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@types/node": "^22.9.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
