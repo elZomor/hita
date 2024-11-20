@@ -16,7 +16,7 @@ export default function App() {
         async function fetchActors() {
             try {
 
-                const response = await get_request('/hita/performers', await getToken());
+                const response = await get_request('hita/performers', await getToken());
                 const data = await response.json();
 
                 // Transform the API data to match the `Actor` type
