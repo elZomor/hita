@@ -5,14 +5,12 @@ import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import { useTranslation } from 'react-i18next';
-import useIsEng from '../../hooks/useIsEng.tsx';
 
 export default function Header() {
-  const [showMOblieMenu, setShowMOblieMenu] = useState(false);
-  const { i18n } = useTranslation();
-  const { isEng } = useIsEng();
-
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { t, i18n } = useTranslation();
   const changeLanguage = () => {
+
     if (i18n.language === 'ar') {
       i18n.changeLanguage('en');
       localStorage.setItem('language', 'en');
@@ -21,6 +19,7 @@ export default function Header() {
       localStorage.setItem('language', 'ar');
     }
   };
+
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -56,20 +55,20 @@ export default function Header() {
               onClick={changeLanguage}
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
             >
-              {isEng() ? 'AR' : 'EN'}
+              {t('OTHER_LANGUAGE')}
             </button>
             <div className="md:hidden">
               <BurgerMenuBtn
-                isOpen={showMOblieMenu}
+                isOpen={showMobileMenu}
                 clickHandler={() => {
-                  setShowMOblieMenu((prev) => !prev);
+                  setShowMobileMenu((prev) => !prev);
                 }}
               />
             </div>
           </div>
 
-          {showMOblieMenu && (
-            <MobileMenu closeMenu={() => setShowMOblieMenu(false)} />
+          {showMobileMenu && (
+            <MobileMenu closeMenu={() => setShowMobileMenu(false)} />
           )}
         </div>
       </Container>
