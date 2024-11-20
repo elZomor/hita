@@ -15,7 +15,7 @@ export default function App() {
     useEffect(() => {
         async function fetchActors() {
             try {
-                const response = await get_request('hita/performers', await getToken());
+                const response = await get_request('hita/performers', await getToken({template: 'eg-theater'}));
                 const data = await response.json();
 
                 const transformedActors = data.results.map((performer: any) => ({
