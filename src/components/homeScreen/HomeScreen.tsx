@@ -15,11 +15,9 @@ export default function App() {
     useEffect(() => {
         async function fetchActors() {
             try {
-
                 const response = await get_request('hita/performers', await getToken());
                 const data = await response.json();
 
-                // Transform the API data to match the `Actor` type
                 const transformedActors = data.results.map((performer: any) => ({
                     id: performer.id,
                     name: `${performer.hita_member.first_name} ${performer.hita_member.last_name}`,
@@ -43,11 +41,11 @@ export default function App() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Header />
+            <Header/>
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-row gap-8">
-                    <Filters />
+                    <Filters/>
 
                     <div className="flex-1">
                         {loading ? (
@@ -55,7 +53,7 @@ export default function App() {
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {actors.map((actor) => (
-                                    <ActorCard key={actor.id} actor={actor} />
+                                    <ActorCard key={actor.id} actor={actor}/>
                                 ))}
                             </div>
                         )}
