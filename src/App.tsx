@@ -22,9 +22,9 @@ export const App = () => {
             i18n.changeLanguage(savedLanguage);
         }
     }, [i18n]);
-    document
-        .getElementsByTagName('html')[0]
-        .setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
+    // document
+    //     .getElementsByTagName('html')[0]
+    //     .setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
 
     return (
         <Suspense fallback="Loading...">
