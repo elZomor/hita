@@ -15,8 +15,10 @@ export default function Header() {
   const changeLanguage = () => {
     if (i18n.language === 'ar') {
       i18n.changeLanguage('en');
+      localStorage.setItem('language', 'en');
     } else {
       i18n.changeLanguage('ar');
+      localStorage.setItem('language', 'ar');
     }
   };
 
@@ -54,7 +56,7 @@ export default function Header() {
               onClick={changeLanguage}
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
             >
-              {isEng() ? 'EN' : 'AR'}
+              {isEng() ? 'AR' : 'EN'}
             </button>
             <div className="md:hidden">
               <BurgerMenuBtn
