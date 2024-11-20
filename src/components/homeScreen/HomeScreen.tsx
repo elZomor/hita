@@ -5,16 +5,18 @@ import {useEffect, useState} from "react";
 import {Actor} from "../../models/Actor.ts";
 import {baseUrl} from "../../constants.ts";
 import {get_request} from "../../rest_utils.ts";
+import {useAuth} from "@clerk/clerk-react";
 
 export default function App() {
     const [actors, setActors] = useState<Actor[]>([]);
     const [loading, setLoading] = useState(true);
+    const {getToken} = useAuth();
 
     useEffect(() => {
         async function fetchActors() {
             try {
 
-                const response = await get_request('/hita/performers');
+                const response = await get_request('/hita/performers', await getToken());
                 const data = await response.json();
 
                 // Transform the API data to match the `Actor` type
