@@ -1,4 +1,4 @@
-import { MapPin } from 'lucide-react';
+import { MapPin, GraduationCap } from 'lucide-react';
 import { clsx } from 'clsx';
 import { Actor } from '../../models/Actor.ts';
 
@@ -35,7 +35,7 @@ export function ActorCard({ actor }: ActorCardProps) {
               />
             </div>
             <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
-              <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
+              <GraduationCap className="flex-shrink-0 w-4 h-4" />
               <span className="break-words">{actor.location}</span>
             </div>
           </div>
