@@ -1,5 +1,5 @@
 import {useAuth} from "@clerk/clerk-react";
-import {baseUrl, devToken} from "./constants.ts";
+import {baseUrl} from "./constants.ts";
 
 const getToken = async ():Promise<(string | null)> => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
