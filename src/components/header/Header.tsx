@@ -5,7 +5,7 @@ import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 
-export function Header() {
+export default function Header() {
   const [showMOblieMenu, setShowMOblieMenu] = useState(false);
 
   return (
