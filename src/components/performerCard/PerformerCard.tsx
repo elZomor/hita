@@ -15,9 +15,9 @@ export function ActorCard({ actor }: ActorCardProps) {
   return (
     <div
       onClick={() => navigate(`/profile/${actor?.name}`)}
-      className="cursor-pointer w-[95%] m-auto max-w-[370px] p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md"
+      className="cursor-pointer w-[95%] m-auto max-w-[350px] transition-shadow duration-200 bg-white border border-gray-200 shadow-sm overflow-hidden rounded-xl hover:shadow-md"
     >
-      <div className="relative h-[310px] rounded-md overflow-hidden mb-2">
+      <div className="relative h-[320px] md:h-[300px] rounded-md overflow-hidden">
         <img
           className="absolute top-0 left-0 w-full h-full"
           src={actor.profilePicture}
@@ -25,11 +25,11 @@ export function ActorCard({ actor }: ActorCardProps) {
         />
       </div>
 
-      <div className="p-1 mb-2">
+      <div className="flex flex-col gap-2 p-2 mb-2">
         <div className="flex items-start gap-3">
           <div className="flex-1">
             <div className="flex items-center justify-between">
-              <h3 className="pr-4 text-base font-semibold text-gray-900 break-words">
+              <h3 className="pr-4 text-lg font-semibold text-gray-900 break-words">
                 {actor.name}
               </h3>
               <div
@@ -48,20 +48,18 @@ export function ActorCard({ actor }: ActorCardProps) {
           </div>
         </div>
 
-        <div className="mt-3">
-          <div className="flex flex-wrap gap-1.5">
-            {actor.skills?.map((skill) => (
-              <span
-                key={skill}
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
-              >
-                {t(skill)}
-              </span>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-1.5">
+          {actor.skills?.map((skill) => (
+            <span
+              key={skill}
+              className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
+            >
+              {t(skill)}
+            </span>
+          ))}
         </div>
 
-        <p className="mt-3 text-sm text-gray-600 truncate-two-lines">
+        <p className="text-sm text-gray-600 truncate-two-lines">
           {actor.biography}
         </p>
       </div>
