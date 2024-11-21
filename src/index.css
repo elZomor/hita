@@ -61,3 +61,11 @@ html {
 ::-webkit-scrollbar-thumb {
   @apply bg-purple-700 rounded-full;
 }
+
+.truncate-two-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

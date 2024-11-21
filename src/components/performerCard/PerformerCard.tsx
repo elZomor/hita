@@ -61,7 +61,9 @@ export function ActorCard({ actor }: ActorCardProps) {
           </div>
         </div>
 
-        <p className="mt-3 text-sm text-gray-600">{actor.biography}</p>
+        <p className="mt-3 text-sm text-gray-600 truncate-two-lines">
+          {actor.biography}
+        </p>
       </div>
     </div>
   );
