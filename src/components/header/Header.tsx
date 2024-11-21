@@ -10,7 +10,6 @@ export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { t, i18n } = useTranslation();
   const changeLanguage = () => {
-
     if (i18n.language === 'ar') {
       i18n.changeLanguage('en');
       localStorage.setItem('language', 'en');
@@ -19,7 +18,6 @@ export default function Header() {
       localStorage.setItem('language', 'ar');
     }
   };
-
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
