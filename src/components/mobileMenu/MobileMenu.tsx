@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import ClerkAccount from '../clerkAccount/ClerkAccount';
 
 const tabs = [
   {
     id: 1,
-    name: 'Login',
+    name: <ClerkAccount />,
     icon: '',
     route: '/login',
   },
 
-  { id: 2, name: 'Profile', icon: '', route: '/performer' },
+  { id: 2, name: 'PROFILE', icon: '', route: '/performer' },
 ];
 
 interface IProps {

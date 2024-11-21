@@ -2,6 +2,7 @@ import { GraduationCap } from 'lucide-react';
 import { clsx } from 'clsx';
 import { Performer } from '../../models/Performer.ts';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 interface ActorCardProps {
   actor: Performer;
@@ -9,8 +10,13 @@ interface ActorCardProps {
 
 export function ActorCard({ actor }: ActorCardProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
-    <div className="w-[95%] m-auto max-w-[370px] p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md">
+    <div
+      onClick={() => navigate(`/profile/${actor?.name}`)}
+      className="cursor-pointer w-[95%] m-auto max-w-[370px] p-2 transition-shadow duration-200 bg-white border border-gray-200 shadow-sm p-4overflow-hidden rounded-xl hover:shadow-md"
+    >
       <div className="relative h-[310px] rounded-md overflow-hidden mb-2">
         <img
           className="absolute top-0 left-0 w-full h-full"
