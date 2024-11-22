@@ -1,10 +1,11 @@
-import { Search, Star } from 'lucide-react';
+import { Search } from 'lucide-react';
 import ClerkAccount from '../clerkAccount/ClerkAccount.tsx';
 import Container from '../container/Container.tsx';
 import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import { useTranslation } from 'react-i18next';
+import logo from '../../assets/logo.jpeg';
 
 export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -23,9 +24,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <Container>
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Star className="w-8 h-8 text-purple-600" />
-            <span className="ml-2 text-xl font-bold">ActorsList</span>
+          <div className="flex items-center h-full">
+            <img
+              src={logo}
+              alt="Actogram"
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div className="hidden max-w-2xl mx-8 md:flex">
