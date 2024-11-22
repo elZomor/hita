@@ -7,6 +7,7 @@ type ExperienceProps = {
 };
 const ExperienceSection = ({ experienceList }: ExperienceProps) => {
   const { t } = useTranslation();
+  console.log(experienceList);
   return (
     <Section title={t('EXPERIENCE')}>
       <div className="space-y-4">
@@ -21,7 +22,7 @@ const ExperienceSection = ({ experienceList }: ExperienceProps) => {
                 {t('DIRECTED_BY')}: {experience.director}
               </p>
               <div className="mt-1 text-gray-600">
-                <p>{experience.roles.map((role) => t(role)).join(' - ')}</p>
+                <p>{experience.role.map((role) => t(role)).join(' - ')}</p>
               </div>
             </div>
           ))}
