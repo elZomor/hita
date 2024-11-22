@@ -32,5 +32,21 @@
   "TIK_TOK": "تيكتوك",
   "YOUTUBE": "يوتيوب",
   "TWITTER": "تويتر/X",
-  "OTHER": "أخرى"
+  "OTHER": "أخرى",
+  "CONTACT_DETAILS": "الاتصال",
+  "EXPERIENCE": "الخبرات السابقة",
+  "GALLERY": "الصور",
+  "ACHIEVEMENTS": "الإنجازات والجوائز",
+  "DIRECTED_BY": "إخراج",
+  "NIGHTS": "ليالي",
+  "YEARS_OLD": "سنة",
+  "GRADUATED_IN": "سنة التخرج",
+  "GRADE_ONE": "الفرقة الأولى",
+  "GRADE_TWO": "الفرقة الثانية",
+  "GRADE_THREE": "الفرقة الثالثة",
+  "GRADE_FOUR": "الفرقة الرابعة",
+  "HEIGHT": "الطول",
+  "CM": "سنتيمتر",
+  "RANK_FOR": "عن",
+  "LOCKED": "غير متاح"
 }

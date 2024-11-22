@@ -14,7 +14,7 @@ export function ActorCard({ actor }: ActorCardProps) {
 
   return (
     <div
-      onClick={() => navigate(`/profile/${actor?.name}`)}
+      onClick={() => navigate(`/profile/${actor?.username}`)}
       className="cursor-pointer w-[95%] m-auto max-w-[350px] transition-shadow duration-200 bg-white border border-gray-200 shadow-sm overflow-hidden rounded-xl hover:shadow-md"
     >
       <div className="relative h-[320px] md:h-[300px] rounded-md overflow-hidden">
