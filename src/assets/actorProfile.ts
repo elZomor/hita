@@ -25,7 +25,7 @@ export const performer: Performer = {
 };
 export const experienceList: Experience[] = [
   {
-    roles: ['ACTOR', 'MUSICIAN'],
+    role: ['ACTOR', 'MUSICIAN'],
     showName: 'سقط صدفة',
     director: 'إسماعيل إبراهيم',
     venue: 'المركز الثقافي الفرنسي',
@@ -33,7 +33,7 @@ export const experienceList: Experience[] = [
     duration: 6,
   },
   {
-    roles: ['ACTOR'],
+    role: ['ACTOR'],
     showName: 'بيليبيوس',
     director: 'إسماعيل إبراهيم',
     venue: 'مسرح المدينة الجامعية بجامعة القاهرة',
