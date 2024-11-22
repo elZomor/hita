@@ -22,7 +22,7 @@ export interface Experience {
   venue: string;
   year: number;
   duration: number;
-  roles: string[]
+  roles: string[];
 }
 
 export interface Achievement {
@@ -80,5 +80,5 @@ export const mapPerformerResponseToPerformer = (
   status: performerResponse.status,
   graduationYear: performerResponse.year_of_graduation,
   gender: performerResponse.gender,
-  studyType: performerResponse.study_type
+  studyType: performerResponse.study_type,
 });
