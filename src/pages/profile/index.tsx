@@ -1,13 +1,14 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import Container from '../../components/container/Container';
+import { ProfilePage } from './ProfileScreen.tsx';
+import { useParams } from 'react-router-dom';
 
 const Profile: React.FC = () => {
-  const { name } = useParams();
+  const { username } = useParams();
 
   return (
     <Container>
-      <div>profile {name}</div>
+      <ProfilePage username={username!} />
     </Container>
   );
 };

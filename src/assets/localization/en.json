@@ -32,5 +32,21 @@
   "TIK_TOK": "TikTok",
   "YOUTUBE": "Youtube",
   "TWITTER": "Twitter/X",
-  "OTHER": "Other"
+  "OTHER": "Other",
+  "CONTACT_DETAILS": "Contact Details",
+  "EXPERIENCE": "Experience",
+  "GALLERY": "Gallery",
+  "ACHIEVEMENTS": "Achievements",
+  "DIRECTED_BY": "Directed By",
+  "NIGHTS": "Nights",
+  "YEARS_OLD": "years old",
+  "GRADUATED_IN": "graduated in",
+  "GRADE_ONE": "grade one",
+  "GRADE_TWO": "grade two",
+  "GRADE_THREE": "grade three",
+  "GRADE_FOUR": "grade four",
+  "Height": "Height",
+  "CM": "cm",
+  "RANK_FOR": "for",
+  "LOCKED": "Locked"
 }

@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { useTranslation } from 'react-i18next';
@@ -40,7 +40,7 @@ export const App = () => {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/profile/:name" element={<Profile />} />
+              <Route path="/profile/:username" element={<Profile />} />
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
           </Routes>
