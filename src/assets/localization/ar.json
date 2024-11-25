@@ -48,5 +48,26 @@
   "HEIGHT": "الطول",
   "CM": "سنتيمتر",
   "RANK_FOR": "عن",
-  "LOCKED": "غير متاح"
+  "LOCKED": "غير متاح",
+  "MEMBER_REGISTRATION": {
+    "MEMBER_REGISTRATION": "تسجيل عضوية",
+    "PERSONAL_INFORMATION": "معلومات شخصية",
+    "FIRST_NAME": "الاسم الأول",
+    "LAST_NAME": "الاسم الأخير",
+    "NICK_NAME": "اسم الشهرة",
+    "GENDER": "النوع",
+    "MALE": "ذكر",
+    "FEMALE": "أنثى",
+    "ACADEMIC_INFORMATION": "المعلومات الأكاديمية",
+    "DEPARTMENT": "القسم",
+    "IS_GRADUATED": "خريج؟",
+    "CURRENT_GRADE": "الفرقة الحالية",
+    "GRADUATION_YEAR": "سنة التخرج",
+    "STUDY_TYPE": "نوع الدراسة",
+    "CHOOSE": "اختر",
+    "CONFIRM": "تأكيد",
+    "RESET": "مسح",
+    "CANCEL": "إلغاء",
+    "ERROR": "خطأ"
+  }
 }

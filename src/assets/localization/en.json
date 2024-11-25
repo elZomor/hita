@@ -48,5 +48,26 @@
   "Height": "Height",
   "CM": "cm",
   "RANK_FOR": "for",
-  "LOCKED": "Locked"
+  "LOCKED": "Locked",
+  "MEMBER_REGISTRATION": {
+    "MEMBER_REGISTRATION": "Member Registration",
+    "PERSONAL_INFORMATION": "Personal Info",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "NICK_NAME": "Nick Name",
+    "GENDER": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "ACADEMIC_INFORMATION": "Academic Info",
+    "DEPARTMENT": "Department",
+    "IS_GRADUATED": "Graduated?",
+    "CURRENT_GRADE": "Current Grade",
+    "GRADUATION_YEAR": "Graduation Year",
+    "STUDY_TYPE": "Study Type",
+    "CHOOSE": "Choose One",
+    "CONFIRM": "Confirm",
+    "RESET": "Reset",
+    "CANCEL": "Cancel",
+    "ERROR": "Error"
+  }
 }

@@ -7,6 +7,7 @@ import { arSA, enUS } from '@clerk/localizations';
 import HomeScreen from './pages/homeScreen/HomeScreen.tsx';
 import MainLayout from './layouts/MainLayout.tsx';
 import Profile from './pages/profile/index.tsx';
+import { MemberRegistration } from './pages/memberRegistration';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -41,6 +42,10 @@ export const App = () => {
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/profile/:username" element={<Profile />} />
+              <Route
+                path="/member/registration"
+                element={<MemberRegistration />}
+              />
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
           </Routes>
