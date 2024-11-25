@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Account from '../clerkAccount/Account.tsx';
+import Account from '../account/Account.tsx';
 
 const tabs = [
   {
