@@ -1,7 +1,7 @@
 {
   "OTHER_LANGUAGE": "عربي",
-  "LOGIN": "LOGIN",
-  "LOGOUT": "LOGOUT",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
   "PENDING": "Pending Review",
   "REJECTED": "Rejected",
   "BLOCKED": "Blocked",
@@ -68,6 +68,19 @@
     "CONFIRM": "Confirm",
     "RESET": "Reset",
     "CANCEL": "Cancel",
-    "ERROR": "Error"
+    "ERROR": "Error",
+    "CANCEL_FORM": "Are you sure you want to cancel? All changes will be lost.",
+    "CANCEL_TITLE": "Cancel Form",
+    "CANCEL_CONFIRM": "Yes, Cancel",
+    "CANCEL_CANCEL": "No, Continue",
+    "RESET_FORM": "Are you sure you want to reset the form? All changes will be lost.",
+    "RESET_TITLE": "Reset Form",
+    "RESET_CONFIRM": "Yes, Reset",
+    "RESET_CANCEL": "No, Continue"
+  },
+  "LOGIN_PAGE": {
+    "WELCOME_BACK": "Welcome back",
+    "CONTINUE_WITH_GOOGLE": "Continue with your google account",
+    "PLEASE_SIGN_IN": "Please sign in to continue."
   }
 }

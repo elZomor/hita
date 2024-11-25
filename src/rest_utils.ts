@@ -1,11 +1,24 @@
-import { baseUrl, DEBUG, devToken } from './constants.ts';
+import { baseUrl } from './constants.ts';
 
-export const get_request = async (
+export const get_request_with_token = async (
   url: string,
   token: string | null
 ): Promise<Response> => {
-  const bearerToken: string = DEBUG ? devToken : token;
-  const headers = { Authorization: `Bearer ${bearerToken}` };
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return await fetch(`${baseUrl}/${url}`, {
+    method: 'GET',
+    headers: headers,
+  });
+};
+
+export const get_request = async (url: string): Promise<Response> => {
+  const token = localStorage.getItem('accessToken');
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   return await fetch(`${baseUrl}/${url}`, {
     method: 'GET',
     headers: headers,
@@ -14,18 +27,18 @@ export const get_request = async (
 
 export const post_request = async (
   url: string,
-  token: string | null,
   data: Record<string, any>
 ): Promise<Response> => {
-  const bearerToken: string = DEBUG ? devToken : token;
+  const token = localStorage.getItem('accessToken');
   const headers = {
-    Authorization: `Bearer ${bearerToken}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
   return await fetch(`${baseUrl}/${url}`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(data),
+    credentials: 'include',
   });
 };
 
