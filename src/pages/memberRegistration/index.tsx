@@ -13,7 +13,6 @@ import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { RadioField } from '../../components/shared/forms/RadioField.tsx';
 import { SelectField } from '../../components/shared/forms/SelectField.tsx';
 import { get_request, post_request } from '../../rest_utils.ts';
-import { useAuth } from '@clerk/clerk-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
@@ -76,7 +75,6 @@ export function MemberRegistration() {
     type: 'success',
   });
 
-  const { getToken } = useAuth();
   const { t } = useTranslation();
 
   const {
@@ -104,10 +102,7 @@ export function MemberRegistration() {
   useEffect(() => {
     async function fetchDepartments() {
       try {
-        const response = await get_request(
-          `hita/departments`,
-          await getToken({ template: 'eg-theater' })
-        );
+        const response = await get_request(`hita/departments`);
         const data = await response.json();
         console.log(data);
         const departments: Department[] = data.data.map(
@@ -130,10 +125,7 @@ export function MemberRegistration() {
   useEffect(() => {
     async function fetchStudyTypes() {
       try {
-        const response = await get_request(
-          `hita/study-types`,
-          await getToken({ template: 'eg-theater' })
-        );
+        const response = await get_request(`hita/study-types`);
         const data = await response.json();
         const studyTypes: StudyType[] = data.data.map(
           (studyType: string, index: number) => ({
@@ -167,7 +159,6 @@ export function MemberRegistration() {
     try {
       const response = await post_request(
         `hita/members`,
-        await getToken({ template: 'eg-theater' }),
         mapMemberFormDataToRequest(data)
       );
       const responseData = await response.json();
@@ -487,20 +478,20 @@ export function MemberRegistration() {
         isOpen={showResetModal}
         onClose={() => setShowResetModal(false)}
         onConfirm={confirmReset}
-        title="Reset Form"
-        message="Are you sure you want to reset the form? All changes will be lost."
-        confirmText="Reset"
-        cancelText="Cancel"
+        title={t('MEMBER_REGISTRATION.RESET_TITLE')}
+        message={t('MEMBER_REGISTRATION.RESET_FORM')}
+        confirmText={t('MEMBER_REGISTRATION.RESET_CONFIRM')}
+        cancelText={t('MEMBER_REGISTRATION.RESET_CANCEL')}
       />
 
       <Modal
         isOpen={showCancelModal}
         onClose={() => setShowCancelModal(false)}
         onConfirm={confirmCancel}
-        title="Cancel Form"
-        message="Are you sure you want to cancel? All changes will be lost."
-        confirmText="Yes, Cancel"
-        cancelText="No, Continue"
+        title={t('MEMBER_REGISTRATION.CANCEL_TITLE')}
+        message={t('MEMBER_REGISTRATION.CANCEL_FORM')}
+        confirmText={t('MEMBER_REGISTRATION.CANCEL_CONFIRM')}
+        cancelText={t('MEMBER_REGISTRATION.CANCEL_CANCEL')}
       />
       <Snackbar
         isOpen={snackbar.open}

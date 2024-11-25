@@ -1,13 +1,14 @@
 import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { ClerkProvider } from '@clerk/clerk-react';
 import { useTranslation } from 'react-i18next';
-import { arSA, enUS } from '@clerk/localizations';
 import HomeScreen from './pages/homeScreen/HomeScreen.tsx';
 import MainLayout from './layouts/MainLayout.tsx';
 import Profile from './pages/profile/index.tsx';
 import { MemberRegistration } from './pages/memberRegistration';
+import { LoginPage } from './pages/login';
+import { GOOGLE_CLIENT_ID } from './constants.ts';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -17,7 +18,6 @@ if (!PUBLISHABLE_KEY) {
 
 export const App = () => {
   const { i18n } = useTranslation();
-  const localization = i18n.language === 'ar' ? arSA : enUS;
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
@@ -33,15 +33,12 @@ export const App = () => {
   return (
     <Suspense fallback="Loading...">
       <BrowserRouter>
-        <ClerkProvider
-          localization={localization}
-          publishableKey={PUBLISHABLE_KEY}
-          afterSignOutUrl="/"
-        >
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/profile/:username" element={<Profile />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route
                 path="/member/registration"
                 element={<MemberRegistration />}
@@ -49,7 +46,7 @@ export const App = () => {
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
           </Routes>
-        </ClerkProvider>
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </Suspense>
   );

@@ -7,22 +7,17 @@ import {
   Performer,
   PerformerResponse,
 } from '../../models/Performer.ts';
-import { useAuth } from '@clerk/clerk-react';
 import { get_request } from '../../rest_utils.ts';
 import { CardSkeleton } from '../../components/cardSkeleton/CardSkeleton.tsx';
 
 const HomeScreen: React.FC = () => {
   const [performers, setPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState(true);
-  const { getToken } = useAuth();
 
   useEffect(() => {
     async function fetchActors() {
       try {
-        const response = await get_request(
-          'hita/performers',
-          await getToken({ template: 'eg-theater' })
-        );
+        const response = await get_request('hita/performers');
         const data = await response.json();
 
         const performerList = data.results.map((performer: PerformerResponse) =>

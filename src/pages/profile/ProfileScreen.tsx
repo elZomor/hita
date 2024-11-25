@@ -4,7 +4,6 @@ import {
   mapSinglePerformerResponseToSinglePerformer,
   SinglePerformer,
 } from '../../models/Performer.ts';
-import { useAuth } from '@clerk/clerk-react';
 import { get_request } from '../../rest_utils.ts';
 import ExperienceSection from '../../components/profileScreenComponents/ExperienceSection.tsx';
 import AchievementSection from '../../components/profileScreenComponents/AchievementSection.tsx';
@@ -18,15 +17,11 @@ type ProfilePageProps = {
 export function ProfilePage({ username }: ProfilePageProps) {
   const [performer, setPerformer] = useState<SinglePerformer>();
   const [loading, setLoading] = useState(true);
-  const { getToken } = useAuth();
 
   useEffect(() => {
     async function fetchPerformer() {
       try {
-        const response = await get_request(
-          `hita/performers/${username}`,
-          await getToken({ template: 'eg-theater' })
-        );
+        const response = await get_request(`hita/performers/${username}`);
         const data = await response.json();
 
         const performer = mapSinglePerformerResponseToSinglePerformer(

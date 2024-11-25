@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-import ClerkAccount from '../clerkAccount/ClerkAccount.tsx';
+import Account from '../clerkAccount/Account.tsx';
 import Container from '../container/Container.tsx';
 import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
@@ -21,7 +21,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-purple-100 border-b border-gray-200">
       <Container>
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center h-full">
@@ -51,7 +51,7 @@ export default function Header() {
               Filters
             </button> */}
             <button className="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg md:block hover:bg-purple-700">
-              <ClerkAccount />
+              <Account />
             </button>
             <button
               onClick={changeLanguage}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import ClerkAccount from '../clerkAccount/ClerkAccount';
+import Account from '../clerkAccount/Account.tsx';
 
 const tabs = [
   {
     id: 1,
-    name: <ClerkAccount />,
+    name: <Account />,
     icon: '',
     route: '/login',
   },
@@ -15,6 +15,7 @@ const tabs = [
 interface IProps {
   closeMenu: () => void;
 }
+
 const MobileMenu: React.FC<IProps> = ({ closeMenu }) => {
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
 

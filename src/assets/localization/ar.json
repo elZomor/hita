@@ -68,6 +68,19 @@
     "CONFIRM": "تأكيد",
     "RESET": "مسح",
     "CANCEL": "إلغاء",
-    "ERROR": "خطأ"
+    "ERROR": "خطأ",
+    "CANCEL_FORM": "هل أنت متأكد من الخروج؟ سيتم مسح كل البيانات المُدخلة.",
+    "CANCEL_TITLE": "إلغاء",
+    "CANCEL_CONFIRM": "نعم، أريد الخروج",
+    "CANCEL_CANCEL": "لا، أريد الاستمرار",
+    "RESET_FORM": "هل أنت متأكد من مسح البيانات؟",
+    "RESET_TITLE": "مسح البيانات",
+    "RESET_CONFIRM": "نعم، متأكد",
+    "RESET_CANCEL": "لا، أريد الاستمرار"
+  },
+  "LOGIN_PAGE": {
+    "WELCOME_BACK": "أهلاً بيك مرة تانية",
+    "CONTINUE_WITH_GOOGLE": "الاستمرار باستخدام حساب جووجل",
+    "PLEASE_SIGN_IN": "يُرجى تسجيل الدخول للاستمرار في الموقع."
   }
 }
