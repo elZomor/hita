@@ -10,10 +10,6 @@ import { LoginPage } from './pages/login';
 import { GOOGLE_CLIENT_ID } from './constants.ts';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key');
-}
-
 export const App = () => {
   const { i18n } = useTranslation();
 
