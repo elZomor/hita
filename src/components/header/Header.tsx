@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-import Account from '../clerkAccount/Account.tsx';
+import Account from '../account/Account.tsx';
 import Container from '../container/Container.tsx';
 import { useState } from 'react';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
