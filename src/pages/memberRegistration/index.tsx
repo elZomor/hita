@@ -168,7 +168,7 @@ export function MemberRegistration() {
           message: 'Form submitted successfully!',
           type: 'success',
         });
-        navigate('/');
+        navigate('/landing');
       } else {
         console.error(responseData);
         const errorString = `Please fix The following errors:\n${objectToFormattedString(responseData.data)}`;
@@ -211,7 +211,7 @@ export function MemberRegistration() {
 
   const confirmCancel = () => {
     setShowCancelModal(false);
-    navigate('/');
+    navigate('/landing');
   };
 
   return (

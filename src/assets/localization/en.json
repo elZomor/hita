@@ -82,5 +82,14 @@
     "WELCOME_BACK": "Welcome back",
     "CONTINUE_WITH_GOOGLE": "Continue with your google account",
     "PLEASE_SIGN_IN": "Please sign in to continue."
+  },
+  "LANDING_PAGE": {
+    "APPLICATION_UNDER_REVIEW": "Application Under Review",
+    "PENDING_MESSAGE": "Thank you for your interest! Your application is currently being reviewed by our team. We'll notify you once the review process is complete.",
+    "WELCOME": "Welcome to ActorsList",
+    "WELCOME_MESSAGE": "Join our community of talented actors and start showcasing your work to the world.",
+    "REGISTER_NOW": "Register Now",
+    "TRY_AGAIN": "Try Again",
+    "CHECKING_STATUS": "Checking your status..."
   }
 }
