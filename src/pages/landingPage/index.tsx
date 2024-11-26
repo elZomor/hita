@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ClipboardCheck, Loader2 } from 'lucide-react';
-import { get_request } from '../../rest_utils.ts';
+import { get_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 
 type Status = 'NOT_REGISTERED' | 'PENDING' | 'APPROVED' | null;
@@ -24,8 +24,7 @@ export function LandingPage() {
         if (response.status === 401) {
           navigate('/login');
         }
-        const data: Record<string, any> = await response.json();
-        const responseData: StatusResponse = data.data;
+        const responseData: StatusResponse = response.data.data;
         const status: Status = responseData.status;
 
         setStatus(status);

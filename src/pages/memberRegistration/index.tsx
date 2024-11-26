@@ -12,7 +12,7 @@ import {
 import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { RadioField } from '../../components/shared/forms/RadioField.tsx';
 import { SelectField } from '../../components/shared/forms/SelectField.tsx';
-import { get_request, post_request } from '../../rest_utils.ts';
+import { get_request, post_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
@@ -102,9 +102,7 @@ export function MemberRegistration() {
   useEffect(() => {
     async function fetchDepartments() {
       try {
-        const response = await get_request(`hita/departments`);
-        const data = await response.json();
-        console.log(data);
+        const { data } = await get_request(`hita/departments`);
         const departments: Department[] = data.data.map(
           (department: string, index: number) => ({
             id: index,
@@ -125,8 +123,7 @@ export function MemberRegistration() {
   useEffect(() => {
     async function fetchStudyTypes() {
       try {
-        const response = await get_request(`hita/study-types`);
-        const data = await response.json();
+        const { data } = await get_request(`hita/study-types`);
         const studyTypes: StudyType[] = data.data.map(
           (studyType: string, index: number) => ({
             id: index,
@@ -154,15 +151,17 @@ export function MemberRegistration() {
     return () => subscription.unsubscribe();
   }, [watch, formError]);
 
-  const onSubmit = async (data: MemberFormData) => {
+  const onSubmit = async (formData: MemberFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await post_request(
+      const { data } = await post_request(
         `hita/members`,
-        mapMemberFormDataToRequest(data)
+        mapMemberFormDataToRequest(formData)
       );
-      const responseData = await response.json();
-      if (responseData.status === 'SUCCESS') {
+      console.log('responseData');
+      console.log(data);
+      const responseData = data.data;
+      if (data.status === 'SUCCESS') {
         setSnackbar({
           open: true,
           message: 'Form submitted successfully!',

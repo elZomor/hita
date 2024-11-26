@@ -5,7 +5,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 // import { zodResolver } from '@hookform/resolvers/zod';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { useNavigate } from 'react-router-dom';
-import { get_request_with_token } from '../../rest_utils.ts';
+import { get_login_token } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 
 // const schema = z.object({
@@ -41,14 +41,7 @@ export function LoginPage() {
   const googleLogin = useGoogleLogin({
     onSuccess: async (response) => {
       try {
-        const res = await get_request_with_token(
-          'auth/google/login/callback',
-          response.access_token
-        );
-        const data = await res.json();
-        const tokens: Record<string, string> = data?.data;
-        localStorage.setItem('accessToken', tokens['ACCESS_TOKEN']);
-        localStorage.setItem('refreshToken', tokens['REFRESH_TOKEN']);
+        await get_login_token(response.access_token);
         navigate('/landing');
         setSnackbar({
           open: true,
