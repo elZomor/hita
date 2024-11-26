@@ -18,8 +18,7 @@ function Account() {
   const handleLogout = async () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    navigate('/');
-    window.location.reload();
+    navigate('/login');
   };
   return (
     <div>

@@ -49,7 +49,7 @@ export function LoginPage() {
         const tokens: Record<string, string> = data?.data;
         localStorage.setItem('accessToken', tokens['ACCESS_TOKEN']);
         localStorage.setItem('refreshToken', tokens['REFRESH_TOKEN']);
-        navigate('/');
+        navigate('/landing');
         setSnackbar({
           open: true,
           message: 'Successfully logged in with Google!',
