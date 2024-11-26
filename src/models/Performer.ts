@@ -1,4 +1,4 @@
-import { get_media_link } from '../rest_utils.ts';
+import { get_media_link } from '../utils/restUtils.ts';
 
 import { toWords } from 'number-to-words';
 

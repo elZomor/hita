@@ -4,7 +4,7 @@ import {
   mapSinglePerformerResponseToSinglePerformer,
   SinglePerformer,
 } from '../../models/Performer.ts';
-import { get_request } from '../../rest_utils.ts';
+import { get_request } from '../../utils/restUtils.ts';
 import ExperienceSection from '../../components/profileScreenComponents/ExperienceSection.tsx';
 import AchievementSection from '../../components/profileScreenComponents/AchievementSection.tsx';
 import ContactDetailsSection from '../../components/profileScreenComponents/ContactDetailsSection.tsx';
@@ -21,8 +21,7 @@ export function ProfilePage({ username }: ProfilePageProps) {
   useEffect(() => {
     async function fetchPerformer() {
       try {
-        const response = await get_request(`hita/performers/${username}`);
-        const data = await response.json();
+        const { data } = await get_request(`hita/performers/${username}`);
 
         const performer = mapSinglePerformerResponseToSinglePerformer(
           data.data

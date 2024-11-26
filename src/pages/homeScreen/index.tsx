@@ -7,7 +7,7 @@ import {
   Performer,
   PerformerResponse,
 } from '../../models/Performer.ts';
-import { get_request } from '../../rest_utils.ts';
+import { get_request } from '../../utils/restUtils.ts';
 import { CardSkeleton } from '../../components/cardSkeleton/CardSkeleton.tsx';
 
 const HomeScreen: React.FC = () => {
@@ -17,8 +17,7 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     async function fetchActors() {
       try {
-        const response = await get_request('hita/performers');
-        const data = await response.json();
+        const { data } = await get_request('hita/performers');
 
         const performerList = data.results.map((performer: PerformerResponse) =>
           mapPerformerResponseToPerformer(performer)
