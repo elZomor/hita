@@ -4,12 +4,13 @@ import './App.css';
 import { useTranslation } from 'react-i18next';
 import HomeScreen from './pages/homeScreen/index.tsx';
 import MainLayout from './layouts/MainLayout.tsx';
-import Profile from './pages/profile/index.tsx';
+import Profile from './pages/performerProfile/index.tsx';
 import { MemberRegistration } from './pages/memberRegistration';
 import { LoginPage } from './pages/login';
 import { GOOGLE_CLIENT_ID } from './constants.ts';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LandingPage } from './pages/landingPage';
+import { MemberProfilePage } from './pages/memberProfile';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -32,7 +33,8 @@ export const App = () => {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/profile/:username" element={<Profile />} />
+              <Route path="/performers/:username" element={<Profile />} />
+              <Route path="/profile/me" element={<MemberProfilePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/landing" element={<LandingPage />} />
               <Route
