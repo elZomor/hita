@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Account from '../account/Account.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
   {
@@ -8,8 +10,7 @@ const tabs = [
     icon: '',
     route: '/login',
   },
-
-  { id: 2, name: 'PROFILE', icon: '', route: '/performer' },
+  { id: 2, name: 'PROFILE', icon: '', route: 'profile/me' },
 ];
 
 interface IProps {
@@ -18,11 +19,13 @@ interface IProps {
 
 const MobileMenu: React.FC<IProps> = ({ closeMenu }) => {
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const clickTabHandler = (index: number, route: string): void => {
     setSelectedTab(index);
     closeMenu();
-    console.log(route);
+    navigate(route);
   };
 
   return (
@@ -42,7 +45,11 @@ const MobileMenu: React.FC<IProps> = ({ closeMenu }) => {
                 }`}
               >
                 {tab.icon}
-                <span className="px-2 whitespace-nowrap">{tab.name}</span>
+                <span className="px-2 whitespace-nowrap">
+                  {typeof tab.name === 'string'
+                    ? t('HEADER.' + tab.name)
+                    : tab.name}
+                </span>
               </li>
             </React.Fragment>
           );

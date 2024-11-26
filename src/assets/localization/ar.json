@@ -49,6 +49,30 @@
   "CM": "سنتيمتر",
   "RANK_FOR": "عن",
   "LOCKED": "غير متاح",
+  "GEN": {
+    "ACTING": "قسم تمثيل وإخراج مسرحي",
+    "DRAMA": "قسم دراما ونقد مسرحي",
+    "DECOR": "قسم ديكور مسرحي",
+    "CAIRO": "القاهرة",
+    "ALEXANDRIA": "الإسكندرية",
+    "NORMAL": "مُعتمد",
+    "PARALLEL": "موازي",
+    "DEPARTMENT": "القسم",
+    "GRAD_YEAR": "سنة التخرج",
+    "GRADE": "الفرقة",
+    "GRADE_ONE": "الفرقة الأولى",
+    "GRADE_TWO": "الفرقة الثانية",
+    "GRADE_THREE": "الفرقة الثالثة",
+    "GRADE_FOUR": "الفرقة الرابعة",
+    "STUDY_TYPE": "نوع الدراسة",
+    "LOCATION": "المكان"
+  },
+  "HEADER": {
+    "PROFILE": "الملف الشخصي",
+    "OTHER_LANGUAGE": "English",
+    "LOGIN": "تسجيل الدخول",
+    "LOGOUT": "تسجيل الخروج"
+  },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "تسجيل عضوية",
     "PERSONAL_INFORMATION": "معلومات شخصية",
@@ -91,5 +115,16 @@
     "REGISTER_NOW": "سجل دلوقتي",
     "TRY_AGAIN": "حاول تاني",
     "CHECKING_STATUS": "تتم مراجعة البيانات..."
+  },
+  "MEMBER_PROFILE": {
+    "APPROVED": "تمت الموافقة",
+    "PENDING": "تحت المراجعة",
+    "REJECTED": "مرفوض",
+    "BLOCKED": "محظور",
+    "M": "ذكر",
+    "F": "أنثى",
+    "PERFORMER": "صفحة الفنان",
+    "CREATE_PERFORMER": "انشء صفحة",
+    "VIEW_PERFORMER": "عرض الصفحة"
   }
 }

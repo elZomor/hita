@@ -6,10 +6,12 @@ import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const changeLanguage = () => {
     if (i18n.language === 'ar') {
       i18n.changeLanguage('en');
@@ -50,6 +52,12 @@ export default function Header() {
               <Filter className="w-4 h-4 mr-2" />
               Filters
             </button> */}
+            <button
+              onClick={() => navigate('profile/me')}
+              className="hidden md:block items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              {t('HEADER.PROFILE')}
+            </button>
             <button className="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg md:block hover:bg-purple-700">
               <Account />
             </button>
