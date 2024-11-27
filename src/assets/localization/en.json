@@ -126,5 +126,29 @@
     "PERFORMER": "Artist",
     "CREATE_PERFORMER": "Create page",
     "VIEW_PERFORMER": "View page"
+  },
+  "PERFORMER_REG": {
+    "STEPS_LABELS": {
+      "PERSONAL_INFO": "Personal Info Section",
+      "EXPERIENCES": "Experiences Section",
+      "ACHIEVEMENTS": "Achievements Section",
+      "CONTACT_DETAILS": "Contact Details Section",
+      "GALLERY": "Gallery Section",
+      "PUBLIC_LINKS": "Public Links Section"
+    },
+    "PERSONAL_INFO": {
+      "PERSONAL_INFO": "Personal Information",
+      "DATE_OF_BIRTH": "Date of Birth",
+      "SKILLS": "Skills",
+      "HEIGHT": "Height (in CM)",
+      "BIO": "Biography",
+      "STATUS": "Status",
+      "OPEN_FOR": "Open For",
+      "AVAILABLE": "Available",
+      "UNAVAILABLE": "Unavailable",
+      "FREE": "Free Projects",
+      "PAID_ONLY": "Paid projects only",
+      "BOTH": "Both"
+    }
   }
 }

@@ -126,5 +126,29 @@
     "PERFORMER": "صفحة الفنان",
     "CREATE_PERFORMER": "انشء صفحة",
     "VIEW_PERFORMER": "عرض الصفحة"
+  },
+  "PERFORMER_REG": {
+    "STEPS_LABELS": {
+      "PERSONAL_INFO": "المعلومات الشخصية",
+      "EXPERIENCES": "الخبرات",
+      "ACHIEVEMENTS": "الإنجازات",
+      "CONTACT_DETAILS": "الاتصال",
+      "GALLERY": "الصور",
+      "PUBLIC_LINKS": "القنوات المفتوحة"
+    },
+    "PERSONAL_INFO": {
+      "PERSONAL_INFO": "المعلومات الشخصية",
+      "DATE_OF_BIRTH": "تاريخ الميلاد",
+      "SKILLS": "المهارات",
+      "HEIGHT": "الطول (بالسنتيمتر)",
+      "BIO": "نبذة عنك",
+      "STATUS": "الحالة",
+      "OPEN_FOR": "متاح للعمل",
+      "AVAILABLE": "متاح",
+      "UNAVAILABLE": "غير متاح",
+      "FREE": "مشروعات مجانية",
+      "PAID_ONLY": "مشروعات مدفوعة",
+      "BOTH": "الاتنين"
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { get_media_link } from '../utils/restUtils.ts';
 
 import { toWords } from 'number-to-words';
+import { format } from 'date-fns';
 
 export interface Performer {
   username: string;
@@ -165,6 +166,26 @@ export const mapSinglePerformerResponseToSinglePerformer = (
     galleryObject: {
       isLocked: response.contact_detail_protected,
       data: mapGalleryResponseToGallery(response.gallery),
+    },
+  };
+};
+
+export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
+  const personalInfo = data['personalInfo'];
+  const contactSection = data['contactSection'];
+  const gallerySection = data['gallerySection'];
+  return {
+    performer_data: {
+      date_of_birth: personalInfo['dateOfBirth']
+        ? format(personalInfo['dateOfBirth'], 'yyyy-MM-dd')
+        : null,
+      biography: personalInfo['bio'],
+      open_for: personalInfo['openFor'],
+      status: personalInfo['status'],
+      height: personalInfo['height'],
+      skills_tags: personalInfo['skills'],
+      contact_detail_protected: contactSection['keepProtected'],
+      gallery_protected: gallerySection['keepProtected'],
     },
   };
 };

@@ -14,9 +14,10 @@ import {
 import { useEffect, useState } from 'react';
 import { get_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export function MemberProfilePage() {
-  const onCreatePerformer = () => {};
+  const navigate = useNavigate();
   const [member, setMember] = useState<MemberViewOne>();
   const { t } = useTranslation();
 
@@ -123,7 +124,7 @@ export function MemberProfilePage() {
                       </a>
                     ) : (
                       <button
-                        onClick={onCreatePerformer}
+                        onClick={() => navigate('/performers/registration')}
                         className="text-sm font-medium text-purple-600 hover:text-purple-700 hover:underline"
                       >
                         {t('MEMBER_PROFILE.CREATE_PERFORMER')}
