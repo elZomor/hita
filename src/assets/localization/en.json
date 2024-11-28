@@ -69,6 +69,7 @@
   },
   "HEADER": {
     "PROFILE": "Profile",
+    "PERFORMERS": "Performers",
     "OTHER_LANGUAGE": "عربي",
     "LOGIN": "Login",
     "LOGOUT": "Logout"
