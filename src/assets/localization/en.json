@@ -166,6 +166,16 @@
       "ROLES": "Roles",
       "VENUE": "Venue",
       "DURATION_NIGHTS": "Duration (Nights)"
+    },
+    "ACHIEVEMENTS_SECTION": {
+      "NO_ACHIEVEMENTS": "No achievements added yet. Click the button above to add one.  ",
+      "ADD_ACHIEVEMENT": "ِAdd Achievement",
+      "ACHIEVEMENTS": "Achievements",
+      "RANK": "Rank",
+      "FIELD": "Field",
+      "SHOW_NAME": "Show Name",
+      "FESTIVAL_NAME": "Festival Name",
+      "YEAR": "Year"
     }
   }
 }

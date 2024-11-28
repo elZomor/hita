@@ -183,6 +183,15 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       duration: experience['duration'],
     })
   );
+  const achievementsSection = data['achievements'].map(
+    (achievement: Record<string, any>) => ({
+      position: achievement['rank'],
+      field: achievement['field'],
+      show_name: achievement['showName'],
+      festival_name: achievement['festivalName'],
+      year: achievement['year'],
+    })
+  );
   const contactSection = data['contactSection'];
   const gallerySection = data['gallerySection'];
   return {
@@ -199,5 +208,6 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       gallery_protected: gallerySection['keepProtected'],
     },
     experiences: experiencesSection,
+    achievements: achievementsSection,
   };
 };

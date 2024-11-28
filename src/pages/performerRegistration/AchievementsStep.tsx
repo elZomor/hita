@@ -4,6 +4,7 @@ import Select from 'react-select';
 import type { PerformerFormData } from '../../types/performer-form';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { StepButton } from './stepButton.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface AchievementsStepProps {
   onComplete: () => void;
@@ -21,6 +22,11 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
     control,
     name: 'achievements',
   });
+  const { t, i18n } = useTranslation();
+
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.ACHIEVEMENTS_SECTION.' + text);
+  };
 
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from(
@@ -34,7 +40,9 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">Achievements</h2>
+        <h2 className="text-xl font-semibold text-gray-900">
+          {addTranslationPrefix('ACHIEVEMENTS')}
+        </h2>
         <button
           type="button"
           onClick={() =>
@@ -49,14 +57,14 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Achievement
+          {addTranslationPrefix('ADD_ACHIEVEMENT')}
         </button>
       </div>
 
       {fields.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">
-            No achievements added yet. Click the button above to add one.
+            {addTranslationPrefix('NO_ACHIEVEMENTS')}
           </p>
         </div>
       ) : (
@@ -66,14 +74,14 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="absolute top-4 right-4 p-1 text-gray-400 hover:text-red-500"
+                className={`absolute top-4 ${i18n.language === 'ar' ? 'left-4' : 'right-4'} p-1  text-gray-400 hover:text-red-500`}
               >
                 <Trash2 className="w-5 h-5" />
               </button>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
-                  label="Rank"
+                  label={addTranslationPrefix('RANK')}
                   error={errors.achievements?.[index]?.rank?.message}
                   required
                 >
@@ -85,7 +93,7 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
                 </FormField>
 
                 <FormField
-                  label="Field"
+                  label={addTranslationPrefix('FIELD')}
                   error={errors.achievements?.[index]?.field?.message}
                   required
                 >
@@ -97,7 +105,7 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
                 </FormField>
 
                 <FormField
-                  label="Show Name"
+                  label={addTranslationPrefix('SHOW_NAME')}
                   error={errors.achievements?.[index]?.showName?.message}
                   required
                 >
@@ -109,7 +117,7 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
                 </FormField>
 
                 <FormField
-                  label="Festival Name"
+                  label={addTranslationPrefix('FESTIVAL_NAME')}
                   error={errors.achievements?.[index]?.festivalName?.message}
                   required
                 >
@@ -121,7 +129,7 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
                 </FormField>
 
                 <FormField
-                  label="Year"
+                  label={addTranslationPrefix('YEAR')}
                   error={errors.achievements?.[index]?.year?.message}
                   required
                 >

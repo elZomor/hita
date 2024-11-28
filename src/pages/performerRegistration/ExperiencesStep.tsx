@@ -23,7 +23,7 @@ export function ExperiencesStep({
     setValue,
     formState: { errors },
   } = useFormContext<PerformerFormData>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const addTranslationPrefix = (text: string) => {
     return t('PERFORMER_REG.EXPERIENCE_SECTION.' + text);
   };
@@ -88,7 +88,7 @@ export function ExperiencesStep({
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="absolute top-4 right-4 p-1 text-gray-400 hover:text-red-500"
+                className={`absolute top-4 ${i18n.language === 'ar' ? 'left-4' : 'right-4'} p-1 text-gray-400 hover:text-red-500`}
               >
                 <Trash2 className="w-5 h-5" />
               </button>

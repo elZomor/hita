@@ -166,6 +166,16 @@
       "ROLES": "الادوار",
       "VENUE": "اسم المسرح",
       "DURATION_NIGHTS": "عدد ليالي العرض"
+    },
+    "ACHIEVEMENTS_SECTION": {
+      "NO_ACHIEVEMENTS": "لا يوجد إنجازات. اضغط على الزر لإضافة إنجاز جديد",
+      "ADD_ACHIEVEMENT": "إضافة إنجاز",
+      "ACHIEVEMENTS": "الإنجازات",
+      "RANK": "المركز (الجائزة)",
+      "FIELD": "المجال",
+      "SHOW_NAME": "اسم العمل",
+      "FESTIVAL_NAME": "اسم المهرجان",
+      "YEAR": "السنة"
     }
   }
 }
