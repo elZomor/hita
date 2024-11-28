@@ -38,6 +38,7 @@ export function PerformerForm() {
     type: 'success',
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
+  const [contactTypes, setContactTypes] = useState<DropDownOptions[]>([]);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep]);
@@ -50,6 +51,21 @@ export function PerformerForm() {
           (skill: string): DropDownOptions => ({
             value: skill,
             label: skill,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/contact-types');
+      setContactTypes(
+        data.data.map(
+          (contactType: string): DropDownOptions => ({
+            value: contactType,
+            label: contactType,
           })
         )
       );
@@ -205,6 +221,7 @@ export function PerformerForm() {
         return (
           <ContactDetailsStep
             onComplete={() => handleStepComplete('contact-details')}
+            contactTypes={contactTypes}
           />
         );
       case 'profile-images':

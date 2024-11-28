@@ -176,6 +176,14 @@
       "SHOW_NAME": "اسم العمل",
       "FESTIVAL_NAME": "اسم المهرجان",
       "YEAR": "السنة"
+    },
+    "CONTACT_DETAILS_SECTION": {
+      "NO_CONTACT_DETAILS": "لا يوجد بيانات اتصال. اضغط على الزر للإضافة",
+      "ADD_CONTACT_DETAILS": "إضافة بيانات اتصال",
+      "CONTACT_TYPE": "نوع الاتصال",
+      "CONTACT_INFO": "القيمة",
+      "CONTACT_DETAILS": "بيانات الاتصال",
+      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
     }
   }
 }

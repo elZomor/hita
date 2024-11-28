@@ -176,6 +176,14 @@
       "SHOW_NAME": "Show Name",
       "FESTIVAL_NAME": "Festival Name",
       "YEAR": "Year"
+    },
+    "CONTACT_DETAILS_SECTION": {
+      "NO_CONTACT_DETAILS": "No contact details added yet. Click the button above to add one.",
+      "ADD_CONTACT_DETAILS": "Add Contact Details",
+      "CONTACT_TYPE": "Contact Type",
+      "CONTACT_INFO": "Contact Info",
+      "CONTACT_DETAILS": "Contact Details",
+      "PROTECT_CONTACT_DETAILS": "Keep all contact details private"
     }
   }
 }

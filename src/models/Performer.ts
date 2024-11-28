@@ -171,8 +171,9 @@ export const mapSinglePerformerResponseToSinglePerformer = (
 };
 
 export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
+  console.log(data);
   const personalInfo = data['personalInfo'];
-  const experiencesSection = data['experiences'].map(
+  const experiencesSection = data['experiences']?.map(
     (experience: Record<string, any>) => ({
       show_name: experience['showName'],
       director: experience['director'],
@@ -183,7 +184,7 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       duration: experience['duration'],
     })
   );
-  const achievementsSection = data['achievements'].map(
+  const achievementsSection = data['achievements']?.map(
     (achievement: Record<string, any>) => ({
       position: achievement['rank'],
       field: achievement['field'],
@@ -192,7 +193,12 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       year: achievement['year'],
     })
   );
-  const contactSection = data['contactSection'];
+  const contactSection = data['contactSection'].details?.map(
+    (contact: Record<string, any>) => ({
+      contact_type: contact['contactType'],
+      contact_info: contact['contactInfo'],
+    })
+  );
   const gallerySection = data['gallerySection'];
   return {
     performer_data: {
@@ -204,10 +210,11 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       status: personalInfo['status'],
       height: personalInfo['height'],
       skills_tags: personalInfo['skills'],
-      contact_detail_protected: contactSection['keepProtected'],
+      contact_detail_protected: data['contactSection']['keepProtected'],
       gallery_protected: gallerySection['keepProtected'],
     },
     experiences: experiencesSection,
     achievements: achievementsSection,
+    contactSection: contactSection,
   };
 };
