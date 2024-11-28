@@ -149,6 +149,23 @@
       "FREE": "مشروعات مجانية",
       "PAID_ONLY": "مشروعات مدفوعة",
       "BOTH": "الاتنين"
+    },
+    "EXPERIENCE_SECTION": {
+      "NO_EXPERIENCE": "لا يوجد خبرات مضافة. اضغط على الزر لإضافة خبرات.",
+      "EXPERIENCES": "الخبرات",
+      "ADD_EXPERIENCE": "إضافة خبرة",
+      "SHOW_NAME": "اسم العمل الفني",
+      "SHOW_TYPE": "نوع العمل الفني",
+      "THEATER": "مسرح",
+      "TV": "تلفزيون",
+      "RADIO": "راديو",
+      "MOVIE": "فيلم",
+      "DUBBING": "دبلجة",
+      "DIRECTOR": "إخراج",
+      "YEAR": "السنة",
+      "ROLES": "الادوار",
+      "VENUE": "اسم المسرح",
+      "DURATION_NIGHTS": "عدد ليالي العرض"
     }
   }
 }

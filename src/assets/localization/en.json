@@ -149,6 +149,23 @@
       "FREE": "Free Projects",
       "PAID_ONLY": "Paid projects only",
       "BOTH": "Both"
+    },
+    "EXPERIENCE_SECTION": {
+      "NO_EXPERIENCE": "No experiences added yet. Click the button above to add one.",
+      "EXPERIENCES": "Experiences",
+      "ADD_EXPERIENCE": "Add Experience",
+      "SHOW_NAME": "Show Name",
+      "SHOW_TYPE": "Show Type",
+      "THEATER": "Theater",
+      "TV": "TV",
+      "RADIO": "Radio",
+      "MOVIE": "Movie",
+      "DUBBING": "Dubbing",
+      "DIRECTOR": "Director",
+      "YEAR": "Year",
+      "ROLES": "Roles",
+      "VENUE": "Venue",
+      "DURATION_NIGHTS": "Duration (Nights)"
     }
   }
 }

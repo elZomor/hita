@@ -2,23 +2,31 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Plus, Trash2 } from 'lucide-react';
 import Select from 'react-select';
 import type { PerformerFormData } from '../../types/performer-form';
-import { SKILLS_OPTIONS } from '../../types/performer-form';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { StepButton } from './stepButton.tsx';
+import { useTranslation } from 'react-i18next';
+import { DropDownOptions } from '../../models/shared.ts';
 
 interface ExperiencesStepProps {
   onComplete: () => void;
+  skillsOptions: DropDownOptions[];
 }
 
-export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
+export function ExperiencesStep({
+  onComplete,
+  skillsOptions,
+}: ExperiencesStepProps) {
   const {
     register,
     control,
     watch,
     setValue,
     formState: { errors },
-    trigger,
   } = useFormContext<PerformerFormData>();
+  const { t } = useTranslation();
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.EXPERIENCE_SECTION.' + text);
+  };
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'experiences',
@@ -32,23 +40,21 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
       label: (currentYear - i).toString(),
     })
   );
-
-  const handleRolesChange = async (
-    selected: readonly { value: string; label: string }[],
-    index: number
-  ) => {
-    setValue(
-      `experiences.${index}.roles`,
-      selected.map((option) => option.value),
-      { shouldValidate: true }
-    );
-    await trigger(`experiences.${index}.roles`);
-  };
+  const SHOW_TYPES: DropDownOptions[] = [
+    { value: 'THEATER', label: addTranslationPrefix('THEATER') },
+    { value: 'TV', label: addTranslationPrefix('TV') },
+    { value: 'MOVIE', label: addTranslationPrefix('MOVIE') },
+    { value: 'RADIO', label: addTranslationPrefix('RADIO') },
+    { value: 'DUBBING', label: addTranslationPrefix('DUBBING') },
+  ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">Experiences</h2>
+        <h2 className="text-xl font-semibold text-gray-900">
+          {' '}
+          {addTranslationPrefix('EXPERIENCES')}
+        </h2>
         <button
           type="button"
           onClick={() =>
@@ -56,22 +62,23 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
               showName: '',
               director: '',
               venue: '',
+              showType: '',
               roles: [],
               year: currentYear,
-              duration: 1,
+              duration: null,
             })
           }
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Experience
+          {addTranslationPrefix('ADD_EXPERIENCE')}
         </button>
       </div>
 
       {fields.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">
-            No experiences added yet. Click the button above to add one.
+            {addTranslationPrefix('NO_EXPERIENCE')}
           </p>
         </div>
       ) : (
@@ -88,7 +95,7 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
-                  label="Show Name"
+                  label={addTranslationPrefix('SHOW_NAME')}
                   error={errors.experiences?.[index]?.showName?.message}
                   required
                 >
@@ -98,9 +105,37 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   />
                 </FormField>
+                <FormField
+                  label={addTranslationPrefix('SHOW_TYPE')}
+                  error={errors.experiences?.[index]?.showType?.message}
+                  required
+                >
+                  <Select
+                    options={SHOW_TYPES.map((showType) => ({
+                      label: t(showType.label),
+                      value: showType.value,
+                    }))}
+                    className="react-select"
+                    classNamePrefix="react-select"
+                    onChange={(selected) => {
+                      setValue(
+                        `experiences.${index}.showType`,
+                        selected?.value as string
+                      );
+                    }}
+                    value={SHOW_TYPES.map((option) => {
+                      return watch(`experiences.${index}.showType`)?.includes(
+                        option.value as string
+                      )
+                        ? { value: option.value, label: t(option.label) }
+                        : null;
+                    })}
+                    placeholder=""
+                  />
+                </FormField>
 
                 <FormField
-                  label="Director"
+                  label={addTranslationPrefix('DIRECTOR')}
                   error={errors.experiences?.[index]?.director?.message}
                   required
                 >
@@ -112,38 +147,7 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
                 </FormField>
 
                 <FormField
-                  label="Venue"
-                  error={errors.experiences?.[index]?.venue?.message}
-                  required
-                >
-                  <input
-                    type="text"
-                    {...register(`experiences.${index}.venue`)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </FormField>
-
-                <FormField
-                  label="Roles"
-                  error={errors.experiences?.[index]?.roles?.message}
-                  required
-                >
-                  <Select
-                    isMulti
-                    options={SKILLS_OPTIONS}
-                    className="react-select"
-                    classNamePrefix="react-select"
-                    onChange={(selected) => handleRolesChange(selected, index)}
-                    value={SKILLS_OPTIONS.filter((option) =>
-                      watch(`experiences.${index}.roles`)?.includes(
-                        option.value
-                      )
-                    )}
-                  />
-                </FormField>
-
-                <FormField
-                  label="Year"
+                  label={addTranslationPrefix('YEAR')}
                   error={errors.experiences?.[index]?.year?.message}
                   required
                 >
@@ -165,21 +169,77 @@ export function ExperiencesStep({ onComplete }: ExperiencesStepProps) {
                     }}
                   />
                 </FormField>
-
-                <FormField
-                  label="Duration (nights)"
-                  error={errors.experiences?.[index]?.duration?.message}
-                  required
-                >
-                  <input
-                    type="number"
-                    min="1"
-                    {...register(`experiences.${index}.duration`, {
-                      valueAsNumber: true,
-                    })}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </FormField>
+                <div className="md:col-span-2">
+                  <FormField
+                    label={addTranslationPrefix('ROLES')}
+                    error={errors.experiences?.[index]?.roles?.message}
+                    required
+                  >
+                    <Select
+                      isMulti
+                      options={skillsOptions.map(
+                        (skill): DropDownOptions => ({
+                          label: t(skill.label),
+                          value: skill.value,
+                        })
+                      )}
+                      className="react-select"
+                      classNamePrefix="react-select"
+                      value={skillsOptions.map((option) => {
+                        return watch(`experiences.${index}.roles`)?.includes(
+                          option?.value as string
+                        )
+                          ? { value: option.value, label: t(option.label) }
+                          : null;
+                      })}
+                      onChange={(selected) => {
+                        setValue(
+                          `experiences.${index}.roles`,
+                          selected
+                            ? selected.map((option) => option!.value as string)
+                            : []
+                        );
+                      }}
+                      placeholder=""
+                    />
+                  </FormField>
+                </div>
+                {watch(`experiences.${index}.showType`) !== 'THEATER' ? null : (
+                  <>
+                    <FormField
+                      label={addTranslationPrefix('VENUE')}
+                      error={errors.experiences?.[index]?.venue?.message}
+                      required={
+                        watch(`experiences.${index}.showType`) === 'THEATER'
+                      }
+                    >
+                      <input
+                        type="text"
+                        {...register(`experiences.${index}.venue`)}
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      />
+                    </FormField>
+                    <FormField
+                      label={addTranslationPrefix('DURATION_NIGHTS')}
+                      error={errors.experiences?.[index]?.duration?.message}
+                      required={
+                        watch(`experiences.${index}.showType`) === 'THEATER'
+                      } // Only required if showType is 'THEATER'
+                    >
+                      <input
+                        type="number"
+                        min="1"
+                        {...register(`experiences.${index}.duration`, {
+                          setValueAs: (value) =>
+                            value === '' || value === null
+                              ? undefined
+                              : Number(value), // Convert to number or undefined
+                        })}
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      />
+                    </FormField>
+                  </>
+                )}
               </div>
             </div>
           ))}

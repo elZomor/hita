@@ -172,6 +172,17 @@ export const mapSinglePerformerResponseToSinglePerformer = (
 
 export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
   const personalInfo = data['personalInfo'];
+  const experiencesSection = data['experiences'].map(
+    (experience: Record<string, any>) => ({
+      show_name: experience['showName'],
+      director: experience['director'],
+      venue: experience['venue'],
+      show_type: experience['showType'],
+      roles: experience['roles'],
+      year: experience['year'],
+      duration: experience['duration'],
+    })
+  );
   const contactSection = data['contactSection'];
   const gallerySection = data['gallerySection'];
   return {
@@ -187,5 +198,6 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       contact_detail_protected: contactSection['keepProtected'],
       gallery_protected: gallerySection['keepProtected'],
     },
+    experiences: experiencesSection,
   };
 };

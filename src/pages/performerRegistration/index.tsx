@@ -38,6 +38,9 @@ export function PerformerForm() {
     type: 'success',
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -189,6 +192,7 @@ export function PerformerForm() {
         return (
           <ExperiencesStep
             onComplete={() => handleStepComplete('experiences')}
+            skillsOptions={skillsOptions}
           />
         );
       case 'achievements':

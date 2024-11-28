@@ -15,7 +15,9 @@ export interface Experience {
   venue: string;
   roles: string[];
   year: number;
-  duration: number;
+  duration: number | null;
+  // showType: 'THEATER' | 'TV' | 'MOVIE' | 'RADIO' | 'DUBBING' | '';
+  showType: string;
 }
 
 export interface Achievement {
@@ -126,14 +128,29 @@ export const personalInfoSchema = z.object({
   height: z.number().max(230).optional(),
 });
 
-export const experienceSchema = z.object({
-  showName: z.string().min(1, 'Show name is required'),
-  director: z.string().min(1, 'Director is required'),
-  venue: z.string().min(1, 'Venue is required'),
-  roles: z.array(z.string()).min(1, 'At least one role is required'),
-  year: z.number().min(1900).max(new Date().getFullYear()),
-  duration: z.number().min(1, 'Duration must be at least 1 night'),
-});
+export const experienceSchema = z
+  .object({
+    showName: z.string().min(1, 'Show name is required'),
+    director: z.string().min(1, 'Director is required'),
+    venue: z.string().nullable().optional(), // Nullable and optional
+    showType: z.string().min(1, 'Show type is required'),
+    roles: z.array(z.string()).min(1, 'At least one role is required'),
+    year: z.number().min(1900).max(new Date().getFullYear()),
+    duration: z.number().nullable().optional(), // Nullable and optional
+  })
+  .refine(
+    (data) =>
+      data.showType === 'THEATER'
+        ? data.venue &&
+          data.venue.length > 0 &&
+          data.duration &&
+          data.duration > 0
+        : true, // Only validate if showType is 'THEATER'
+    {
+      message: 'Venue and duration are required for theater shows',
+      path: ['venue', 'duration'], // Target both venue and duration fields
+    }
+  );
 
 export const achievementSchema = z.object({
   rank: z.string().min(1, 'Rank is required'),
