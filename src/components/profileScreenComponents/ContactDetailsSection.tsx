@@ -11,12 +11,17 @@ const ContactDetailsSection = ({
 }: ContactDetailsProps) => {
   const { t } = useTranslation();
   const { data, isLocked } = contactDetailsObject;
+  const convertToHTTPS = (info: string) => {
+    return info.substring(0, 4).toUpperCase() === 'HTTP'
+      ? info
+      : 'https://' + info;
+  };
   const getContactDetailsTag = (info: string, contactType: string) => {
     switch (contactType) {
       case 'FACEBOOK':
         return (
           <div
-            onClick={() => window.open(info, '_blank')}
+            onClick={() => window.open(convertToHTTPS(info), '_blank')}
             className="cursor-pointer text-blue-600 hover:text-blue-800"
             title={t('FACEBOOK')}
           >
@@ -26,7 +31,7 @@ const ContactDetailsSection = ({
       case 'TWITTER':
         return (
           <div
-            onClick={() => window.open(info, '_blank')}
+            onClick={() => window.open(convertToHTTPS(info), '_blank')}
             className="cursor-pointer "
             title={t('TWITTER')}
           >

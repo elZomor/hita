@@ -1,6 +1,7 @@
 import { get_media_link } from '../utils/restUtils.ts';
 
 import { toWords } from 'number-to-words';
+import { format } from 'date-fns';
 
 export interface Performer {
   username: string;
@@ -166,5 +167,61 @@ export const mapSinglePerformerResponseToSinglePerformer = (
       isLocked: response.contact_detail_protected,
       data: mapGalleryResponseToGallery(response.gallery),
     },
+  };
+};
+
+export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
+  console.log(data);
+  const personalInfo = data['personalInfo'];
+  const experiencesSection = data['experiences']?.map(
+    (experience: Record<string, any>) => ({
+      show_name: experience['showName'],
+      director: experience['director'],
+      venue: experience['venue'],
+      show_type: experience['showType'],
+      roles: experience['roles'],
+      year: experience['year'],
+      duration: experience['duration'],
+    })
+  );
+  const achievementsSection = data['achievements']?.map(
+    (achievement: Record<string, any>) => ({
+      position: achievement['rank'],
+      field: achievement['field'],
+      show_name: achievement['showName'],
+      festival_name: achievement['festivalName'],
+      year: achievement['year'],
+    })
+  );
+  const contactSection = data['contactSection'].details?.map(
+    (contact: Record<string, any>) => ({
+      contact_type: contact['contactType'],
+      contact_info: contact['contactInfo'],
+    })
+  );
+  const publicLinksSection = data['publicLinks']?.map(
+    (link: Record<string, any>) => ({
+      channel_type: link['linkType'],
+      channel_info: link['linkInfo'],
+    })
+  );
+  return {
+    performer_data: {
+      username: personalInfo['username'],
+      date_of_birth: personalInfo['dateOfBirth']
+        ? format(personalInfo['dateOfBirth'], 'yyyy-MM-dd')
+        : null,
+      biography: personalInfo['bio'],
+      open_for: personalInfo['openFor'],
+      status: personalInfo['status'],
+      height: personalInfo['height'],
+      skills_tags: personalInfo['skills'],
+      contact_detail_protected: data['contactSection']['keepProtected'],
+      gallery_protected: data['gallerySection']['keepProtected'],
+    },
+    experiences: experiencesSection,
+    achievements: achievementsSection,
+    contact_section: contactSection,
+    public_links_section: publicLinksSection,
   };
 };

@@ -13,7 +13,7 @@ function Account() {
   }, [token]);
 
   const handleLogin = () => {
-    navigate('login');
+    navigate('/login');
   };
   const handleLogout = async () => {
     localStorage.removeItem('accessToken');

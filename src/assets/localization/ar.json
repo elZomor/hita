@@ -126,5 +126,83 @@
     "PERFORMER": "صفحة الفنان",
     "CREATE_PERFORMER": "انشء صفحة",
     "VIEW_PERFORMER": "عرض الصفحة"
+  },
+  "PERFORMER_REG": {
+    "STEPS_LABELS": {
+      "PERSONAL_INFO": "المعلومات الشخصية",
+      "EXPERIENCES": "الخبرات",
+      "ACHIEVEMENTS": "الإنجازات",
+      "CONTACT_DETAILS": "الاتصال",
+      "GALLERY": "الصور",
+      "PUBLIC_LINKS": "القنوات المفتوحة",
+      "SUBMIT": "تسجيل",
+      "NEXT_STEP": "الخطوة التالية"
+    },
+    "PERSONAL_INFO": {
+      "USERNAME": "اسم المستخدم (يظهر في رابط الفنان)",
+      "PERSONAL_INFO": "المعلومات الشخصية",
+      "DATE_OF_BIRTH": "تاريخ الميلاد",
+      "SKILLS": "المهارات",
+      "HEIGHT": "الطول (بالسنتيمتر)",
+      "BIO": "نبذة عنك",
+      "STATUS": "الحالة",
+      "OPEN_FOR": "متاح للعمل",
+      "AVAILABLE": "متاح",
+      "UNAVAILABLE": "غير متاح",
+      "FREE": "مشروعات مجانية",
+      "PAID_ONLY": "مشروعات مدفوعة",
+      "BOTH": "الاتنين"
+    },
+    "EXPERIENCE_SECTION": {
+      "NO_EXPERIENCE": "لا يوجد خبرات مضافة. اضغط على الزر لإضافة خبرات.",
+      "EXPERIENCES": "الخبرات",
+      "ADD_EXPERIENCE": "إضافة خبرة",
+      "SHOW_NAME": "اسم العمل الفني",
+      "SHOW_TYPE": "نوع العمل الفني",
+      "THEATER": "مسرح",
+      "TV": "تلفزيون",
+      "RADIO": "راديو",
+      "MOVIE": "فيلم",
+      "DUBBING": "دبلجة",
+      "DIRECTOR": "إخراج",
+      "YEAR": "السنة",
+      "ROLES": "الادوار",
+      "VENUE": "اسم المسرح",
+      "DURATION_NIGHTS": "عدد ليالي العرض"
+    },
+    "ACHIEVEMENTS_SECTION": {
+      "NO_ACHIEVEMENTS": "لا يوجد إنجازات. اضغط على الزر لإضافة إنجاز جديد",
+      "ADD_ACHIEVEMENT": "إضافة إنجاز",
+      "ACHIEVEMENTS": "الإنجازات",
+      "RANK": "المركز (الجائزة)",
+      "FIELD": "المجال",
+      "SHOW_NAME": "اسم العمل",
+      "FESTIVAL_NAME": "اسم المهرجان",
+      "YEAR": "السنة"
+    },
+    "CONTACT_DETAILS_SECTION": {
+      "NO_CONTACT_DETAILS": "لا يوجد بيانات اتصال. اضغط على الزر للإضافة",
+      "ADD_CONTACT_DETAILS": "إضافة بيانات اتصال",
+      "CONTACT_TYPE": "نوع الاتصال",
+      "CONTACT_INFO": "القيمة",
+      "CONTACT_DETAILS": "بيانات الاتصال",
+      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
+    },
+    "GALLERY_SECTION": {
+      "NO_IMAGES": "لا يوجد صور الآن. اضغط على الزر لإضافة صور",
+      "ADD_IMAGE": "إضافة صورة جديدة",
+      "CLICK_TO_UPLOAD": "اضغط لاختيار صورة (بحد أقصة 5 ميجا بايتس)",
+      "DESCRIPTION": "الوصف",
+      "PROTECT_GALLERY": "اجعل معرض الصور محمي",
+      "GALLERY": "معرض الصور",
+      "SET_PROFILE_PICTURE": "ضعها كصورة شخصية"
+    },
+    "PUBLIC_LINKS_SECTION": {
+      "PUBLIC_LINKS": "قنوات مفتوحة",
+      "NO_PUBLIC_LINKS": "لا يوجد قنوات متاحة. اضغط الزر لإضافة قنوات",
+      "ADD_LINK": "إضافة قناة جديدة",
+      "LINK_NAME": "نوع القناة",
+      "LINK_URL": "لينك القناة"
+    }
   }
 }

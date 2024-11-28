@@ -126,5 +126,83 @@
     "PERFORMER": "Artist",
     "CREATE_PERFORMER": "Create page",
     "VIEW_PERFORMER": "View page"
+  },
+  "PERFORMER_REG": {
+    "STEPS_LABELS": {
+      "PERSONAL_INFO": "Personal Info Section",
+      "EXPERIENCES": "Experiences Section",
+      "ACHIEVEMENTS": "Achievements Section",
+      "CONTACT_DETAILS": "Contact Details Section",
+      "GALLERY": "Gallery Section",
+      "PUBLIC_LINKS": "Public Links Section",
+      "SUBMIT": "Submit",
+      "NEXT_STEP": "Next Step"
+    },
+    "PERSONAL_INFO": {
+      "USERNAME": "Username (Showing in performer URL)",
+      "PERSONAL_INFO": "Personal Information",
+      "DATE_OF_BIRTH": "Date of Birth",
+      "SKILLS": "Skills",
+      "HEIGHT": "Height (in CM)",
+      "BIO": "Biography",
+      "STATUS": "Status",
+      "OPEN_FOR": "Open For",
+      "AVAILABLE": "Available",
+      "UNAVAILABLE": "Unavailable",
+      "FREE": "Free Projects",
+      "PAID_ONLY": "Paid projects only",
+      "BOTH": "Both"
+    },
+    "EXPERIENCE_SECTION": {
+      "NO_EXPERIENCE": "No experiences added yet. Click the button above to add one.",
+      "EXPERIENCES": "Experiences",
+      "ADD_EXPERIENCE": "Add Experience",
+      "SHOW_NAME": "Show Name",
+      "SHOW_TYPE": "Show Type",
+      "THEATER": "Theater",
+      "TV": "TV",
+      "RADIO": "Radio",
+      "MOVIE": "Movie",
+      "DUBBING": "Dubbing",
+      "DIRECTOR": "Director",
+      "YEAR": "Year",
+      "ROLES": "Roles",
+      "VENUE": "Venue",
+      "DURATION_NIGHTS": "Duration (Nights)"
+    },
+    "ACHIEVEMENTS_SECTION": {
+      "NO_ACHIEVEMENTS": "No achievements added yet. Click the button above to add one.  ",
+      "ADD_ACHIEVEMENT": "ِAdd Achievement",
+      "ACHIEVEMENTS": "Achievements",
+      "RANK": "Rank",
+      "FIELD": "Field",
+      "SHOW_NAME": "Show Name",
+      "FESTIVAL_NAME": "Festival Name",
+      "YEAR": "Year"
+    },
+    "CONTACT_DETAILS_SECTION": {
+      "NO_CONTACT_DETAILS": "No contact details added yet. Click the button above to add one.",
+      "ADD_CONTACT_DETAILS": "Add Contact Details",
+      "CONTACT_TYPE": "Contact Type",
+      "CONTACT_INFO": "Contact Info",
+      "CONTACT_DETAILS": "Contact Details",
+      "PROTECT_CONTACT_DETAILS": "Keep all contact details private"
+    },
+    "GALLERY_SECTION": {
+      "NO_IMAGES": "No images added yet. Click the button above to add one.",
+      "ADD_IMAGE": "Add Image",
+      "CLICK_TO_UPLOAD": "Click to upload image (Max 5MB)",
+      "DESCRIPTION": "Description",
+      "PROTECT_GALLERY": "Keep your gallery protected",
+      "GALLERY": "Gallery",
+      "SET_PROFILE_PICTURE": "Set as profile picture"
+    },
+    "PUBLIC_LINKS_SECTION": {
+      "PUBLIC_LINKS": "Public Channels",
+      "NO_PUBLIC_LINKS": "No links added yet. Click the button above to add one.",
+      "ADD_LINK": "Add Link",
+      "LINK_NAME": "Link Name",
+      "LINK_URL": "URL"
+    }
   }
 }

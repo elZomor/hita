@@ -34,7 +34,7 @@ const Profile: React.FC = () => {
     }
 
     fetchPerformer();
-  }, []);
+  }, [username]);
 
   return (
     <Container>

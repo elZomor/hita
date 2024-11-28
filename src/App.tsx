@@ -11,6 +11,7 @@ import { GOOGLE_CLIENT_ID } from './constants.ts';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LandingPage } from './pages/landingPage';
 import { MemberProfilePage } from './pages/memberProfile';
+import { PerformerForm } from './pages/performerRegistration';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -34,6 +35,10 @@ export const App = () => {
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/performers/:username" element={<Profile />} />
+              <Route
+                path="/performers/registration"
+                element={<PerformerForm />}
+              />
               <Route path="/profile/me" element={<MemberProfilePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/landing" element={<LandingPage />} />
