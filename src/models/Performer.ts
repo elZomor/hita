@@ -199,9 +199,15 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       contact_info: contact['contactInfo'],
     })
   );
-  const gallerySection = data['gallerySection'];
+  const publicLinksSection = data['publicLinks']?.map(
+    (link: Record<string, any>) => ({
+      channel_type: link['linkType'],
+      channel_info: link['linkInfo'],
+    })
+  );
   return {
     performer_data: {
+      username: personalInfo['username'],
       date_of_birth: personalInfo['dateOfBirth']
         ? format(personalInfo['dateOfBirth'], 'yyyy-MM-dd')
         : null,
@@ -211,10 +217,11 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       height: personalInfo['height'],
       skills_tags: personalInfo['skills'],
       contact_detail_protected: data['contactSection']['keepProtected'],
-      gallery_protected: gallerySection['keepProtected'],
+      gallery_protected: data['gallerySection']['keepProtected'],
     },
     experiences: experiencesSection,
     achievements: achievementsSection,
-    contactSection: contactSection,
+    contact_section: contactSection,
+    public_links_section: publicLinksSection,
   };
 };

@@ -18,7 +18,11 @@ import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { Menu } from 'lucide-react';
 import { DropDownOptions } from '../../models/shared.ts';
-import { get_request, post_request } from '../../utils/restUtils.ts';
+import {
+  get_request,
+  post_files,
+  post_request,
+} from '../../utils/restUtils.ts';
 import { mapPerformerRegisterToRequest } from '../../models/Performer.ts';
 import { useNavigate } from 'react-router-dom';
 
@@ -154,7 +158,6 @@ export function PerformerForm() {
       return;
     }
 
-    // For moving forward, validate all steps in between
     for (let i = currentIndex; i < targetIndex; i++) {
       const isValid = await validateStep(STEPS[i].id);
       if (!isValid) {
@@ -174,17 +177,19 @@ export function PerformerForm() {
   const handleSubmit = async (formData: PerformerFormData) => {
     try {
       const requestData = mapPerformerRegisterToRequest(formData);
-      const { data } = await post_request('hita/performers', requestData);
-      // Submit form data to your API
-      console.log('Form submitted:', formData);
-      console.log('request:', requestData);
-      console.log('response:', data);
-      setSnackbar({
-        open: true,
-        message: 'Form submitted successfully!',
-        type: 'success',
-      });
-      navigate('/');
+      const response = await post_request('hita/performers', requestData);
+      if (response.status === 201) {
+        const { data } = await post_files(
+          'hita/performers/gallery',
+          formData.gallerySection.images
+        );
+        setSnackbar({
+          open: true,
+          message: 'Form submitted successfully!',
+          type: 'success',
+        });
+        navigate(`/performers/${data.data.user}`);
+      }
     } catch (error) {
       console.log(error);
       setSnackbar({
@@ -231,7 +236,13 @@ export function PerformerForm() {
           />
         );
       case 'public-links':
-        return <PublicLinksStep onComplete={handleSubmit} isLastStep />;
+        return (
+          <PublicLinksStep
+            publicLinkTypes={contactTypes}
+            onComplete={handleSubmit}
+            isLastStep
+          />
+        );
       default:
         return null;
     }

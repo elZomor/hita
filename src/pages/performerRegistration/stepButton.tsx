@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { clsx } from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 interface StepButtonProps {
   onClick: () => void;
@@ -11,6 +12,7 @@ export function StepButton({ onClick, isLastStep }: StepButtonProps) {
     formState: { errors, isSubmitting },
   } = useFormContext();
   const hasErrors = Object.keys(errors).length > 0;
+  const { t } = useTranslation();
 
   return (
     <button
@@ -26,7 +28,9 @@ export function StepButton({ onClick, isLastStep }: StepButtonProps) {
         }
       )}
     >
-      {isLastStep ? 'Submit' : 'Next Step'}
+      {isLastStep
+        ? t('PERFORMER_REG.STEPS_LABELS.SUBMIT')
+        : t('PERFORMER_REG.STEPS_LABELS.NEXT_STEP')}
     </button>
   );
 }

@@ -43,6 +43,20 @@ export function PersonalInfoStep({
       </h2>
 
       <FormField
+        label={addTranslationPrefix('USERNAME')}
+        error={errors.personalInfo?.username?.message}
+        required
+      >
+        <div className="space-y-2">
+          <input
+            type="text"
+            {...register('personalInfo.username')}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </div>
+      </FormField>
+
+      <FormField
         label={addTranslationPrefix('DATE_OF_BIRTH')}
         error={errors.personalInfo?.dateOfBirth?.message}
       >

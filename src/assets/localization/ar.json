@@ -134,9 +134,12 @@
       "ACHIEVEMENTS": "الإنجازات",
       "CONTACT_DETAILS": "الاتصال",
       "GALLERY": "الصور",
-      "PUBLIC_LINKS": "القنوات المفتوحة"
+      "PUBLIC_LINKS": "القنوات المفتوحة",
+      "SUBMIT": "تسجيل",
+      "NEXT_STEP": "الخطوة التالية"
     },
     "PERSONAL_INFO": {
+      "USERNAME": "اسم المستخدم (يظهر في رابط الفنان)",
       "PERSONAL_INFO": "المعلومات الشخصية",
       "DATE_OF_BIRTH": "تاريخ الميلاد",
       "SKILLS": "المهارات",
@@ -184,6 +187,22 @@
       "CONTACT_INFO": "القيمة",
       "CONTACT_DETAILS": "بيانات الاتصال",
       "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
+    },
+    "GALLERY_SECTION": {
+      "NO_IMAGES": "لا يوجد صور الآن. اضغط على الزر لإضافة صور",
+      "ADD_IMAGE": "إضافة صورة جديدة",
+      "CLICK_TO_UPLOAD": "اضغط لاختيار صورة (بحد أقصة 5 ميجا بايتس)",
+      "DESCRIPTION": "الوصف",
+      "PROTECT_GALLERY": "اجعل معرض الصور محمي",
+      "GALLERY": "معرض الصور",
+      "SET_PROFILE_PICTURE": "ضعها كصورة شخصية"
+    },
+    "PUBLIC_LINKS_SECTION": {
+      "PUBLIC_LINKS": "قنوات مفتوحة",
+      "NO_PUBLIC_LINKS": "لا يوجد قنوات متاحة. اضغط الزر لإضافة قنوات",
+      "ADD_LINK": "إضافة قناة جديدة",
+      "LINK_NAME": "نوع القناة",
+      "LINK_URL": "لينك القناة"
     }
   }
 }

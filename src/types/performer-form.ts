@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export interface PersonalInfo {
+  username: string;
   dateOfBirth?: Date;
   skills?: (string | number | boolean)[];
   bio?: string;
@@ -114,6 +115,13 @@ const maxDate = new Date();
 maxDate.setFullYear(maxDate.getFullYear() - 16);
 
 export const personalInfoSchema = z.object({
+  username: z
+    .string()
+    .min(1, 'Username is required')
+    .regex(
+      /^[a-zA-Z0-9_-]{8,30}$/,
+      'Username must be 8-30 characters long, contain no spaces, and only include letters, numbers, hyphens (-), or underscores (_).'
+    ),
   dateOfBirth: z
     .date()
     .optional()
@@ -132,25 +140,31 @@ export const experienceSchema = z
   .object({
     showName: z.string().min(1, 'Show name is required'),
     director: z.string().min(1, 'Director is required'),
-    venue: z.string().nullable().optional(), // Nullable and optional
+    venue: z.string().nullable().optional(),
     showType: z.string().min(1, 'Show type is required'),
     roles: z.array(z.string()).min(1, 'At least one role is required'),
     year: z.number().min(1900).max(new Date().getFullYear()),
-    duration: z.number().nullable().optional(), // Nullable and optional
+    duration: z.number().nullable().optional(),
   })
-  .refine(
-    (data) =>
-      data.showType === 'THEATER'
-        ? data.venue &&
-          data.venue.length > 0 &&
-          data.duration &&
-          data.duration > 0
-        : true, // Only validate if showType is 'THEATER'
-    {
-      message: 'Venue and duration are required for theater shows',
-      path: ['venue', 'duration'], // Target both venue and duration fields
+  .superRefine((data, ctx) => {
+    if (data.showType === 'THEATER') {
+      if (!data.venue) {
+        ctx.addIssue({
+          code: 'custom', // Required code property
+          path: ['venue'],
+          message: 'Venue is required when showType is Theater',
+        });
+      }
+
+      if (data.duration === null || data.duration === undefined) {
+        ctx.addIssue({
+          code: 'custom', // Required code property
+          path: ['duration'],
+          message: 'Duration is required when showType is Theater',
+        });
+      }
     }
-  );
+  });
 
 export const achievementSchema = z.object({
   rank: z.string().min(1, 'Rank is required'),

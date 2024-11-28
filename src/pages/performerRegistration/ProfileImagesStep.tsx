@@ -3,6 +3,7 @@ import { Plus, Trash2, X } from 'lucide-react';
 import type { PerformerFormData } from '../../types/performer-form';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { StepButton } from './stepButton.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileImagesStepProps {
   onComplete: () => void;
@@ -23,6 +24,20 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
     control,
     name: 'gallerySection.images',
   });
+  const { t, i18n } = useTranslation();
+
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.GALLERY_SECTION.' + text);
+  };
+
+  const handleRemoveImage = (index: number) => {
+    remove(index);
+    if (fields.length <= 1) return;
+    const images = watch('gallerySection.images');
+    if (!images.some((img) => img.isProfilePicture)) {
+      setValue('gallerySection.images.0.isProfilePicture', true);
+    }
+  };
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -56,7 +71,9 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">Profile Images</h2>
+        <h2 className="text-xl font-semibold text-gray-900">
+          {addTranslationPrefix('GALLERY')}
+        </h2>
         {fields.length < MAX_IMAGES && (
           <button
             type="button"
@@ -64,13 +81,13 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
               append({
                 file: new File([], ''),
                 description: '',
-                isProfilePicture: false,
+                isProfilePicture: fields.length === 0,
               })
             }
             className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Add Image
+            {addTranslationPrefix('ADD_IMAGE')}
           </button>
         )}
       </div>
@@ -82,15 +99,15 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
             {...register('gallerySection.keepProtected')}
             className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
           />
-          <span className="ml-2 text-gray-700">Keep all images private</span>
+          <span className="ml-2 text-gray-700">
+            {addTranslationPrefix('PROTECT_GALLERY')}
+          </span>
         </label>
       </div>
 
       {fields.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500">
-            No images added yet. Click the button above to add one.
-          </p>
+          <p className="text-gray-500">{addTranslationPrefix('NO_IMAGES')}</p>
         </div>
       ) : (
         <div className="space-y-8">
@@ -98,13 +115,13 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
             <div key={field.id} className="p-6 bg-gray-50 rounded-lg relative">
               <button
                 type="button"
-                onClick={() => remove(index)}
-                className="absolute top-4 right-4 p-1 text-gray-400 hover:text-red-500"
+                onClick={() => handleRemoveImage(index)}
+                className={`absolute top-4 ${i18n.language === 'ar' ? 'left-4' : 'right-4'} p-1 text-gray-400 hover:text-red-500`}
               >
                 <Trash2 className="w-5 h-5" />
               </button>
 
-              <div className="space-y-6">
+              <div className="space-y-6 mt-6">
                 <div className="relative">
                   <input
                     type="file"
@@ -139,19 +156,16 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
                       </div>
                     ) : (
                       <div className="text-gray-500">
-                        Click to upload image (max 5MB)
+                        {addTranslationPrefix('CLICK_TO_UPLOAD')}
                       </div>
                     )}
                   </label>
                 </div>
 
                 <FormField
-                  label="Description"
+                  label={addTranslationPrefix('DESCRIPTION')}
                   error={
                     errors.gallerySection?.images?.[index]?.description?.message
-                  }
-                  required={
-                    !!watch(`gallerySection.images.${index}.file`)?.name
                   }
                 >
                   <div className="space-y-2">
@@ -185,7 +199,7 @@ export function ProfileImagesStep({ onComplete }: ProfileImagesStepProps) {
                       className="form-radio text-purple-600 focus:ring-purple-500"
                     />
                     <span className="ml-2 text-gray-700">
-                      Set as profile picture
+                      {addTranslationPrefix('SET_PROFILE_PICTURE')}
                     </span>
                   </label>
                 </div>
