@@ -26,11 +26,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-purple-100 border-b border-gray-200">
       <Container>
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center h-full">
+          <div className="flex items-center h-full cursor-pointer">
             <img
               src={logo}
               alt="Actogram"
               className="w-full h-full object-cover"
+              onClick={() => navigate('/')}
             />
           </div>
 
@@ -53,10 +54,16 @@ export default function Header() {
               Filters
             </button> */}
             <button
-              onClick={() => navigate('profile/me')}
+              onClick={() => navigate('/members/profile')}
               className="hidden md:block items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
             >
               {t('HEADER.PROFILE')}
+            </button>
+            <button
+              onClick={() => navigate('/performers')}
+              className="hidden md:block items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              {t('HEADER.PERFORMERS')}
             </button>
             <button className="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg md:block hover:bg-purple-700">
               <Account />

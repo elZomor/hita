@@ -10,7 +10,8 @@ const tabs = [
     icon: '',
     route: '/login',
   },
-  { id: 2, name: 'PROFILE', icon: '', route: 'profile/me' },
+  { id: 2, name: 'PROFILE', icon: '', route: '/members/profile' },
+  { id: 3, name: 'PERFORMERS', icon: '', route: '/performers' },
 ];
 
 interface IProps {

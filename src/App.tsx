@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useTranslation } from 'react-i18next';
 import HomeScreen from './pages/homeScreen/index.tsx';
@@ -12,6 +12,10 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LandingPage } from './pages/landingPage';
 import { MemberProfilePage } from './pages/memberProfile';
 import { PerformerForm } from './pages/performerRegistration';
+import { HomePage } from './pages/homePage';
+import { NotFoundPage } from './pages/notFoundPage';
+import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
+import { UnauthorizedPage } from './pages/unauthorizedPage';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -33,20 +37,65 @@ export const App = () => {
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           <Routes>
             <Route element={<MainLayout />}>
-              <Route path="/" element={<HomeScreen />} />
-              <Route path="/performers/:username" element={<Profile />} />
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/performers"
+                element={
+                  <ProtectedRoute>
+                    <HomeScreen />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/performers/:username"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/performers/registration"
-                element={<PerformerForm />}
+                element={
+                  <ProtectedRoute>
+                    <PerformerForm />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="/profile/me" element={<MemberProfilePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/landing" element={<LandingPage />} />
+              <Route
+                path="/members/profile"
+                element={
+                  <ProtectedRoute>
+                    <MemberProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <ProtectedRoute>
+                    <LoginPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/landing"
+                element={
+                  <ProtectedRoute>
+                    <LandingPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/member/registration"
-                element={<MemberRegistration />}
+                element={
+                  <ProtectedRoute>
+                    <MemberRegistration />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="*" element={<Navigate replace to="/" />} />
+              <Route path="/not-authorized" element={<UnauthorizedPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </GoogleOAuthProvider>
