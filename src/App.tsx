@@ -87,7 +87,7 @@ export const App = () => {
                 }
               />
               <Route
-                path="/member/registration"
+                path="/members/registration"
                 element={
                   <ProtectedRoute>
                     <MemberRegistration />
