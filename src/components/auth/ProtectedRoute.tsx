@@ -28,7 +28,13 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     '/performers/registration': new Set(['APPROVED']),
     '/members/profile': new Set(['PENDING', 'APPROVED', 'PERFORMER']),
     '/members/registration': new Set(['NOT_REGISTERED']),
-    '/landing': new Set(['NOT_REGISTERED', 'PENDING', 'APPROVED', 'PERFORMER']),
+    '/landing': new Set([
+      'ANONYMOUS',
+      'NOT_REGISTERED',
+      'PENDING',
+      'APPROVED',
+      'PERFORMER',
+    ]),
   };
 
   const checkPaths = (path: string, memberStatus: MemberStatus) => {
