@@ -13,9 +13,8 @@ import { LandingPage } from './pages/landingPage';
 import { MemberProfilePage } from './pages/memberProfile';
 import { PerformerForm } from './pages/performerRegistration';
 import { HomePage } from './pages/homePage';
-import { NotFoundPage } from './pages/notFoundPage';
+import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
-import { UnauthorizedPage } from './pages/unauthorizedPage';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -94,8 +93,10 @@ export const App = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/not-authorized" element={<UnauthorizedPage />} />
-              <Route path="*" element={<NotFoundPage />} />
+              <Route
+                path="*"
+                element={<NotFoundComponent resourceName={'Page'} />}
+              />
             </Route>
           </Routes>
         </GoogleOAuthProvider>

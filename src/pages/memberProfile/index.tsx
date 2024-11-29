@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { get_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import LoadingComponent from '../../components/shared/loading';
 
 export function MemberProfilePage() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export function MemberProfilePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {member === undefined ? (
-        <div>Loading</div>
+        <LoadingComponent />
       ) : (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           {/* Header Section */}
