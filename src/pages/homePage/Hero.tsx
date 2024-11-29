@@ -1,4 +1,9 @@
+import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 export function Hero() {
+  const navigate = useNavigate();
+
   return (
     <div className="relative bg-purple-900 overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -15,6 +20,15 @@ export function Hero() {
                 Connect with talented actors, discover new opportunities, and
                 bring your creative vision to life.
               </p>
+              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <button
+                  onClick={() => navigate('/landing')}
+                  className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10"
+                >
+                  Join Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </div>
             </div>
           </main>
         </div>

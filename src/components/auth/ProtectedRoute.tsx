@@ -63,6 +63,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
             return;
           }
           checkPaths(path || location.pathname, data.data.status);
+          return;
           console.log(data.data.status);
         } else {
           navigate('/login');
