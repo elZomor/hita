@@ -1,4 +1,3 @@
-import { Search } from 'lucide-react';
 import Account from '../account/Account.tsx';
 import Container from '../container/Container.tsx';
 import { useState } from 'react';
@@ -33,19 +32,6 @@ export default function Header() {
               className="w-full h-full object-cover"
               onClick={() => navigate('/')}
             />
-          </div>
-
-          <div className="hidden max-w-2xl mx-8 md:flex">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <Search className="w-5 h-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                className="block w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500"
-                placeholder="Search by name, specialty, or location..."
-              />
-            </div>
           </div>
 
           <div className="flex items-center gap-4">

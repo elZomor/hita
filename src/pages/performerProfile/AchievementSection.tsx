@@ -1,4 +1,4 @@
-import Section from '../shared/section/Section.tsx';
+import Section from '../../components/shared/section/Section.tsx';
 import { useTranslation } from 'react-i18next';
 import { Achievement } from '../../models/Performer.ts';
 

@@ -2,7 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useTranslation } from 'react-i18next';
-import HomeScreen from './pages/homeScreen/index.tsx';
+import HomeScreen from './pages/performersHomeScreen/index.tsx';
 import MainLayout from './layouts/MainLayout.tsx';
 import Profile from './pages/performerProfile/index.tsx';
 import { MemberRegistration } from './pages/memberRegistration';
