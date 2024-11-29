@@ -1,63 +1,112 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { get_request } from '../../utils/restUtils.ts';
+import { useTranslation } from 'react-i18next';
 
-const specialties = [
-  'Drama',
-  'Comedy',
-  'Action',
-  'Theater',
-  'Musical',
-  'Voice Acting',
-  'Period Drama',
-  'Method Acting',
-  'Dance',
-];
+const genders = ['M', 'F'];
 
-const locations = [
-  'London, UK',
-  'Los Angeles, USA',
-  'New York, USA',
-  'Madrid, Spain',
-  'Mumbai, India',
-  'Berlin, Germany',
-];
+type FilterProps = {
+  updateFilter: (filtersList: Record<string, string[]>[]) => void;
+};
 
-export function Filters() {
+export function Filters({ updateFilter }: FilterProps) {
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
+  const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
+  const [departments, setDepartments] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>([]);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/skills');
+      setSkills(data.data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchDepartments() {
+      const { data } = await get_request(`hita/departments`);
+      setDepartments(data.data);
+    }
+
+    fetchDepartments();
+  }, []);
+
+  useEffect(() => {
+    console.log('called in filters');
+    updateFilter([
+      {
+        skills: selectedSpecialties,
+        gender: selectedGenders,
+        department: selectedDepartments,
+      },
+    ]);
+  }, [selectedSpecialties, selectedGenders, selectedDepartments]);
 
   return (
     <aside className="w-64 flex-shrink-0 hidden sm:block">
       <div className="sticky top-20">
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            {t('PERFORMER_HOME.FILTERS')}
+          </h3>
 
           <div className="space-y-4">
             <div>
               <h4 className="text-sm font-medium text-gray-900 mb-2">
-                Specialty
+                {t('PERFORMER_HOME.GENDER')}
               </h4>
               <div className="space-y-2">
-                {specialties.map((specialty) => (
-                  <label key={specialty} className="flex items-center">
+                {genders.map((gender) => (
+                  <label key={gender} className="flex items-center">
                     <input
                       type="checkbox"
                       className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                      checked={selectedSpecialties.includes(specialty)}
+                      checked={selectedGenders.includes(gender)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedSpecialties([
-                            ...selectedSpecialties,
-                            specialty,
-                          ]);
+                          setSelectedGenders([...selectedGenders, gender]);
                         } else {
-                          setSelectedSpecialties(
-                            selectedSpecialties.filter((s) => s !== specialty)
+                          setSelectedGenders(
+                            selectedGenders.filter((l) => l !== gender)
                           );
                         }
                       }}
                     />
-                    <span className="ml-2 text-sm text-gray-600">
-                      {specialty}
+                    <span className="mx-2 text-sm text-gray-600">
+                      {t('PERFORMER_HOME.' + gender)}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium text-gray-900 mb-2">
+                {t('PERFORMER_HOME.DEPARTMENT')}
+              </h4>
+              <div className="space-y-2">
+                {departments.map((department) => (
+                  <label key={department} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                      checked={selectedDepartments.includes(department)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedDepartments([
+                            ...selectedDepartments,
+                            department,
+                          ]);
+                        } else {
+                          setSelectedDepartments(
+                            selectedDepartments.filter((l) => l !== department)
+                          );
+                        }
+                      }}
+                    />
+                    <span className="mx-2 text-sm text-gray-600">
+                      {t(department)}
                     </span>
                   </label>
                 ))}
@@ -66,30 +115,30 @@ export function Filters() {
 
             <div>
               <h4 className="text-sm font-medium text-gray-900 mb-2">
-                Location
+                {t('PERFORMER_HOME.SKILL')}
               </h4>
               <div className="space-y-2">
-                {locations.map((location) => (
-                  <label key={location} className="flex items-center">
+                {skills.map((skill) => (
+                  <label key={skill} className="flex items-center">
                     <input
                       type="checkbox"
                       className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                      checked={selectedLocations.includes(location)}
+                      checked={selectedSpecialties.includes(skill)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedLocations([
-                            ...selectedLocations,
-                            location,
+                          setSelectedSpecialties([
+                            ...selectedSpecialties,
+                            skill,
                           ]);
                         } else {
-                          setSelectedLocations(
-                            selectedLocations.filter((l) => l !== location)
+                          setSelectedSpecialties(
+                            selectedSpecialties.filter((s) => s !== skill)
                           );
                         }
                       }}
                     />
-                    <span className="ml-2 text-sm text-gray-600">
-                      {location}
+                    <span className="mx-2 text-sm text-gray-600">
+                      {t(skill)}
                     </span>
                   </label>
                 ))}

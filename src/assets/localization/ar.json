@@ -49,7 +49,6 @@
   "CM": "سنتيمتر",
   "RANK_FOR": "عن",
   "LOCKED": "غير متاح",
-  "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم",
   "GEN": {
     "ACTING": "قسم تمثيل وإخراج مسرحي",
     "DRAMA": "قسم دراما ونقد مسرحي",
@@ -138,7 +137,7 @@
     "M": "ذكر",
     "F": "أنثى",
     "PERFORMER": "صفحة الفنان",
-    "CREATE_PERFORMER": "انشء صفحة",
+    "CREATE_PERFORMER": "أنشئ صفحة",
     "VIEW_PERFORMER": "عرض الصفحة"
   },
   "PERFORMER_REG": {
@@ -230,5 +229,14 @@
       "ACHIEVEMENTS": "الإنجازات والجوائز",
       "EXPERIENCES": "الخبرات السابقة"
     }
+  },
+  "PERFORMER_HOME": {
+    "FILTERS": "تصفية",
+    "GENDER": "النوع",
+    "M": "ذكر",
+    "F": "أنثى",
+    "DEPARTMENT": "القسم",
+    "SKILL": "المهارات",
+    "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم"
   }
 }

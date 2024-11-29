@@ -41,15 +41,14 @@
   "NIGHTS": "Nights",
   "YEARS_OLD": "years old",
   "GRADUATED_IN": "graduated in",
-  "GRADE_ONE": "grade one",
-  "GRADE_TWO": "grade two",
-  "GRADE_THREE": "grade three",
-  "GRADE_FOUR": "grade four",
+  "GRADE_ONE": "Grade One",
+  "GRADE_TWO": "Grade Two",
+  "GRADE_THREE": "Grade Three",
+  "GRADE_FOUR": "Grade Four",
   "Height": "Height",
   "CM": "cm",
   "RANK_FOR": "for",
   "LOCKED": "Locked",
-  "SEARCH_PLACEHOLDER": "Search by name or username",
   "GEN": {
     "ACTING": "Acting and Theatrical Directing Department",
     "DRAMA": "Drama and Theatrical Criticism Department",
@@ -61,10 +60,10 @@
     "DEPARTMENT": "Department",
     "GRAD_YEAR": "Graduation Year",
     "GRADE": "Grade",
-    "GRADE_ONE": "grade one",
-    "GRADE_TWO": "grade two",
-    "GRADE_THREE": "grade three",
-    "GRADE_FOUR": "grade four",
+    "GRADE_ONE": "Grade One",
+    "GRADE_TWO": "Grade Two",
+    "GRADE_THREE": "Grade Three",
+    "GRADE_FOUR": "Grade Four",
     "STUDY_TYPE": "Study Type",
     "LOCATION": "Location",
     "LOADING": "Loading...",
@@ -230,5 +229,14 @@
       "ACHIEVEMENTS": "Achievements",
       "EXPERIENCES": "Experiences"
     }
+  },
+  "PERFORMER_HOME": {
+    "FILTERS": "Filter",
+    "GENDER": "Gender",
+    "M": "Male",
+    "F": "Female",
+    "DEPARTMENT": "Department",
+    "SKILL": "Skill",
+    "SEARCH_PLACEHOLDER": "Search by name or username"
   }
 }

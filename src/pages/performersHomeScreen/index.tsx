@@ -26,14 +26,36 @@ const PerformerHome: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, any>>({});
   const { t } = useTranslation();
 
+  const updateFilter = (filtersList: Record<string, string[]>[]) => {
+    setFilters((prevFilters) => {
+      console.log('called outside filter');
+      const updatedFilters = { ...prevFilters };
+      filtersList.forEach((filter) => {
+        Object.entries(filter).forEach(([key, value]) => {
+          if (value.length === 0 && updatedFilters[key] !== undefined) {
+            delete updatedFilters[key];
+          } else {
+            updatedFilters[key] = value;
+          }
+        });
+      });
+      return updatedFilters;
+    });
+  };
+
   const buildQueryParams = () => {
     const params = new URLSearchParams();
-
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value) {
-        params.append(key, value);
-      }
-    });
+    if (filters !== undefined) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((filter) => {
+            params.append(key, filter);
+          });
+        } else if (value) {
+          params.append(key, value);
+        }
+      });
+    }
     params.append('page', currentPage.toString());
     params.append('page_size', ITEMS_PER_PAGE.toString());
 
@@ -104,7 +126,7 @@ const PerformerHome: React.FC = () => {
             <input
               type="text"
               className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500"
-              placeholder={t('SEARCH_PLACEHOLDER')}
+              placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -113,7 +135,7 @@ const PerformerHome: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           <aside className="lg:w-64 flex-shrink-0">
             <div className="sticky top-20">
-              <Filters />
+              <Filters updateFilter={updateFilter} />
             </div>
           </aside>
 
