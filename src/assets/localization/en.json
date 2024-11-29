@@ -217,5 +217,17 @@
       "LINK_NAME": "Link Name",
       "LINK_URL": "URL"
     }
+  },
+  "PERFORMER_PAGE": {
+    "GALLERY_SECTION": {
+      "IMAGES": "Images"
+    },
+    "NAVIGATION": {
+      "PROFILE": "Profile",
+      "GALLERY": "Gallery",
+      "CONTACT": "Contact",
+      "ACHIEVEMENTS": "Achievements",
+      "EXPERIENCES": "Experiences"
+    }
   }
 }

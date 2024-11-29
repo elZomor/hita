@@ -217,5 +217,17 @@
       "LINK_NAME": "نوع القناة",
       "LINK_URL": "لينك القناة"
     }
+  },
+  "PERFORMER_PAGE": {
+    "GALLERY_SECTION": {
+      "IMAGES": "صور"
+    },
+    "NAVIGATION": {
+      "PROFILE": "الملف الشخصي",
+      "GALLERY": "الصور",
+      "CONTACT": "الاتصال",
+      "ACHIEVEMENTS": "الإنجازات والجوائز",
+      "EXPERIENCES": "الخبرات السابقة"
+    }
   }
 }
