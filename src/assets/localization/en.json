@@ -65,7 +65,19 @@
     "GRADE_THREE": "grade three",
     "GRADE_FOUR": "grade four",
     "STUDY_TYPE": "Study Type",
-    "LOCATION": "Location"
+    "LOCATION": "Location",
+    "LOADING": "Loading...",
+    "APP_NAME": "Actogram",
+    "SLOGAN": "The platform to find the suitable talent.",
+    "APP_DESCRIPTION": "Connect with talented actors, discover new opportunities, and bring your creative vision to life.",
+    "JOIN_NOW": "Join now",
+    "ACCESS_DENIED": "Access Denied",
+    "UNAUTHORIZED_MESSAGE": "Sorry, you don't have permission to access this page. Please make sure you're logged in with the correct account.",
+    "RETURN_HOME": "Return home",
+    "CHECKING_AUTH": "Checking authorization...",
+    "PERFORMER_NOT_FOUND": "Performer not found!",
+    "PAGE_NOT_FOUND": "Page not found!",
+    "NOT_FOUND_MESSAGE": "Sorry, we couldn't find what you're looking for. it might have been removed, renamed, or doesn't exist."
   },
   "HEADER": {
     "PROFILE": "Profile",

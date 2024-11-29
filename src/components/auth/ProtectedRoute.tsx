@@ -4,6 +4,8 @@ import { Loader2 } from 'lucide-react';
 import { getRouteProps } from '../../utils/routeUtils';
 import { isLoggedIn } from '../../utils/tokenUtils.ts';
 import { get_request } from '../../utils/restUtils.ts';
+import { UnauthorizedPage } from '../shared/unauthorized';
+import { useTranslation } from 'react-i18next';
 
 interface ProtectedRouteProps {
   children: React.ReactElement;
@@ -21,6 +23,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { path } = getRouteProps(children);
+  const { t } = useTranslation();
 
   const PATHS_MAP: Record<string, Set<MemberStatus>> = {
     '/login': new Set(['ANONYMOUS']),
@@ -77,7 +80,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       } catch (error) {
         console.error('Auth check failed:', error);
         setIsAuthorized(false);
-        navigate('/not-found');
       }
     };
 
@@ -89,15 +91,12 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 text-purple-600 animate-spin mx-auto" />
-          <p className="mt-2 text-sm text-gray-600">
-            Checking authorization...
-          </p>
+          <p className="mt-2 text-sm text-gray-600">{t('GEN.CHECKING_AUTH')}</p>
         </div>
       </div>
     );
   } else if (!isAuthorized) {
-    navigate('/not-authorized');
-    return null;
+    return <UnauthorizedPage />;
   }
 
   return <>{children}</>;

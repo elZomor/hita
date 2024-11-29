@@ -30,7 +30,7 @@ export function LandingPage() {
         setStatus(status);
 
         if (status === 'APPROVED') {
-          navigate('/');
+          navigate('/performers');
         }
       } catch (error) {
         console.log(error);
