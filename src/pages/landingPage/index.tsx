@@ -119,7 +119,7 @@ export function LandingPage() {
             {t('LANDING_PAGE.WELCOME_MESSAGE')}
           </p>
           <button
-            onClick={() => navigate('/member/registration')}
+            onClick={() => navigate('/members/registration')}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
           >
             {t('LANDING_PAGE.REGISTER_NOW')}
