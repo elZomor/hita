@@ -15,6 +15,7 @@ import PageNav from './PageNav';
 import LoadingComponent from '../../components/shared/loading';
 import { NotFoundComponent } from '../../components/shared/notFound';
 import { useEditMode } from '../../contexts/EditModeContext.tsx';
+import { PublicLinksSection } from './publicLinkSection';
 
 const Profile: React.FC = () => {
   const { username } = useParams();
@@ -28,6 +29,7 @@ const Profile: React.FC = () => {
     profile: useRef<HTMLDivElement>(null),
     gallery: useRef<HTMLDivElement>(null),
     contact: useRef<HTMLDivElement>(null),
+    publicLinks: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
     achievements: useRef<HTMLDivElement>(null),
   };
@@ -125,6 +127,9 @@ const Profile: React.FC = () => {
               <ContactDetailsSection
                 contacts={performer.contactDetailsObject.data!}
               />
+            </div>
+            <div ref={sectionRefs.publicLinks} id="contact">
+              <PublicLinksSection links={performer.publicLinks!} />
             </div>
 
             <div ref={sectionRefs.experience} id="experience">

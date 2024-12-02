@@ -49,6 +49,11 @@ export interface ContactDetail {
   contactInfo: string;
 }
 
+export interface PublicLink {
+  linkType: string;
+  linkInfo: string;
+}
+
 export interface GalleryObject {
   data?: Gallery[];
   isLocked: boolean;
@@ -65,6 +70,7 @@ export interface SinglePerformer {
   achievements: Achievement[];
   contactDetailsObject: ContactDetailsObject;
   galleryObject: GalleryObject;
+  publicLinks: PublicLink[];
 }
 
 export interface PerformerResponse {
@@ -175,6 +181,7 @@ export const mapSinglePerformerResponseToSinglePerformer = (
       isLocked: response.contact_detail_protected,
       data: mapGalleryResponseToGallery(response.gallery),
     },
+    publicLinks: [],
   };
 };
 
