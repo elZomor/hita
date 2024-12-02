@@ -128,11 +128,7 @@ const GallerySection = ({ galleryObject }: GallerySectionProps) => {
                   : 'bg-black/50 hover:bg-black/70'
               )}
             >
-              {i18n.language === 'en' ? (
-                <ChevronLeft className="h-6 w-6" />
-              ) : (
-                <ChevronRight className="h-6 w-6" />
-              )}
+              <ChevronLeft className="h-6 w-6" />
             </button>
           </div>
 
@@ -147,11 +143,7 @@ const GallerySection = ({ galleryObject }: GallerySectionProps) => {
                   : 'bg-black/50 hover:bg-black/70'
               )}
             >
-              {i18n.language === 'en' ? (
-                <ChevronRight className="h-6 w-6" />
-              ) : (
-                <ChevronLeft className="h-6 w-6" />
-              )}
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>
