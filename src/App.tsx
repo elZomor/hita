@@ -16,6 +16,7 @@ import { HomePage } from './pages/homePage';
 import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
 import { PerformerLandingPage } from './pages/performerLandingPage';
+import { EditModeProvider } from './contexts/EditModeContext.tsx';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -50,7 +51,9 @@ export const App = () => {
                 path="/performers/:username"
                 element={
                   <ProtectedRoute>
-                    <Profile />
+                    <EditModeProvider>
+                      <Profile />
+                    </EditModeProvider>
                   </ProtectedRoute>
                 }
               />

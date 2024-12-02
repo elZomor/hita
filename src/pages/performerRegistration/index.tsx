@@ -16,7 +16,7 @@ import {
 } from '../../types/performer-form';
 import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
-import { Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Menu } from 'lucide-react';
 import { DropDownOptions } from '../../models/shared.ts';
 import {
   get_request,
@@ -43,6 +43,7 @@ export function PerformerForm() {
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
   const [contactTypes, setContactTypes] = useState<DropDownOptions[]>([]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep]);
@@ -104,7 +105,6 @@ export function PerformerForm() {
     formState: { errors },
   } = methods;
   console.log(errors);
-
   const validateStep = async (step: FormStep): Promise<boolean> => {
     switch (step) {
       case 'personal-info':
@@ -158,6 +158,7 @@ export function PerformerForm() {
       return;
     }
 
+    // For forward navigation, validate all steps in between
     for (let i = currentIndex; i < targetIndex; i++) {
       const isValid = await validateStep(STEPS[i].id);
       if (!isValid) {
@@ -172,6 +173,35 @@ export function PerformerForm() {
 
     setCurrentStep(step);
     setShowMobileNav(false);
+  };
+
+  const handlePreviousStep = () => {
+    const currentIndex = STEPS.findIndex((s) => s.id === currentStep);
+    if (currentIndex > 0) {
+      setCurrentStep(STEPS[currentIndex - 1].id);
+    }
+  };
+
+  const handleNextStep = async () => {
+    const currentIndex = STEPS.findIndex((s) => s.id === currentStep);
+    const isValid = await validateStep(currentStep);
+
+    if (!isValid) {
+      setSnackbar({
+        open: true,
+        message: 'Please fix the errors before proceeding',
+        type: 'error',
+      });
+      return;
+    }
+
+    if (!completedSteps.includes(currentStep)) {
+      setCompletedSteps([...completedSteps, currentStep]);
+    }
+
+    if (currentIndex < STEPS.length - 1) {
+      setCurrentStep(STEPS[currentIndex + 1].id);
+    }
   };
 
   const handleSubmit = async (formData: PerformerFormData) => {
@@ -191,7 +221,7 @@ export function PerformerForm() {
         navigate(`/performers/${data.data.user}`);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setSnackbar({
         open: true,
         message: 'Failed to submit form. Please try again.',
@@ -248,12 +278,16 @@ export function PerformerForm() {
     }
   };
 
+  const currentStepIndex = STEPS.findIndex((s) => s.id === currentStep);
+  const isFirstStep = currentStepIndex === 0;
+  const isLastStep = currentStepIndex === STEPS.length - 1;
+
   return (
     <FormProvider {...methods}>
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-sm">
-            <div className="lg:hidden p-4 border-b border-gray-200">
+            <div className="lg:hidden p-4 border-b border-gray-200 flex items-center justify-between">
               <button
                 onClick={() => setShowMobileNav(!showMobileNav)}
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
@@ -263,6 +297,30 @@ export function PerformerForm() {
                   {STEPS.find((s) => s.id === currentStep)?.label}
                 </span>
               </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePreviousStep}
+                  disabled={isFirstStep}
+                  className={`p-2 rounded-lg ${
+                    isFirstStep
+                      ? 'text-gray-300'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={handleNextStep}
+                  disabled={isLastStep}
+                  className={`p-2 rounded-lg ${
+                    isLastStep
+                      ? 'text-gray-300'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col lg:flex-row">

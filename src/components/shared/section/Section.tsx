@@ -1,16 +1,23 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
-export default function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+interface SectionProps {
+  title?: string;
+  children: ReactNode;
+  headerActions?: ReactNode;
+}
+
+export function Section({ title, children, headerActions }: SectionProps) {
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">{title}</h2>
+    <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="flex items-center justify-between mb-6">
+        {title && (
+          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+        )}
+        {headerActions}
+      </div>
       {children}
     </div>
   );
 }
+
+export default Section;

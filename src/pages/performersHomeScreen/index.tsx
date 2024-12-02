@@ -11,7 +11,7 @@ import { CardSkeleton } from '../../components/cardSkeleton/CardSkeleton.tsx';
 import { ActorCard } from '../../components/performerCard/PerformerCard.tsx';
 import { Pagination } from './Pagination.tsx';
 import { NoResults } from './NoResults.tsx';
-import { Search } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const ITEMS_PER_PAGE = 9;
@@ -24,11 +24,11 @@ const PerformerHome: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
   const [filters, setFilters] = useState<Record<string, any>>({});
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const { t } = useTranslation();
 
   const updateFilter = (filtersList: Record<string, string[]>[]) => {
     setFilters((prevFilters) => {
-      console.log('called outside filter');
       const updatedFilters = { ...prevFilters };
       filtersList.forEach((filter) => {
         Object.entries(filter).forEach(([key, value]) => {
@@ -67,7 +67,7 @@ const PerformerHome: React.FC = () => {
       setDebouncedText(searchText);
     }, 1000);
 
-    return () => clearTimeout(timer); // Clear the timer on input change
+    return () => clearTimeout(timer);
   }, [searchText]);
 
   useEffect(() => {
@@ -75,9 +75,9 @@ const PerformerHome: React.FC = () => {
       const updatedFilters = { ...prevFilters };
 
       if (debouncedText) {
-        updatedFilters.name = debouncedText; // Add or update the 'name' filter
+        updatedFilters.name = debouncedText;
       } else {
-        delete updatedFilters.name; // Remove the 'name' key if it exists
+        delete updatedFilters.name;
       }
 
       return updatedFilters;
@@ -86,10 +86,8 @@ const PerformerHome: React.FC = () => {
 
   useEffect(() => {
     async function fetchPerformers() {
-      console.log('Called');
       try {
         setLoading(true);
-
         const { data } = await get_request(
           `hita/performers?${buildQueryParams()}`
         );
@@ -115,29 +113,91 @@ const PerformerHome: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Prevent body scroll when mobile filters are open
+  useEffect(() => {
+    if (showMobileFilters) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showMobileFilters]);
+
   return (
     <Container>
       <div className="py-8">
-        <div className="mx-auto mb-6 md:flex md:justify-center">
-          <div className="relative items-center w-full max-w-lg">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Search className="w-5 h-5 text-gray-400" />
+        <div className="flex flex-col gap-4 mb-6">
+          <div className="flex items-center gap-4">
+            <div className="relative flex-1">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <Search className="w-5 h-5 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500"
+                placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
             </div>
-            <input
-              type="text"
-              className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500"
-              placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
+            <button
+              onClick={() => setShowMobileFilters(true)}
+              className="lg:hidden inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              <SlidersHorizontal className="w-5 h-5" />
+              {t('PERFORMER_HOME.FILTERS')}
+            </button>
           </div>
         </div>
+
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 flex-shrink-0">
+          {/* Desktop Filters */}
+          <aside className="hidden lg:block lg:w-64 flex-shrink-0">
             <div className="sticky top-20">
               <Filters updateFilter={updateFilter} />
             </div>
           </aside>
+
+          {/* Mobile Filters */}
+          {showMobileFilters && (
+            <div className="fixed inset-0 z-50 lg:hidden">
+              <div
+                className="fixed inset-0 bg-black bg-opacity-50"
+                onClick={() => setShowMobileFilters(false)}
+              />
+              <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl">
+                <div className="h-full flex flex-col">
+                  <div className="flex items-center justify-between p-4 border-b">
+                    <h2 className="text-lg font-semibold text-gray-900">
+                      {t('PERFORMER_HOME.FILTERS')}
+                    </h2>
+                    <button
+                      onClick={() => setShowMobileFilters(false)}
+                      className="p-2 -mr-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <span className="sr-only">Close filters</span>
+                      <svg
+                        className="w-5 h-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="flex-1 overflow-y-auto">
+                    <Filters updateFilter={updateFilter} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <main className="flex-1">
             {loading ? (
@@ -171,4 +231,5 @@ const PerformerHome: React.FC = () => {
     </Container>
   );
 };
+
 export default PerformerHome;
