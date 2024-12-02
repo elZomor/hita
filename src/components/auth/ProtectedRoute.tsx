@@ -31,6 +31,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     '/performers/registration': new Set(['APPROVED']),
     '/members/profile': new Set(['PENDING', 'APPROVED', 'PERFORMER']),
     '/members/registration': new Set(['NOT_REGISTERED']),
+    '/members/performer': new Set(['APPROVED', 'PERFORMER']),
     '/landing': new Set([
       'ANONYMOUS',
       'NOT_REGISTERED',

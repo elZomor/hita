@@ -1,10 +1,11 @@
-import { Eye, GraduationCap } from 'lucide-react';
+import { Banknote, Eye, GraduationCap } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import { Performer } from '../../models/Performer.ts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ImageModal } from '../shared/imageModal';
+import { FaFemale, FaMale } from 'react-icons/fa';
 
 interface ActorCardProps {
   actor: Performer;
@@ -34,6 +35,17 @@ export function ActorCard({ actor }: ActorCardProps) {
   const truncatedBio = isBioLong
     ? `${actor.biography.slice(0, 100)}...`
     : actor.biography;
+
+  const getGenderIcon = (gender: string) => {
+    switch (gender.toLowerCase()) {
+      case 'm':
+        return <FaMale className="text-blue-500 h-5 w-5" />;
+      case 'f':
+        return <FaFemale className="text-pink-500 h-5 w-5" />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -72,17 +84,24 @@ export function ActorCard({ actor }: ActorCardProps) {
           <div className="flex items-start gap-3">
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <h3 className="pr-4 text-lg font-semibold text-gray-900 break-words">
-                  {actor.name}
-                </h3>
-                <div
-                  className={clsx(
-                    'w-2.5 h-2.5 rounded-full flex-shrink-0',
-                    actor.status.toLowerCase().includes('not_available')
-                      ? 'bg-red-500'
-                      : 'bg-green-500'
-                  )}
-                />
+                <div className="flex items-center">
+                  <h3 className="pr-4 text-lg font-semibold text-gray-900 break-words">
+                    {actor.name}
+                    {actor.nickName !== undefined ? `(${actor.nickName})` : ''}
+                  </h3>
+                </div>
+                <div className="flex items-center">
+                  <span>{getGenderIcon(actor.gender)} </span>
+                  {actor.openFor === 'PAID' && <Banknote />}
+                  <div
+                    className={clsx(
+                      'w-2.5 h-2.5 rounded-full flex-shrink-0 mx-2',
+                      actor.status.toLowerCase().includes('not_available')
+                        ? 'bg-red-500'
+                        : 'bg-green-500'
+                    )}
+                  />
+                </div>
               </div>
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                 <GraduationCap className="flex-shrink-0 w-4 h-4" />

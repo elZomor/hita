@@ -48,5 +48,5 @@ export const post_files = async (
 };
 
 export const get_media_link = (mediaUrl: string): string => {
-  return `${baseUrl}${mediaUrl}`;
+  return mediaUrl.startsWith('/media') ? `${baseUrl}${mediaUrl}` : mediaUrl;
 };

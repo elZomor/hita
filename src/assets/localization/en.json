@@ -84,7 +84,9 @@
     "PERFORMERS": "Performers",
     "OTHER_LANGUAGE": "عربي",
     "LOGIN": "Login",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "NOTIFICATIONS": "Notifications",
+    "PERFORMER": "Performer Page"
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "Member Registration",
@@ -127,7 +129,8 @@
     "WELCOME_MESSAGE": "Join our community of talented actors and start showcasing your work to the world.",
     "REGISTER_NOW": "Register Now",
     "TRY_AGAIN": "Try Again",
-    "CHECKING_STATUS": "Checking your status..."
+    "CHECKING_STATUS": "Checking your status...",
+    "CREATE_PERFORMER": "Create your performer profile now to impress the world with your talents."
   },
   "MEMBER_PROFILE": {
     "APPROVED": "Approved",

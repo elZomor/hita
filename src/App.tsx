@@ -15,6 +15,7 @@ import { PerformerForm } from './pages/performerRegistration';
 import { HomePage } from './pages/homePage';
 import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
+import { PerformerLandingPage } from './pages/performerLandingPage';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -66,6 +67,14 @@ export const App = () => {
                 element={
                   <ProtectedRoute>
                     <MemberProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/members/performer"
+                element={
+                  <ProtectedRoute>
+                    <PerformerLandingPage />
                   </ProtectedRoute>
                 }
               />
