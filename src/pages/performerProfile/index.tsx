@@ -6,20 +6,23 @@ import {
   SinglePerformer,
 } from '../../models/Performer';
 import Container from '../../components/container/Container';
-import PerformerDetailsSection from './PerformerDetailsSection';
-import GallerySection from './GallerySection';
+import PerformerDetailsSection from './performerDetailsSection';
+import GallerySection from './gallerySection';
 import ExperienceSection from './experienceSection';
-import AchievementSection from './AchievementSection';
-import ContactDetailsSection from './ContactDetailsSection';
+import AchievementSection from './achievementSection';
+import ContactDetailsSection from './contactDetailsSection';
 import PageNav from './PageNav';
 import LoadingComponent from '../../components/shared/loading';
 import { NotFoundComponent } from '../../components/shared/notFound';
+import { useEditMode } from '../../contexts/EditModeContext.tsx';
 
 const Profile: React.FC = () => {
   const { username } = useParams();
   const [performer, setPerformer] = useState<SinglePerformer>();
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('profile');
+  const { isEditMode, setEditMode } = useEditMode();
+  const [permissions, setPermissions] = useState<string[]>([]);
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
@@ -36,6 +39,7 @@ const Profile: React.FC = () => {
         const performer = mapSinglePerformerResponseToSinglePerformer(
           data.data
         );
+        setPermissions(data.permissions);
         setPerformer(performer);
       } catch (error) {
         console.error('Failed to fetch performer:', error);
@@ -114,12 +118,12 @@ const Profile: React.FC = () => {
             </div>
 
             <div ref={sectionRefs.gallery} id="gallery">
-              <GallerySection galleryObject={performer.galleryObject} />
+              <GallerySection images={performer.galleryObject.data!} />
             </div>
 
             <div ref={sectionRefs.contact} id="contact">
               <ContactDetailsSection
-                contactDetailsObject={performer.contactDetailsObject}
+                contacts={performer.contactDetailsObject.data!}
               />
             </div>
 
@@ -128,17 +132,45 @@ const Profile: React.FC = () => {
             </div>
 
             <div ref={sectionRefs.achievements} id="achievements">
-              <AchievementSection achievementsList={performer.achievements} />
+              <AchievementSection achievements={performer.achievements} />
             </div>
           </div>
 
           {/* Page Navigation */}
           <div className="lg:col-span-3">
-            <div className="sticky top-8">
-              <PageNav
-                activeSection={activeSection}
-                onSectionClick={scrollToSection}
-              />
+            <div className="sticky top-8 flex flex-col items-stretch gap-4">
+              {permissions.includes('CAN_EDIT') &&
+                (isEditMode ? (
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    onClick={() => setEditMode(!isEditMode)}
+                  >
+                    Close edit
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      onClick={() => setEditMode(!isEditMode)}
+                    >
+                      EDIT
+                    </button>
+                    <button
+                      type="button"
+                      className="w-full px-6 py-3 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                    >
+                      DELETE
+                    </button>
+                  </>
+                ))}
+              <div className="hidden md:block w-full">
+                <PageNav
+                  activeSection={activeSection}
+                  onSectionClick={scrollToSection}
+                />
+              </div>
             </div>
           </div>
         </div>

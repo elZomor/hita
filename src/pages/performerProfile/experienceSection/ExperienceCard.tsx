@@ -56,7 +56,7 @@ export function ExperienceCard({
           </div>
         </div>
         {!isEditing && (
-          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex gap-2 opacity-100 group-hover:opacity-100 transition-opacity pointer-events-auto">
             <EditButton onClick={onEdit} />
             <DeleteButton onClick={onDelete} />
           </div>

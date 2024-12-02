@@ -1,4 +1,5 @@
 import { Pen } from 'lucide-react';
+import { useEditMode } from '../../contexts/EditModeContext.tsx';
 
 interface EditButtonProps {
   onClick: () => void;
@@ -6,6 +7,9 @@ interface EditButtonProps {
 }
 
 export function EditButton({ onClick, className = '' }: EditButtonProps) {
+  const { isEditMode } = useEditMode();
+
+  if (!isEditMode) return null;
   return (
     <button
       onClick={onClick}

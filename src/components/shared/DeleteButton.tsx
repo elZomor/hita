@@ -1,4 +1,5 @@
 import { Trash2 } from 'lucide-react';
+import { useEditMode } from '../../contexts/EditModeContext';
 
 interface DeleteButtonProps {
   onClick: () => void;
@@ -6,6 +7,10 @@ interface DeleteButtonProps {
 }
 
 export function DeleteButton({ onClick, className = '' }: DeleteButtonProps) {
+  const { isEditMode } = useEditMode();
+
+  if (!isEditMode) return null;
+
   return (
     <button
       onClick={onClick}

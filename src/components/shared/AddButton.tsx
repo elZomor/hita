@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react';
+import { useEditMode } from '../../contexts/EditModeContext.tsx';
 
 interface AddButtonProps {
   onClick: () => void;
@@ -6,6 +7,9 @@ interface AddButtonProps {
 }
 
 export function AddButton({ onClick, className = '' }: AddButtonProps) {
+  const { isEditMode } = useEditMode();
+
+  if (!isEditMode) return null;
   return (
     <button
       onClick={onClick}
