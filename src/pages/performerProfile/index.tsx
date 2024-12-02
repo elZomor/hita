@@ -8,7 +8,7 @@ import {
 import Container from '../../components/container/Container';
 import PerformerDetailsSection from './PerformerDetailsSection';
 import GallerySection from './GallerySection';
-import ExperienceSection from './ExperienceSection';
+import ExperienceSection from './experienceSection';
 import AchievementSection from './AchievementSection';
 import ContactDetailsSection from './ContactDetailsSection';
 import PageNav from './PageNav';
@@ -124,7 +124,7 @@ const Profile: React.FC = () => {
             </div>
 
             <div ref={sectionRefs.experience} id="experience">
-              <ExperienceSection experienceList={performer.experiences} />
+              <ExperienceSection experiences={performer.experiences} />
             </div>
 
             <div ref={sectionRefs.achievements} id="achievements">

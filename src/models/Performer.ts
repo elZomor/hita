@@ -24,10 +24,11 @@ export interface Performer {
 export interface Experience {
   showName: string;
   director: string;
-  venue: string;
+  venue: string | null | undefined;
   year: number;
-  duration: number;
-  role: string[];
+  duration: number | null | undefined;
+  roles: string[];
+  showType: string;
 }
 
 export interface Achievement {
@@ -125,7 +126,8 @@ const mapExperienceResponseToExperience = (
     venue: experienceResponse['venue'],
     year: experienceResponse['year'],
     duration: experienceResponse['duration'],
-    role: experienceResponse['role'],
+    roles: experienceResponse['role'],
+    showType: experienceResponse['showType'],
   }));
 };
 const mapAchievementsResponseToAchievements = (

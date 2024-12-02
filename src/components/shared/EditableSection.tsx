@@ -6,7 +6,7 @@ interface SectionProps {
   headerActions?: ReactNode;
 }
 
-export function Section({ title, children, headerActions }: SectionProps) {
+const Section = ({ title, children, headerActions }: SectionProps) => {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
@@ -16,6 +16,6 @@ export function Section({ title, children, headerActions }: SectionProps) {
       {children}
     </div>
   );
-}
+};
 
 export default Section;
