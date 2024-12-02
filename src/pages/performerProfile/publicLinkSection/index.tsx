@@ -4,6 +4,7 @@ import { AddButton } from '../../../components/shared/AddButton.tsx';
 import Section from '../../../components/shared/section/Section.tsx';
 import { PublicLinksForm } from './PublicLinksForm.tsx';
 import { PublicLinksCard } from './PublicLinksCard.tsx';
+import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 
 interface PublicLinksSectionProps {
   links: { linkType: string; linkInfo: string }[];
@@ -14,6 +15,7 @@ export function PublicLinksSection({
   links: initialLinks,
   onUpdate,
 }: PublicLinksSectionProps) {
+  const { isEditMode } = useEditMode();
   const { t } = useTranslation();
   const [links, setLinks] = useState(initialLinks);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -99,12 +101,14 @@ export function PublicLinksSection({
         {links.length === 0 && (
           <div className="col-span-full text-center py-12 bg-gray-50 rounded-lg">
             <p className="text-gray-500">{t('NO_PUBLIC_LINKS')}</p>
-            <button
-              onClick={handleAdd}
-              className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-            >
-              {t('ADD_FIRST_LINK')}
-            </button>
+            {isEditMode && (
+              <button
+                onClick={handleAdd}
+                className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+              >
+                {t('ADD_FIRST_LINK')}
+              </button>
+            )}
           </div>
         )}
       </div>

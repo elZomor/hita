@@ -7,6 +7,7 @@ import { clsx } from 'clsx';
 import Section from '../../../components/shared/section/Section.tsx';
 import { AddButton } from '../../../components/shared/AddButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
+import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 
 interface GallerySectionProps {
   images: {
@@ -27,6 +28,7 @@ export default function GallerySection({
   images: initialImages,
   onUpdate,
 }: GallerySectionProps) {
+  const { isEditMode } = useEditMode();
   const { t } = useTranslation();
   const [images, setImages] = useState(initialImages);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -245,12 +247,14 @@ export default function GallerySection({
           {images.length === 0 && (
             <div className="text-center py-12 bg-gray-50 rounded-lg">
               <p className="text-gray-500">{t('NO_IMAGES')}</p>
-              <button
-                onClick={handleAdd}
-                className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-              >
-                {t('ADD_FIRST_IMAGE')}
-              </button>
+              {isEditMode && (
+                <button
+                  onClick={handleAdd}
+                  className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  {t('ADD_FIRST_IMAGE')}
+                </button>
+              )}
             </div>
           )}
         </div>
