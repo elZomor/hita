@@ -87,7 +87,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                 <div className="flex items-center">
                   <h3 className="pr-4 text-lg font-semibold text-gray-900 break-words">
                     {actor.name}
-                    {actor.nickName !== undefined ? `(${actor.nickName})` : ''}
+                    {actor.nickName !== null ? `(${actor.nickName})` : ''}
                   </h3>
                 </div>
                 <div className="flex items-center">
