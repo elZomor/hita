@@ -84,7 +84,9 @@
     "PERFORMERS": "الفنانين",
     "OTHER_LANGUAGE": "English",
     "LOGIN": "تسجيل الدخول",
-    "LOGOUT": "تسجيل الخروج"
+    "LOGOUT": "تسجيل الخروج",
+    "NOTIFICATIONS": "الإشعارات",
+    "PERFORMER": "الملف الفني"
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "تسجيل عضوية",
@@ -127,7 +129,8 @@
     "WELCOME_MESSAGE": "انضم لينا وقابل ممثلين موهوبين، وابدأ اعرض شغلك للعالم.",
     "REGISTER_NOW": "سجل دلوقتي",
     "TRY_AGAIN": "حاول تاني",
-    "CHECKING_STATUS": "تتم مراجعة البيانات..."
+    "CHECKING_STATUS": "تتم مراجعة البيانات...",
+    "CREATE_PERFORMER": "أنشئ صفحتك الفنية دلوقتي علشان الناس كلها تشوف شغلك."
   },
   "MEMBER_PROFILE": {
     "APPROVED": "تمت الموافقة",

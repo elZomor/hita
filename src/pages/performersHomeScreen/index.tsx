@@ -117,7 +117,7 @@ const PerformerHome: React.FC = () => {
 
   return (
     <Container>
-      <div>
+      <div className="py-8">
         <div className="mx-auto mb-6 md:flex md:justify-center">
           <div className="relative items-center w-full max-w-lg">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

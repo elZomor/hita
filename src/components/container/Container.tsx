@@ -1,12 +1,16 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
-interface IProps {
-  children: JSX.Element;
+interface ContainerProps {
+  children: ReactNode;
   classess?: string;
 }
 
-const Container: React.FC<IProps> = ({ children, classess = '' }) => {
-  return <div className={`appContainer w-full ${classess}`}>{children}</div>;
+const Container = ({ children, classess = '' }: ContainerProps) => {
+  return (
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${classess}`}>
+      {children}
+    </div>
+  );
 };
 
 export default Container;

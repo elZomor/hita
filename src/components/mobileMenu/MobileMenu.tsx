@@ -1,61 +1,86 @@
-import React, { useState } from 'react';
-import Account from '../account/Account.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
+import { LanguageSelector } from '../header/LanguageSelector.tsx';
 
-const tabs = [
-  {
-    id: 1,
-    name: <Account />,
-    icon: '',
-    route: '/login',
-  },
-  { id: 2, name: 'PROFILE', icon: '', route: '/members/profile' },
-  { id: 3, name: 'PERFORMERS', icon: '', route: '/performers' },
-];
-
-interface IProps {
+interface MobileMenuProps {
   closeMenu: () => void;
+  isLoggedIn: boolean;
+  onLogout: () => void;
 }
 
-const MobileMenu: React.FC<IProps> = ({ closeMenu }) => {
-  const [selectedTab, setSelectedTab] = useState<number | null>(null);
+const MobileMenu = ({ closeMenu, isLoggedIn, onLogout }: MobileMenuProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const clickTabHandler = (index: number, route: string): void => {
-    setSelectedTab(index);
+  const handleNavigation = (path: string) => {
+    navigate(path);
     closeMenu();
-    navigate(route);
   };
 
   return (
-    <div className="bg-white mobile-menu main-wrapper py-6 absolute top-[57px] left-0 z-[99] flex flex-col justify-between w-full">
-      <ul className="flex flex-col gap-2 m-0 mt-12 list-none">
-        {tabs.map((tab, index) => {
-          return (
-            <React.Fragment key={tab.id}>
-              <li
-                onClick={() => {
-                  clickTabHandler(index, tab.route);
-                }}
-                className={`flex items-center w-full gap-2 py-2 ps-5 cursor-pointer hover:ps-7 transition-all duration-300 ${
-                  selectedTab
-                    ? 'border-l-[5px] border-primary-500 bg-primary-40 font-extrabold text-primary-500'
-                    : 'font-bold text-slate-500'
-                }`}
-              >
-                {tab.icon}
-                <span className="px-2 whitespace-nowrap">
-                  {typeof tab.name === 'string'
-                    ? t('HEADER.' + tab.name)
-                    : tab.name}
-                </span>
-              </li>
-            </React.Fragment>
-          );
-        })}
-      </ul>
+    <div className="fixed inset-0 z-50 md:hidden">
+      <div className="fixed inset-0 bg-black/20" onClick={closeMenu} />
+
+      <div className="fixed inset-y-0 start-auto end-0 w-64 bg-white shadow-xl">
+        <div className="flex flex-col h-full">
+          <div className="overflow-y-auto py-4">
+            <nav className="space-y-1 px-2">
+              {isLoggedIn && (
+                <>
+                  <button
+                    onClick={() => handleNavigation('/performers')}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                  >
+                    <Users className="h-5 w-5" />
+                    {t('HEADER.PERFORMERS')}
+                  </button>
+                  <button
+                    onClick={() => handleNavigation('/members/performer')}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                  >
+                    <UserCircle className="h-5 w-5" />
+                    {t('HEADER.PERFORMER')}
+                  </button>
+                  <button
+                    onClick={() => handleNavigation('/members/profile')}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                  >
+                    <UserCircle className="h-5 w-5" />
+                    {t('HEADER.PROFILE')}
+                  </button>
+
+                  {/*<button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50">*/}
+                  {/*  <Bell className="h-5 w-5" />*/}
+                  {/*  {t('HEADER.NOTIFICATIONS')}*/}
+                  {/*</button>*/}
+                </>
+              )}
+
+              <div className="px-3 py-2">
+                <LanguageSelector />
+              </div>
+              {isLoggedIn ? (
+                <button
+                  onClick={onLogout}
+                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                >
+                  <LogOut className="h-5 w-5" />
+                  {t('LOGOUT')}
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleNavigation('/login')}
+                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                >
+                  <LogIn className="h-5 w-5" />
+                  {t('LOGIN')}
+                </button>
+              )}
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

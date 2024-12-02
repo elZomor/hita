@@ -17,6 +17,8 @@ export interface Performer {
   age?: number;
   studyType: string;
   height?: number;
+  nickName?: string;
+  openFor: 'PAID' | 'FREE' | 'BOTH';
 }
 
 export interface Experience {
@@ -78,6 +80,8 @@ export interface PerformerResponse {
   age?: number;
   study_type: string;
   height?: number;
+  nick_name?: string;
+  open_for: 'FREE' | 'PAID' | 'BOTH';
 }
 
 export interface SinglePerformerResponse {
@@ -108,6 +112,8 @@ export const mapPerformerResponseToPerformer = (
     : undefined,
   age: performerResponse.age,
   height: performerResponse.height,
+  nickName: performerResponse.nick_name,
+  openFor: performerResponse.open_for,
 });
 
 const mapExperienceResponseToExperience = (
