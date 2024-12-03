@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { get_request } from '../../utils/restUtils';
+import { useNavigate, useParams } from 'react-router-dom';
+import { delete_request, get_request } from '../../utils/restUtils';
 import {
   mapSinglePerformerResponseToSinglePerformer,
   SinglePerformer,
@@ -16,6 +16,9 @@ import LoadingComponent from '../../components/shared/loading';
 import { NotFoundComponent } from '../../components/shared/notFound';
 import { useEditMode } from '../../contexts/EditModeContext.tsx';
 import { PublicLinksSection } from './publicLinkSection';
+import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
+import { useTranslation } from 'react-i18next';
+import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 
 const Profile: React.FC = () => {
   const { username } = useParams();
@@ -24,6 +27,19 @@ const Profile: React.FC = () => {
   const [activeSection, setActiveSection] = useState('profile');
   const { isEditMode, setEditMode } = useEditMode();
   const [permissions, setPermissions] = useState<string[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    type: 'success' | 'error';
+  }>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
+  const { t } = useTranslation();
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
@@ -32,6 +48,31 @@ const Profile: React.FC = () => {
     publicLinks: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
     achievements: useRef<HTMLDivElement>(null),
+  };
+
+  const confirmDelete = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await delete_request(`hita/performers/${username}`);
+      if (data.code === 'SUCCESS') {
+        setSnackbar({
+          open: true,
+          message: 'Successfully logged in with Google!',
+          type: 'success',
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      setSnackbar({
+        open: true,
+        message: 'Failed to login with Google. Please try again.',
+        type: 'error',
+      });
+    } finally {
+      setIsLoading(false);
+      setShowDeleteModal(false);
+      navigate('/performers');
+    }
   };
 
   useEffect(() => {
@@ -164,6 +205,8 @@ const Profile: React.FC = () => {
                     </button>
                     <button
                       type="button"
+                      onClick={() => setShowDeleteModal(true)}
+                      disabled={isLoading}
                       className="w-full px-6 py-3 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
                     >
                       DELETE
@@ -180,6 +223,21 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title={t('MEMBER_PROFILE.DELETE_TITLE')}
+        message={t('MEMBER_PROFILE.DELETE_FORM')}
+        confirmText={t('MEMBER_PROFILE.DELETE_CONFIRM')}
+        cancelText={t('MEMBER_PROFILE.DELETE_CANCEL')}
+      />
+      <Snackbar
+        isOpen={snackbar.open}
+        message={snackbar.message}
+        type={snackbar.type}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+      />
     </Container>
   );
 };

@@ -141,7 +141,11 @@
     "F": "أنثى",
     "PERFORMER": "صفحة الفنان",
     "CREATE_PERFORMER": "أنشئ صفحة",
-    "VIEW_PERFORMER": "عرض الصفحة"
+    "VIEW_PERFORMER": "عرض الصفحة",
+    "DELETE_TITLE": "مسح صفحة الفنان",
+    "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
+    "DELETE_CONFIRM": "نعم، امسح",
+    "DELETE_CANCEL": "لا"
   },
   "PERFORMER_REG": {
     "STEPS_LABELS": {
