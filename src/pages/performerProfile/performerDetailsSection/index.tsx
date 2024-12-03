@@ -8,6 +8,10 @@ import { Performer } from '../../../models/Performer.ts';
 import Section from '../../../components/shared/section/Section.tsx';
 import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
+import { MdMoneyOffCsred, MdOutlineAttachMoney } from 'react-icons/md';
+import { FaRegCopy } from 'react-icons/fa6';
+import { useLocation } from 'react-router-dom';
+import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 
 type PerformerDetailsSectionProps = {
   performer: Performer;
@@ -19,9 +23,39 @@ export default function PerformerDetailsSection({
   onUpdate,
 }: PerformerDetailsSectionProps) {
   const { t } = useTranslation();
+  const location = useLocation();
   const [performer, setPerformer] = useState(initialPerformer);
   const [showImageModal, setShowImageModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    type: 'success' | 'error';
+  }>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
+  const handleCopyPath = () => {
+    const currentPath = window.location.origin + location.pathname;
+    navigator.clipboard
+      .writeText(currentPath)
+      .then(() => {
+        setSnackbar({
+          open: true,
+          message: 'Copied to clipboard.',
+          type: 'success',
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to copy path: ', err);
+        setSnackbar({
+          open: true,
+          message: 'Failed to copy to clipboard.',
+          type: 'error',
+        });
+      });
+  };
 
   const getGenderIcon = (gender: string) => {
     switch (gender.toLowerCase()) {
@@ -31,6 +65,22 @@ export default function PerformerDetailsSection({
         return <FaFemale className="text-pink-500 h-5 w-5" />;
       default:
         return null;
+    }
+  };
+
+  const getOpenForIcon = (openFor: string) => {
+    switch (openFor) {
+      case 'PAID':
+        return <MdOutlineAttachMoney className="w-6 h-6" />;
+      case 'FREE':
+        return <MdMoneyOffCsred className="w-6 h-6" />;
+      default:
+        return (
+          <>
+            <MdOutlineAttachMoney className="w-6 h-6" />
+            <MdMoneyOffCsred className="w-6 h-6" />
+          </>
+        );
     }
   };
 
@@ -98,32 +148,46 @@ export default function PerformerDetailsSection({
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 w-full text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
-              {getGenderIcon(performer.gender)}
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 break-words">
-                {performer.name}
-              </h1>
-              <div
-                className={clsx(
-                  'w-3 h-3 rounded-full flex-shrink-0',
-                  performer.status.toLowerCase().includes('not_available')
-                    ? 'bg-red-500'
-                    : 'bg-green-500'
-                )}
-                title={
-                  performer.status.toLowerCase().includes('not_available')
-                    ? t('NOT_AVAILABLE')
-                    : t('AVAILABLE')
-                }
-              />
+          <div className="md:w-[495px]">
+            <div className={`flex justify-between w-full text-center`}>
+              <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+                {getGenderIcon(performer.gender)}
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 break-words">
+                  {performer.name}{' '}
+                  {performer.nickName !== null ? `(${performer.nickName})` : ''}
+                </h1>
+                {getOpenForIcon(performer.openFor)}
+                <div
+                  className={clsx(
+                    'w-3 h-3 rounded-full flex-shrink-0',
+                    performer.status.toLowerCase().includes('not_available')
+                      ? 'bg-red-500'
+                      : 'bg-green-500'
+                  )}
+                  title={
+                    performer.status.toLowerCase().includes('not_available')
+                      ? t('NOT_AVAILABLE')
+                      : t('AVAILABLE')
+                  }
+                />
+              </div>
+              <div className="hover:text-purple-500 cursor-pointer">
+                <FaRegCopy
+                  className="w-4 h-4 md:w-6 md:h-6"
+                  onClick={handleCopyPath}
+                />
+              </div>
             </div>
 
             <div className="mt-4 space-y-2 text-gray-600">
               {performer.age && (
                 <p className="text-sm md:text-base">
                   {performer.age} {t('YEARS_OLD')}
-                  {performer.height && ` • ${performer.height} ${t('CM')}`}
+                </p>
+              )}
+              {performer.height && (
+                <p className="text-sm md:text-base">
+                  {performer.height && `${performer.height} ${t('CM')}`}
                 </p>
               )}
 
@@ -154,7 +218,7 @@ export default function PerformerDetailsSection({
             {performer.biography && (
               <div className="mt-4 md:mt-6">
                 <div className="rounded-lg p-4">
-                  <p className="text-sm md:text-base text-gray-600 whitespace-pre-wrap break-all">
+                  <p className="text-sm md:text-base text-gray-600 whitespace-pre-wrap break-words">
                     {performer.biography}
                   </p>
                 </div>
@@ -169,6 +233,12 @@ export default function PerformerDetailsSection({
         imageUrl={performer.profilePicture}
         altText={performer.name}
         onClose={() => setShowImageModal(false)}
+      />
+      <Snackbar
+        isOpen={snackbar.open}
+        message={snackbar.message}
+        type={snackbar.type}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
       />
     </Section>
   );

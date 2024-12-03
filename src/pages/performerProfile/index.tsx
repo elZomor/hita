@@ -20,7 +20,8 @@ import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { useTranslation } from 'react-i18next';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 
-const Profile: React.FC = () => {
+const PerformerProfile: React.FC = () => {
+  const { t } = useTranslation();
   const { username } = useParams();
   const [performer, setPerformer] = useState<SinglePerformer>();
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,6 @@ const Profile: React.FC = () => {
     message: '',
     type: 'success',
   });
-  const { t } = useTranslation();
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
@@ -53,21 +53,9 @@ const Profile: React.FC = () => {
   const confirmDelete = async () => {
     setIsLoading(true);
     try {
-      const { data } = await delete_request(`hita/performers/${username}`);
-      if (data.code === 'SUCCESS') {
-        setSnackbar({
-          open: true,
-          message: 'Successfully logged in with Google!',
-          type: 'success',
-        });
-      }
+      await delete_request(`hita/performers/${username}`);
     } catch (e) {
       console.log(e);
-      setSnackbar({
-        open: true,
-        message: 'Failed to login with Google. Please try again.',
-        type: 'error',
-      });
     } finally {
       setIsLoading(false);
       setShowDeleteModal(false);
@@ -242,4 +230,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default PerformerProfile;
