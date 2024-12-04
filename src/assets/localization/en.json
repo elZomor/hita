@@ -49,6 +49,8 @@
   "CM": "cm",
   "RANK_FOR": "for",
   "LOCKED": "Locked",
+  "SAVE": "Save",
+  "CANCEL": "Cancel",
   "GEN": {
     "ACTING": "Acting and Theatrical Directing Department",
     "DRAMA": "Drama and Theatrical Criticism Department",
@@ -77,7 +79,10 @@
     "CHECKING_AUTH": "Checking authorization...",
     "PERFORMER_NOT_FOUND": "Performer not found!",
     "PAGE_NOT_FOUND": "Page not found!",
-    "NOT_FOUND_MESSAGE": "Sorry, we couldn't find what you're looking for. it might have been removed, renamed, or doesn't exist."
+    "NOT_FOUND_MESSAGE": "Sorry, we couldn't find what you're looking for. it might have been removed, renamed, or doesn't exist.",
+    "EDIT": "Edit",
+    "CLOSE_EDIT": "Close edit",
+    "DELETE": "Delete"
   },
   "HEADER": {
     "PROFILE": "Profile",
@@ -233,9 +238,20 @@
       "EXPERIENCES": "Experiences"
     },
     "PERSONAL_INFO": {
-      "PERSONAL_INFO": "Personal Info"
+      "PERSONAL_INFO": "Personal Info",
+      "COPIED": "Copied to clipboard",
+      "COPY_FAILED": "Failed to copy to clipboard"
     },
-    "DELETE_TITLE": "Delete",
+    "EXPERIENCE": {
+      "EXPERIENCES": "Experiences",
+      "ADD_FIRST_EXPERIENCE": "Add your first experience",
+      "NO_EXPERIENCES": "No experiences yet.",
+      "DELETE_TITLE": "Delete experience",
+      "DELETE_FORM": "Are you sure you want to delete this experience?",
+      "DELETE_CONFIRM": "Yes, delete",
+      "DELETE_CANCEL": "No, cancel"
+    },
+    "DELETE_TITLE": "Delete performer profile",
     "DELETE_FORM": "Are you sure you want to delete this profile?",
     "DELETE_CONFIRM": "Yes, delete",
     "DELETE_CANCEL": "No, cancel"

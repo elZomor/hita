@@ -23,6 +23,7 @@ export interface Performer {
 }
 
 export interface Experience {
+  id: number;
   showName: string;
   director: string;
   venue: string | null | undefined;
@@ -129,17 +130,18 @@ export const mapPerformerResponseToPerformer = (
       : undefined,
 });
 
-const mapExperienceResponseToExperience = (
+export const mapExperienceResponseToExperience = (
   experienceResponseList: Record<string, any>[]
 ): Experience[] => {
   return experienceResponseList.map((experienceResponse) => ({
+    id: experienceResponse['id'],
     showName: experienceResponse['show_name'],
     director: experienceResponse['director'],
     venue: experienceResponse['venue'],
     year: experienceResponse['year'],
     duration: experienceResponse['duration'],
     roles: experienceResponse['role'],
-    showType: experienceResponse['showType'],
+    showType: experienceResponse['show_type'],
   }));
 };
 const mapAchievementsResponseToAchievements = (
