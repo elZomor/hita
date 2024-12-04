@@ -2,9 +2,12 @@ import { clsx } from 'clsx';
 import { GraduationCap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FaFemale, FaMale } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PerformerDetailsForm } from './PerformerDetailsForm';
-import { Performer } from '../../../models/Performer.ts';
+import {
+  mapPerformerResponseToPerformer,
+  Performer,
+} from '../../../models/Performer.ts';
 import Section from '../../../components/shared/section/Section.tsx';
 import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
@@ -12,18 +15,22 @@ import { MdMoneyOffCsred, MdOutlineAttachMoney } from 'react-icons/md';
 import { FaRegCopy } from 'react-icons/fa6';
 import { useLocation } from 'react-router-dom';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
+import { useEditMode } from '../../../contexts/EditModeContext.tsx';
+import { get_request, patch_request } from '../../../utils/restUtils.ts';
+import { format } from 'date-fns';
 
 type PerformerDetailsSectionProps = {
   performer: Performer;
-  onUpdate?: (performer: Performer) => void;
+  username: string;
 };
 
 export default function PerformerDetailsSection({
   performer: initialPerformer,
-  onUpdate,
+  username,
 }: PerformerDetailsSectionProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
+  const { isEditMode, setEditMode } = useEditMode();
   const [performer, setPerformer] = useState(initialPerformer);
   const [showImageModal, setShowImageModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -36,6 +43,40 @@ export default function PerformerDetailsSection({
     message: '',
     type: 'success',
   });
+  const mapFormDataToRequest = (
+    formData: Record<string, any>
+  ): Record<string, any> => ({
+    date_of_birth: formData['dateOfBirth']
+      ? format(formData['dateOfBirth'], 'yyyy-MM-dd')
+      : null,
+    biography: formData['biography'],
+    open_for: formData['openFor'],
+    status: formData['status'],
+    height: formData['height'],
+    skills_tags: formData['skills'],
+  });
+
+  const handleUpdate = async (formData: any) => {
+    try {
+      await patch_request(
+        `hita/performers/${username}`,
+        mapFormDataToRequest(formData)
+      );
+      const { data: getData } = await get_request(
+        `hita/performers/${username}`
+      );
+      setPerformer(mapPerformerResponseToPerformer(getData.data.performer));
+      setEditMode(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    if (!isEditMode) {
+      setIsEditing(false);
+    }
+  }, [isEditMode]);
   const handleCopyPath = () => {
     const currentPath = window.location.origin + location.pathname;
     navigator.clipboard
@@ -99,12 +140,6 @@ export default function PerformerDetailsSection({
     setIsEditing(true);
   };
 
-  const handleSave = (updatedPerformer: Performer) => {
-    setPerformer(updatedPerformer);
-    setIsEditing(false);
-    onUpdate?.(updatedPerformer);
-  };
-
   const handleCancel = () => {
     setIsEditing(false);
   };
@@ -115,17 +150,19 @@ export default function PerformerDetailsSection({
 
   return (
     <Section
+      title={t('PERFORMER_PAGE.PERSONAL_INFO.PERSONAL_INFO')}
       headerActions={
         <EditButton
           onClick={handleEdit}
-          className={isEditing ? 'invisible' : ''}
+          className={`${isEditing ? 'invisible' : ''} ${i18n.language === 'en' ? 'items-start' : 'items-end'}`}
         />
       }
     >
       {isEditing ? (
         <PerformerDetailsForm
+          handleUpdate={handleUpdate}
           performer={performer}
-          onSave={handleSave}
+          username={username}
           onCancel={handleCancel}
         />
       ) : (
@@ -160,12 +197,12 @@ export default function PerformerDetailsSection({
                 <div
                   className={clsx(
                     'w-3 h-3 rounded-full flex-shrink-0',
-                    performer.status.toLowerCase().includes('not_available')
+                    performer.status.toLowerCase().includes('unavailable')
                       ? 'bg-red-500'
                       : 'bg-green-500'
                   )}
                   title={
-                    performer.status.toLowerCase().includes('not_available')
+                    performer.status.toLowerCase().includes('unavailable')
                       ? t('NOT_AVAILABLE')
                       : t('AVAILABLE')
                   }

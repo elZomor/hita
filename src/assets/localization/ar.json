@@ -141,11 +141,7 @@
     "F": "أنثى",
     "PERFORMER": "صفحة الفنان",
     "CREATE_PERFORMER": "أنشئ صفحة",
-    "VIEW_PERFORMER": "عرض الصفحة",
-    "DELETE_TITLE": "مسح صفحة الفنان",
-    "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
-    "DELETE_CONFIRM": "نعم، امسح",
-    "DELETE_CANCEL": "لا"
+    "VIEW_PERFORMER": "عرض الصفحة"
   },
   "PERFORMER_REG": {
     "STEPS_LABELS": {
@@ -235,7 +231,11 @@
       "CONTACT": "الاتصال",
       "ACHIEVEMENTS": "الإنجازات والجوائز",
       "EXPERIENCES": "الخبرات السابقة"
-    }
+    },
+    "DELETE_TITLE": "مسح صفحة الفنان",
+    "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
+    "DELETE_CONFIRM": "نعم، امسح",
+    "DELETE_CANCEL": "لا"
   },
   "PERFORMER_HOME": {
     "FILTERS": "تصفية",

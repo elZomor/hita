@@ -144,8 +144,37 @@ const PerformerProfile: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-9 space-y-8">
+            <div className="block md:hidden ">
+              <PageNav
+                activeSection={activeSection}
+                onSectionClick={scrollToSection}
+              />
+              {permissions.includes('CAN_EDIT') &&
+                (isEditMode ? (
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    onClick={() => setEditMode(false)}
+                  >
+                    Close edit
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      onClick={() => setEditMode(!isEditMode)}
+                    >
+                      EDIT
+                    </button>
+                  </>
+                ))}
+            </div>
             <div ref={sectionRefs.profile} id="profile">
-              <PerformerDetailsSection performer={performer.performer} />
+              <PerformerDetailsSection
+                performer={performer.performer}
+                username={username!}
+              />
             </div>
 
             <div ref={sectionRefs.gallery} id="gallery">
@@ -177,8 +206,8 @@ const PerformerProfile: React.FC = () => {
                 (isEditMode ? (
                   <button
                     type="button"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                    onClick={() => setEditMode(!isEditMode)}
+                    className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    onClick={() => setEditMode(false)}
                   >
                     Close edit
                   </button>
@@ -186,7 +215,7 @@ const PerformerProfile: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       onClick={() => setEditMode(!isEditMode)}
                     >
                       EDIT
@@ -201,7 +230,7 @@ const PerformerProfile: React.FC = () => {
                     </button>
                   </>
                 ))}
-              <div className="hidden md:block w-full">
+              <div className="w-full hidden md:block">
                 <PageNav
                   activeSection={activeSection}
                   onSectionClick={scrollToSection}
@@ -215,10 +244,10 @@ const PerformerProfile: React.FC = () => {
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={confirmDelete}
-        title={t('MEMBER_PROFILE.DELETE_TITLE')}
-        message={t('MEMBER_PROFILE.DELETE_FORM')}
-        confirmText={t('MEMBER_PROFILE.DELETE_CONFIRM')}
-        cancelText={t('MEMBER_PROFILE.DELETE_CANCEL')}
+        title={t('PERFORMER_PAGE.DELETE_TITLE')}
+        message={t('PERFORMER_PAGE.DELETE_FORM')}
+        confirmText={t('PERFORMER_PAGE.DELETE_CONFIRM')}
+        cancelText={t('PERFORMER_PAGE.DELETE_CANCEL')}
       />
       <Snackbar
         isOpen={snackbar.open}

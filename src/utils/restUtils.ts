@@ -31,6 +31,13 @@ export const post_request = async (
   return await apiClient.post(url, data);
 };
 
+export const patch_request = async (
+  url: string,
+  data: Record<string, any>
+): Promise<AxiosResponse> => {
+  return await apiClient.patch(url, data);
+};
+
 export const post_files = async (
   url: string,
   data: Record<string, any>

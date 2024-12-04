@@ -1,203 +1,237 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
-import { clsx } from 'clsx';
 import Select from 'react-select';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
-import { SelectField } from '../../../components/shared/forms/SelectField.tsx';
-
-const performerSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  gender: z.string().min(1, 'Gender is required'),
-  age: z.number().min(1, 'Age is required'),
-  height: z.number().optional(),
-  department: z.string().min(1, 'Department is required'),
-  grade: z.number().optional(),
-  graduationYear: z.number().optional(),
-  studyType: z.string().min(1, 'Study type is required'),
-  status: z.string().min(1, 'Status is required'),
-  biography: z.string().optional(),
-  skills: z.array(z.string()).optional(),
-});
+import { useEffect, useState } from 'react';
+import { DropDownOptions } from '../../../models/shared.ts';
+import { get_request } from '../../../utils/restUtils.ts';
+import DatePicker from 'react-datepicker';
+import { CalendarIcon } from 'lucide-react';
+import { RadioField } from '../../../components/shared/forms/RadioField.tsx';
+import { z } from 'zod';
 
 interface PerformerDetailsFormProps {
   performer: any;
-  onSave: (data: any) => void;
+  username: string;
+  handleUpdate: (requestData: any) => void;
   onCancel: () => void;
 }
 
+const maxDate = new Date();
+maxDate.setFullYear(maxDate.getFullYear() - 16);
+const personalInfoSchema = z.object({
+  dateOfBirth: z
+    .date()
+    .optional()
+    .refine(
+      (date) => !date || date <= maxDate,
+      'Must be at least 16 years old'
+    ),
+  skills: z.array(z.string()).optional(),
+  biography: z.string().max(300).optional(),
+  status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
+  openFor: z.enum(['FREE', 'PAID', 'BOTH']),
+  height: z.number().max(230).optional(),
+});
+
 export function PerformerDetailsForm({
   performer,
-  onSave,
   onCancel,
+  handleUpdate,
+  username,
 }: PerformerDetailsFormProps) {
   function getErrorMessage(error: any): string | undefined {
-    return error?.message as string | undefined;
+    return error as string | undefined;
   }
 
-  const { t } = useTranslation();
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.PERSONAL_INFO.' + text);
+  };
+
+  const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/skills');
+      setSkillsOptions(
+        data.data.map(
+          (skill: string): DropDownOptions => ({
+            value: skill,
+            label: skill,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
+  const { t, i18n } = useTranslation();
   const {
     register,
-    handleSubmit,
-    control,
     formState: { errors },
+    setValue,
+    handleSubmit,
+    watch,
   } = useForm({
-    resolver: zodResolver(performerSchema),
-    defaultValues: performer,
+    resolver: zodResolver(personalInfoSchema),
+    defaultValues: { ...performer, username },
   });
-
-  const genderOptions = [
-    { value: 'm', label: t('MALE') },
-    { value: 'f', label: t('FEMALE') },
-  ];
-
-  const statusOptions = [
-    { value: 'AVAILABLE', label: t('AVAILABLE') },
-    { value: 'NOT_AVAILABLE', label: t('NOT_AVAILABLE') },
-  ];
-
-  const skillsOptions = [
-    { value: 'ACTING', label: t('ACTING') },
-    { value: 'SINGING', label: t('SINGING') },
-    { value: 'DANCING', label: t('DANCING') },
-    // Add more skills as needed
-  ];
+  console.log(errors);
 
   return (
     <form
-      onSubmit={handleSubmit(onSave)}
+      onSubmit={handleSubmit(handleUpdate)}
       className="bg-white border border-gray-200 rounded-lg p-6 space-y-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label={t('NAME')}
-          error={getErrorMessage(errors.name?.message)}
-          required
+          label={addTranslationPrefix('DATE_OF_BIRTH')}
+          error={getErrorMessage(errors.dateOfBirth?.message)}
         >
-          <input
-            type="text"
-            {...register('name')}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.name && 'border-red-300'
-            )}
-          />
-        </FormField>
-
-        <SelectField
-          label={t('GENDER')}
-          error={getErrorMessage(errors.gender?.message)}
-          required
-        >
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={genderOptions}
-                className="react-select"
-                classNamePrefix="react-select"
-                value={genderOptions.find(
-                  (option) => option.value === field.value
-                )}
-                onChange={(selected) => field.onChange(selected?.value)}
-              />
-            )}
-          />
-        </SelectField>
-
-        <FormField
-          label={t('AGE')}
-          error={getErrorMessage(errors.age?.message)}
-          required
-        >
-          <input
-            type="number"
-            {...register('age', { valueAsNumber: true })}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.age && 'border-red-300'
-            )}
-          />
+          <div className="relative">
+            <DatePicker
+              locale={i18n.language}
+              dateFormat="dd/MM/YYYY"
+              selected={watch('dateOfBirth')}
+              onChange={(date) => setValue('dateOfBirth', date!)}
+              maxDate={maxDate}
+              showYearDropdown
+              dropdownMode="select"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          </div>
         </FormField>
 
         <FormField
-          label={t('HEIGHT')}
+          label={addTranslationPrefix('HEIGHT')}
           error={getErrorMessage(errors.height?.message)}
         >
-          <input
-            type="number"
-            {...register('height', { valueAsNumber: true })}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.height && 'border-red-300'
-            )}
-          />
+          <div className="space-y-2">
+            <input
+              type="text"
+              {...register('height', {
+                setValueAs: (value) =>
+                  value === '' ? undefined : Number(value),
+              })}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              maxLength={3}
+            />
+          </div>
         </FormField>
 
-        <SelectField
-          label={t('STATUS')}
+        <RadioField
+          label={addTranslationPrefix('STATUS')}
           error={getErrorMessage(errors.status?.message)}
           required
         >
-          <Controller
-            name="status"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={statusOptions}
-                className="react-select"
-                classNamePrefix="react-select"
-                value={statusOptions.find(
-                  (option) => option.value === field.value
-                )}
-                onChange={(selected) => field.onChange(selected?.value)}
+          <div className="space-x-4">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                {...register('status')}
+                value="AVAILABLE"
+                className="form-radio text-purple-600 focus:ring-purple-500"
               />
-            )}
-          />
-        </SelectField>
+              <span className="mx-2">{addTranslationPrefix('AVAILABLE')}</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                {...register('status')}
+                value="UNAVAILABLE"
+                className="form-radio text-purple-600 focus:ring-purple-500"
+              />
+              <span className="mx-2">
+                {addTranslationPrefix('UNAVAILABLE')}
+              </span>
+            </label>
+          </div>
+        </RadioField>
 
-        <SelectField
-          label={t('SKILLS')}
-          error={getErrorMessage(errors.skills?.message)}
+        <RadioField
+          label={addTranslationPrefix('OPEN_FOR')}
+          error={getErrorMessage(errors.openFor?.message)}
+          required
         >
-          <Controller
-            name="skills"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                isMulti
-                options={skillsOptions}
-                className="react-select"
-                classNamePrefix="react-select"
-                value={skillsOptions.filter((option) =>
-                  field.value?.includes(option.value)
-                )}
-                onChange={(selected) =>
-                  field.onChange(selected.map((item) => item.value))
-                }
+          <div>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                {...register('openFor')}
+                value="FREE"
+                className="form-radio text-purple-600 focus:ring-purple-500"
               />
-            )}
-          />
-        </SelectField>
-
+              <span className="mx-2">{addTranslationPrefix('FREE')}</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                {...register('openFor')}
+                value="PAID"
+                className="form-radio text-purple-600 focus:ring-purple-500"
+              />
+              <span className="mx-2">{addTranslationPrefix('PAID_ONLY')}</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                {...register('openFor')}
+                value="BOTH"
+                className="form-radio text-purple-600 focus:ring-purple-500"
+              />
+              <span className="mx-2">{addTranslationPrefix('BOTH')}</span>
+            </label>
+          </div>
+        </RadioField>
         <div className="md:col-span-2">
           <FormField
-            label={t('BIOGRAPHY')}
-            error={getErrorMessage(errors.biography?.message)}
+            label={addTranslationPrefix('SKILLS')}
+            error={getErrorMessage(errors.skills?.message)}
+            className="col-span-2"
           >
-            <textarea
-              {...register('biography')}
-              rows={4}
-              className={clsx(
-                'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-                errors.biography && 'border-red-300'
-              )}
+            <Select
+              isMulti
+              options={skillsOptions.map((skill) => ({
+                label: t(skill.label),
+                value: skill.value,
+              }))}
+              className="react-select "
+              classNamePrefix="react-select"
+              onChange={(selected) => {
+                setValue(
+                  'skills',
+                  selected ? selected.map((option) => option!.value) : []
+                );
+              }}
+              value={skillsOptions.map((option) => {
+                return watch('skills')?.includes(option.value)
+                  ? { value: option.value, label: t(option.label) }
+                  : null;
+              })}
+              placeholder={''}
             />
+          </FormField>
+        </div>
+        <div className="md:col-span-2">
+          <FormField
+            label={addTranslationPrefix('BIO')}
+            error={getErrorMessage(errors.biography?.message)}
+            className="col-span-2"
+          >
+            <div className="space-y-2">
+              <div className="flex justify-end">
+                <span className="text-sm text-gray-500">
+                  {watch('biography').length}/300
+                </span>
+              </div>
+              <textarea
+                {...register('biography')}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                rows={4}
+                maxLength={300}
+              />
+            </div>
           </FormField>
         </div>
       </div>
