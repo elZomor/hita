@@ -4,16 +4,11 @@ import { X } from 'lucide-react';
 interface ImageModalProps {
   isOpen: boolean;
   imageUrl: string;
-  altText: string;
+  altText?: string; // Optional if no description is displayed
   onClose: () => void;
 }
 
-export function ImageModal({
-  isOpen,
-  imageUrl,
-  altText,
-  onClose,
-}: ImageModalProps) {
+export function ImageModal({ isOpen, imageUrl, onClose }: ImageModalProps) {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
@@ -52,21 +47,12 @@ export function ImageModal({
             </button>
           </div>
 
-          <div className="bg-white px-4 pb-4 pt-5 sm:p-6">
-            <div className="sm:flex sm:items-start">
-              <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                <div className="mt-2">
-                  <img
-                    src={imageUrl}
-                    alt={altText}
-                    className="max-h-[80vh] w-auto mx-auto"
-                  />
-                  {altText && (
-                    <p className="mt-4 text-sm text-gray-500">{altText}</p>
-                  )}
-                </div>
-              </div>
-            </div>
+          <div className="bg-white flex items-center justify-center px-4 pb-4 pt-5 sm:p-6">
+            <img
+              src={imageUrl}
+              alt="Modal Image"
+              className="max-h-[80vh] w-auto mx-auto"
+            />
           </div>
         </div>
       </div>

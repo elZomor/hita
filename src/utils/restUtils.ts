@@ -20,11 +20,22 @@ export const get_request = async (url: string): Promise<AxiosResponse> => {
   return await apiClient.get(url);
 };
 
+export const delete_request = async (url: string): Promise<AxiosResponse> => {
+  return await apiClient.delete(url);
+};
+
 export const post_request = async (
   url: string,
   data: Record<string, any>
 ): Promise<AxiosResponse> => {
   return await apiClient.post(url, data);
+};
+
+export const patch_request = async (
+  url: string,
+  data: Record<string, any>
+): Promise<AxiosResponse> => {
+  return await apiClient.patch(url, data);
 };
 
 export const post_files = async (

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { get_request } from '../../utils/restUtils';
+import { useNavigate, useParams } from 'react-router-dom';
+import { delete_request, get_request } from '../../utils/restUtils';
 import {
   mapSinglePerformerResponseToSinglePerformer,
   SinglePerformer,
@@ -16,14 +16,30 @@ import LoadingComponent from '../../components/shared/loading';
 import { NotFoundComponent } from '../../components/shared/notFound';
 import { useEditMode } from '../../contexts/EditModeContext.tsx';
 import { PublicLinksSection } from './publicLinkSection';
+import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
+import { useTranslation } from 'react-i18next';
+import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 
-const Profile: React.FC = () => {
+const PerformerProfile: React.FC = () => {
+  const { t } = useTranslation();
   const { username } = useParams();
   const [performer, setPerformer] = useState<SinglePerformer>();
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('profile');
   const { isEditMode, setEditMode } = useEditMode();
   const [permissions, setPermissions] = useState<string[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    type: 'success' | 'error';
+  }>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
@@ -32,6 +48,19 @@ const Profile: React.FC = () => {
     publicLinks: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
     achievements: useRef<HTMLDivElement>(null),
+  };
+
+  const confirmDelete = async () => {
+    setIsLoading(true);
+    try {
+      await delete_request(`hita/performers/${username}`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+      setShowDeleteModal(false);
+      navigate('/performers');
+    }
   };
 
   useEffect(() => {
@@ -115,8 +144,37 @@ const Profile: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-9 space-y-8">
+            <div className="block md:hidden ">
+              <PageNav
+                activeSection={activeSection}
+                onSectionClick={scrollToSection}
+              />
+              {permissions.includes('CAN_EDIT') &&
+                (isEditMode ? (
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    onClick={() => setEditMode(false)}
+                  >
+                    Close edit
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      onClick={() => setEditMode(!isEditMode)}
+                    >
+                      EDIT
+                    </button>
+                  </>
+                ))}
+            </div>
             <div ref={sectionRefs.profile} id="profile">
-              <PerformerDetailsSection performer={performer.performer} />
+              <PerformerDetailsSection
+                performer={performer.performer}
+                username={username!}
+              />
             </div>
 
             <div ref={sectionRefs.gallery} id="gallery">
@@ -148,8 +206,8 @@ const Profile: React.FC = () => {
                 (isEditMode ? (
                   <button
                     type="button"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                    onClick={() => setEditMode(!isEditMode)}
+                    className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    onClick={() => setEditMode(false)}
                   >
                     Close edit
                   </button>
@@ -157,20 +215,22 @@ const Profile: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       onClick={() => setEditMode(!isEditMode)}
                     >
                       EDIT
                     </button>
                     <button
                       type="button"
+                      onClick={() => setShowDeleteModal(true)}
+                      disabled={isLoading}
                       className="w-full px-6 py-3 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
                     >
                       DELETE
                     </button>
                   </>
                 ))}
-              <div className="hidden md:block w-full">
+              <div className="w-full hidden md:block">
                 <PageNav
                   activeSection={activeSection}
                   onSectionClick={scrollToSection}
@@ -180,8 +240,23 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title={t('PERFORMER_PAGE.DELETE_TITLE')}
+        message={t('PERFORMER_PAGE.DELETE_FORM')}
+        confirmText={t('PERFORMER_PAGE.DELETE_CONFIRM')}
+        cancelText={t('PERFORMER_PAGE.DELETE_CANCEL')}
+      />
+      <Snackbar
+        isOpen={snackbar.open}
+        message={snackbar.message}
+        type={snackbar.type}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+      />
     </Container>
   );
 };
 
-export default Profile;
+export default PerformerProfile;

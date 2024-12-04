@@ -96,7 +96,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                   <div
                     className={clsx(
                       'w-2.5 h-2.5 rounded-full flex-shrink-0 mx-2',
-                      actor.status.toLowerCase().includes('not_available')
+                      actor.status.toLowerCase().includes('unavailable')
                         ? 'bg-red-500'
                         : 'bg-green-500'
                     )}
