@@ -84,7 +84,7 @@ export default function PerformerDetailsSection({
       .then(() => {
         setSnackbar({
           open: true,
-          message: 'Copied to clipboard.',
+          message: t('PERFORMER_PAGE.PERSONAL_INFO.COPIED'),
           type: 'success',
         });
       })
@@ -92,7 +92,7 @@ export default function PerformerDetailsSection({
         console.error('Failed to copy path: ', err);
         setSnackbar({
           open: true,
-          message: 'Failed to copy to clipboard.',
+          message: t('PERFORMER_PAGE.PERSONAL_INFO.COPY_FAILED'),
           type: 'error',
         });
       });

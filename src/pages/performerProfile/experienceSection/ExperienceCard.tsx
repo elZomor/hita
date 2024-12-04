@@ -17,32 +17,20 @@ export function ExperienceCard({
   isEditing,
 }: ExperienceCardProps) {
   const { t } = useTranslation();
+  console.log('experience');
+  console.log(experience);
 
   return (
     <div className="bg-gray-50 rounded-lg p-6 relative group">
       <div className="flex justify-between items-start">
         <div className="space-y-3">
           <h3 className="text-lg font-semibold text-gray-900">
-            {experience.showName}
+            {`${experience.showName} (${t('PERFORMER_REG.EXPERIENCE_SECTION.' + experience.showType)} - ${experience.year})`}
           </h3>
-          <div className="space-y-2 text-sm text-gray-600">
-            <p>{t(experience.showType)}</p>
-            <p>
+          <div className="space-y-2text-gray-600">
+            <h2>
               {t('DIRECTOR')}: {experience.director}
-            </p>
-            <p>
-              {t('YEAR')}: {experience.year}
-            </p>
-            {experience.showType === 'THEATER' && (
-              <>
-                <p>
-                  {t('VENUE')}: {experience.venue}
-                </p>
-                <p>
-                  {t('DURATION')}: {experience.duration} {t('MINUTES')}
-                </p>
-              </>
-            )}
+            </h2>
             <div className="flex flex-wrap gap-2 mt-3">
               {experience.roles.map((role, index) => (
                 <span
@@ -53,6 +41,13 @@ export function ExperienceCard({
                 </span>
               ))}
             </div>
+            {experience.showType === 'THEATER' && (
+              <div className="mt-2">
+                <p>
+                  {`${experience.venue} - ${experience.duration} ${t('NIGHTS')}`}
+                </p>
+              </div>
+            )}
           </div>
         </div>
         {!isEditing && (

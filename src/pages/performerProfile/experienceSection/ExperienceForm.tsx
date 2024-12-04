@@ -1,28 +1,19 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { experienceSchema } from '../../../types/performer-form.ts';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { clsx } from 'clsx';
 import { Experience } from '../../../models/Performer.ts';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
-import { SelectField } from '../../../components/shared/forms/SelectField.tsx';
-
-const AVAILABLE_ROLES: string[] = [];
+import { DropDownOptions } from '../../../models/shared.ts';
+import { useEffect, useState } from 'react';
+import { get_request } from '../../../utils/restUtils.ts';
 
 interface ExperienceFormProps {
   experience: Experience;
   onSave: (experience: Experience) => void;
   onCancel: () => void;
 }
-
-const SHOW_TYPES = [
-  { value: 'THEATER', label: 'THEATER' },
-  { value: 'TV', label: 'TV' },
-  { value: 'MOVIE', label: 'MOVIE' },
-  { value: 'RADIO', label: 'RADIO' },
-  { value: 'DUBBING', label: 'DUBBING' },
-];
 
 export function ExperienceForm({
   experience,
@@ -33,8 +24,8 @@ export function ExperienceForm({
   const {
     register,
     handleSubmit,
-    control,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(experienceSchema),
@@ -43,14 +34,42 @@ export function ExperienceForm({
       duration: experience.duration || undefined,
     },
   });
+  const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
 
-  const showType = watch('showType');
-  const isTheater = showType === 'THEATER';
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/skills');
+      setSkillsOptions(
+        data.data.map(
+          (skill: string): DropDownOptions => ({
+            value: skill,
+            label: skill,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
 
-  const roleOptions = AVAILABLE_ROLES.map((role) => ({
-    value: role,
-    label: t(role),
-  }));
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.EXPERIENCE_SECTION.' + text);
+  };
+
+  const SHOW_TYPES: DropDownOptions[] = [
+    { value: 'THEATER', label: addTranslationPrefix('THEATER') },
+    { value: 'TV', label: addTranslationPrefix('TV') },
+    { value: 'MOVIE', label: addTranslationPrefix('MOVIE') },
+    { value: 'RADIO', label: addTranslationPrefix('RADIO') },
+    { value: 'DUBBING', label: addTranslationPrefix('DUBBING') },
+  ];
+  const currentYear = new Date().getFullYear();
+  const yearOptions = Array.from(
+    { length: currentYear - 1980 + 1 },
+    (_, i) => ({
+      value: (currentYear - i).toString(),
+      label: (currentYear - i).toString(),
+    })
+  );
 
   return (
     <form
@@ -59,135 +78,142 @@ export function ExperienceForm({
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label={t('SHOW_NAME')}
+          label={addTranslationPrefix('SHOW_NAME')}
           error={errors.showName?.message}
           required
         >
           <input
             type="text"
-            {...register('showName')}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.showName && 'border-red-300'
-            )}
+            {...register(`showName`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
         </FormField>
 
-        <SelectField
-          label={t('SHOW_TYPE')}
+        <FormField
+          label={addTranslationPrefix('SHOW_TYPE')}
           error={errors.showType?.message}
           required
         >
-          <Controller
-            name="showType"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={SHOW_TYPES}
-                getOptionLabel={(option) => t(option.label)}
-                getOptionValue={(option) => option.value}
-                className="react-select"
-                classNamePrefix="react-select"
-                onChange={(selected) => field.onChange(selected?.value)}
-                value={SHOW_TYPES.find(
-                  (option) => option.value === field.value
-                )}
-              />
-            )}
+          <Select
+            options={SHOW_TYPES.map((showType) => ({
+              label: t(showType.label),
+              value: showType.value,
+            }))}
+            className="react-select"
+            classNamePrefix="react-select"
+            onChange={(selected) => {
+              setValue(`showType`, selected?.value as string);
+            }}
+            value={SHOW_TYPES.map((option) => {
+              return watch(`showType`)?.includes(option.value as string)
+                ? { value: option.value, label: t(option.label) }
+                : null;
+            })}
+            placeholder=""
           />
-        </SelectField>
+        </FormField>
 
         <FormField
-          label={t('DIRECTOR')}
+          label={addTranslationPrefix('DIRECTOR')}
           error={errors.director?.message}
           required
         >
           <input
             type="text"
-            {...register('director')}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.director && 'border-red-300'
-            )}
+            {...register(`director`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
         </FormField>
 
-        <FormField label={t('YEAR')} error={errors.year?.message} required>
-          <input
-            type="number"
-            {...register('year', { valueAsNumber: true })}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.year && 'border-red-300'
+        <FormField
+          label={addTranslationPrefix('YEAR')}
+          error={errors.year?.message}
+          required
+        >
+          <Select
+            options={yearOptions}
+            className="react-select"
+            classNamePrefix="react-select"
+            value={yearOptions.find(
+              (option) => option.value === watch(`year`)?.toString()
             )}
+            onChange={(selected) => {
+              setValue(
+                `year`,
+                selected ? parseInt(selected.value) : currentYear,
+                { shouldValidate: true }
+              );
+            }}
           />
         </FormField>
 
         <div className="md:col-span-2">
-          <SelectField
-            label={t('ROLES')}
+          <FormField
+            label={addTranslationPrefix('ROLES')}
             error={errors.roles?.message}
             required
           >
-            <Controller
-              name="roles"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  isMulti
-                  options={roleOptions}
-                  className="react-select"
-                  classNamePrefix="react-select"
-                  onChange={(selected) => {
-                    field.onChange(selected.map((option) => option.value));
-                  }}
-                  value={roleOptions.filter((option) =>
-                    field.value?.includes(option.value)
-                  )}
-                />
+            <Select
+              isMulti
+              options={skillsOptions.map(
+                (skill): DropDownOptions => ({
+                  label: t(skill.label),
+                  value: skill.value,
+                })
               )}
+              className="react-select"
+              classNamePrefix="react-select"
+              value={skillsOptions.map((option) => {
+                return watch(`roles`)?.includes(option?.value as string)
+                  ? { value: option.value, label: t(option.label) }
+                  : null;
+              })}
+              onChange={(selected) => {
+                setValue(
+                  `roles`,
+                  selected
+                    ? selected.map((option) => option!.value as string)
+                    : []
+                );
+              }}
+              placeholder=""
             />
-          </SelectField>
+          </FormField>
         </div>
 
-        {isTheater && (
+        {watch(`showType`) !== 'THEATER' ? null : (
           <>
             <FormField
-              label={t('VENUE')}
+              label={addTranslationPrefix('VENUE')}
               error={errors.venue?.message}
-              required
+              required={watch(`showType`) === 'THEATER'}
             >
               <input
                 type="text"
-                {...register('venue')}
-                className={clsx(
-                  'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-                  errors.venue && 'border-red-300'
-                )}
+                {...register(`venue`)}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
             </FormField>
-
             <FormField
-              label={`${t('DURATION')} (${t('MINUTES')})`}
+              label={addTranslationPrefix('DURATION_NIGHTS')}
               error={errors.duration?.message}
-              required
+              required={watch(`showType`) === 'THEATER'} // Only required if showType is 'THEATER'
             >
               <input
                 type="number"
-                {...register('duration', { valueAsNumber: true })}
-                className={clsx(
-                  'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-                  errors.duration && 'border-red-300'
-                )}
+                min="1"
+                {...register(`duration`, {
+                  setValueAs: (value) =>
+                    value === '' || value === null ? undefined : Number(value), // Convert to number or undefined
+                })}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
             </FormField>
           </>
         )}
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+      <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
         <button
           type="button"
           onClick={onCancel}

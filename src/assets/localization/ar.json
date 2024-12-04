@@ -49,6 +49,8 @@
   "CM": "سنتيمتر",
   "RANK_FOR": "عن",
   "LOCKED": "غير متاح",
+  "SAVE": "حفظ",
+  "CANCEL": "إلغاء",
   "GEN": {
     "ACTING": "قسم تمثيل وإخراج مسرحي",
     "DRAMA": "قسم دراما ونقد مسرحي",
@@ -77,7 +79,10 @@
     "CHECKING_AUTH": "مراجعة المصادقة...",
     "PERFORMER_NOT_FOUND": "الفنان ده مش موجود!",
     "PAGE_NOT_FOUND": "الصفحة دي مش موجودة!",
-    "NOT_FOUND_MESSAGE": "للأسف مالفيناش اللي بتدور عليه. ممكن يكون اتمسح أو مش موجود"
+    "NOT_FOUND_MESSAGE": "للأسف مالفيناش اللي بتدور عليه. ممكن يكون اتمسح أو مش موجود",
+    "EDIT": "تعديل بيانات",
+    "CLOSE_EDIT": "إنهاء التعديلات",
+    "DELETE": "مسح"
   },
   "HEADER": {
     "PROFILE": "الملف الشخصي",
@@ -231,6 +236,20 @@
       "CONTACT": "الاتصال",
       "ACHIEVEMENTS": "الإنجازات والجوائز",
       "EXPERIENCES": "الخبرات السابقة"
+    },
+    "PERSONAL_INFO": {
+      "PERSONAL_INFO": "المعلومات الشخصية",
+      "COPIED": "تم نسخ رابط الصفحة",
+      "COPY_FAILED": "لم ينجح نسخ الرابط"
+    },
+    "EXPERIENCE": {
+      "EXPERIENCES": "الخبرات",
+      "ADD_FIRST_EXPERIENCE": "ضيف خبرتك الأولى",
+      "NO_EXPERIENCES": "لم يتم إضافة خبرات بعد",
+      "DELETE_TITLE": "مسح الخبرة",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
+      "DELETE_CONFIRM": "نعم، امسح",
+      "DELETE_CANCEL": "لا"
     },
     "DELETE_TITLE": "مسح صفحة الفنان",
     "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
