@@ -125,9 +125,10 @@ export default function ExperienceSection({
 
   const handleCancel = () => {
     if (isAdding) {
-      setExperiences(experiences.slice(0, -1));
+      setExperiences(experiences.slice(1));
     }
     setEditingIndex(null);
+    setCurrentExperience(null);
     setIsAdding(false);
   };
 
@@ -144,24 +145,34 @@ export default function ExperienceSection({
       }
     >
       <div className="space-y-6">
-        {experiences.map((experience, index) => (
-          <div key={index}>
-            {editingIndex === index ? (
-              <ExperienceForm
-                experience={experience}
-                onSave={handleSave}
-                onCancel={handleCancel}
-              />
-            ) : (
-              <ExperienceCard
-                experience={experience}
-                onEdit={() => handleEdit(index)}
-                onDelete={() => handleDelete(experience)}
-                isEditing={editingIndex !== null}
-              />
-            )}
-          </div>
-        ))}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {experiences.map((experience, index) => {
+            if (editingIndex === index) {
+              // Show one FormCard when in formMode
+              return (
+                <div key={index} className="col-span-2">
+                  <ExperienceForm
+                    experience={experience}
+                    onSave={handleSave}
+                    onCancel={handleCancel}
+                  />
+                </div>
+              );
+            }
+
+            // Show two cards per row otherwise
+            return (
+              <div key={index} className="h-180">
+                <ExperienceCard
+                  experience={experience}
+                  onEdit={() => handleEdit(index)}
+                  onDelete={() => handleDelete(experience)}
+                  isEditing={editingIndex !== null}
+                />
+              </div>
+            );
+          })}
+        </div>
 
         {experiences.length === 0 && (
           <div className="text-center py-12 bg-gray-50 rounded-lg">
