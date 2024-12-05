@@ -251,6 +251,15 @@
       "DELETE_CONFIRM": "نعم، امسح",
       "DELETE_CANCEL": "لا"
     },
+    "ACHIEVEMENT": {
+      "ACHIEVEMENTS": "الإنجازات والجوائز",
+      "ADD_FIRST_ACHIEVEMENT": "ضيف خبرتك الأولى",
+      "NO_ACHIEVEMENTS": "لم يتم إضافة خبرات بعد",
+      "DELETE_TITLE": "مسح الخبرة",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
+      "DELETE_CONFIRM": "نعم، امسح",
+      "DELETE_CANCEL": "لا"
+    },
     "DELETE_TITLE": "مسح صفحة الفنان",
     "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
     "DELETE_CONFIRM": "نعم، امسح",
