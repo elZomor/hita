@@ -17,11 +17,25 @@ export function ExperienceCard({
   isEditing,
 }: ExperienceCardProps) {
   const { t } = useTranslation();
-  console.log('experience');
-  console.log(experience);
+  const getShowTypeColor = () => {
+    switch (experience.showType) {
+      case 'THEATER':
+        return 'bg-activityCardColors-970';
+      case 'TV':
+        return 'bg-activityCardColors-950';
+      case 'RADIO':
+        return 'bg-activityCardColors-980';
+      case 'MOVIE':
+        return 'bg-activityCardColors-990';
+      case 'DUBBING':
+        return 'bg-activityCardColors-960';
+    }
+  };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 relative group">
+    <div
+      className={`${getShowTypeColor()} rounded-lg p-6 relative group h-full`}
+    >
       <div className="flex justify-between items-start">
         <div className="space-y-3">
           <h3 className="text-lg font-semibold text-gray-900">
