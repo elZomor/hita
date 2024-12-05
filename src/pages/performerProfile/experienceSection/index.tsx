@@ -114,7 +114,6 @@ export default function ExperienceSection({
 
       const { data: getData } = await get_request(`hita/experiences`);
       setEditingIndex(null);
-      setIsAdding(false);
       setExperiences(mapExperienceResponseToExperience(getData.data));
     } catch (e) {
       console.error(e);

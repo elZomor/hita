@@ -34,6 +34,7 @@ export interface Experience {
 }
 
 export interface Achievement {
+  id: number;
   rank: string;
   field: string;
   showName: string;
@@ -144,10 +145,11 @@ export const mapExperienceResponseToExperience = (
     showType: experienceResponse['show_type'],
   }));
 };
-const mapAchievementsResponseToAchievements = (
+export const mapAchievementsResponseToAchievements = (
   achievementResponseList: Record<string, any>[]
 ): Achievement[] => {
   return achievementResponseList.map((achievementResponse) => ({
+    id: achievementResponse['id'],
     rank: achievementResponse['position'],
     field: achievementResponse['field'],
     showName: achievementResponse['show_name'],

@@ -4,22 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
 import { achievementSchema } from '../../../types/performer-form.ts';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
+import { Achievement } from '../../../models/Performer.ts';
+import Select from 'react-select';
 
 interface AchievementFormProps {
-  achievement: {
-    rank: string;
-    field: string;
-    showName: string;
-    festivalName: string;
-    year: number;
-  };
-  onSave: (achievement: {
-    rank: string;
-    field: string;
-    showName: string;
-    festivalName: string;
-    year: number;
-  }) => void;
+  achievement: Achievement;
+  onSave: (achievement: Achievement) => void;
   onCancel: () => void;
 }
 
@@ -32,11 +22,24 @@ export function AchievementForm({
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(achievementSchema),
     defaultValues: achievement,
   });
+  const currentYear = new Date().getFullYear();
+  const yearOptions = Array.from(
+    { length: currentYear - 1980 + 1 },
+    (_, i) => ({
+      value: (currentYear - i).toString(),
+      label: (currentYear - i).toString(),
+    })
+  );
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.ACHIEVEMENTS_SECTION.' + text);
+  };
 
   return (
     <form
@@ -44,7 +47,11 @@ export function AchievementForm({
       className="bg-white border border-gray-200 rounded-lg p-6 space-y-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label={t('RANK')} error={errors.rank?.message} required>
+        <FormField
+          label={addTranslationPrefix('RANK')}
+          error={errors.rank?.message}
+          required
+        >
           <input
             type="text"
             {...register('rank')}
@@ -55,7 +62,11 @@ export function AchievementForm({
           />
         </FormField>
 
-        <FormField label={t('FIELD')} error={errors.field?.message} required>
+        <FormField
+          label={addTranslationPrefix('FIELD')}
+          error={errors.field?.message}
+          required
+        >
           <input
             type="text"
             {...register('field')}
@@ -67,7 +78,7 @@ export function AchievementForm({
         </FormField>
 
         <FormField
-          label={t('SHOW_NAME')}
+          label={addTranslationPrefix('SHOW_NAME')}
           error={errors.showName?.message}
           required
         >
@@ -82,7 +93,7 @@ export function AchievementForm({
         </FormField>
 
         <FormField
-          label={t('FESTIVAL_NAME')}
+          label={addTranslationPrefix('FESTIVAL_NAME')}
           error={errors.festivalName?.message}
           required
         >
@@ -96,14 +107,24 @@ export function AchievementForm({
           />
         </FormField>
 
-        <FormField label={t('YEAR')} error={errors.year?.message} required>
-          <input
-            type="number"
-            {...register('year', { valueAsNumber: true })}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.year && 'border-red-300'
+        <FormField
+          label={addTranslationPrefix('YEAR')}
+          error={errors.year?.message}
+          required
+        >
+          <Select
+            options={yearOptions}
+            className="react-select"
+            classNamePrefix="react-select"
+            value={yearOptions.find(
+              (option) => option.value === watch(`year`)?.toString()
             )}
+            onChange={(selected) => {
+              setValue(
+                `year`,
+                selected ? parseInt(selected.value) : currentYear
+              );
+            }}
           />
         </FormField>
       </div>

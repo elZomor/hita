@@ -30,7 +30,7 @@ export function AchievementsStep({ onComplete }: AchievementsStepProps) {
 
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from(
-    { length: currentYear - 1900 + 1 },
+    { length: currentYear - 1980 + 1 },
     (_, i) => ({
       value: (currentYear - i).toString(),
       label: (currentYear - i).toString(),
