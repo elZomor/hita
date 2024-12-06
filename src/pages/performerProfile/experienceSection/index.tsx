@@ -64,8 +64,6 @@ export default function ExperienceSection({
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setCurrentExperience(experiences[index]);
-    console.log('current experiences');
-    console.log(experiences[index]);
   };
   const mapFormDataToRequest = (
     formData: Record<string, any>
@@ -96,6 +94,7 @@ export default function ExperienceSection({
       const { data: getData } = await get_request(`hita/experiences`);
       setExperiences(mapExperienceResponseToExperience(getData.data));
       setEditingIndex(null);
+      setCurrentExperience(null);
       setIsAdding(false);
     } catch (e) {
       console.error(e);
@@ -119,6 +118,7 @@ export default function ExperienceSection({
       console.error(e);
     }
     setEditingIndex(null);
+    setCurrentExperience(null);
     setIsAdding(false);
   };
 

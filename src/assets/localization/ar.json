@@ -222,8 +222,8 @@
       "PUBLIC_LINKS": "قنوات مفتوحة",
       "NO_PUBLIC_LINKS": "لا يوجد قنوات متاحة. اضغط الزر لإضافة قنوات",
       "ADD_LINK": "إضافة قناة جديدة",
-      "LINK_NAME": "نوع القناة",
-      "LINK_URL": "لينك القناة"
+      "LINK_NAME": "اسم موقع القناة",
+      "LINK_URL": "رابط القناة"
     }
   },
   "PERFORMER_PAGE": {
@@ -259,6 +259,17 @@
       "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
       "DELETE_CONFIRM": "نعم، امسح",
       "DELETE_CANCEL": "لا"
+    },
+    "PUBLIC_LINKS": {
+      "PUBLIC_LINKS": "القنوات المفتوحة",
+      "LINK_NAME": "رابط القناة",
+      "LINK_TYPE": "اسم موقع القناة",
+      "DELETE_TITLE": "مسح الموقع",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه القناة؟",
+      "DELETE_CONFIRM": "نعم، امسح",
+      "DELETE_CANCEL": "لا",
+      "NO_PUBLIC_LINKS": "لا يوجد قنوات متاحة.",
+      "ADD_FIRST_LINK": "أضف قناتك الأولى"
     },
     "DELETE_TITLE": "مسح صفحة الفنان",
     "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
