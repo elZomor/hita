@@ -129,7 +129,7 @@ export function AchievementForm({
         </FormField>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+      <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
         <button
           type="button"
           onClick={onCancel}

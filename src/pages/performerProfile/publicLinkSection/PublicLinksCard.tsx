@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { DeleteButton } from '../../../components/shared/DeleteButton.tsx';
 import SocialMediaIcon from '../../../components/shared/SocialMediaIcon.tsx';
+import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 
 interface PublicLinksCardProps {
   link: {
@@ -21,13 +22,10 @@ export function PublicLinksCard({
 }: PublicLinksCardProps) {
   const { t } = useTranslation();
   const linkType = link?.linkType?.toUpperCase() || 'PORTFOLIO';
+  const { isEditMode } = useEditMode();
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (
-      e.target instanceof HTMLElement &&
-      !e.target.closest('.edit-button') &&
-      !e.target.closest('.delete-button')
-    ) {
+  const handleClick = () => {
+    if (!isEditMode) {
       const url = link?.linkInfo?.startsWith('http')
         ? link.linkInfo
         : `https://${link?.linkInfo}`;
@@ -45,8 +43,8 @@ export function PublicLinksCard({
       <SocialMediaIcon size={28} linkType={linkType} />
       {!isEditing && (
         <div className="absolute top-1 flex gap-1 opacity-100 group-hover:opacity-100 transition-opacity pointer-events-auto">
-          <EditButton onClick={onEdit} className="edit-button" />
-          <DeleteButton onClick={onDelete} className="delete-button" />
+          <EditButton onClick={onEdit} />
+          <DeleteButton onClick={onDelete} />
         </div>
       )}
     </div>

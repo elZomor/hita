@@ -121,7 +121,7 @@ export default function AchievementSection({
 
   const handleCancel = () => {
     if (isAdding) {
-      setAchievements(achievements.slice(0, -1));
+      setAchievements(achievements.slice(1));
     }
     setEditingIndex(null);
     setCurrentAchievement(null);
@@ -145,7 +145,7 @@ export default function AchievementSection({
           if (editingIndex === index) {
             // Show one FormCard when in formMode
             return (
-              <div key={index} className="col-span-2">
+              <div key={index} className="col-span-1 md:col-span-2">
                 <AchievementForm
                   achievement={achievement}
                   onSave={handleSave}
@@ -157,7 +157,7 @@ export default function AchievementSection({
 
           // Show two cards per row otherwise
           return (
-            <div key={index} className="h-180">
+            <div key={index}>
               <AchievementCard
                 achievement={achievement}
                 onEdit={() => handleEdit(index)}

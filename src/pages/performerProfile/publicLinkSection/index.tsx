@@ -114,7 +114,7 @@ export function PublicLinksSection({
 
   const handleCancel = () => {
     if (isAdding) {
-      setLinks(links.slice(0, -1));
+      setLinks(links.slice(1));
     }
     setEditingIndex(null);
     setCurrentLink(null);
@@ -138,7 +138,7 @@ export function PublicLinksSection({
           if (editingIndex === index) {
             // Show one FormCard when in formMode
             return (
-              <div key={index} className="col-span-6">
+              <div key={index} className="col-span-2 lg:col-span-6">
                 <PublicLinksForm
                   link={link}
                   onSave={handleSave}

@@ -149,7 +149,7 @@ export default function ExperienceSection({
             if (editingIndex === index) {
               // Show one FormCard when in formMode
               return (
-                <div key={index} className="col-span-2">
+                <div key={index} className="md:col-span-2">
                   <ExperienceForm
                     experience={experience}
                     onSave={handleSave}
@@ -161,7 +161,7 @@ export default function ExperienceSection({
 
             // Show two cards per row otherwise
             return (
-              <div key={index} className="h-180">
+              <div key={index} className="md:h-180">
                 <ExperienceCard
                   experience={experience}
                   onEdit={() => handleEdit(index)}
