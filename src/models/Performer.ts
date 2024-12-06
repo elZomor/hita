@@ -53,6 +53,7 @@ export interface ContactDetail {
 }
 
 export interface PublicLink {
+  id: number;
   linkType: string;
   linkInfo: string;
 }
@@ -103,6 +104,7 @@ export interface SinglePerformerResponse {
   gallery_protected: boolean;
   contact_details: ContactDetail[];
   gallery: Gallery[];
+  public_channels: PublicLink[];
 }
 
 export const mapPerformerResponseToPerformer = (
@@ -176,6 +178,16 @@ const mapContactDetailsResponseToContactDetails = (
   }));
 };
 
+export const mapPublicLinksResponseToPublicLinks = (
+  publicLinksResponse: Record<string, any>[]
+): PublicLink[] => {
+  return publicLinksResponse.map((publicLink) => ({
+    id: publicLink['id'],
+    linkType: publicLink['channel_type'],
+    linkInfo: publicLink['channel_info'],
+  }));
+};
+
 export const mapSinglePerformerResponseToSinglePerformer = (
   response: SinglePerformerResponse
 ): SinglePerformer => {
@@ -191,7 +203,7 @@ export const mapSinglePerformerResponseToSinglePerformer = (
       isLocked: response.contact_detail_protected,
       data: mapGalleryResponseToGallery(response.gallery),
     },
-    publicLinks: [],
+    publicLinks: mapPublicLinksResponseToPublicLinks(response.public_channels),
   };
 };
 

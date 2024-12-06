@@ -1,15 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import {
-  FaGlobe,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-  FaVideo,
-  FaYoutube,
-} from 'react-icons/fa';
-import { clsx } from 'clsx';
 import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { DeleteButton } from '../../../components/shared/DeleteButton.tsx';
+import SocialMediaIcon from '../../../components/shared/SocialMediaIcon.tsx';
 
 interface PublicLinksCardProps {
   link: {
@@ -21,15 +13,6 @@ interface PublicLinksCardProps {
   isEditing: boolean;
 }
 
-const LINK_ICONS: Record<string, any> = {
-  PORTFOLIO: { icon: FaGlobe, color: 'text-blue-600 hover:text-blue-700' },
-  SHOWREEL: { icon: FaVideo, color: 'text-purple-600 hover:text-purple-700' },
-  LINKEDIN: { icon: FaLinkedin, color: 'text-blue-700 hover:text-blue-800' },
-  INSTAGRAM: { icon: FaInstagram, color: 'text-pink-600 hover:text-pink-700' },
-  TWITTER: { icon: FaTwitter, color: 'text-blue-400 hover:text-blue-500' },
-  YOUTUBE: { icon: FaYoutube, color: 'text-red-600 hover:text-red-700' },
-};
-
 export function PublicLinksCard({
   link,
   onEdit,
@@ -37,39 +20,35 @@ export function PublicLinksCard({
   isEditing,
 }: PublicLinksCardProps) {
   const { t } = useTranslation();
-  const linkType = link.linkType.toUpperCase();
-  const IconConfig = LINK_ICONS[linkType] || LINK_ICONS.PORTFOLIO;
-  const Icon = IconConfig.icon;
+  const linkType = link?.linkType?.toUpperCase() || 'PORTFOLIO';
 
-  const handleClick = () => {
-    window.open(
-      link.linkInfo.startsWith('http')
+  const handleClick = (e: React.MouseEvent) => {
+    if (
+      e.target instanceof HTMLElement &&
+      !e.target.closest('.edit-button') &&
+      !e.target.closest('.delete-button')
+    ) {
+      const url = link?.linkInfo?.startsWith('http')
         ? link.linkInfo
-        : `https://${link.linkInfo}`,
-      '_blank'
-    );
+        : `https://${link?.linkInfo}`;
+      window.open(url, '_blank');
+    }
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 relative group">
-      <div className="flex justify-between items-center">
-        <button
-          onClick={handleClick}
-          className={clsx('flex items-center gap-3 flex-1', IconConfig.color)}
-        >
-          <Icon size={24} className="flex-shrink-0" />
-          <div className="text-left">
-            <h3 className="text-sm font-medium text-gray-900">{t(linkType)}</h3>
-            <p className="text-sm text-gray-600 truncate">{link.linkInfo}</p>
-          </div>
-        </button>
-        {!isEditing && (
-          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity md:pointer-events-auto pointer-events-none">
-            <EditButton onClick={onEdit} />
-            <DeleteButton onClick={onDelete} />
-          </div>
-        )}
-      </div>
+    <div
+      className="w-16 h-16 bg-purple-100 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center group relative"
+      role="button"
+      onClick={handleClick}
+      aria-label={t(linkType)}
+    >
+      <SocialMediaIcon size={28} linkType={linkType} />
+      {!isEditing && (
+        <div className="absolute top-1 flex gap-1 opacity-100 group-hover:opacity-100 transition-opacity pointer-events-auto">
+          <EditButton onClick={onEdit} className="edit-button" />
+          <DeleteButton onClick={onDelete} className="delete-button" />
+        </div>
+      )}
     </div>
   );
 }

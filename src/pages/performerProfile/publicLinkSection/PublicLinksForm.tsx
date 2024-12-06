@@ -1,29 +1,19 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { clsx } from 'clsx';
 import { publicLinkSchema } from '../../../types/performer-form.ts';
-import { SelectField } from '../../../components/shared/forms/SelectField.tsx';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
+import { useEffect, useState } from 'react';
+import { DropDownOptions } from '../../../models/shared.ts';
+import { get_request } from '../../../utils/restUtils.ts';
+import { PublicLink } from '../../../models/Performer.ts';
 
 interface PublicLinksFormProps {
-  link: {
-    linkType: string;
-    linkInfo: string;
-  };
-  onSave: (link: { linkType: string; linkInfo: string }) => void;
+  link: PublicLink;
+  onSave: (link: PublicLink) => void;
   onCancel: () => void;
 }
-
-const LINK_TYPES = [
-  { value: 'PORTFOLIO', label: 'PORTFOLIO' },
-  { value: 'SHOWREEL', label: 'SHOWREEL' },
-  { value: 'LINKEDIN', label: 'LINKEDIN' },
-  { value: 'INSTAGRAM', label: 'INSTAGRAM' },
-  { value: 'TWITTER', label: 'TWITTER' },
-  { value: 'YOUTUBE', label: 'YOUTUBE' },
-];
 
 export function PublicLinksForm({
   link,
@@ -34,12 +24,34 @@ export function PublicLinksForm({
   const {
     register,
     handleSubmit,
-    control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(publicLinkSchema),
     defaultValues: link,
   });
+
+  const [publicLinkTypes, setPublicLinkTypes] = useState<DropDownOptions[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/contact-types');
+      setPublicLinkTypes(
+        data.data.map(
+          (contactType: string): DropDownOptions => ({
+            value: contactType,
+            label: contactType,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
+
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.PUBLIC_LINKS_SECTION.' + text);
+  };
 
   return (
     <form
@@ -47,43 +59,40 @@ export function PublicLinksForm({
       className="bg-white border border-gray-200 rounded-lg p-6 space-y-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SelectField
-          label={t('LINK_TYPE')}
+        <FormField
+          label={addTranslationPrefix('LINK_NAME')}
           error={errors.linkType?.message}
           required
         >
-          <Controller
-            name="linkType"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={LINK_TYPES}
-                getOptionLabel={(option) => t(option.label)}
-                getOptionValue={(option) => option.value}
-                className="react-select"
-                classNamePrefix="react-select"
-                onChange={(selected) => field.onChange(selected?.value)}
-                value={LINK_TYPES.find(
-                  (option) => option.value === field.value
-                )}
-              />
-            )}
+          <Select
+            options={publicLinkTypes.map((publicLinkType) => ({
+              label: t(publicLinkType.label),
+              value: publicLinkType.value,
+            }))}
+            className="react-select"
+            classNamePrefix="react-select"
+            value={publicLinkTypes.map((option) => {
+              return watch(`linkType`)?.includes(option.value as string)
+                ? { value: option.value, label: t(option.label) }
+                : null;
+            })}
+            onChange={(selected) => {
+              setValue(`linkType`, selected?.value as string);
+            }}
+            placeholder=""
           />
-        </SelectField>
+        </FormField>
 
         <FormField
-          label={t('LINK_URL')}
+          label={addTranslationPrefix('LINK_URL')}
           error={errors.linkInfo?.message}
           required
         >
           <input
-            type="text"
-            {...register('linkInfo')}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.linkInfo && 'border-red-300'
-            )}
+            type="url"
+            {...register(`linkInfo`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            placeholder="https://"
           />
         </FormField>
       </div>
