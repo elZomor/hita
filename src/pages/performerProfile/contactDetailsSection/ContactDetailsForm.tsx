@@ -1,33 +1,19 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { clsx } from 'clsx';
 import { contactDetailSchema } from '../../../types/performer-form.ts';
-import { SelectField } from '../../../components/shared/forms/SelectField.tsx';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
+import { ContactDetail } from '../../../models/Performer.ts';
+import { useEffect, useState } from 'react';
+import { get_request } from '../../../utils/restUtils.ts';
+import { DropDownOptions } from '../../../models/shared.ts';
 
 interface ContactDetailsFormProps {
-  contact: {
-    contactType: string;
-    contactInfo: string;
-  };
-  onSave: (contact: { contactType: string; contactInfo: string }) => void;
+  contact: ContactDetail;
+  onSave: (contact: ContactDetail) => void;
   onCancel: () => void;
 }
-
-const CONTACT_TYPES = [
-  { value: 'EMAIL', label: 'EMAIL' },
-  { value: 'PHONE', label: 'PHONE' },
-  { value: 'WHATSAPP', label: 'WHATSAPP' },
-  { value: 'TELEGRAM', label: 'TELEGRAM' },
-  { value: 'FACEBOOK', label: 'FACEBOOK' },
-  { value: 'INSTAGRAM', label: 'INSTAGRAM' },
-  { value: 'LINKEDIN', label: 'LINKEDIN' },
-  { value: 'TWITTER', label: 'TWITTER' },
-  { value: 'YOUTUBE', label: 'YOUTUBE' },
-  { value: 'WEBSITE', label: 'WEBSITE' },
-];
 
 export function ContactDetailsForm({
   contact,
@@ -38,12 +24,33 @@ export function ContactDetailsForm({
   const {
     register,
     handleSubmit,
-    control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(contactDetailSchema),
     defaultValues: contact,
   });
+  const [contactTypes, setContactTypes] = useState<DropDownOptions[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/contact-types');
+      setContactTypes(
+        data.data.map(
+          (contactType: string): DropDownOptions => ({
+            value: contactType,
+            label: contactType,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
+
+  const addTranslationPrefix = (text: string) => {
+    return t('PERFORMER_REG.CONTACT_DETAILS_SECTION.' + text);
+  };
 
   return (
     <form
@@ -51,43 +58,39 @@ export function ContactDetailsForm({
       className="bg-white border border-gray-200 rounded-lg p-6 space-y-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SelectField
-          label={t('CONTACT_TYPE')}
+        <FormField
+          label={addTranslationPrefix('CONTACT_TYPE')}
           error={errors.contactType?.message}
           required
         >
-          <Controller
-            name="contactType"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={CONTACT_TYPES}
-                getOptionLabel={(option) => t(option.label)}
-                getOptionValue={(option) => option.value}
-                className="react-select"
-                classNamePrefix="react-select"
-                onChange={(selected) => field.onChange(selected?.value)}
-                value={CONTACT_TYPES.find(
-                  (option) => option.value === field.value
-                )}
-              />
-            )}
+          <Select
+            options={contactTypes.map((contactType) => ({
+              label: t(contactType.label),
+              value: contactType.value,
+            }))}
+            className="react-select"
+            classNamePrefix="react-select"
+            value={contactTypes.map((option) => {
+              return watch(`contactType`)?.includes(option.value as string)
+                ? { value: option.value, label: t(option.label) }
+                : null;
+            })}
+            onChange={(selected) => {
+              setValue(`contactType`, selected?.value as string);
+            }}
+            placeholder=""
           />
-        </SelectField>
+        </FormField>
 
         <FormField
-          label={t('CONTACT_INFO')}
+          label={addTranslationPrefix('CONTACT_INFO')}
           error={errors.contactInfo?.message}
           required
         >
           <input
             type="text"
-            {...register('contactInfo')}
-            className={clsx(
-              'w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent',
-              errors.contactInfo && 'border-red-300'
-            )}
+            {...register(`contactInfo`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
         </FormField>
       </div>

@@ -25,12 +25,11 @@ export function PublicLinksCard({
   const { isEditMode } = useEditMode();
 
   const handleClick = () => {
-    if (!isEditMode) {
-      const url = link?.linkInfo?.startsWith('http')
-        ? link.linkInfo
-        : `https://${link?.linkInfo}`;
-      window.open(url, '_blank');
-    }
+    if (isEditMode) return;
+    const url = link?.linkInfo?.startsWith('http')
+      ? link.linkInfo
+      : `https://${link?.linkInfo}`;
+    window.open(url, '_blank');
   };
 
   return (

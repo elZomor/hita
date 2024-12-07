@@ -14,6 +14,7 @@ import { z } from 'zod';
 interface PerformerDetailsFormProps {
   performer: any;
   username: string;
+  isContactDetailsProtected: boolean;
   handleUpdate: (requestData: any) => void;
   onCancel: () => void;
 }
@@ -33,6 +34,7 @@ const personalInfoSchema = z.object({
   status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
+  isContactDetailsProtected: z.boolean(),
 });
 
 export function PerformerDetailsForm({
@@ -40,6 +42,7 @@ export function PerformerDetailsForm({
   onCancel,
   handleUpdate,
   username,
+  isContactDetailsProtected,
 }: PerformerDetailsFormProps) {
   function getErrorMessage(error: any): string | undefined {
     return error as string | undefined;
@@ -74,7 +77,7 @@ export function PerformerDetailsForm({
     watch,
   } = useForm({
     resolver: zodResolver(personalInfoSchema),
-    defaultValues: { ...performer, username },
+    defaultValues: { ...performer, username, isContactDetailsProtected },
   });
   console.log(errors);
 
@@ -233,6 +236,16 @@ export function PerformerDetailsForm({
               />
             </div>
           </FormField>
+          <label className="inline-flex items-center">
+            <input
+              type="checkbox"
+              {...register('isContactDetailsProtected')}
+              className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
+            />
+            <span className="mx-2 text-gray-700">
+              {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_CONTACT_DETAILS')}
+            </span>
+          </label>
         </div>
       </div>
 

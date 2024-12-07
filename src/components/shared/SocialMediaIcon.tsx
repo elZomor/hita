@@ -6,8 +6,11 @@ import {
   FaLinkedin,
   FaPinterest,
   FaSnapchatGhost,
+  FaSoundcloud,
+  FaTelegram,
   FaTiktok,
   FaVideo,
+  FaWhatsapp,
   FaYoutube,
 } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -41,6 +44,12 @@ const LINK_ICONS: Record<string, { icon: React.ElementType; color: string }> = {
   GOOGLE_DRIVE: {
     icon: FaGoogleDrive,
     color: 'text-green-500 hover:text-green-600',
+  },
+  WHATSAPP: { icon: FaWhatsapp, color: 'text-green-600 hover:text-green-700' },
+  TELEGRAM: { icon: FaTelegram, color: 'text-blue-400 hover:text-blue-500' },
+  SOUND_CLOUD: {
+    icon: FaSoundcloud,
+    color: 'text-orange-500 hover:text-orange-600',
   },
 };
 
