@@ -32,6 +32,12 @@
   "TIK_TOK": "تيكتوك",
   "YOUTUBE": "يوتيوب",
   "TWITTER": "تويتر/X",
+  "SHOWREEL": "شوريل",
+  "VIMEO": "فيميو",
+  "BEHANCE": "بيهانس",
+  "GOOGLE_DRIVE": "جووجل درايف",
+  "TELEGRAM": "تليجرام",
+  "SOUND_CLOUD": "ساوند كلاود",
   "OTHER": "أخرى",
   "CONTACT_DETAILS": "الاتصال",
   "EXPERIENCE": "الخبرات السابقة",
@@ -240,7 +246,8 @@
     "PERSONAL_INFO": {
       "PERSONAL_INFO": "المعلومات الشخصية",
       "COPIED": "تم نسخ رابط الصفحة",
-      "COPY_FAILED": "لم ينجح نسخ الرابط"
+      "COPY_FAILED": "لم ينجح نسخ الرابط",
+      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "الخبرات",
@@ -270,6 +277,18 @@
       "DELETE_CANCEL": "لا",
       "NO_PUBLIC_LINKS": "لا يوجد قنوات متاحة.",
       "ADD_FIRST_LINK": "أضف قناتك الأولى"
+    },
+    "CONTACT_DETAILS": {
+      "CONTACT_DETAILS": "جهات الاتصال",
+      "CONTACT_INFO": "الرقم/الموقع",
+      "CONTACT_TYPE": "نوع جهة الاتصال",
+      "DELETE_TITLE": "مسح جهة الاتصال",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح جهة الاتصال؟",
+      "DELETE_CONFIRM": "نعم، امسح",
+      "DELETE_CANCEL": "لا",
+      "NO_CONTACTS": "لا يوجد جهات اتصال متاحة.",
+      "ADD_FIRST_CONTACT": "أضف جهة الاتصال الأولى",
+      "LOCKED_SECTION": "غير مسموح برؤية هذا الجزء"
     },
     "DELETE_TITLE": "مسح صفحة الفنان",
     "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",

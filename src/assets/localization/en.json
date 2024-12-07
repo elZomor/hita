@@ -32,6 +32,12 @@
   "TIK_TOK": "TikTok",
   "YOUTUBE": "Youtube",
   "TWITTER": "Twitter/X",
+  "SHOWREEL": "ShowReel",
+  "VIMEO": "Vimeo",
+  "BEHANCE": "Behance",
+  "GOOGLE_DRIVE": "Google Drive",
+  "TELEGRAM": "Telegram",
+  "SOUND_CLOUD": "SoundCloud",
   "OTHER": "Other",
   "CONTACT_DETAILS": "Contact Details",
   "EXPERIENCE": "Experience",
@@ -240,7 +246,8 @@
     "PERSONAL_INFO": {
       "PERSONAL_INFO": "Personal Info",
       "COPIED": "Copied to clipboard",
-      "COPY_FAILED": "Failed to copy to clipboard"
+      "COPY_FAILED": "Failed to copy to clipboard",
+      "PROTECT_CONTACT_DETAILS": "Protect contact details"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "Experiences",
@@ -270,6 +277,18 @@
       "DELETE_CANCEL": "No, cancel",
       "NO_PUBLIC_LINKS": "No links added yet.",
       "ADD_FIRST_LINK": "Add your first link"
+    },
+    "CONTACT_DETAILS": {
+      "CONTACT_DETAILS": "Contact Details",
+      "CONTACT_INFO": "Contact Info",
+      "CONTACT_TYPE": "Contact Type",
+      "DELETE_TITLE": "Delete Contact Details",
+      "DELETE_FORM": "Are you sure you want to delete this Contact Details?",
+      "DELETE_CONFIRM": "Yes, delete",
+      "DELETE_CANCEL": "No, cancel",
+      "NO_CONTACTS": "No contact details added yet.",
+      "ADD_FIRST_CONTACT": "Add your first contact details",
+      "LOCKED_SECTION": "This section is locked."
     },
     "DELETE_TITLE": "Delete performer profile",
     "DELETE_FORM": "Are you sure you want to delete this profile?",

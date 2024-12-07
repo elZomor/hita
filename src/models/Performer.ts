@@ -48,6 +48,7 @@ export interface ContactDetailsObject {
 }
 
 export interface ContactDetail {
+  id: number;
   contactType: string;
   contactInfo: string;
 }
@@ -169,10 +170,11 @@ const mapGalleryResponseToGallery = (
   }));
 };
 
-const mapContactDetailsResponseToContactDetails = (
+export const mapContactDetailsResponseToContactDetails = (
   contactDetailResponse: Record<string, any>[]
 ): ContactDetail[] => {
   return contactDetailResponse.map((contactDetails) => ({
+    id: contactDetails['id'],
     contactType: contactDetails['contact_type'],
     contactInfo: contactDetails['contact_info'],
   }));

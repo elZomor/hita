@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FaFemale, FaMale } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { PerformerDetailsForm } from './PerformerDetailsForm';
-import {
-  mapPerformerResponseToPerformer,
-  Performer,
-} from '../../../models/Performer.ts';
+import { Performer } from '../../../models/Performer.ts';
 import Section from '../../../components/shared/section/Section.tsx';
 import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
@@ -16,22 +13,26 @@ import { FaRegCopy } from 'react-icons/fa6';
 import { useLocation } from 'react-router-dom';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
-import { get_request, patch_request } from '../../../utils/restUtils.ts';
+import { patch_request } from '../../../utils/restUtils.ts';
 import { format } from 'date-fns';
 
 type PerformerDetailsSectionProps = {
   performer: Performer;
   username: string;
+  isContactDetailsProtected: boolean;
+  refreshPerformerPage: () => void;
 };
 
 export default function PerformerDetailsSection({
   performer: initialPerformer,
   username,
+  isContactDetailsProtected,
+  refreshPerformerPage,
 }: PerformerDetailsSectionProps) {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const { isEditMode, setEditMode } = useEditMode();
-  const [performer, setPerformer] = useState(initialPerformer);
+  const performer = initialPerformer;
   const [showImageModal, setShowImageModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [snackbar, setSnackbar] = useState<{
@@ -54,6 +55,7 @@ export default function PerformerDetailsSection({
     status: formData['status'],
     height: formData['height'],
     skills_tags: formData['skills'],
+    contact_detail_protected: formData['isContactDetailsProtected'],
   });
 
   const handleUpdate = async (formData: any) => {
@@ -62,10 +64,7 @@ export default function PerformerDetailsSection({
         `hita/performers/${username}`,
         mapFormDataToRequest(formData)
       );
-      const { data: getData } = await get_request(
-        `hita/performers/${username}`
-      );
-      setPerformer(mapPerformerResponseToPerformer(getData.data.performer));
+      refreshPerformerPage();
       setEditMode(false);
     } catch (e) {
       console.error(e);
@@ -164,6 +163,7 @@ export default function PerformerDetailsSection({
           performer={performer}
           username={username}
           onCancel={handleCancel}
+          isContactDetailsProtected={isContactDetailsProtected}
         />
       ) : (
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">

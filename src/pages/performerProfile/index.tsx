@@ -64,22 +64,7 @@ const PerformerProfile: React.FC = () => {
   };
 
   useEffect(() => {
-    async function fetchPerformer() {
-      try {
-        const { data } = await get_request(`hita/performers/${username}`);
-        const performer = mapSinglePerformerResponseToSinglePerformer(
-          data.data
-        );
-        setPermissions(data.permissions);
-        setPerformer(performer);
-      } catch (error) {
-        console.error('Failed to fetch performer:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPerformer();
+    refreshPerformerPage();
   }, [username]);
 
   useEffect(() => {
@@ -105,6 +90,19 @@ const PerformerProfile: React.FC = () => {
 
     return () => observer.disconnect();
   }, [performer]);
+
+  const refreshPerformerPage = async () => {
+    try {
+      const { data } = await get_request(`hita/performers/${username}`);
+      const performer = mapSinglePerformerResponseToSinglePerformer(data.data);
+      setPermissions(data.permissions);
+      setPerformer(performer);
+    } catch (error) {
+      console.error('Failed to fetch performer:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
     const headerOffset = 70; // Offset of 16px
@@ -174,6 +172,10 @@ const PerformerProfile: React.FC = () => {
               <PerformerDetailsSection
                 performer={performer.performer}
                 username={username!}
+                isContactDetailsProtected={
+                  performer.contactDetailsObject.isLocked
+                }
+                refreshPerformerPage={refreshPerformerPage}
               />
             </div>
 
@@ -184,6 +186,8 @@ const PerformerProfile: React.FC = () => {
             <div ref={sectionRefs.contact} id="contact">
               <ContactDetailsSection
                 contacts={performer.contactDetailsObject.data!}
+                isLocked={performer.contactDetailsObject.isLocked!}
+                showLock={!permissions.includes('VIEW_CONTACT_DETAILS')}
               />
             </div>
             <div ref={sectionRefs.publicLinks} id="contact">

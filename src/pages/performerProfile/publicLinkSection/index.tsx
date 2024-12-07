@@ -56,9 +56,6 @@ export function PublicLinksSection({
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setCurrentLink(links[index]);
-    console.log('index');
-    console.log(index);
-    console.log(links[index]);
   };
 
   const mapFormDataToRequest = (
