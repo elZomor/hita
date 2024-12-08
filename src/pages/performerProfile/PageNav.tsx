@@ -1,4 +1,4 @@
-import { Award, Image, Phone, Trophy, User } from 'lucide-react';
+import { Award, Globe, Image, Phone, Trophy, User } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +16,7 @@ const PageNav = ({ activeSection, onSectionClick }: PageNavProps) => {
     { id: 'profile', label: addTranslationPrefix('PROFILE'), icon: User },
     { id: 'gallery', label: addTranslationPrefix('GALLERY'), icon: Image },
     { id: 'contact', label: addTranslationPrefix('CONTACT'), icon: Phone },
+    { id: 'publicLinks', label: addTranslationPrefix('CHANNELS'), icon: Globe },
     {
       id: 'experience',
       label: addTranslationPrefix('EXPERIENCES'),

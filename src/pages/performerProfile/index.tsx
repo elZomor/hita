@@ -190,7 +190,7 @@ const PerformerProfile: React.FC = () => {
                 showLock={!permissions.includes('VIEW_CONTACT_DETAILS')}
               />
             </div>
-            <div ref={sectionRefs.publicLinks} id="contact">
+            <div ref={sectionRefs.publicLinks} id="channels">
               <PublicLinksSection links={performer.publicLinks!} />
             </div>
 
