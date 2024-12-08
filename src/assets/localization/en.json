@@ -88,7 +88,9 @@
     "NOT_FOUND_MESSAGE": "Sorry, we couldn't find what you're looking for. it might have been removed, renamed, or doesn't exist.",
     "EDIT": "Edit",
     "CLOSE_EDIT": "Close edit",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "COPY_RIGHTS": "Your Company. All rights reserved.",
+    "FOR_DETAILS": "Contact us"
   },
   "HEADER": {
     "PROFILE": "Profile",
