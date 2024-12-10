@@ -250,7 +250,8 @@
       "PERSONAL_INFO": "Personal Info",
       "COPIED": "Copied to clipboard",
       "COPY_FAILED": "Failed to copy to clipboard",
-      "PROTECT_CONTACT_DETAILS": "Protect contact details"
+      "PROTECT_CONTACT_DETAILS": "Protect contact details",
+      "PROTECT_GALLERY": "Protect gallery"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "Experiences",

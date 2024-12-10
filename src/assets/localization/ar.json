@@ -250,7 +250,8 @@
       "PERSONAL_INFO": "المعلومات الشخصية",
       "COPIED": "تم نسخ رابط الصفحة",
       "COPY_FAILED": "لم ينجح نسخ الرابط",
-      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
+      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية",
+      "PROTECT_GALLERY": "اجعل معرض الصور محمي"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "الخبرات",

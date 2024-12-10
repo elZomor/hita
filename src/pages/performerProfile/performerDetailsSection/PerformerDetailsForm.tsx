@@ -15,6 +15,7 @@ interface PerformerDetailsFormProps {
   performer: any;
   username: string;
   isContactDetailsProtected: boolean;
+  isGalleryProtected: boolean;
   handleUpdate: (requestData: any) => void;
   onCancel: () => void;
 }
@@ -35,6 +36,7 @@ const personalInfoSchema = z.object({
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
   isContactDetailsProtected: z.boolean(),
+  isGalleryProtected: z.boolean(),
 });
 
 export function PerformerDetailsForm({
@@ -43,6 +45,7 @@ export function PerformerDetailsForm({
   handleUpdate,
   username,
   isContactDetailsProtected,
+  isGalleryProtected,
 }: PerformerDetailsFormProps) {
   function getErrorMessage(error: any): string | undefined {
     return error as string | undefined;
@@ -77,7 +80,12 @@ export function PerformerDetailsForm({
     watch,
   } = useForm({
     resolver: zodResolver(personalInfoSchema),
-    defaultValues: { ...performer, username, isContactDetailsProtected },
+    defaultValues: {
+      ...performer,
+      username,
+      isContactDetailsProtected,
+      isGalleryProtected,
+    },
   });
   console.log(errors);
 
@@ -236,16 +244,28 @@ export function PerformerDetailsForm({
               />
             </div>
           </FormField>
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              {...register('isContactDetailsProtected')}
-              className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
-            />
-            <span className="mx-2 text-gray-700">
-              {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_CONTACT_DETAILS')}
-            </span>
-          </label>
+          <div className="flex flex-col">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                {...register('isContactDetailsProtected')}
+                className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
+              />
+              <span className="mx-2 text-gray-700">
+                {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_CONTACT_DETAILS')}
+              </span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                {...register('isGalleryProtected')}
+                className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
+              />
+              <span className="mx-2 text-gray-700">
+                {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_GALLERY')}
+              </span>
+            </label>
+          </div>
         </div>
       </div>
 
