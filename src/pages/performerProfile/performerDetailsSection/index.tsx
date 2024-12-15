@@ -20,6 +20,7 @@ type PerformerDetailsSectionProps = {
   performer: Performer;
   username: string;
   isContactDetailsProtected: boolean;
+  isGalleryProtected: boolean;
   refreshPerformerPage: () => void;
 };
 
@@ -27,6 +28,7 @@ export default function PerformerDetailsSection({
   performer: initialPerformer,
   username,
   isContactDetailsProtected,
+  isGalleryProtected,
   refreshPerformerPage,
 }: PerformerDetailsSectionProps) {
   const { t, i18n } = useTranslation();
@@ -56,6 +58,7 @@ export default function PerformerDetailsSection({
     height: formData['height'],
     skills_tags: formData['skills'],
     contact_detail_protected: formData['isContactDetailsProtected'],
+    gallery_protected: formData['isGalleryProtected'],
   });
 
   const handleUpdate = async (formData: any) => {
@@ -164,6 +167,7 @@ export default function PerformerDetailsSection({
           username={username}
           onCancel={handleCancel}
           isContactDetailsProtected={isContactDetailsProtected}
+          isGalleryProtected={isGalleryProtected}
         />
       ) : (
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
@@ -191,7 +195,9 @@ export default function PerformerDetailsSection({
                 {getGenderIcon(performer.gender)}
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 break-words">
                   {performer.name}{' '}
-                  {performer.nickName !== null ? `(${performer.nickName})` : ''}
+                  {performer.nickName !== null && performer.nickName !== ''
+                    ? `(${performer.nickName})`
+                    : ''}
                 </h1>
                 {getOpenForIcon(performer.openFor)}
                 <div

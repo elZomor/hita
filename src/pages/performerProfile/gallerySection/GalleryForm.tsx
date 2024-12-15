@@ -5,27 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
 import { ImageUpload } from './ImageUpload';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
+import { Gallery } from '../../../models/Performer.ts';
 
 // Define a specific schema for the gallery form
 const galleryFormSchema = z.object({
+  id: z.number(),
   file: z.instanceof(File).optional(),
-  description: z.string().optional(),
+  description: z.string(),
   isProfilePicture: z.boolean(),
+  imagePath: z.string(),
 });
 
 type GalleryFormData = z.infer<typeof galleryFormSchema>;
 
 interface GalleryFormProps {
-  image: {
-    imagePath: string;
-    description?: string;
-    isProfilePicture?: boolean;
-  };
-  onSave: (image: {
-    file?: File;
-    description?: string;
-    isProfilePicture: boolean;
-  }) => void;
+  image: Gallery;
+  onSave: (image: Gallery) => void;
   onCancel: () => void;
 }
 
@@ -38,10 +33,7 @@ export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
     formState: { errors },
   } = useForm<GalleryFormData>({
     resolver: zodResolver(galleryFormSchema),
-    defaultValues: {
-      description: image.description,
-      isProfilePicture: image.isProfilePicture || false,
-    },
+    defaultValues: image,
   });
 
   const handleImageUpload = (file: File) => {
@@ -61,7 +53,7 @@ export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
         />
 
         <FormField
-          label={t('IMAGE_DESCRIPTION')}
+          label={t('PERFORMER_PAGE.GALLERY_SECTION.IMAGE_DESCRIPTION')}
           error={errors.description?.message}
         >
           <textarea
@@ -85,7 +77,7 @@ export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
             htmlFor="isProfilePicture"
             className="ml-2 block text-sm text-gray-900"
           >
-            {t('SET_AS_PROFILE_PICTURE')}
+            {t('PERFORMER_PAGE.GALLERY_SECTION.SET_AS_PROFILE_PICTURE')}
           </label>
         </div>
       </div>

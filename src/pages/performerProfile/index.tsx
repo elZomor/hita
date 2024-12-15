@@ -175,12 +175,18 @@ const PerformerProfile: React.FC = () => {
                 isContactDetailsProtected={
                   performer.contactDetailsObject.isLocked
                 }
+                isGalleryProtected={performer.galleryObject.isLocked}
                 refreshPerformerPage={refreshPerformerPage}
               />
             </div>
 
             <div ref={sectionRefs.gallery} id="gallery">
-              <GallerySection images={performer.galleryObject.data!} />
+              <GallerySection
+                images={performer.galleryObject.data!}
+                isLocked={performer.galleryObject.isLocked!}
+                showLock={!permissions.includes('VIEW_GALLERY')}
+                refreshPerformerPage={refreshPerformerPage}
+              />
             </div>
 
             <div ref={sectionRefs.contact} id="contact">
@@ -190,7 +196,7 @@ const PerformerProfile: React.FC = () => {
                 showLock={!permissions.includes('VIEW_CONTACT_DETAILS')}
               />
             </div>
-            <div ref={sectionRefs.publicLinks} id="contact">
+            <div ref={sectionRefs.publicLinks} id="channels">
               <PublicLinksSection links={performer.publicLinks!} />
             </div>
 

@@ -236,20 +236,25 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "صور"
+      "IMAGES": "صور",
+      "DRAG_DROP_OR_CLICK": "اسحب صورة أو اضغط لاختيار صورة",
+      "IMAGE_DESCRIPTION": "وصف الصورة",
+      "SET_AS_PROFILE_PICTURE": "اختار كصورة شخصية"
     },
     "NAVIGATION": {
       "PROFILE": "الملف الشخصي",
       "GALLERY": "الصور",
       "CONTACT": "الاتصال",
       "ACHIEVEMENTS": "الإنجازات والجوائز",
-      "EXPERIENCES": "الخبرات السابقة"
+      "EXPERIENCES": "الخبرات السابقة",
+      "CHANNELS": "القنوات المفتوحة"
     },
     "PERSONAL_INFO": {
       "PERSONAL_INFO": "المعلومات الشخصية",
       "COPIED": "تم نسخ رابط الصفحة",
       "COPY_FAILED": "لم ينجح نسخ الرابط",
-      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية"
+      "PROTECT_CONTACT_DETAILS": "اجعل بيانات الاتصال محمية",
+      "PROTECT_GALLERY": "اجعل معرض الصور محمي"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "الخبرات",

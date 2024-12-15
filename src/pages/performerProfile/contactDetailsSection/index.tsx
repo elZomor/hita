@@ -23,7 +23,6 @@ interface ContactDetailsSectionProps {
   contacts: ContactDetail[];
   isLocked: boolean;
   showLock: boolean;
-  onUpdate?: (contacts: { contactType: string; contactInfo: string }[]) => void;
 }
 
 export default function ContactDetailsSection({
@@ -148,7 +147,7 @@ export default function ContactDetailsSection({
           </span>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {contacts.map((contact, index) => {
             if (editingIndex === index) {
               // Show one FormCard when in formMode

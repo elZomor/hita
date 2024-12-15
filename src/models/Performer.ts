@@ -65,8 +65,10 @@ export interface GalleryObject {
 }
 
 export interface Gallery {
+  id: number;
   imagePath: string;
   description: string;
+  isProfilePicture: boolean;
 }
 
 export interface SinglePerformer {
@@ -161,12 +163,14 @@ export const mapAchievementsResponseToAchievements = (
   }));
 };
 
-const mapGalleryResponseToGallery = (
+export const mapGalleryResponseToGallery = (
   galleryResponse: Record<string, any>[]
 ): Gallery[] => {
   return galleryResponse.map((image) => ({
+    id: image['id'],
     imagePath: get_media_link(image['file']),
     description: image['description'],
+    isProfilePicture: image['is_profile_picture'],
   }));
 };
 
@@ -202,7 +206,7 @@ export const mapSinglePerformerResponseToSinglePerformer = (
       data: mapContactDetailsResponseToContactDetails(response.contact_details),
     },
     galleryObject: {
-      isLocked: response.contact_detail_protected,
+      isLocked: response.gallery_protected,
       data: mapGalleryResponseToGallery(response.gallery),
     },
     publicLinks: mapPublicLinksResponseToPublicLinks(response.public_channels),

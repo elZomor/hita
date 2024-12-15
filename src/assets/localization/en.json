@@ -236,20 +236,25 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "Images"
+      "IMAGES": "Images",
+      "DRAG_DROP_OR_CLICK": "Drag, Drop Or Click",
+      "IMAGE_DESCRIPTION": "",
+      "SET_AS_PROFILE_PICTURE": ""
     },
     "NAVIGATION": {
       "PROFILE": "Profile",
       "GALLERY": "Gallery",
       "CONTACT": "Contact",
       "ACHIEVEMENTS": "Achievements",
-      "EXPERIENCES": "Experiences"
+      "EXPERIENCES": "Experiences",
+      "CHANNELS": "Public Channels"
     },
     "PERSONAL_INFO": {
       "PERSONAL_INFO": "Personal Info",
       "COPIED": "Copied to clipboard",
       "COPY_FAILED": "Failed to copy to clipboard",
-      "PROTECT_CONTACT_DETAILS": "Protect contact details"
+      "PROTECT_CONTACT_DETAILS": "Protect contact details",
+      "PROTECT_GALLERY": "Protect gallery"
     },
     "EXPERIENCE": {
       "EXPERIENCES": "Experiences",
