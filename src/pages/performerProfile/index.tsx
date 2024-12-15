@@ -185,6 +185,7 @@ const PerformerProfile: React.FC = () => {
                 images={performer.galleryObject.data!}
                 isLocked={performer.galleryObject.isLocked!}
                 showLock={!permissions.includes('VIEW_GALLERY')}
+                refreshPerformerPage={refreshPerformerPage}
               />
             </div>
 

@@ -195,7 +195,9 @@ export default function PerformerDetailsSection({
                 {getGenderIcon(performer.gender)}
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 break-words">
                   {performer.name}{' '}
-                  {performer.nickName !== null ? `(${performer.nickName})` : ''}
+                  {performer.nickName !== null && performer.nickName !== ''
+                    ? `(${performer.nickName})`
+                    : ''}
                 </h1>
                 {getOpenForIcon(performer.openFor)}
                 <div

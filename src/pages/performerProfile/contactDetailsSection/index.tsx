@@ -23,7 +23,6 @@ interface ContactDetailsSectionProps {
   contacts: ContactDetail[];
   isLocked: boolean;
   showLock: boolean;
-  onUpdate?: (contacts: { contactType: string; contactInfo: string }[]) => void;
 }
 
 export default function ContactDetailsSection({

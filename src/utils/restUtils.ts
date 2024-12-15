@@ -38,6 +38,36 @@ export const patch_request = async (
   return await apiClient.patch(url, data);
 };
 
+export const patch_files = async (
+  url: string,
+  item: Record<string, any>
+): Promise<AxiosResponse> => {
+  const formData = new FormData();
+  formData.append('file', item.file);
+  formData.append('description', item.description);
+  formData.append('is_profile_picture', item.is_profile_picture);
+  return await apiClient.patch(url, item, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const upload_file = async (
+  url: string,
+  item: Record<string, any>
+): Promise<AxiosResponse> => {
+  const formData = new FormData();
+  formData.append('file', item.file);
+  formData.append('description', item.description);
+  formData.append('is_profile_picture', item.is_profile_picture);
+  return await apiClient.post(url, item, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
 export const post_files = async (
   url: string,
   data: Record<string, any>

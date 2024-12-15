@@ -236,7 +236,10 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "Images"
+      "IMAGES": "Images",
+      "DRAG_DROP_OR_CLICK": "Drag, Drop Or Click",
+      "IMAGE_DESCRIPTION": "",
+      "SET_AS_PROFILE_PICTURE": ""
     },
     "NAVIGATION": {
       "PROFILE": "Profile",

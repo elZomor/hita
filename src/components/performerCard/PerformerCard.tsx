@@ -85,9 +85,11 @@ export function ActorCard({ actor }: ActorCardProps) {
             <div className="flex-1">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <h3 className="pr-4 text-lg font-semibold text-gray-900 break-words">
+                  <h3 className="pr-1 text-lg font-semibold text-gray-900 break-words">
                     {actor.name}
-                    {actor.nickName !== null ? `(${actor.nickName})` : ''}
+                    {actor.nickName !== null && actor.nickName !== ''
+                      ? `(${actor.nickName})`
+                      : ''}
                   </h3>
                 </div>
                 <div className="flex items-center">
@@ -103,6 +105,14 @@ export function ActorCard({ actor }: ActorCardProps) {
                   />
                 </div>
               </div>
+              {actor.age !== null && (
+                <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
+                  <span className="break-words">
+                    {actor.age} {t('YEARS_OLD')}
+                  </span>
+                </div>
+              )}
+
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                 <GraduationCap className="flex-shrink-0 w-4 h-4" />
                 <span className="break-words">{t(actor.department)}</span>

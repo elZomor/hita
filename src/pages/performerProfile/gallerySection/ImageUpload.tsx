@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Upload } from 'lucide-react';
 import { clsx } from 'clsx';
@@ -14,11 +15,21 @@ export function ImageUpload({
   error,
 }: ImageUploadProps) {
   const { t } = useTranslation();
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    currentImage || null
+  );
+
+  useEffect(() => {
+    if (currentImage) {
+      setPreviewUrl(currentImage);
+    }
+  }, [currentImage]);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
+      setPreviewUrl(URL.createObjectURL(file));
       onImageUpload(file);
     }
   };
@@ -26,6 +37,7 @@ export function ImageUpload({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
       onImageUpload(file);
     }
   };
@@ -41,16 +53,18 @@ export function ImageUpload({
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
       >
-        {currentImage ? (
+        {previewUrl ? (
           <div className="relative aspect-video">
             <img
-              src={currentImage}
-              alt=""
+              src={previewUrl}
+              alt="Preview"
               className="w-full h-full object-cover rounded-lg"
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
               <div className="text-white">
-                <p className="text-sm">{t('DRAG_DROP_OR_CLICK')}</p>
+                <p className="text-sm">
+                  {t('PERFORMER_PAGE.GALLERY_SECTION.DRAG_DROP_OR_CLICK')}
+                </p>
               </div>
             </div>
           </div>
@@ -58,7 +72,7 @@ export function ImageUpload({
           <div className="py-12">
             <Upload className="mx-auto h-12 w-12 text-gray-400" />
             <p className="mt-2 text-sm text-gray-500">
-              {t('DRAG_DROP_OR_CLICK')}
+              {t('PERFORMER_PAGE.GALLERY_SECTION.DRAG_DROP_OR_CLICK')}
             </p>
           </div>
         )}

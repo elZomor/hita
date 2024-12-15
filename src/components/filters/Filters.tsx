@@ -67,7 +67,7 @@ export function Filters({ updateFilter }: FilterProps) {
                     }
                   }}
                 />
-                <span className="ml-2 text-sm text-gray-600">
+                <span className="mx-2 text-sm text-gray-600">
                   {t('PERFORMER_HOME.' + gender)}
                 </span>
               </label>
@@ -99,7 +99,7 @@ export function Filters({ updateFilter }: FilterProps) {
                     }
                   }}
                 />
-                <span className="ml-2 text-sm text-gray-600">
+                <span className="mx-2 text-sm text-gray-600">
                   {t(department)}
                 </span>
               </label>
@@ -128,7 +128,7 @@ export function Filters({ updateFilter }: FilterProps) {
                     }
                   }}
                 />
-                <span className="ml-2 text-sm text-gray-600">{t(skill)}</span>
+                <span className="mx-2 text-sm text-gray-600">{t(skill)}</span>
               </label>
             ))}
           </div>

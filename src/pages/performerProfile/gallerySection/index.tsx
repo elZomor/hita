@@ -9,29 +9,31 @@ import { AddButton } from '../../../components/shared/AddButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { FaLock } from 'react-icons/fa6';
+import {
+  Gallery,
+  mapGalleryResponseToGallery,
+} from '../../../models/Performer.ts';
+import {
+  delete_request,
+  get_request,
+  patch_files,
+  upload_file,
+} from '../../../utils/restUtils.ts';
+import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
+import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 
 interface GallerySectionProps {
-  images: {
-    imagePath: string;
-    description?: string;
-    isProfilePicture?: boolean;
-  }[];
-  onUpdate?: (
-    images: {
-      imagePath: string;
-      description?: string;
-      isProfilePicture?: boolean;
-    }[]
-  ) => void;
+  images: Gallery[];
   isLocked: boolean;
   showLock: boolean;
+  refreshPerformerPage: () => void;
 }
 
 export default function GallerySection({
   images: initialImages,
   isLocked,
   showLock,
-  onUpdate,
+  refreshPerformerPage,
 }: GallerySectionProps) {
   const { isEditMode } = useEditMode();
   const { i18n, t } = useTranslation();
@@ -44,7 +46,17 @@ export default function GallerySection({
     description?: string;
   } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log(images);
+  const [currentImage, setCurrentImage] = useState<Gallery | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    type: 'success' | 'error';
+  }>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
   // Touch handling
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
@@ -104,60 +116,79 @@ export default function GallerySection({
 
   const handleAdd = () => {
     const newImage = {
+      id: 0,
       imagePath: '',
       description: '',
       isProfilePicture: false,
     };
     setIsAdding(true);
-    setImages([...images, newImage]);
-    setEditingIndex(images.length);
+    setImages([newImage, ...images]);
+    setEditingIndex(0);
   };
 
   const handleEdit = (index: number) => {
     setEditingIndex(index);
+    setCurrentImage(images[index]);
   };
 
-  const handleSave = (
-    index: number,
-    updatedImage: {
-      file?: File;
-      description?: string;
-      isProfilePicture: boolean;
-    }
-  ) => {
-    const updatedImages = [...images];
+  const mapFormDataToRequest = (
+    formData: Record<string, any>
+  ): Record<string, any> => ({
+    file: formData['file'],
+    description: formData['description'],
+    is_profile_picture: formData['isProfilePicture'],
+  });
 
-    // If setting as profile picture, unset others
-    if (updatedImage.isProfilePicture) {
-      updatedImages.forEach((img) => (img.isProfilePicture = false));
-    }
+  const handleSave = async (updatedImage: Gallery) => {
+    try {
+      if (currentImage?.id === undefined) {
+        await upload_file(`hita/gallery`, mapFormDataToRequest(updatedImage));
+      } else {
+        await patch_files(
+          `hita/gallery/${currentImage?.id}`,
+          mapFormDataToRequest(updatedImage)
+        );
+      }
 
-    updatedImages[index] = {
-      imagePath: updatedImage.file
-        ? URL.createObjectURL(updatedImage.file)
-        : images[index].imagePath,
-      description: updatedImage.description,
-      isProfilePicture: updatedImage.isProfilePicture,
-    };
-    setImages(updatedImages);
-    setEditingIndex(null);
-    setIsAdding(false);
-    onUpdate?.(updatedImages);
+      const { data: getData } = await get_request(`hita/gallery`);
+      setImages(mapGalleryResponseToGallery(getData.data));
+      setEditingIndex(null);
+      setCurrentImage(null);
+      setIsAdding(false);
+      if (updatedImage.isProfilePicture) {
+        refreshPerformerPage();
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const handleDelete = (index: number) => {
-    const updatedImages = images.filter((_, i) => i !== index);
-    setImages(updatedImages);
+  const handleDelete = (image: Gallery) => {
+    setCurrentImage(image);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await delete_request(`hita/gallery/${currentImage?.id}`);
+      setShowDeleteModal(false);
+
+      const { data: getData } = await get_request(`hita/gallery`);
+      setImages(mapGalleryResponseToGallery(getData.data));
+    } catch (e) {
+      console.error(e);
+    }
     setEditingIndex(null);
+    setCurrentImage(null);
     setIsAdding(false);
-    onUpdate?.(updatedImages);
   };
 
   const handleCancel = () => {
     if (isAdding) {
-      setImages(images.slice(0, -1));
+      setImages(images.slice(1));
     }
     setEditingIndex(null);
+    setCurrentImage(null);
     setIsAdding(false);
   };
 
@@ -193,7 +224,7 @@ export default function GallerySection({
       ) : editingIndex !== null ? (
         <GalleryForm
           image={images[editingIndex]}
-          onSave={(updatedImage) => handleSave(editingIndex, updatedImage)}
+          onSave={handleSave}
           onCancel={handleCancel}
         />
       ) : (
@@ -262,7 +293,7 @@ export default function GallerySection({
                     <GalleryCard
                       image={image}
                       onEdit={() => handleEdit(index)}
-                      onDelete={() => handleDelete(index)}
+                      onDelete={() => handleDelete(image)}
                       onView={() => handleView(image)}
                       isEditing={false}
                     />
@@ -295,6 +326,21 @@ export default function GallerySection({
           />
         </>
       )}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+        title={t('PERFORMER_PAGE.GALLERY.DELETE_TITLE')}
+        message={t('PERFORMER_PAGE.GALLERY.DELETE_FORM')}
+        confirmText={t('PERFORMER_PAGE.GALLERY.DELETE_CONFIRM')}
+        cancelText={t('PERFORMER_PAGE.GALLERY.DELETE_CANCEL')}
+      />
+      <Snackbar
+        isOpen={snackbar.open}
+        message={snackbar.message}
+        type={snackbar.type}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+      />
     </Section>
   );
 }

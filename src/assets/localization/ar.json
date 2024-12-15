@@ -236,7 +236,10 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "صور"
+      "IMAGES": "صور",
+      "DRAG_DROP_OR_CLICK": "اسحب صورة أو اضغط لاختيار صورة",
+      "IMAGE_DESCRIPTION": "وصف الصورة",
+      "SET_AS_PROFILE_PICTURE": "اختار كصورة شخصية"
     },
     "NAVIGATION": {
       "PROFILE": "الملف الشخصي",
