@@ -91,3 +91,9 @@ export const post_files = async (
 export const get_media_link = (mediaUrl: string): string => {
   return mediaUrl.startsWith('/media') ? `${baseUrl}${mediaUrl}` : mediaUrl;
 };
+
+export const get_blob_video = async (url: string) => {
+  return await apiClient.get(url, {
+    responseType: 'blob',
+  });
+};

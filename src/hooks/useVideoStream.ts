@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { get_blob_video } from '../utils/restUtils.ts';
 
 interface VideoStreamState {
   loading: boolean;
@@ -16,20 +17,11 @@ export const useVideoStream = (videoId: string) => {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        // Create a URL for the video stream
-        const streamUrl = videoId;
-
-        // Check if the video exists by making a HEAD request
-        // const response = await fetch(streamUrl, { method: 'GET' });
-
-        // if (!response.ok) {
-        //   throw new Error('Video not found');
-        // }
-
+        const { data } = await get_blob_video(videoId);
         setState({
           loading: false,
           error: null,
-          videoUrl: streamUrl,
+          videoUrl: URL.createObjectURL(data),
         });
       } catch (error) {
         setState({
