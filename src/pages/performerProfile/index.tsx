@@ -19,6 +19,7 @@ import { PublicLinksSection } from './publicLinkSection';
 import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { useTranslation } from 'react-i18next';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
+import { ShowReelSection } from './showReelSection';
 
 const PerformerProfile: React.FC = () => {
   const { t } = useTranslation();
@@ -179,6 +180,9 @@ const PerformerProfile: React.FC = () => {
                 refreshPerformerPage={refreshPerformerPage}
               />
             </div>
+            <div ref={sectionRefs.contact} id="contact">
+              <ShowReelSection username={username!} />
+            </div>
 
             <div ref={sectionRefs.gallery} id="gallery">
               <GallerySection
@@ -196,6 +200,7 @@ const PerformerProfile: React.FC = () => {
                 showLock={!permissions.includes('VIEW_CONTACT_DETAILS')}
               />
             </div>
+
             <div ref={sectionRefs.publicLinks} id="channels">
               <PublicLinksSection links={performer.publicLinks!} />
             </div>
