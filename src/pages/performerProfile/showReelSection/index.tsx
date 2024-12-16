@@ -6,19 +6,26 @@ import { baseUrl } from '../../../constants.ts';
 
 type ShowReelSectionProps = {
   username: string;
+  profilePictureUrl: string;
 };
 
-export const ShowReelSection = ({ username }: ShowReelSectionProps) => {
+export const ShowReelSection = ({
+  username,
+  profilePictureUrl,
+}: ShowReelSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
+
   return (
     <Section title={t('ShowReel')}>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-      >
-        Open Video Modal
-      </button>
+      <div className="h-80 flex justify-center items-center hover:cursor-pointer">
+        <img
+          src={profilePictureUrl}
+          alt="Video Thumbnail"
+          className="object-cover object-center w-1/2 h-full"
+          onClick={() => setIsModalOpen(true)}
+        />
+      </div>
 
       <VideoModal
         isOpen={isModalOpen}
