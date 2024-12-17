@@ -249,6 +249,7 @@
     },
     "NAVIGATION": {
       "PROFILE": "Profile",
+      "SHOW_REEL": "ShowReel",
       "GALLERY": "Gallery",
       "CONTACT": "Contact",
       "ACHIEVEMENTS": "Achievements",

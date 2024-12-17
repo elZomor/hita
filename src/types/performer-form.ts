@@ -137,6 +137,7 @@ export const personalInfoSchema = z.object({
   status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
+  weight: z.number().max(230).optional(),
 });
 
 export const experienceSchema = z
