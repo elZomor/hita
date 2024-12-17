@@ -78,6 +78,7 @@ export interface SinglePerformer {
   contactDetailsObject: ContactDetailsObject;
   galleryObject: GalleryObject;
   publicLinks: PublicLink[];
+  hasShowReel: boolean;
 }
 
 export interface PerformerResponse {
@@ -108,6 +109,7 @@ export interface SinglePerformerResponse {
   contact_details: ContactDetail[];
   gallery: Gallery[];
   public_channels: PublicLink[];
+  has_show_reel: boolean;
 }
 
 export const mapPerformerResponseToPerformer = (
@@ -210,6 +212,7 @@ export const mapSinglePerformerResponseToSinglePerformer = (
       data: mapGalleryResponseToGallery(response.gallery),
     },
     publicLinks: mapPublicLinksResponseToPublicLinks(response.public_channels),
+    hasShowReel: response.has_show_reel,
   };
 };
 

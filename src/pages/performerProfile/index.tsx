@@ -183,7 +183,7 @@ const PerformerProfile: React.FC = () => {
             <div ref={sectionRefs.contact} id="contact">
               <ShowReelSection
                 username={username!}
-                profilePictureUrl={performer.performer?.profilePicture!}
+                hasShowReel={performer.hasShowReel!}
               />
             </div>
 
