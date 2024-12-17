@@ -6,6 +6,7 @@ export interface PersonalInfo {
   skills?: (string | number | boolean)[];
   bio?: string;
   height?: number;
+  weight?: number;
   status: 'AVAILABLE' | 'UNAVAILABLE';
   openFor: 'PAID' | 'FREE' | 'BOTH';
 }

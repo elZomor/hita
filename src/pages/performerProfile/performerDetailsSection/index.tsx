@@ -233,6 +233,11 @@ export default function PerformerDetailsSection({
                   {performer.height && `${performer.height} ${t('CM')}`}
                 </p>
               )}
+              {performer.weight && (
+                <p className="text-sm md:text-base">
+                  {performer.weight && `${performer.weight} ${t('KG')}`}
+                </p>
+              )}
 
               <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                 <GraduationCap className="h-4 w-4 flex-shrink-0" />

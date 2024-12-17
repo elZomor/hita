@@ -35,6 +35,7 @@ const personalInfoSchema = z.object({
   status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
+  weight: z.number().max(230).optional(),
   isContactDetailsProtected: z.boolean(),
   isGalleryProtected: z.boolean(),
 });
@@ -127,6 +128,22 @@ export function PerformerDetailsForm({
               })}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               maxLength={3}
+            />
+          </div>
+        </FormField>
+        <FormField
+          label={addTranslationPrefix('WEIGHT')}
+          error={getErrorMessage(errors.weight?.message)}
+        >
+          <div className="space-y-2">
+            <input
+              type="text"
+              {...register('weight', {
+                setValueAs: (value) =>
+                  value === '' ? undefined : Number(value),
+              })}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              maxLength={4}
             />
           </div>
         </FormField>

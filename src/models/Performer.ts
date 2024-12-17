@@ -18,6 +18,7 @@ export interface Performer {
   dateOfBirth?: Date;
   studyType: string;
   height?: number;
+  weight?: number;
   nickName?: string;
   openFor: 'PAID' | 'FREE' | 'BOTH';
 }
@@ -95,6 +96,7 @@ export interface PerformerResponse {
   age?: number;
   study_type: string;
   height?: number;
+  weight?: number;
   nick_name?: string;
   date_of_birth?: string;
   open_for: 'FREE' | 'PAID' | 'BOTH';
@@ -130,6 +132,7 @@ export const mapPerformerResponseToPerformer = (
     : undefined,
   age: performerResponse.age,
   height: performerResponse.height,
+  weight: performerResponse.weight,
   nickName: performerResponse.nick_name,
   openFor: performerResponse.open_for,
   dateOfBirth:
@@ -261,6 +264,7 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       open_for: personalInfo['openFor'],
       status: personalInfo['status'],
       height: personalInfo['height'],
+      weight: personalInfo['weight'],
       skills_tags: personalInfo['skills'],
       contact_detail_protected: data['contactSection']['keepProtected'],
       gallery_protected: data['gallerySection']['keepProtected'],
