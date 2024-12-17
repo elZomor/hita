@@ -18,7 +18,9 @@ export interface Experience {
   roles: string[];
   year: number;
   duration: number | null;
-  // showType: 'THEATER' | 'TV' | 'MOVIE' | 'RADIO' | 'DUBBING' | '';
+  producer: string | null;
+  roleName: string | null;
+  brief: string | null;
   showType: string;
 }
 
@@ -142,6 +144,9 @@ export const experienceSchema = z
     showName: z.string().min(1, 'Show name is required'),
     director: z.string().min(1, 'Director is required'),
     venue: z.string().nullable().optional(),
+    producer: z.string().nullable().optional(),
+    roleName: z.string().nullable().optional(),
+    brief: z.string().nullable().optional(),
     showType: z.string().min(1, 'Show type is required'),
     roles: z.array(z.string()).min(1, 'At least one role is required'),
     year: z.number().min(1900).max(new Date().getFullYear()),
@@ -162,6 +167,14 @@ export const experienceSchema = z
           code: 'custom', // Required code property
           path: ['duration'],
           message: 'Duration is required when showType is Theater',
+        });
+      }
+    } else if (data.showType === 'TV' || data.showType === 'MOVIE') {
+      if (!data.producer) {
+        ctx.addIssue({
+          code: 'custom', // Required code property
+          path: ['producer'],
+          message: 'producer is required when showType is Movie or TV',
         });
       }
     }

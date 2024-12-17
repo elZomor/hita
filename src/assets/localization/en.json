@@ -200,6 +200,9 @@
       "YEAR": "Year",
       "ROLES": "Roles",
       "VENUE": "Venue",
+      "PRODUCER": "Producer",
+      "ROLE_NAME": "Role (Character) name",
+      "ROLE_BRIEF": "Brief about the character",
       "DURATION_NIGHTS": "Duration (Nights)"
     },
     "ACHIEVEMENTS_SECTION": {
@@ -261,6 +264,7 @@
     },
     "EXPERIENCE": {
       "EXPERIENCES": "Experiences",
+      "PRODUCER": "Producer",
       "ADD_FIRST_EXPERIENCE": "Add your first experience",
       "NO_EXPERIENCES": "No experiences yet.",
       "DELETE_TITLE": "Delete experience",

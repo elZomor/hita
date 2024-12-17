@@ -42,6 +42,13 @@ export function ExperienceCard({
             {`${experience.showName} (${t('PERFORMER_REG.EXPERIENCE_SECTION.' + experience.showType)} - ${experience.year})`}
           </h3>
           <div className="space-y-2text-gray-600">
+            {experience.showType === 'TV' ||
+              (experience.showType === 'MOVIE' && (
+                <h2>
+                  {t('PERFORMER_PAGE.EXPERIENCE.PRODUCER')}:{' '}
+                  {experience.producer}
+                </h2>
+              ))}
             <h2>
               {t('DIRECTOR')}: {experience.director}
             </h2>
@@ -62,6 +69,10 @@ export function ExperienceCard({
                 </p>
               </div>
             )}
+            {experience.roleName && (
+              <p className="italic font-bold">{experience.roleName}</p>
+            )}
+            {experience.brief && <p>"{experience.brief}"</p>}
           </div>
         </div>
         {!isEditing && (

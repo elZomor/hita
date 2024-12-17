@@ -48,6 +48,61 @@ export function ExperiencesStep({
     { value: 'DUBBING', label: addTranslationPrefix('DUBBING') },
   ];
 
+  const getConditionalFields = (showType: string, index: number) => {
+    if (showType === 'THEATER') {
+      return TheaterInfo(showType, index);
+    } else if (showType === 'TV' || showType === 'MOVIE') {
+      return MediaInfo(showType, index);
+    }
+    return null;
+  };
+
+  const TheaterInfo = (showType: string, index: number) => (
+    <>
+      <FormField
+        label={addTranslationPrefix('VENUE')}
+        error={errors.experiences?.[index]?.venue?.message}
+        required={showType === 'THEATER'}
+      >
+        <input
+          type="text"
+          {...register(`experiences.${index}.venue`)}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+      <FormField
+        label={addTranslationPrefix('DURATION_NIGHTS')}
+        error={errors.experiences?.[index]?.duration?.message}
+        required={showType === 'THEATER'}
+      >
+        <input
+          type="number"
+          min="1"
+          {...register(`experiences.${index}.duration`, {
+            setValueAs: (value) =>
+              value === '' || value === null ? undefined : Number(value), // Convert to number or undefined
+          })}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+    </>
+  );
+
+  const MediaInfo = (showType: string, index: number) => (
+    <>
+      <FormField
+        label={addTranslationPrefix('PRODUCER')}
+        error={errors.experiences?.[index]?.producer?.message}
+        required={showType === 'TV' || showType === 'MOVIE'}
+      >
+        <input
+          type="text"
+          {...register(`experiences.${index}.producer`)}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+    </>
+  );
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -66,6 +121,9 @@ export function ExperiencesStep({
               roles: [],
               year: currentYear,
               duration: null,
+              producer: null,
+              roleName: null,
+              brief: null,
             })
           }
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100"
@@ -204,41 +262,31 @@ export function ExperiencesStep({
                     />
                   </FormField>
                 </div>
-                {watch(`experiences.${index}.showType`) !== 'THEATER' ? null : (
-                  <>
-                    <FormField
-                      label={addTranslationPrefix('VENUE')}
-                      error={errors.experiences?.[index]?.venue?.message}
-                      required={
-                        watch(`experiences.${index}.showType`) === 'THEATER'
-                      }
-                    >
-                      <input
-                        type="text"
-                        {...register(`experiences.${index}.venue`)}
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      />
-                    </FormField>
-                    <FormField
-                      label={addTranslationPrefix('DURATION_NIGHTS')}
-                      error={errors.experiences?.[index]?.duration?.message}
-                      required={
-                        watch(`experiences.${index}.showType`) === 'THEATER'
-                      } // Only required if showType is 'THEATER'
-                    >
-                      <input
-                        type="number"
-                        min="1"
-                        {...register(`experiences.${index}.duration`, {
-                          setValueAs: (value) =>
-                            value === '' || value === null
-                              ? undefined
-                              : Number(value), // Convert to number or undefined
-                        })}
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      />
-                    </FormField>
-                  </>
+                <FormField
+                  label={addTranslationPrefix('ROLE_NAME')}
+                  error={errors.experiences?.[index]?.roleName?.message}
+                  required={false}
+                >
+                  <input
+                    type="text"
+                    {...register(`experiences.${index}.roleName`)}
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </FormField>
+                <FormField
+                  label={addTranslationPrefix('ROLE_BRIEF')}
+                  error={errors.experiences?.[index]?.brief?.message}
+                  required={false}
+                >
+                  <input
+                    type="text"
+                    {...register(`experiences.${index}.brief`)}
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </FormField>
+                {getConditionalFields(
+                  watch(`experiences.${index}.showType`),
+                  index
                 )}
               </div>
             </div>

@@ -55,6 +55,9 @@ export default function ExperienceSection({
       roles: [],
       venue: '',
       duration: undefined,
+      producer: '',
+      brief: '',
+      roleName: '',
     };
     setIsAdding(true);
     setExperiences([newExperience, ...experiences]);
@@ -74,6 +77,9 @@ export default function ExperienceSection({
     year: formData['year'],
     roles: formData['roles'],
     venue: formData['venue'],
+    producer: formData['producer'],
+    role_name: formData['roleName'],
+    role_brief: formData['brief'],
     duration: formData['duration'],
   });
 

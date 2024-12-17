@@ -200,6 +200,9 @@
       "YEAR": "السنة",
       "ROLES": "الادوار",
       "VENUE": "اسم المسرح",
+      "PRODUCER": "جهة الإنتاج",
+      "ROLE_NAME": "اسم الدور/الشخصية",
+      "ROLE_BRIEF": "ملخص عن الشخصية",
       "DURATION_NIGHTS": "عدد ليالي العرض"
     },
     "ACHIEVEMENTS_SECTION": {
@@ -261,6 +264,7 @@
     },
     "EXPERIENCE": {
       "EXPERIENCES": "الخبرات",
+      "PRODUCER": "جهة الإنتاج",
       "ADD_FIRST_EXPERIENCE": "ضيف خبرتك الأولى",
       "NO_EXPERIENCES": "لم يتم إضافة خبرات بعد",
       "DELETE_TITLE": "مسح الخبرة",

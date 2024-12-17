@@ -28,6 +28,9 @@ export interface Experience {
   showName: string;
   director: string;
   venue: string | null | undefined;
+  producer: string | null | undefined;
+  roleName: string | null | undefined;
+  brief: string | null | undefined;
   year: number;
   duration: number | null | undefined;
   roles: string[];
@@ -149,6 +152,9 @@ export const mapExperienceResponseToExperience = (
     showName: experienceResponse['show_name'],
     director: experienceResponse['director'],
     venue: experienceResponse['venue'],
+    producer: experienceResponse['producer'],
+    roleName: experienceResponse['role_name'],
+    brief: experienceResponse['role_brief'],
     year: experienceResponse['year'],
     duration: experienceResponse['duration'],
     roles: experienceResponse['role'],
@@ -227,6 +233,9 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       show_name: experience['showName'],
       director: experience['director'],
       venue: experience['venue'],
+      producer: experience['producer'],
+      role_name: experience['roleName'],
+      role_brief: experience['brief'],
       show_type: experience['showType'],
       roles: experience['roles'],
       year: experience['year'],
