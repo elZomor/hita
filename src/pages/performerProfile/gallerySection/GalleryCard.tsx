@@ -31,8 +31,8 @@ export function GalleryCard({
           className="w-full h-full object-cover rounded-lg"
         />
         {!isEditing && (
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-lg transition-all duration-200 flex items-center justify-center">
-            <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity md:pointer-events-auto pointer-events-none">
+          <div className="absolute inset-0 rounded-lg transition-all duration-200 flex items-center justify-center pointer-events-auto">
+            <div className="flex gap-2">
               <button
                 onClick={onView}
                 className="p-2 rounded-lg text-white hover:text-purple-200 transition-colors"
