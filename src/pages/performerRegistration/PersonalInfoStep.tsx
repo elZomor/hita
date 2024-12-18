@@ -119,6 +119,22 @@ export function PersonalInfoStep({
       </FormField>
 
       <FormField
+        label={addTranslationPrefix('WEIGHT')}
+        error={errors.personalInfo?.weight?.message}
+      >
+        <div className="space-y-2">
+          <input
+            type="text"
+            {...register('personalInfo.weight', {
+              setValueAs: (value) => (value === '' ? undefined : Number(value)),
+            })}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            maxLength={4}
+          />
+        </div>
+      </FormField>
+
+      <FormField
         label={addTranslationPrefix('BIO')}
         error={errors.personalInfo?.bio?.message}
       >

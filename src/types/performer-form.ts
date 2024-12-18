@@ -6,6 +6,7 @@ export interface PersonalInfo {
   skills?: (string | number | boolean)[];
   bio?: string;
   height?: number;
+  weight?: number;
   status: 'AVAILABLE' | 'UNAVAILABLE';
   openFor: 'PAID' | 'FREE' | 'BOTH';
 }
@@ -17,7 +18,9 @@ export interface Experience {
   roles: string[];
   year: number;
   duration: number | null;
-  // showType: 'THEATER' | 'TV' | 'MOVIE' | 'RADIO' | 'DUBBING' | '';
+  producer: string | null;
+  roleName: string | null;
+  brief: string | null;
   showType: string;
 }
 
@@ -101,15 +104,6 @@ export const CONTACT_TYPES = [
   { value: 'telegram', label: 'Telegram' },
 ];
 
-export const LINK_TYPES = [
-  { value: 'portfolio', label: 'Portfolio' },
-  { value: 'showreel', label: 'Showreel' },
-  { value: 'linkedin', label: 'LinkedIn' },
-  { value: 'instagram', label: 'Instagram' },
-  { value: 'twitter', label: 'Twitter' },
-  { value: 'youtube', label: 'YouTube' },
-];
-
 // Validation schemas for each step
 const maxDate = new Date();
 maxDate.setFullYear(maxDate.getFullYear() - 16);
@@ -134,6 +128,7 @@ export const personalInfoSchema = z.object({
   status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
+  weight: z.number().max(230).optional(),
 });
 
 export const experienceSchema = z
@@ -141,6 +136,9 @@ export const experienceSchema = z
     showName: z.string().min(1, 'Show name is required'),
     director: z.string().min(1, 'Director is required'),
     venue: z.string().nullable().optional(),
+    producer: z.string().nullable().optional(),
+    roleName: z.string().nullable().optional(),
+    brief: z.string().nullable().optional(),
     showType: z.string().min(1, 'Show type is required'),
     roles: z.array(z.string()).min(1, 'At least one role is required'),
     year: z.number().min(1900).max(new Date().getFullYear()),
@@ -161,6 +159,14 @@ export const experienceSchema = z
           code: 'custom', // Required code property
           path: ['duration'],
           message: 'Duration is required when showType is Theater',
+        });
+      }
+    } else if (data.showType === 'TV' || data.showType === 'MOVIE') {
+      if (!data.producer) {
+        ctx.addIssue({
+          code: 'custom', // Required code property
+          path: ['producer'],
+          message: 'producer is required when showType is Movie or TV',
         });
       }
     }

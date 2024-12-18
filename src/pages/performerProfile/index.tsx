@@ -44,6 +44,7 @@ const PerformerProfile: React.FC = () => {
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
+    showReel: useRef<HTMLDivElement>(null),
     gallery: useRef<HTMLDivElement>(null),
     contact: useRef<HTMLDivElement>(null),
     publicLinks: useRef<HTMLDivElement>(null),
@@ -180,7 +181,7 @@ const PerformerProfile: React.FC = () => {
                 refreshPerformerPage={refreshPerformerPage}
               />
             </div>
-            <div ref={sectionRefs.contact} id="contact">
+            <div ref={sectionRefs.showReel} id="showReel">
               <ShowReelSection
                 username={username!}
                 hasShowReel={performer.hasShowReel!}

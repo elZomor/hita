@@ -32,7 +32,13 @@ const PerformerHome: React.FC = () => {
       const updatedFilters = { ...prevFilters };
       filtersList.forEach((filter) => {
         Object.entries(filter).forEach(([key, value]) => {
-          if (value.length === 0 && updatedFilters[key] !== undefined) {
+          console.log('key');
+          console.log(key);
+          console.log(value[0]);
+          if (
+            (value.length === 0 && updatedFilters[key] !== undefined) ||
+            value[0] === (0).toString()
+          ) {
             delete updatedFilters[key];
           } else {
             updatedFilters[key] = value;

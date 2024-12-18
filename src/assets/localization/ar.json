@@ -32,7 +32,7 @@
   "TIK_TOK": "تيكتوك",
   "YOUTUBE": "يوتيوب",
   "TWITTER": "تويتر/X",
-  "SHOWREEL": "شوريل",
+  "SHOWREEL": "شو-ريل",
   "VIMEO": "فيميو",
   "BEHANCE": "بيهانس",
   "GOOGLE_DRIVE": "جووجل درايف",
@@ -52,7 +52,9 @@
   "GRADE_THREE": "الفرقة الثالثة",
   "GRADE_FOUR": "الفرقة الرابعة",
   "HEIGHT": "الطول",
+  "WEIGHT": "الوزن",
   "CM": "سنتيمتر",
+  "KG": "كيلوجرام",
   "RANK_FOR": "عن",
   "LOCKED": "غير متاح",
   "SAVE": "حفظ",
@@ -173,6 +175,7 @@
       "DATE_OF_BIRTH": "تاريخ الميلاد",
       "SKILLS": "المهارات",
       "HEIGHT": "الطول (بالسنتيمتر)",
+      "WEIGHT": "الوزن (بالكيلوجرام)",
       "BIO": "نبذة عنك",
       "STATUS": "الحالة",
       "OPEN_FOR": "متاح للعمل",
@@ -197,6 +200,9 @@
       "YEAR": "السنة",
       "ROLES": "الادوار",
       "VENUE": "اسم المسرح",
+      "PRODUCER": "جهة الإنتاج",
+      "ROLE_NAME": "اسم الدور/الشخصية",
+      "ROLE_BRIEF": "ملخص عن الشخصية",
       "DURATION_NIGHTS": "عدد ليالي العرض"
     },
     "ACHIEVEMENTS_SECTION": {
@@ -237,12 +243,20 @@
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
       "IMAGES": "صور",
+      "LOCKED_SECTION": "هذا القسم غير متاح",
+      "NO_IMAGES": "لم يتم إضافة صور بعد.",
+      "ADD_FIRST_IMAGE": "ضيف أول صورة ليك",
       "DRAG_DROP_OR_CLICK": "اسحب صورة أو اضغط لاختيار صورة",
       "IMAGE_DESCRIPTION": "وصف الصورة",
-      "SET_AS_PROFILE_PICTURE": "اختار كصورة شخصية"
+      "SET_AS_PROFILE_PICTURE": "اختار كصورة شخصية",
+      "DELETE_TITLE": "مسح الصورة",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الصورة؟",
+      "DELETE_CONFIRM": "نعم، امسح",
+      "DELETE_CANCEL": "لا"
     },
     "NAVIGATION": {
       "PROFILE": "الملف الشخصي",
+      "SHOW_REEL": "شو-ريل",
       "GALLERY": "الصور",
       "CONTACT": "الاتصال",
       "ACHIEVEMENTS": "الإنجازات والجوائز",
@@ -258,8 +272,9 @@
     },
     "EXPERIENCE": {
       "EXPERIENCES": "الخبرات",
+      "PRODUCER": "جهة الإنتاج",
       "ADD_FIRST_EXPERIENCE": "ضيف خبرتك الأولى",
-      "NO_EXPERIENCES": "لم يتم إضافة خبرات بعد",
+      "NO_EXPERIENCES": "لم يتم إضافة خبرات بعد.",
       "DELETE_TITLE": "مسح الخبرة",
       "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
       "DELETE_CONFIRM": "نعم، امسح",
@@ -268,7 +283,7 @@
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "الإنجازات والجوائز",
       "ADD_FIRST_ACHIEVEMENT": "ضيف خبرتك الأولى",
-      "NO_ACHIEVEMENTS": "لم يتم إضافة خبرات بعد",
+      "NO_ACHIEVEMENTS": "لم يتم إضافة إنجازات بعد.",
       "DELETE_TITLE": "مسح الخبرة",
       "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
       "DELETE_CONFIRM": "نعم، امسح",
@@ -305,6 +320,11 @@
   "PERFORMER_HOME": {
     "FILTERS": "تصفية",
     "GENDER": "النوع",
+    "AGE": "السن",
+    "WEIGHT": "الوزن",
+    "HEIGHT": "الطول",
+    "TOTAL_EXPERIENCES": "مجموع عدد الخبرات",
+    "SHOWS": "عمل",
     "M": "ذكر",
     "F": "أنثى",
     "DEPARTMENT": "القسم",

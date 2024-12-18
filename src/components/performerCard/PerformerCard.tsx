@@ -84,7 +84,7 @@ export function ActorCard({ actor }: ActorCardProps) {
           <div className="flex items-start gap-3">
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <div className="flex items-center">
+                <div className="flex items-center px-2">
                   <h3 className="pr-1 text-lg font-semibold text-gray-900 break-words">
                     {actor.name}
                     {actor.nickName !== null && actor.nickName !== ''
@@ -105,14 +105,34 @@ export function ActorCard({ actor }: ActorCardProps) {
                   />
                 </div>
               </div>
-              {actor.age !== null && (
-                <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
-                  <span className="break-words">
-                    {actor.age} {t('YEARS_OLD')}
-                  </span>
-                </div>
-              )}
-
+              <div className="flex justify-between items-center w-full px-2">
+                {actor.age !== null && (
+                  <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
+                    <span className="break-words">
+                      {actor.age} {t('YEARS_OLD')}
+                    </span>
+                  </div>
+                )}
+                {actor.height !== null && (
+                  <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
+                    <span className="break-words">
+                      {actor.height} {t('CM')}
+                    </span>
+                  </div>
+                )}
+                {actor.weight !== null && (
+                  <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
+                    <span className="break-words">
+                      {actor.weight} {t('KG')}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
+                <span className="break-words">
+                  {actor.total_experiences} {t('PERFORMER_HOME.SHOWS')}
+                </span>
+              </div>
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                 <GraduationCap className="flex-shrink-0 w-4 h-4" />
                 <span className="break-words">{t(actor.department)}</span>

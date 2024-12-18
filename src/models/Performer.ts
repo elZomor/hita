@@ -18,7 +18,9 @@ export interface Performer {
   dateOfBirth?: Date;
   studyType: string;
   height?: number;
+  weight?: number;
   nickName?: string;
+  total_experiences: number;
   openFor: 'PAID' | 'FREE' | 'BOTH';
 }
 
@@ -27,6 +29,9 @@ export interface Experience {
   showName: string;
   director: string;
   venue: string | null | undefined;
+  producer: string | null | undefined;
+  roleName: string | null | undefined;
+  brief: string | null | undefined;
   year: number;
   duration: number | null | undefined;
   roles: string[];
@@ -95,6 +100,8 @@ export interface PerformerResponse {
   age?: number;
   study_type: string;
   height?: number;
+  weight?: number;
+  total_experiences: number;
   nick_name?: string;
   date_of_birth?: string;
   open_for: 'FREE' | 'PAID' | 'BOTH';
@@ -130,12 +137,14 @@ export const mapPerformerResponseToPerformer = (
     : undefined,
   age: performerResponse.age,
   height: performerResponse.height,
+  weight: performerResponse.weight,
   nickName: performerResponse.nick_name,
   openFor: performerResponse.open_for,
   dateOfBirth:
     performerResponse.date_of_birth !== null
       ? new Date(performerResponse.date_of_birth!)
       : undefined,
+  total_experiences: performerResponse.total_experiences,
 });
 
 export const mapExperienceResponseToExperience = (
@@ -146,6 +155,9 @@ export const mapExperienceResponseToExperience = (
     showName: experienceResponse['show_name'],
     director: experienceResponse['director'],
     venue: experienceResponse['venue'],
+    producer: experienceResponse['producer'],
+    roleName: experienceResponse['role_name'],
+    brief: experienceResponse['role_brief'],
     year: experienceResponse['year'],
     duration: experienceResponse['duration'],
     roles: experienceResponse['role'],
@@ -224,6 +236,9 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       show_name: experience['showName'],
       director: experience['director'],
       venue: experience['venue'],
+      producer: experience['producer'],
+      role_name: experience['roleName'],
+      role_brief: experience['brief'],
       show_type: experience['showType'],
       roles: experience['roles'],
       year: experience['year'],
@@ -261,6 +276,7 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       open_for: personalInfo['openFor'],
       status: personalInfo['status'],
       height: personalInfo['height'],
+      weight: personalInfo['weight'],
       skills_tags: personalInfo['skills'],
       contact_detail_protected: data['contactSection']['keepProtected'],
       gallery_protected: data['gallerySection']['keepProtected'],

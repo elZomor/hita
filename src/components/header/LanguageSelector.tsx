@@ -1,30 +1,43 @@
 import { useTranslation } from 'react-i18next';
 
-export function LanguageSelector() {
-  const { i18n } = useTranslation();
+type LanguageSelectorProps = {
+  closeMenu?: () => void;
+};
 
-  const handleLanguageChange = (lang: 'en' | 'ar') => {
+export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
+  const { i18n, t } = useTranslation();
+
+  const handleLanguageChange = (lang: string) => {
     i18n.changeLanguage(lang);
     localStorage.setItem('language', lang);
+    if (closeMenu !== undefined) {
+      closeMenu();
+    }
+  };
+  const otherLanguage: Record<string, Record<string, string>> = {
+    ar: {
+      language: 'en',
+      icon: '🇬🇧',
+    },
+    en: {
+      language: 'ar',
+      icon: '🇪🇬',
+    },
   };
 
   return (
-    <div className="relative">
-      {i18n.language === 'ar' ? (
-        <button
-          onClick={() => handleLanguageChange('en')}
-          className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
-        >
-          🇬🇧
+    <div
+      className="flex flex-row items-center hover:bg-purple-300 transition-colors hover:cursor-pointer"
+      onClick={() =>
+        handleLanguageChange(otherLanguage[i18n.language].language)
+      }
+    >
+      <div className="relative">
+        <button className="p-2 rounded-lg ">
+          {otherLanguage[i18n.language].icon}
         </button>
-      ) : (
-        <button
-          onClick={() => handleLanguageChange('ar')}
-          className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
-        >
-          🇪🇬
-        </button>
-      )}
+      </div>
+      <span className="block md:hidden">{t('OTHER_LANGUAGE')}</span>
     </div>
   );
 }

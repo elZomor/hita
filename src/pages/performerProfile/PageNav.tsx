@@ -14,6 +14,7 @@ const PageNav = ({ activeSection, onSectionClick }: PageNavProps) => {
   };
   const sections = [
     { id: 'profile', label: addTranslationPrefix('PROFILE'), icon: User },
+    { id: 'showReel', label: addTranslationPrefix('SHOW_REEL'), icon: User },
     { id: 'gallery', label: addTranslationPrefix('GALLERY'), icon: Image },
     { id: 'contact', label: addTranslationPrefix('CONTACT'), icon: Phone },
     { id: 'publicLinks', label: addTranslationPrefix('CHANNELS'), icon: Globe },

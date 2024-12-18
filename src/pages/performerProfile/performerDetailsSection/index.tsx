@@ -56,6 +56,7 @@ export default function PerformerDetailsSection({
     open_for: formData['openFor'],
     status: formData['status'],
     height: formData['height'],
+    weight: formData['weight'],
     skills_tags: formData['skills'],
     contact_detail_protected: formData['isContactDetailsProtected'],
     gallery_protected: formData['isGalleryProtected'],
@@ -223,14 +224,19 @@ export default function PerformerDetailsSection({
             </div>
 
             <div className="mt-4 space-y-2 text-gray-600">
-              {performer.age && (
+              {performer.age !== 0 && (
                 <p className="text-sm md:text-base">
                   {performer.age} {t('YEARS_OLD')}
                 </p>
               )}
-              {performer.height && (
+              {performer.height !== 0 && (
                 <p className="text-sm md:text-base">
                   {performer.height && `${performer.height} ${t('CM')}`}
+                </p>
+              )}
+              {performer.weight !== 0 && (
+                <p className="text-sm md:text-base">
+                  {performer.weight && `${performer.weight} ${t('KG')}`}
                 </p>
               )}
 

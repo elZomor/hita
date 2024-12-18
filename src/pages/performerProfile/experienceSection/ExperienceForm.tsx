@@ -71,6 +71,62 @@ export function ExperienceForm({
     })
   );
 
+  const getConditionalFields = (showType: string) => {
+    if (showType === 'THEATER') {
+      return TheaterInfo(showType);
+    } else if (showType === 'TV' || showType === 'MOVIE') {
+      return MediaInfo(showType);
+    }
+    return null;
+  };
+
+  const TheaterInfo = (showType: string) => (
+    <>
+      <FormField
+        label={addTranslationPrefix('VENUE')}
+        error={errors.venue?.message}
+        required={showType === 'THEATER'}
+      >
+        <input
+          type="text"
+          {...register(`venue`)}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+      <FormField
+        label={addTranslationPrefix('DURATION_NIGHTS')}
+        error={errors.duration?.message}
+        required={showType === 'THEATER'} // Only required if showType is 'THEATER'
+      >
+        <input
+          type="number"
+          min="1"
+          {...register(`duration`, {
+            setValueAs: (value) =>
+              value === '' || value === null ? undefined : Number(value), // Convert to number or undefined
+          })}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+    </>
+  );
+
+  const MediaInfo = (showType: string) => (
+    <>
+      <FormField
+        label={addTranslationPrefix('PRODUCER')}
+        error={errors.producer?.message}
+        required={showType === 'TV' || showType === 'MOVIE'}
+      >
+        <input
+          type="text"
+          {...register(`producer`)}
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        />
+      </FormField>
+    </>
+  );
+
   return (
     <form
       onSubmit={handleSubmit(onSave)}
@@ -180,37 +236,29 @@ export function ExperienceForm({
             />
           </FormField>
         </div>
-
-        {watch(`showType`) !== 'THEATER' ? null : (
-          <>
-            <FormField
-              label={addTranslationPrefix('VENUE')}
-              error={errors.venue?.message}
-              required={watch(`showType`) === 'THEATER'}
-            >
-              <input
-                type="text"
-                {...register(`venue`)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </FormField>
-            <FormField
-              label={addTranslationPrefix('DURATION_NIGHTS')}
-              error={errors.duration?.message}
-              required={watch(`showType`) === 'THEATER'} // Only required if showType is 'THEATER'
-            >
-              <input
-                type="number"
-                min="1"
-                {...register(`duration`, {
-                  setValueAs: (value) =>
-                    value === '' || value === null ? undefined : Number(value), // Convert to number or undefined
-                })}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </FormField>
-          </>
-        )}
+        <FormField
+          label={addTranslationPrefix('ROLE_NAME')}
+          error={errors.roleName?.message}
+          required={false}
+        >
+          <input
+            type="text"
+            {...register(`roleName`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </FormField>
+        <FormField
+          label={addTranslationPrefix('ROLE_BRIEF')}
+          error={errors.brief?.message}
+          required={false}
+        >
+          <input
+            type="text"
+            {...register(`brief`)}
+            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </FormField>
+        {getConditionalFields(watch(`showType`))}
       </div>
 
       <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">

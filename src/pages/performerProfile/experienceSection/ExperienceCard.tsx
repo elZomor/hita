@@ -31,6 +31,8 @@ export function ExperienceCard({
         return 'bg-activityCardColors-960';
     }
   };
+  console.log('showType');
+  console.log(experience.showType);
 
   return (
     <div
@@ -42,8 +44,17 @@ export function ExperienceCard({
             {`${experience.showName} (${t('PERFORMER_REG.EXPERIENCE_SECTION.' + experience.showType)} - ${experience.year})`}
           </h3>
           <div className="space-y-2text-gray-600">
+            {experience.showType === 'TV' || experience.showType === 'MOVIE' ? (
+              <h2>
+                <span className="italic font-bold">
+                  {`${t('PERFORMER_PAGE.EXPERIENCE.PRODUCER')}: `}
+                </span>
+                {experience.producer}
+              </h2>
+            ) : null}
             <h2>
-              {t('DIRECTOR')}: {experience.director}
+              <span className="italic font-bold">{`${t('DIRECTOR')}: `}</span>
+              {experience.director}
             </h2>
             <div className="flex flex-wrap gap-2 mt-3">
               {experience.roles.map((role, index) => (
@@ -62,6 +73,10 @@ export function ExperienceCard({
                 </p>
               </div>
             )}
+            {experience.roleName && (
+              <p className="italic font-bold">{experience.roleName}</p>
+            )}
+            {experience.brief && <p>"{experience.brief}"</p>}
           </div>
         </div>
         {!isEditing && (
