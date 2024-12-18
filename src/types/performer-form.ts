@@ -104,15 +104,6 @@ export const CONTACT_TYPES = [
   { value: 'telegram', label: 'Telegram' },
 ];
 
-export const LINK_TYPES = [
-  { value: 'portfolio', label: 'Portfolio' },
-  { value: 'showreel', label: 'Showreel' },
-  { value: 'linkedin', label: 'LinkedIn' },
-  { value: 'instagram', label: 'Instagram' },
-  { value: 'twitter', label: 'Twitter' },
-  { value: 'youtube', label: 'YouTube' },
-];
-
 // Validation schemas for each step
 const maxDate = new Date();
 maxDate.setFullYear(maxDate.getFullYear() - 16);

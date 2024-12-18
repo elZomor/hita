@@ -174,7 +174,11 @@ export default function GallerySection({
       setShowDeleteModal(false);
 
       const { data: getData } = await get_request(`hita/gallery`);
-      setImages(mapGalleryResponseToGallery(getData.data));
+      const newImages = mapGalleryResponseToGallery(getData.data);
+      setImages(newImages);
+      if (newImages.length === 0) {
+        refreshPerformerPage();
+      }
     } catch (e) {
       console.error(e);
     }
@@ -218,7 +222,7 @@ export default function GallerySection({
         <div className="flex items-center gap-2 p-2 bg-gray-100 border border-gray-300 rounded-md">
           <FaLock className="text-gray-500" size={16} />
           <span className="text-gray-700 text-sm">
-            {t('PERFORMER_PAGE.CONTACT_DETAILS.LOCKED_SECTION')}
+            {t('PERFORMER_PAGE.GALLERY_SECTION.LOCKED_SECTION')}
           </span>
         </div>
       ) : editingIndex !== null ? (
@@ -305,13 +309,15 @@ export default function GallerySection({
             {/* Empty State */}
             {images.length === 0 && (
               <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-gray-500">{t('NO_IMAGES')}</p>
+                <p className="text-gray-500">
+                  {t('PERFORMER_PAGE.GALLERY_SECTION.NO_IMAGES')}
+                </p>
                 {isEditMode && (
                   <button
                     onClick={handleAdd}
                     className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
                   >
-                    {t('ADD_FIRST_IMAGE')}
+                    {t('PERFORMER_PAGE.GALLERY_SECTION.ADD_FIRST_IMAGE')}
                   </button>
                 )}
               </div>
@@ -330,10 +336,10 @@ export default function GallerySection({
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={confirmDelete}
-        title={t('PERFORMER_PAGE.GALLERY.DELETE_TITLE')}
-        message={t('PERFORMER_PAGE.GALLERY.DELETE_FORM')}
-        confirmText={t('PERFORMER_PAGE.GALLERY.DELETE_CONFIRM')}
-        cancelText={t('PERFORMER_PAGE.GALLERY.DELETE_CANCEL')}
+        title={t('PERFORMER_PAGE.GALLERY_SECTION.DELETE_TITLE')}
+        message={t('PERFORMER_PAGE.GALLERY_SECTION.DELETE_FORM')}
+        confirmText={t('PERFORMER_PAGE.GALLERY_SECTION.DELETE_CONFIRM')}
+        cancelText={t('PERFORMER_PAGE.GALLERY_SECTION.DELETE_CANCEL')}
       />
       <Snackbar
         isOpen={snackbar.open}

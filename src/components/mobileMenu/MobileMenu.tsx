@@ -57,8 +57,8 @@ const MobileMenu = ({ closeMenu, isLoggedIn, onLogout }: MobileMenuProps) => {
                 </>
               )}
 
-              <div className="px-3 py-2">
-                <LanguageSelector />
+              <div className="px-1 py-2">
+                <LanguageSelector closeMenu={closeMenu} />
               </div>
               {isLoggedIn ? (
                 <button

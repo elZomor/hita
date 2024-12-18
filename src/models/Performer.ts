@@ -20,6 +20,7 @@ export interface Performer {
   height?: number;
   weight?: number;
   nickName?: string;
+  total_experiences: number;
   openFor: 'PAID' | 'FREE' | 'BOTH';
 }
 
@@ -100,6 +101,7 @@ export interface PerformerResponse {
   study_type: string;
   height?: number;
   weight?: number;
+  total_experiences: number;
   nick_name?: string;
   date_of_birth?: string;
   open_for: 'FREE' | 'PAID' | 'BOTH';
@@ -142,6 +144,7 @@ export const mapPerformerResponseToPerformer = (
     performerResponse.date_of_birth !== null
       ? new Date(performerResponse.date_of_birth!)
       : undefined,
+  total_experiences: performerResponse.total_experiences,
 });
 
 export const mapExperienceResponseToExperience = (

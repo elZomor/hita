@@ -34,7 +34,7 @@ export const ShowReelSection = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
-    <Section title={t('ShowReel')}>
+    <Section title={t('SHOWREEL')}>
       <div className="h-40 md:h-80 flex justify-center items-center">
         {showReel ? (
           <div className="relative w-1/2 h-full group">

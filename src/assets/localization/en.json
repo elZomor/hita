@@ -243,9 +243,16 @@
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
       "IMAGES": "Images",
+      "LOCKED_SECTION": "This section is locked",
+      "NO_IMAGES": "There is no images.",
+      "ADD_FIRST_IMAGE": "Add your first image",
       "DRAG_DROP_OR_CLICK": "Drag, Drop Or Click",
-      "IMAGE_DESCRIPTION": "",
-      "SET_AS_PROFILE_PICTURE": ""
+      "IMAGE_DESCRIPTION": "Description",
+      "SET_AS_PROFILE_PICTURE": "Set as profile picture",
+      "DELETE_TITLE": "Delete image",
+      "DELETE_FORM": "Are you sure you want to delete this image?",
+      "DELETE_CONFIRM": "Yes, delete",
+      "DELETE_CANCEL": "No, cancel"
     },
     "NAVIGATION": {
       "PROFILE": "Profile",
@@ -312,6 +319,11 @@
   },
   "PERFORMER_HOME": {
     "FILTERS": "Filter",
+    "AGE": "Age",
+    "WEIGHT": "Weight",
+    "HEIGHT": "Height",
+    "TOTAL_EXPERIENCES": "Total count of Experiences",
+    "SHOWS": "Shows",
     "GENDER": "Gender",
     "M": "Male",
     "F": "Female",

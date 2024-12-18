@@ -140,34 +140,35 @@ export default function AchievementSection({
         </div>
       }
     >
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {achievements.map((achievement, index) => {
-          if (editingIndex === index) {
-            // Show one FormCard when in formMode
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {achievements.map((achievement, index) => {
+            if (editingIndex === index) {
+              // Show one FormCard when in formMode
+              return (
+                <div key={index} className="col-span-1 md:col-span-2">
+                  <AchievementForm
+                    achievement={achievement}
+                    onSave={handleSave}
+                    onCancel={handleCancel}
+                  />
+                </div>
+              );
+            }
+
+            // Show two cards per row otherwise
             return (
-              <div key={index} className="col-span-1 md:col-span-2">
-                <AchievementForm
+              <div key={index}>
+                <AchievementCard
                   achievement={achievement}
-                  onSave={handleSave}
-                  onCancel={handleCancel}
+                  onEdit={() => handleEdit(index)}
+                  onDelete={() => handleDelete(achievement)}
+                  isEditing={editingIndex !== null}
                 />
               </div>
             );
-          }
-
-          // Show two cards per row otherwise
-          return (
-            <div key={index}>
-              <AchievementCard
-                achievement={achievement}
-                onEdit={() => handleEdit(index)}
-                onDelete={() => handleDelete(achievement)}
-                isEditing={editingIndex !== null}
-              />
-            </div>
-          );
-        })}
-
+          })}
+        </div>
         {achievements.length === 0 && (
           <div className="text-center py-12 bg-gray-50 rounded-lg">
             <p className="text-gray-500">
