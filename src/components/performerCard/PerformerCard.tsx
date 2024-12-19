@@ -113,14 +113,14 @@ export function ActorCard({ actor }: ActorCardProps) {
                     </span>
                   </div>
                 )}
-                {actor.height !== null && (
+                {actor.height !== 0 && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.height} {t('CM')}
                     </span>
                   </div>
                 )}
-                {actor.weight !== null && (
+                {actor.weight !== 0 && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.weight} {t('KG')}
@@ -151,22 +151,34 @@ export function ActorCard({ actor }: ActorCardProps) {
             ))}
           </div>
 
-          <div className="relative">
+          <div className="relative flex items-start gap-2">
             <p
               className={clsx('text-sm text-gray-600', {
-                'md:truncate': isBioLong && !showFullBio,
+                'md:truncate': isBioLong,
               })}
+            >
+              {truncatedBio}
+            </p>
+
+            <button
+              className={`text-purple-500 hover:text-purple-700 cursor-pointer
+              ${isBioLong ? 'block' : 'hidden'}`}
               onMouseEnter={() => setShowFullBio(true)}
               onMouseLeave={() => setShowFullBio(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowFullBio((prev) => !prev);
+              }}
+              title="Show full bio"
             >
-              {isBioLong && showFullBio ? (
-                <span className="absolute bottom-full left-0 w-full bg-white border border-gray-200 rounded-lg p-2 shadow-lg z-10">
-                  {actor.biography}
-                </span>
-              ) : (
-                truncatedBio
-              )}
-            </p>
+              ℹ️
+            </button>
+
+            {isBioLong && showFullBio && (
+              <div className="absolute bottom-full left-0 w-full bg-purple-100 border border-gray-200 rounded-lg p-2 shadow-lg z-10">
+                <p className="text-sm text-gray-700">{actor.biography}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

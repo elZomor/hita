@@ -250,7 +250,7 @@ export function PerformerDetailsForm({
             <div className="space-y-2">
               <div className="flex justify-end">
                 <span className="text-sm text-gray-500">
-                  {watch('biography').length}/300
+                  {watch('biography')?.length}/300
                 </span>
               </div>
               <textarea
