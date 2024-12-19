@@ -97,3 +97,22 @@ export const get_blob_video = async (url: string) => {
     responseType: 'blob',
   });
 };
+
+export const uploadShowReel = async (
+  file: File,
+  setUploadProgress: (arg0: number) => void
+) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return apiClient.post('hita/show-reel', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    onUploadProgress: (progressEvent) => {
+      const progress = progressEvent.total
+        ? Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        : 0;
+      setUploadProgress(progress);
+    },
+  });
+};

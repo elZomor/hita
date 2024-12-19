@@ -312,6 +312,20 @@
       "ADD_FIRST_CONTACT": "أضف جهة الاتصال الأولى",
       "LOCKED_SECTION": "غير مسموح برؤية هذا الجزء"
     },
+    "SHOW_REEL": {
+      "NO_SHOW_REEL": "لا يوجد شو-ريل متاح",
+      "DROP": "ضع الفيديو هنا",
+      "DRAG_OR_SELECT": "اسحب الفيديو وضعه هنا، أ.و اضغط لاختيار فيديو",
+      "SUPPORTED_FORMATS": "الصيغ المتاحة",
+      "MAX_SIZE": "أقصى مساحة",
+      "MB": "ميجابايتس",
+      "UPLOADING": "يتم الرفع...",
+      "UPLOAD_SUCCESS": "تم رفع الفيديو بنجاح",
+      "DELETE_TITLE": "مسح الشو-ريل",
+      "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذا الشو-ريل؟",
+      "DELETE_CONFIRM": "نعم امسح",
+      "DELETE_CANCEL": "لا"
+    },
     "DELETE_TITLE": "مسح صفحة الفنان",
     "DELETE_FORM": "هل أنت متأكد أنك تريد مسح صفحة الفنان؟",
     "DELETE_CONFIRM": "نعم، امسح",
