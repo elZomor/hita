@@ -56,7 +56,7 @@ export default function Header() {
                 <button
                   onClick={() => navigate('/members/performer')}
                   className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
-                  title={t('HEADER.MY_PERFORMER_PROFILE')}
+                  title={t('HEADER.PERFORMER')}
                 >
                   <UserCircle className="h-5 w-5 text-gray-700" />
                 </button>

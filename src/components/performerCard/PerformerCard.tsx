@@ -31,7 +31,7 @@ export function ActorCard({ actor }: ActorCardProps) {
     setShowImageModal(true);
   };
 
-  const isBioLong = actor.biography.length > 100;
+  const isBioLong = actor.biography?.length > 100;
   const truncatedBio = isBioLong
     ? `${actor.biography.slice(0, 100)}...`
     : actor.biography;
@@ -75,7 +75,7 @@ export function ActorCard({ actor }: ActorCardProps) {
           >
             <span className="text-white font-medium flex items-center gap-2">
               <Eye className="h-5 w-5" />
-              View Image
+              {t('VIEW_IMAGE')}
             </span>
           </div>
         </div>
@@ -106,7 +106,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                 </div>
               </div>
               <div className="flex justify-between items-center w-full px-2">
-                {actor.age !== null && (
+                {actor.age !== 0 && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.age} {t('YEARS_OLD')}
@@ -129,7 +129,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                 )}
               </div>
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
-                <span className="break-words">
+                <span className="break-words px-2">
                   {actor.total_experiences} {t('PERFORMER_HOME.SHOWS')}
                 </span>
               </div>

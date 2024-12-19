@@ -49,6 +49,21 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
         min={minVal}
         max={maxVal}
         aria-labelledby="range-slider"
+        sx={{
+          color: '#f59e0b', // purple-500
+          '& .MuiSlider-thumb': {
+            backgroundColor: '#f59e0b', // purple-500
+            '&:hover': {
+              backgroundColor: '#d97706', // purple-600
+            },
+          },
+          '& .MuiSlider-rail': {
+            backgroundColor: '#fde68a', // purple-200
+          },
+          '& .MuiSlider-track': {
+            backgroundColor: '#fbbf24', // purple-400
+          },
+        }}
       />
       <Box className="flex justify-between">
         <span>{i18n.language === 'ar' ? valRange[1] : valRange[0]}</span>
