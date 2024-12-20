@@ -36,6 +36,7 @@ export interface Experience {
   duration: number | null | undefined;
   roles: string[];
   showType: string;
+  festivalName: string | null | undefined;
 }
 
 export interface Achievement {
@@ -162,6 +163,7 @@ export const mapExperienceResponseToExperience = (
     duration: experienceResponse['duration'],
     roles: experienceResponse['role'],
     showType: experienceResponse['show_type'],
+    festivalName: experienceResponse['festival_name'],
   }));
 };
 export const mapAchievementsResponseToAchievements = (
@@ -254,7 +256,7 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       year: achievement['year'],
     })
   );
-  const contactSection = data['contactSection'].details?.map(
+  const contactSection = data['contactSection']?.details?.map(
     (contact: Record<string, any>) => ({
       contact_type: contact['contactType'],
       contact_info: contact['contactInfo'],
@@ -278,8 +280,13 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       height: personalInfo['height'],
       weight: personalInfo['weight'],
       skills_tags: personalInfo['skills'],
-      contact_detail_protected: data['contactSection']['keepProtected'],
-      gallery_protected: data['gallerySection']['keepProtected'],
+      contact_detail_protected:
+        data['contactSection'] !== undefined
+          ? data['contactSection']['keepProtected']
+          : false,
+      gallery_protected: data['gallerySection']
+        ? data['gallerySection']['keepProtected']
+        : false,
     },
     experiences: experiencesSection,
     achievements: achievementsSection,

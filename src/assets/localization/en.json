@@ -15,7 +15,7 @@
   "ACTOR": "Actor/Actress",
   "AUTHOR": "Author",
   "TREATMENT": "Writer/Treatments",
-  "DIRECTOR": "Director",
+  "DIRECTOR": "Directed By",
   "DIRECTING_CAST": "Directing Cast",
   "STYLING": "Styling",
   "MAKEUP": "Makeup",
@@ -197,14 +197,15 @@
       "RADIO": "Radio",
       "MOVIE": "Movie",
       "DUBBING": "Dubbing",
-      "DIRECTOR": "Director",
+      "DIRECTOR": "Directed By",
       "YEAR": "Year",
       "ROLES": "Roles",
       "VENUE": "Venue",
       "PRODUCER": "Producer",
       "ROLE_NAME": "Role (Character) name",
       "ROLE_BRIEF": "Brief about the character",
-      "DURATION_NIGHTS": "Duration (Nights)"
+      "DURATION_NIGHTS": "Duration (Nights)",
+      "FESTIVAL_NAME": "Festival Name (Write 'Free' ('حر') if performed outside festivals)"
     },
     "ACHIEVEMENTS_SECTION": {
       "NO_ACHIEVEMENTS": "No achievements added yet. Click the button above to add one.  ",
@@ -279,7 +280,10 @@
       "DELETE_TITLE": "Delete experience",
       "DELETE_FORM": "Are you sure you want to delete this experience?",
       "DELETE_CONFIRM": "Yes, delete",
-      "DELETE_CANCEL": "No, cancel"
+      "DELETE_CANCEL": "No, cancel",
+      "ROLE_NAME": "Role (Character) name",
+      "BRIEF": "About the role",
+      "PARTICIPATED_IN_FESTIVAL": "Participated in the following festivals"
     },
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "Achievements and trophies",

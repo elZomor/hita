@@ -3,7 +3,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import Select from 'react-select';
 import type { PerformerFormData } from '../../types/performer-form';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
-import { StepButton } from './stepButton.tsx';
+import { StepButton } from '../../components/shared/stepButton.tsx';
 import { DropDownOptions } from '../../models/shared.ts';
 import { useTranslation } from 'react-i18next';
 

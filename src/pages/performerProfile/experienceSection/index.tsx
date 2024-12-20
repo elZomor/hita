@@ -58,6 +58,7 @@ export default function ExperienceSection({
       producer: '',
       brief: '',
       roleName: '',
+      festivalName: '',
     };
     setIsAdding(true);
     setExperiences([newExperience, ...experiences]);
@@ -81,6 +82,7 @@ export default function ExperienceSection({
     role_name: formData['roleName'],
     role_brief: formData['brief'],
     duration: formData['duration'],
+    festival_name: formData['festivalName'],
   });
 
   const handleSave = async (updatedExperience: Experience) => {

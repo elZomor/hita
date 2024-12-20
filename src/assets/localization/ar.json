@@ -15,7 +15,7 @@
   "ACTOR": "ممثل/ة",
   "AUTHOR": "مؤلف",
   "TREATMENT": "كاتب/ة - معالجات مسرحية",
-  "DIRECTOR": "مخرج",
+  "DIRECTOR": "إخراج",
   "DIRECTING_CAST": "كاست إخراج",
   "STYLING": "مصمم/ة ملابس",
   "MAKEUP": "ماكياج",
@@ -204,7 +204,8 @@
       "PRODUCER": "جهة الإنتاج",
       "ROLE_NAME": "اسم الدور/الشخصية",
       "ROLE_BRIEF": "ملخص عن الشخصية",
-      "DURATION_NIGHTS": "عدد ليالي العرض"
+      "DURATION_NIGHTS": "عدد ليالي العرض",
+      "FESTIVAL_NAME": "اسم المهرجان (اكتب 'حر' إذا عرضت خارج سياق المهرجانات)"
     },
     "ACHIEVEMENTS_SECTION": {
       "NO_ACHIEVEMENTS": "لا يوجد إنجازات. اضغط على الزر لإضافة إنجاز جديد",
@@ -279,7 +280,10 @@
       "DELETE_TITLE": "مسح الخبرة",
       "DELETE_FORM": "هل أنت متأكد أنك تريد مسح هذه الخبرة؟",
       "DELETE_CONFIRM": "نعم، امسح",
-      "DELETE_CANCEL": "لا"
+      "DELETE_CANCEL": "لا",
+      "ROLE_NAME": "اسم الدور (الشخصية)",
+      "BRIEF": "عن الدور",
+      "PARTICIPATED_IN_FESTIVAL": "شارك في المهرجانات التالية"
     },
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "الإنجازات والجوائز",

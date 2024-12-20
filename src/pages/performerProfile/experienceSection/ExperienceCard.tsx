@@ -74,9 +74,30 @@ export function ExperienceCard({
               </div>
             )}
             {experience.roleName && (
-              <p className="italic font-bold">{experience.roleName}</p>
+              <div>
+                <span className="italic font-bold">
+                  {t('PERFORMER_PAGE.EXPERIENCE.ROLE_NAME') + ': '}
+                </span>
+                <span>{experience.roleName}</span>
+              </div>
             )}
-            {experience.brief && <p>"{experience.brief}"</p>}
+            {experience.brief && (
+              <div>
+                <span className="italic font-bold">
+                  {t('PERFORMER_PAGE.EXPERIENCE.BRIEF') + ': '}
+                </span>
+                <span>{experience.brief}</span>
+              </div>
+            )}
+            {experience.festivalName && (
+              <div>
+                <span className="italic font-bold">
+                  {t('PERFORMER_PAGE.EXPERIENCE.PARTICIPATED_IN_FESTIVAL') +
+                    ': '}
+                </span>
+                <span>{experience.festivalName}</span>
+              </div>
+            )}
           </div>
         </div>
         {!isEditing && (

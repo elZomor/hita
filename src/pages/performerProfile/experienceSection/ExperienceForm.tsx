@@ -73,9 +73,42 @@ export function ExperienceForm({
 
   const getConditionalFields = (showType: string) => {
     if (showType === 'THEATER') {
-      return TheaterInfo(showType);
-    } else if (showType === 'TV' || showType === 'MOVIE') {
-      return MediaInfo(showType);
+      return (
+        <>
+          {TheaterInfo(showType)}
+          <FormField
+            label={addTranslationPrefix('FESTIVAL_NAME')}
+            error={errors.festivalName?.message}
+            required={true}
+          >
+            <input
+              type="text"
+              {...register(`festivalName`)}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+          </FormField>
+        </>
+      );
+    }
+    if (showType === 'TV' || showType === 'MOVIE') {
+      return (
+        <>
+          {MediaInfo(showType)}
+          {showType === 'MOVIE' && (
+            <FormField
+              label={addTranslationPrefix('FESTIVAL_NAME')}
+              error={errors.festivalName?.message}
+              required={false}
+            >
+              <input
+                type="text"
+                {...register(`festivalName`)}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </FormField>
+          )}
+        </>
+      );
     }
     return null;
   };

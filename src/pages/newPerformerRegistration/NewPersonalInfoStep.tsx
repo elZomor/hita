@@ -3,20 +3,20 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import { ar } from 'date-fns/locale/ar';
 import Select from 'react-select';
 import { CalendarIcon } from 'lucide-react';
-import type { PerformerFormData } from '../../types/performer-form';
+import { NewPerformerFormData } from '../../types/performer-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
 import { RadioField } from '../../components/shared/forms/RadioField.tsx';
-import { StepButton } from '../../components/shared/stepButton.tsx';
 import { useTranslation } from 'react-i18next';
 import { DropDownOptions } from '../../models/shared.ts';
+import { StepButton } from '../../components/shared/stepButton.tsx';
 
 interface PersonalInfoStepProps {
-  onComplete: () => void;
+  onComplete: (data: NewPerformerFormData) => void;
   skillsOptions: DropDownOptions[];
 }
 
-export function PersonalInfoStep({
+export function NewPersonalInfoStep({
   onComplete,
   skillsOptions,
 }: PersonalInfoStepProps) {
@@ -24,8 +24,11 @@ export function PersonalInfoStep({
     register,
     watch,
     setValue,
+    handleSubmit,
     formState: { errors },
-  } = useFormContext<PerformerFormData>();
+  } = useFormContext<NewPerformerFormData>();
+  console.log('errors');
+  console.log(errors);
   const bio = watch('personalInfo.bio') || '';
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 16);
@@ -215,7 +218,7 @@ export function PersonalInfoStep({
       </RadioField>
 
       <div className="flex justify-end">
-        <StepButton onClick={onComplete} />
+        <StepButton onClick={handleSubmit(onComplete)} isLastStep={true} />
       </div>
     </div>
   );
