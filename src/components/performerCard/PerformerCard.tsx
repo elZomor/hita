@@ -106,21 +106,21 @@ export function ActorCard({ actor }: ActorCardProps) {
                 </div>
               </div>
               <div className="flex justify-between items-center w-full px-2">
-                {actor.age !== 0 && (
+                {actor.age !== 0 && actor.age !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.age} {t('YEARS_OLD')}
                     </span>
                   </div>
                 )}
-                {actor.height !== 0 && (
+                {actor.height !== 0 && actor.height !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.height} {t('CM')}
                     </span>
                   </div>
                 )}
-                {actor.weight !== 0 && (
+                {actor.weight !== 0 && actor.weight !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
                       {actor.weight} {t('KG')}
@@ -169,7 +169,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                 e.stopPropagation();
                 setShowFullBio((prev) => !prev);
               }}
-              title="Show full bio"
+              title={t('PERFORMER_HOME.SHOW_BIO')}
             >
               ℹ️
             </button>

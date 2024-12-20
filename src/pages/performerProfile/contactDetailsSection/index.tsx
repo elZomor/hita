@@ -126,7 +126,7 @@ export default function ContactDetailsSection({
 
   return (
     <Section
-      title={t('PERFORMER_PAGE.CONTACT_DETAILS.CONTACT_DETAILS')}
+      title={`${t('PERFORMER_PAGE.CONTACT_DETAILS.CONTACT_DETAILS')} (${contacts.length})`}
       headerActions={
         <div className="flex gap-2">
           {isLocked && !isEditMode && (
@@ -147,7 +147,7 @@ export default function ContactDetailsSection({
           </span>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
           {contacts.map((contact, index) => {
             if (editingIndex === index) {
               // Show one FormCard when in formMode

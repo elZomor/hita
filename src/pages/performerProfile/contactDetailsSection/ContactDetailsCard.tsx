@@ -37,12 +37,22 @@ export function ContactDetailsCard({
     let url = '';
 
     switch (contactType) {
-      case 'WHATSAPP':
-        url = `https://wa.me/${contact.contactInfo.replace(/\D/g, '')}`;
+      case 'WHATSAPP': {
+        const phoneNumber = contact.contactInfo.replace(/\D/g, '');
+        const formattedNumber = phoneNumber.startsWith('20')
+          ? phoneNumber
+          : `20${phoneNumber}`;
+        url = `https://wa.me/${formattedNumber}`;
         break;
-      case 'TELEGRAM':
-        url = `https://t.me/${contact.contactInfo}`;
+      }
+      case 'TELEGRAM': {
+        const phoneNumber = contact.contactInfo.replace(/\D/g, '');
+        const formattedNumber = phoneNumber.startsWith('20')
+          ? phoneNumber
+          : `20${phoneNumber}`;
+        url = `https://t.me/${formattedNumber}`;
         break;
+      }
       case 'FACEBOOK':
       case 'TWITTER':
       case 'INSTAGRAM':
