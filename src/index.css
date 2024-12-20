@@ -3,133 +3,163 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply antialiased text-gray-900;
-    }
+  body {
+    @apply antialiased text-gray-900;
+  }
 }
 
 @layer components {
-    .btn {
-        @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
-    }
+  .btn {
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
 
-    .btn-primary {
-        @apply text-white bg-purple-600 hover:bg-purple-700 focus:ring-purple-500;
-    }
+  .btn-primary {
+    @apply text-white bg-purple-600 hover:bg-purple-700 focus:ring-purple-500;
+  }
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: 'RB';
+  font-display: swap;
+  font-weight: 400;
+  src: url('./assets/fonts/RB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RB';
+  font-display: swap;
+  font-weight: 500;
+  src: url('./assets/fonts/RB.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RB';
+  font-display: swap;
+  font-weight: 700;
+  src: url('./assets/fonts/RBBlod.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RB';
+  font-display: swap;
+  font-weight: 850;
+  src: url('./assets/fonts/RBBlod.ttf') format('truetype');
+}
+
+@layer components {
+  body {
+    @apply font-rb;
+  }
 }
 
 .appContainer {
-    max-width: 1280px;
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-right: auto;
-    margin-left: auto;
+  max-width: 1280px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {
-    .appContainer {
-        padding-left: 32px;
-        padding-right: 32px;
-    }
+  .appContainer {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 }
 
 .mobile-menu {
-    height: 0px;
-    min-height: 0px;
-    overflow-y: hidden;
-    animation: mobileMenu 0.2s ease-out forwards;
+  height: 0px;
+  min-height: 0px;
+  overflow-y: hidden;
+  animation: mobileMenu 0.2s ease-out forwards;
 }
 
 @keyframes mobileMenu {
-    0% {
-        min-height: 0px;
-    }
-    100% {
-        min-height: calc(100vh - 57px);
-    }
+  0% {
+    min-height: 0px;
+  }
+  100% {
+    min-height: calc(100vh - 57px);
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 3px;
-    @apply bg-purple-200 rounded-full;
+  width: 4px;
+  height: 3px;
+  @apply bg-purple-200 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-purple-700 rounded-full;
+  @apply bg-purple-700 rounded-full;
 }
 
 .truncate-two-lines {
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
 @layer base {
-    body {
-        @apply antialiased text-gray-900;
-    }
+  body {
+    @apply antialiased text-gray-900;
+  }
 }
 
 .react-select__control {
-    @apply !min-h-[42px] !border-gray-300 hover:!border-purple-500;
+  @apply !min-h-[42px] !border-gray-300 hover:!border-purple-500;
 }
 
 .react-select__control--is-focused {
-    @apply !border-purple-500 !shadow-none !ring-2 !ring-purple-500;
+  @apply !border-purple-500 !shadow-none !ring-2 !ring-purple-500;
 }
 
 .react-select__menu {
-    @apply !border !border-gray-300 !shadow-lg;
+  @apply !border !border-gray-300 !shadow-lg;
 }
 
 .react-select__option {
-    @apply !text-gray-900 !bg-white hover:!bg-purple-50;
+  @apply !text-gray-900 !bg-white hover:!bg-purple-50;
 }
 
 .react-select__option--is-selected {
-    @apply !bg-purple-500 !text-white;
+  @apply !bg-purple-500 !text-white;
 }
 
 .react-select__multi-value {
-    @apply !bg-purple-100;
+  @apply !bg-purple-100;
 }
 
 .react-select__multi-value__label {
-    @apply !text-purple-800;
+  @apply !text-purple-800;
 }
 
 .react-select__multi-value__remove {
-    @apply !text-purple-500 hover:!bg-purple-200 hover:!text-purple-800;
+  @apply !text-purple-500 hover:!bg-purple-200 hover:!text-purple-800;
 }
 
 .react-datepicker-wrapper {
-    @apply w-full;
+  @apply w-full;
 }
 
 .react-datepicker__input-container input {
-    @apply w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent;
+  @apply w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent;
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .animate-slideIn {
-    animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.3s ease-out;
 }
-

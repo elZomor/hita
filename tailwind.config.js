@@ -32,6 +32,9 @@ export default {
         //   990: '#f8c6d6', // Very light pink for a soft and welcoming contrast
         // },
       },
+      fontFamily: {
+        rb: ['RB', 'sans-serif'],
+      },
     },
   },
   plugins: [],
