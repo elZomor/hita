@@ -141,7 +141,7 @@ export default function ExperienceSection({
 
   return (
     <Section
-      title={t('PERFORMER_PAGE.EXPERIENCE.EXPERIENCES')}
+      title={`${t('PERFORMER_PAGE.EXPERIENCE.EXPERIENCES')} (${experiences.length})`}
       headerActions={
         <div className="flex gap-2">
           <AddButton

@@ -244,7 +244,7 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "صور",
+      "IMAGES": "صورة",
       "LOCKED_SECTION": "هذا القسم غير متاح",
       "NO_IMAGES": "لم يتم إضافة صور بعد.",
       "ADD_FIRST_IMAGE": "ضيف أول صورة ليك",
@@ -348,6 +348,7 @@
     "F": "أنثى",
     "DEPARTMENT": "القسم",
     "SKILL": "المهارات",
-    "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم"
+    "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم",
+    "SHOW_BIO": "أظهر النبذة كاملة"
   }
 }

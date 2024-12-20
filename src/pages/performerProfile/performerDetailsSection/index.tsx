@@ -58,8 +58,8 @@ export default function PerformerDetailsSection({
     height: formData['height'],
     weight: formData['weight'],
     skills_tags: formData['skills'],
-    contact_detail_protected: formData['isContactDetailsProtected'],
-    gallery_protected: formData['isGalleryProtected'],
+    contact_detail_protected: false,
+    gallery_protected: false,
   });
 
   const handleUpdate = async (formData: any) => {

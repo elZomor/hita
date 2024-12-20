@@ -139,7 +139,7 @@ const PerformerHome: React.FC = () => {
               </div>
               <input
                 type="text"
-                className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500"
+                className="block w-full py-3 pl-10 pr-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none focus:border-transparent"
                 placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}

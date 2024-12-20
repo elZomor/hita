@@ -120,7 +120,7 @@ export function PublicLinksSection({
 
   return (
     <Section
-      title={t('PERFORMER_PAGE.PUBLIC_LINKS.PUBLIC_LINKS')}
+      title={`${t('PERFORMER_PAGE.PUBLIC_LINKS.PUBLIC_LINKS')} (${links.length})`}
       headerActions={
         <div className="flex gap-2">
           <AddButton
