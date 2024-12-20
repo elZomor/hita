@@ -67,6 +67,10 @@ export interface PerformerFormData {
   publicLinks: PublicLink[];
 }
 
+export interface NewPerformerFormData {
+  personalInfo: PersonalInfo;
+}
+
 export type FormStep =
   | 'personal-info'
   | 'experiences'
@@ -143,6 +147,7 @@ export const experienceSchema = z
     roles: z.array(z.string()).min(1, 'At least one role is required'),
     year: z.number().min(1900).max(new Date().getFullYear()),
     duration: z.number().nullable().optional(),
+    festivalName: z.string().nullable().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.showType === 'THEATER') {
@@ -159,6 +164,13 @@ export const experienceSchema = z
           code: 'custom', // Required code property
           path: ['duration'],
           message: 'Duration is required when showType is Theater',
+        });
+      }
+      if (data.festivalName === null || data.festivalName === undefined) {
+        ctx.addIssue({
+          code: 'custom', // Required code property
+          path: ['festivalName'],
+          message: 'festivalName is required when showType is Theater',
         });
       }
     } else if (data.showType === 'TV' || data.showType === 'MOVIE') {
@@ -232,4 +244,7 @@ export const performerFormSchema = z.object({
   contactSection: contactSectionSchema,
   gallerySection: gallerySectionSchema,
   publicLinks: z.array(publicLinkSchema),
+});
+export const newPerformerFormSchema = z.object({
+  personalInfo: personalInfoSchema,
 });

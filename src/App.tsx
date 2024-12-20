@@ -11,12 +11,12 @@ import { GOOGLE_CLIENT_ID } from './constants.ts';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LandingPage } from './pages/landingPage';
 import { MemberProfilePage } from './pages/memberProfile';
-import { PerformerForm } from './pages/performerRegistration';
 import { HomePage } from './pages/homePage';
 import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
 import { PerformerLandingPage } from './pages/performerLandingPage';
 import { EditModeProvider } from './contexts/EditModeContext.tsx';
+import { NewPerformerForm } from './pages/newPerformerRegistration';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -61,7 +61,7 @@ export const App = () => {
                 path="/performers/registration"
                 element={
                   <ProtectedRoute>
-                    <PerformerForm />
+                    <NewPerformerForm />
                   </ProtectedRoute>
                 }
               />

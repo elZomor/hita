@@ -2,7 +2,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Plus, Trash2, X } from 'lucide-react';
 import type { PerformerFormData } from '../../types/performer-form';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
-import { StepButton } from './stepButton.tsx';
+import { StepButton } from '../../components/shared/stepButton.tsx';
 import { useTranslation } from 'react-i18next';
 
 interface ProfileImagesStepProps {
