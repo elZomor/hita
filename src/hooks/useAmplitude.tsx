@@ -46,7 +46,7 @@ export const useAmplitude = () => {
     userProperties?: Record<string, any>
   ) => {
     if (!debug) {
-      setUserId(userId.toString());
+      setUserId(userId.toString().padStart(5, '0'));
 
       if (userProperties) {
         const identifyInstance = new Identify();
