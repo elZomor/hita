@@ -349,5 +349,8 @@
     "DEPARTMENT": "القسم",
     "SKILL": "المهارات",
     "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم"
+  },
+  "ABOUTUS": {
+    "ABOUTUS": "عن الموقع"
   }
 }

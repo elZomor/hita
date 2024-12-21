@@ -1,19 +1,31 @@
 import { useTranslation } from 'react-i18next';
 import Container from '../container/Container';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // const isHomePage = location.pathname === '/';
+  const isHomePage = false;
 
   return (
-    <footer className="flex items-center h-16 p-5 bg-purple-200">
+    // <footer className="flex items-center h-16 p-5 bg-purple-200">
+    <footer
+      className={`flex items-center p-5 ${isHomePage ? 'bg-transparent absolute bottom-0 left-0 z-10 w-full' : 'bg-purple-200 h-16'}`}
+    >
       <Container classess="w-full">
         <div>
           <div className="flex flex-col items-center justify-between md:flex-row">
-            <p className="text-sm text-black">
+            <p
+              className={`text-sm ${isHomePage ? 'text-white' : 'text-black'}`}
+            >
               © {currentYear} {t('GEN.COPY_RIGHTS')}
             </p>
-            <p className="text-sm text-black">
+            <p
+              className={`text-sm ${isHomePage ? 'text-white' : 'text-black'}`}
+            >
               {t('GEN.FOR_DETAILS')}: info@eg-theater.online
             </p>
           </div>

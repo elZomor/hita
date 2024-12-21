@@ -349,5 +349,8 @@
     "DEPARTMENT": "Department",
     "SKILL": "Skill",
     "SEARCH_PLACEHOLDER": "Search by name or username"
+  },
+  "ABOUTUS": {
+    "ABOUTUS": "About Us"
   }
 }
