@@ -338,6 +338,7 @@
   },
   "PERFORMER_HOME": {
     "FILTERS": "Filter",
+    "CLEAR_FILTERS": "Clear Filters",
     "AGE": "Age",
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
