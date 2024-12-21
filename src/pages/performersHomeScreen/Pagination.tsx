@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 interface PaginationProps {
   currentPage: number;
@@ -13,6 +14,7 @@ export function Pagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
+  const { trackEvent } = useAmplitude();
   const getPageNumbers = () => {
     const delta = 2;
     const range = [];
@@ -45,10 +47,16 @@ export function Pagination({
 
   const { i18n } = useTranslation();
 
+  type paginationType = 'forward' | 'backward' | 'number';
+  const handleClick = (navigateTo: number, navigationType: paginationType) => {
+    trackEvent('navigate_' + navigationType);
+    onPageChange(navigateTo);
+  };
+
   return (
     <nav className="flex items-center justify-center gap-1">
       <button
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() => handleClick(currentPage - 1, 'backward')}
         disabled={currentPage === 1}
         className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -62,7 +70,9 @@ export function Pagination({
       {getPageNumbers().map((page, index) => (
         <button
           key={index}
-          onClick={() => typeof page === 'number' && onPageChange(page)}
+          onClick={() =>
+            typeof page === 'number' && handleClick(page, 'number')
+          }
           disabled={page === '...'}
           className={clsx(
             'min-w-[32px] h-8 flex items-center justify-center text-sm rounded-full',
@@ -79,7 +89,7 @@ export function Pagination({
       ))}
 
       <button
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => handleClick(currentPage + 1, 'forward')}
         disabled={currentPage === totalPages}
         className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
