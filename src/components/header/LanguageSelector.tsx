@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { track } from '@amplitude/analytics-browser';
 
 type LanguageSelectorProps = {
   closeMenu?: () => void;
@@ -8,6 +9,7 @@ export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
   const { i18n, t } = useTranslation();
 
   const handleLanguageChange = (lang: string) => {
+    track('Sign Up');
     i18n.changeLanguage(lang);
     localStorage.setItem('language', lang);
     if (closeMenu !== undefined) {
