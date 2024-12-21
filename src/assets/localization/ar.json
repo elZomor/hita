@@ -338,6 +338,7 @@
   },
   "PERFORMER_HOME": {
     "FILTERS": "تصفية",
+    "CLEAR_FILTERS": "مسح التصفية",
     "GENDER": "النوع",
     "AGE": "السن",
     "WEIGHT": "الوزن",

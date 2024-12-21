@@ -164,7 +164,7 @@ const PerformerHome: React.FC = () => {
                 className="flex w-full items-center justify-center px-2 py-2 mb-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 title="ClearFilters"
               >
-                {t('CLEAR_FILTERS')}
+                {t('PERFORMER_HOME.CLEAR_FILTERS')}
               </button>
               <Filters
                 updateFilter={setFilters}
@@ -214,7 +214,7 @@ const PerformerHome: React.FC = () => {
                       className="flex w-[80%] mx-auto items-center justify-center py-2 my-3 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       title="ClearFilters"
                     >
-                      {t('CLEAR_FILTERS')}
+                      {t('PERFORMER_HOME.CLEAR_FILTERS')}
                     </button>
                     <Filters
                       updateFilter={setFilters}
