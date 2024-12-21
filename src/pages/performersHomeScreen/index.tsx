@@ -28,6 +28,7 @@ const PerformerHome: React.FC = () => {
   const { t } = useTranslation();
   const [departments, setDepartments] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +103,19 @@ const PerformerHome: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleClearFilter = () => {
+    if (searchText !== '') {
+      setSearchText('');
+      setDebouncedText('');
+    }
+    console.log(filters);
+    if (Object.keys(filters).length !== 0) {
+      setFilters({});
+    }
+
+    setRefreshKey((prevState) => prevState + 1);
+  };
+
   // Prevent body scroll when mobile filters are open
   useEffect(() => {
     if (showMobileFilters) {
@@ -145,12 +159,20 @@ const PerformerHome: React.FC = () => {
           {/* Desktop Filters */}
           <aside className="hidden lg:block lg:w-64 flex-shrink-0">
             <div className="sticky top-20">
+              <button
+                onClick={handleClearFilter}
+                className="flex w-full items-center justify-center px-2 py-2 mb-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                title="ClearFilters"
+              >
+                {t('CLEAR_FILTERS')}
+              </button>
               <Filters
                 updateFilter={setFilters}
                 initialFilters={filters}
                 skills={skills}
                 departments={departments}
                 nameFilter={debouncedText}
+                key={refreshKey}
               />
             </div>
           </aside>
@@ -187,12 +209,20 @@ const PerformerHome: React.FC = () => {
                     </button>
                   </div>
                   <div className="flex-1 overflow-y-auto">
+                    <button
+                      onClick={handleClearFilter}
+                      className="flex w-[80%] mx-auto items-center justify-center py-2 my-3 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      title="ClearFilters"
+                    >
+                      {t('CLEAR_FILTERS')}
+                    </button>
                     <Filters
                       updateFilter={setFilters}
                       initialFilters={filters}
                       skills={skills}
                       departments={departments}
                       nameFilter={debouncedText}
+                      key={refreshKey}
                     />
                   </div>
                 </div>

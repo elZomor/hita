@@ -29,6 +29,7 @@ export function Filters({
 
   useEffect(() => {
     if (nameFilter === '') {
+      if (!('name' in filters)) return;
       setFilters((prevFilters) =>
         removeFilters(prevFilters, { ['name']: null }, true)
       );
