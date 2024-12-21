@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RangeFilter } from './RangeFilter.tsx';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 const genders = ['M', 'F'];
 
@@ -26,6 +27,7 @@ export function Filters({
   const [minWeightVal, maxWeightVal] = [40, 220];
   const [minHeightVal, maxHeightVal] = [50, 220];
   const [minExperiencesVal, maxExperiencesVal] = [0, 100];
+  const { trackEvent } = useAmplitude();
 
   useEffect(() => {
     if (nameFilter === '') {
@@ -35,6 +37,7 @@ export function Filters({
       );
       return;
     }
+    trackEvent('filter_name');
     setFilters((prevFilters) =>
       updateFilters(
         prevFilters,
@@ -150,6 +153,7 @@ export function Filters({
   };
 
   const handleAgeFilter = (startVal: number, endVal: number) => {
+    trackEvent('filter_age');
     handleRangeFilter({
       startVal: startVal,
       endVal: endVal,
@@ -160,6 +164,7 @@ export function Filters({
     });
   };
   const handleHeightFilter = (startVal: number, endVal: number) => {
+    trackEvent('filter_height');
     handleRangeFilter({
       startVal: startVal,
       endVal: endVal,
@@ -170,6 +175,7 @@ export function Filters({
     });
   };
   const handleWeightFilter = (startVal: number, endVal: number) => {
+    trackEvent('filter_weight');
     handleRangeFilter({
       startVal: startVal,
       endVal: endVal,
@@ -180,6 +186,7 @@ export function Filters({
     });
   };
   const handleExperienceFilter = (startVal: number, endVal: number) => {
+    trackEvent('filter_experience');
     handleRangeFilter({
       startVal: startVal,
       endVal: endVal,
@@ -196,6 +203,7 @@ export function Filters({
     filter: string
   ) => {
     if (checked) {
+      trackEvent('filter_' + filter);
       setFilters((prevFilters) =>
         updateFilters(prevFilters, { [filter]: value }, false)
       );

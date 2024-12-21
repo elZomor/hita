@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { track } from '@amplitude/analytics-browser';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 type LanguageSelectorProps = {
   closeMenu?: () => void;
@@ -7,9 +7,10 @@ type LanguageSelectorProps = {
 
 export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
   const { i18n, t } = useTranslation();
+  const { trackEvent } = useAmplitude();
 
   const handleLanguageChange = (lang: string) => {
-    track('Sign Up');
+    trackEvent('lang_' + lang);
     i18n.changeLanguage(lang);
     localStorage.setItem('language', lang);
     if (closeMenu !== undefined) {

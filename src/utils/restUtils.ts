@@ -1,8 +1,13 @@
 import { baseUrl } from '../constants.ts';
 import apiClient from './apiClient.ts';
 import axios, { AxiosResponse } from 'axios';
-import { setAccessToken, setRefreshToken } from './tokenUtils.ts';
+import {
+  getAccessToken,
+  setAccessToken,
+  setRefreshToken,
+} from './tokenUtils.ts';
 import { ProfileImage } from '../types/performer-form.ts';
+import { jwtDecode } from 'jwt-decode';
 
 export const get_login_token = async (token: string) => {
   const headers = {
@@ -115,4 +120,13 @@ export const uploadShowReel = async (
       setUploadProgress(progress);
     },
   });
+};
+
+export const getUserId = () => {
+  try {
+    return jwtDecode<Record<string, any>>(getAccessToken()!)['user_id'];
+  } catch (error) {
+    console.error('Invalid JWT:', error);
+    throw new Error('Failed to decode JWT');
+  }
 };

@@ -15,6 +15,7 @@ import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { patch_request } from '../../../utils/restUtils.ts';
 import { format } from 'date-fns';
+import { useAmplitude } from '../../../hooks/useAmplitude.tsx';
 
 type PerformerDetailsSectionProps = {
   performer: Performer;
@@ -37,6 +38,7 @@ export default function PerformerDetailsSection({
   const performer = initialPerformer;
   const [showImageModal, setShowImageModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const { trackEvent } = useAmplitude();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -68,6 +70,7 @@ export default function PerformerDetailsSection({
         `hita/performers/${username}`,
         mapFormDataToRequest(formData)
       );
+      trackEvent('performer_profile_personal_info_update');
       refreshPerformerPage();
       setEditMode(false);
     } catch (e) {
@@ -85,6 +88,7 @@ export default function PerformerDetailsSection({
     navigator.clipboard
       .writeText(currentPath)
       .then(() => {
+        trackEvent('performer_profile_personal_info_copy_profile');
         setSnackbar({
           open: true,
           message: t('PERFORMER_PAGE.PERSONAL_INFO.COPIED'),
@@ -140,6 +144,7 @@ export default function PerformerDetailsSection({
   };
 
   const handleEdit = () => {
+    trackEvent('performer_profile_personal_info_edit');
     setIsEditing(true);
   };
 
