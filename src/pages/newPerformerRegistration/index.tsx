@@ -12,11 +12,13 @@ import { get_request, post_request } from '../../utils/restUtils.ts';
 import { mapPerformerRegisterToRequest } from '../../models/Performer.ts';
 import { useNavigate } from 'react-router-dom';
 import { NewPersonalInfoStep } from './NewPersonalInfoStep.tsx';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 export function NewPerformerForm() {
   const [showExitModal, setShowExitModal] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(false);
   const navigate = useNavigate();
+  const { trackEvent } = useAmplitude();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -67,6 +69,7 @@ export function NewPerformerForm() {
         message: 'Form submitted successfully!',
         type: 'success',
       });
+      trackEvent('performer_created');
       navigate(`/performers/${data.data.username}`);
     } catch (error) {
       console.error(error);

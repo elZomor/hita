@@ -5,8 +5,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 // import { zodResolver } from '@hookform/resolvers/zod';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { useNavigate } from 'react-router-dom';
-import { get_login_token } from '../../utils/restUtils.ts';
+import { get_login_token, getUserId } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 // const schema = z.object({
 //   email: z.string().email('Please enter a valid email'),
@@ -19,6 +20,7 @@ export function LoginPage() {
   // const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
+  const { identifyUser } = useAmplitude();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -42,6 +44,7 @@ export function LoginPage() {
     onSuccess: async (response) => {
       try {
         await get_login_token(response.access_token);
+        identifyUser(getUserId());
         navigate('/landing');
         setSnackbar({
           open: true,

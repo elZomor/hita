@@ -20,6 +20,7 @@ import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { useTranslation } from 'react-i18next';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { ShowReelSection } from './showReelSection';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 const PerformerProfile: React.FC = () => {
   const { t } = useTranslation();
@@ -32,6 +33,8 @@ const PerformerProfile: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { trackEvent } = useAmplitude();
+
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -41,6 +44,14 @@ const PerformerProfile: React.FC = () => {
     message: '',
     type: 'success',
   });
+  const handleEdit = () => {
+    trackEvent('performer_profile_open_edit');
+    setEditMode(!isEditMode);
+  };
+  const handleCloseEdit = () => {
+    trackEvent('performer_profile_close_edit');
+    setEditMode(!isEditMode);
+  };
 
   const sectionRefs = {
     profile: useRef<HTMLDivElement>(null),
@@ -56,6 +67,7 @@ const PerformerProfile: React.FC = () => {
     setIsLoading(true);
     try {
       await delete_request(`hita/performers/${username}`);
+      trackEvent('performer_delete_confirm');
     } catch (e) {
       console.log(e);
     } finally {
@@ -93,6 +105,11 @@ const PerformerProfile: React.FC = () => {
     return () => observer.disconnect();
   }, [performer]);
 
+  const handleClickDelete = () => {
+    trackEvent('performer_delete_request');
+    setShowDeleteModal(true);
+  };
+
   const refreshPerformerPage = async () => {
     try {
       const { data } = await get_request(`hita/performers/${username}`);
@@ -109,8 +126,8 @@ const PerformerProfile: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const headerOffset = 70; // Offset of 16px
     const element = sectionRefs[sectionId as keyof typeof sectionRefs].current;
-
     if (element) {
+      trackEvent('navigate_' + sectionId);
       const elementPosition =
         element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - headerOffset;
@@ -154,7 +171,7 @@ const PerformerProfile: React.FC = () => {
                   <button
                     type="button"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                    onClick={() => setEditMode(false)}
+                    onClick={handleCloseEdit}
                   >
                     {t('GEN.CLOSE_EDIT')}
                   </button>
@@ -163,7 +180,7 @@ const PerformerProfile: React.FC = () => {
                     <button
                       type="button"
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                      onClick={() => setEditMode(!isEditMode)}
+                      onClick={handleEdit}
                     >
                       {t('GEN.EDIT')}
                     </button>
@@ -226,7 +243,7 @@ const PerformerProfile: React.FC = () => {
                   <button
                     type="button"
                     className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                    onClick={() => setEditMode(false)}
+                    onClick={handleCloseEdit}
                   >
                     {t('GEN.CLOSE_EDIT')}
                   </button>
@@ -235,13 +252,13 @@ const PerformerProfile: React.FC = () => {
                     <button
                       type="button"
                       className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                      onClick={() => setEditMode(!isEditMode)}
+                      onClick={handleEdit}
                     >
                       {t('GEN.EDIT')}
                     </button>
                     <button
                       type="button"
-                      onClick={() => setShowDeleteModal(true)}
+                      onClick={handleClickDelete}
                       disabled={isLoading}
                       className="w-full px-6 py-3 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
                     >

@@ -13,6 +13,7 @@ import { Pagination } from './Pagination.tsx';
 import { NoResults } from './NoResults.tsx';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -29,6 +30,7 @@ const PerformerHome: React.FC = () => {
   const [departments, setDepartments] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
   const [refreshKey, setRefreshKey] = useState<number>(0);
+  const { trackEvent } = useAmplitude();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,6 +106,7 @@ const PerformerHome: React.FC = () => {
   };
 
   const handleClearFilter = () => {
+    trackEvent('filter_clear');
     if (searchText !== '') {
       setSearchText('');
       setDebouncedText('');
