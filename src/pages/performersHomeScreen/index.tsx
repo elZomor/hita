@@ -6,7 +6,7 @@ import {
 } from '../../models/Performer.ts';
 import { get_request } from '../../utils/restUtils.ts';
 import Container from '../../components/container/Container.tsx';
-import { Filters } from '../../components/filters/Filters.tsx';
+import { Filters } from '../../components/filters';
 import { CardSkeleton } from '../../components/cardSkeleton/CardSkeleton.tsx';
 import { ActorCard } from '../../components/performerCard/PerformerCard.tsx';
 import { Pagination } from './Pagination.tsx';
@@ -23,28 +23,29 @@ const PerformerHome: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
-  const [filters, setFilters] = useState<Record<string, any>>({});
+  const [filters, setFilters] = useState<Record<string, string[]>>({});
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const { t } = useTranslation();
+  const [departments, setDepartments] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [refreshKey, setRefreshKey] = useState<number>(0);
 
-  const updateFilter = (filtersList: Record<string, string[]>[]) => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters };
-      filtersList.forEach((filter) => {
-        Object.entries(filter).forEach(([key, value]) => {
-          if (
-            (value.length === 0 && updatedFilters[key] !== undefined) ||
-            value[0] === (0).toString()
-          ) {
-            delete updatedFilters[key];
-          } else {
-            updatedFilters[key] = value;
-          }
-        });
-      });
-      return updatedFilters;
-    });
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/skills');
+      setSkills(data.data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchDepartments() {
+      const { data } = await get_request(`hita/departments`);
+      setDepartments(data.data);
+    }
+
+    fetchDepartments();
+  }, []);
 
   const buildQueryParams = () => {
     const params = new URLSearchParams();
@@ -74,20 +75,6 @@ const PerformerHome: React.FC = () => {
   }, [searchText]);
 
   useEffect(() => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters };
-
-      if (debouncedText) {
-        updatedFilters.name = debouncedText;
-      } else {
-        delete updatedFilters.name;
-      }
-
-      return updatedFilters;
-    });
-  }, [debouncedText]);
-
-  useEffect(() => {
     async function fetchPerformers() {
       try {
         setLoading(true);
@@ -114,6 +101,19 @@ const PerformerHome: React.FC = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleClearFilter = () => {
+    if (searchText !== '') {
+      setSearchText('');
+      setDebouncedText('');
+    }
+    console.log(filters);
+    if (Object.keys(filters).length !== 0) {
+      setFilters({});
+    }
+
+    setRefreshKey((prevState) => prevState + 1);
   };
 
   // Prevent body scroll when mobile filters are open
@@ -159,7 +159,21 @@ const PerformerHome: React.FC = () => {
           {/* Desktop Filters */}
           <aside className="hidden lg:block lg:w-64 flex-shrink-0">
             <div className="sticky top-20">
-              <Filters updateFilter={updateFilter} />
+              <button
+                onClick={handleClearFilter}
+                className="flex w-full items-center justify-center px-2 py-2 mb-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                title="ClearFilters"
+              >
+                {t('CLEAR_FILTERS')}
+              </button>
+              <Filters
+                updateFilter={setFilters}
+                initialFilters={filters}
+                skills={skills}
+                departments={departments}
+                nameFilter={debouncedText}
+                key={refreshKey}
+              />
             </div>
           </aside>
 
@@ -195,7 +209,21 @@ const PerformerHome: React.FC = () => {
                     </button>
                   </div>
                   <div className="flex-1 overflow-y-auto">
-                    <Filters updateFilter={updateFilter} />
+                    <button
+                      onClick={handleClearFilter}
+                      className="flex w-[80%] mx-auto items-center justify-center py-2 my-3 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      title="ClearFilters"
+                    >
+                      {t('CLEAR_FILTERS')}
+                    </button>
+                    <Filters
+                      updateFilter={setFilters}
+                      initialFilters={filters}
+                      skills={skills}
+                      departments={departments}
+                      nameFilter={debouncedText}
+                      key={refreshKey}
+                    />
                   </div>
                 </div>
               </div>
