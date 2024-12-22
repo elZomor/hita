@@ -244,7 +244,7 @@
   },
   "PERFORMER_PAGE": {
     "GALLERY_SECTION": {
-      "IMAGES": "صور",
+      "IMAGES": "صورة",
       "LOCKED_SECTION": "هذا القسم غير متاح",
       "NO_IMAGES": "لم يتم إضافة صور بعد.",
       "ADD_FIRST_IMAGE": "ضيف أول صورة ليك",
@@ -338,6 +338,7 @@
   },
   "PERFORMER_HOME": {
     "FILTERS": "تصفية",
+    "CLEAR_FILTERS": "مسح التصفية",
     "GENDER": "النوع",
     "AGE": "السن",
     "WEIGHT": "الوزن",
@@ -348,7 +349,8 @@
     "F": "أنثى",
     "DEPARTMENT": "القسم",
     "SKILL": "المهارات",
-    "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم"
+    "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم",
+    "SHOW_BIO": "أظهر النبذة كاملة"
   },
   "ABOUTUS": {
     "ABOUTUS": "عن الموقع"

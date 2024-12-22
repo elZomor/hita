@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 
 const currentYear = new Date().getFullYear();
 const yearRange = Array.from(
@@ -99,6 +100,7 @@ export function MemberRegistration() {
 
   const isGraduated = watch('isGraduated');
   const navigate = useNavigate();
+  const { trackEvent } = useAmplitude();
   useEffect(() => {
     async function fetchDepartments() {
       try {
@@ -167,6 +169,7 @@ export function MemberRegistration() {
           message: 'Form submitted successfully!',
           type: 'success',
         });
+        trackEvent('member_created');
         navigate('/landing');
       } else {
         console.error(responseData);

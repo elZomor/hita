@@ -13,6 +13,7 @@
     "eslint:check": "eslint --no-fix"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "^2.11.10",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.1",
@@ -22,6 +23,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "i18next": "^23.16.4",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.460.0",
     "number-to-words": "^1.2.4",
     "prettier": "^3.3.3",

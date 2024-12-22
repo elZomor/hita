@@ -205,7 +205,7 @@ export default function GallerySection({
 
   return (
     <Section
-      title={t('GALLERY')}
+      title={`${t('GALLERY')} (${images.length})`}
       headerActions={
         <div className="flex gap-2">
           {isLocked && !isEditMode && (

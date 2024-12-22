@@ -338,6 +338,7 @@
   },
   "PERFORMER_HOME": {
     "FILTERS": "Filter",
+    "CLEAR_FILTERS": "Clear Filters",
     "AGE": "Age",
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
@@ -348,7 +349,8 @@
     "F": "Female",
     "DEPARTMENT": "Department",
     "SKILL": "Skill",
-    "SEARCH_PLACEHOLDER": "Search by name or username"
+    "SEARCH_PLACEHOLDER": "Search by name or username",
+    "SHOW_BIO": "Show full bio"
   },
   "ABOUTUS": {
     "ABOUTUS": "About Us"

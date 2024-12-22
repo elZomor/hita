@@ -4,6 +4,7 @@ import {
   FaGoogleDrive,
   FaInstagram,
   FaLinkedin,
+  FaMobileAlt,
   FaPinterest,
   FaSnapchatGhost,
   FaSoundcloud,
@@ -51,6 +52,7 @@ const LINK_ICONS: Record<string, { icon: React.ElementType; color: string }> = {
     icon: FaSoundcloud,
     color: 'text-orange-500 hover:text-orange-600',
   },
+  MOBILE: { icon: FaMobileAlt, color: 'text-gray-600 hover:text-gray-700' },
 };
 
 const SocialMediaIcon = ({

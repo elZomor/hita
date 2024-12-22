@@ -36,8 +36,8 @@ const personalInfoSchema = z.object({
   openFor: z.enum(['FREE', 'PAID', 'BOTH']),
   height: z.number().max(230).optional(),
   weight: z.number().max(230).optional(),
-  isContactDetailsProtected: z.boolean(),
-  isGalleryProtected: z.boolean(),
+  isContactDetailsProtected: z.boolean().optional(),
+  isGalleryProtected: z.boolean().optional(),
 });
 
 export function PerformerDetailsForm({
@@ -261,28 +261,6 @@ export function PerformerDetailsForm({
               />
             </div>
           </FormField>
-          <div className="flex flex-col">
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                {...register('isContactDetailsProtected')}
-                className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
-              />
-              <span className="mx-2 text-gray-700">
-                {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_CONTACT_DETAILS')}
-              </span>
-            </label>
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                {...register('isGalleryProtected')}
-                className="form-checkbox text-purple-600 rounded focus:ring-purple-500"
-              />
-              <span className="mx-2 text-gray-700">
-                {t('PERFORMER_PAGE.PERSONAL_INFO.PROTECT_GALLERY')}
-              </span>
-            </label>
-          </div>
         </div>
       </div>
 

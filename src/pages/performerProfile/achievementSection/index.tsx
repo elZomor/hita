@@ -130,7 +130,7 @@ export default function AchievementSection({
 
   return (
     <Section
-      title={t('PERFORMER_PAGE.ACHIEVEMENT.ACHIEVEMENTS')}
+      title={`${t('PERFORMER_PAGE.ACHIEVEMENT.ACHIEVEMENTS')} (${achievements.length})`}
       headerActions={
         <div className="flex gap-2">
           <AddButton

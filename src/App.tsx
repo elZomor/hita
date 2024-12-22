@@ -17,6 +17,8 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
 import { PerformerLandingPage } from './pages/performerLandingPage';
 import { EditModeProvider } from './contexts/EditModeContext.tsx';
 import { NewPerformerForm } from './pages/newPerformerRegistration';
+import { ScrollToTop } from './hooks/ScrollToTop.tsx';
+import { useAmplitude } from './hooks/useAmplitude.tsx';
 
 export const App = () => {
   const { i18n } = useTranslation();
@@ -32,10 +34,13 @@ export const App = () => {
     .getElementsByTagName('html')[0]
     .setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
 
+  useAmplitude();
+
   return (
     <Suspense fallback="Loading...">
       <BrowserRouter>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <ScrollToTop />
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />

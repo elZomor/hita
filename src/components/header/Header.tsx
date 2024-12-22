@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
@@ -16,6 +16,7 @@ export default function Header() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('accessToken');
   const isRTL = i18n.language === 'ar';
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -27,6 +28,24 @@ export default function Header() {
     navigate('/login');
     setShowAccountMenu(false);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setShowAccountMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener to detect clicks outside
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // Clean up the event listener
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header
@@ -91,6 +110,7 @@ export default function Header() {
                     'absolute mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-200',
                     'rtl:left-0 ltr:right-0'
                   )}
+                  ref={dropdownRef}
                 >
                   {isLoggedIn ? (
                     <>
