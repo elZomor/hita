@@ -5,7 +5,7 @@ import HeroImage1 from '../../assets/images/heroBg1.jpg';
 import HeroImage2 from '../../assets/images/heroBg2.jpg';
 import HeroImage3 from '../../assets/images/heroBg3.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -16,7 +16,7 @@ export function Hero() {
   const { t, i18n } = useTranslation();
 
   return (
-    <Container classess="w-screen h-full">
+    <Container classess="w-screen h-full mt-10">
       <div className="relative w-full max-w-full h-full overflow-hidden rounded-[20px]">
         <div className="w-[90%] md:w-auto absolute z-10 flex items-center transform -translate-x-1/2 left-1/2 top-[25%] md:-translate-x-0 md:left-auto md:ltr:left-12 md:rtl:right-12 md:top-[70px]">
           <div className="relative pb-8 sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
