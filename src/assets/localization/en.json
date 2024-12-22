@@ -351,5 +351,8 @@
     "SKILL": "Skill",
     "SEARCH_PLACEHOLDER": "Search by name or username",
     "SHOW_BIO": "Show full bio"
+  },
+  "ABOUTUS": {
+    "ABOUTUS": "About Us"
   }
 }

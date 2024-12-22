@@ -30,13 +30,13 @@ export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
 
   return (
     <div
-      className="flex flex-row items-center hover:bg-purple-300 transition-colors hover:cursor-pointer"
+      className="flex flex-row items-center transition-colors hover:bg-purple-300 hover:cursor-pointer"
       onClick={() =>
         handleLanguageChange(otherLanguage[i18n.language].language)
       }
     >
       <div className="relative">
-        <button className="p-2 rounded-lg ">
+        <button className={`p-2 rounded-lg text-gray-700 text-lg`}>
           {otherLanguage[i18n.language].icon}
         </button>
       </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
-import logo from '../../assets/logo.png';
+// import logo from '../../assets/logo.png';
 import Container from '../container/Container.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
@@ -48,42 +48,44 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-purple-200 border-b border-gray-200">
-      <Container>
-        <div className="flex items-center justify-between h-16">
+    <header
+      className={`top-0 z-50 w-full h-16 sticky bg-purple-200 border-b border-gray-200`}
+    >
+      <Container classess="h-full flex items-center justify-end">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center h-full cursor-pointer">
+          {/* <div className="flex items-center h-full cursor-pointer">
             <img
               src={logo}
               alt="Actogram"
-              className="w-full h-full object-cover"
+              className="object-cover w-full h-full"
               onClick={() => navigate('/')}
             />
-          </div>
+          </div> */}
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="items-center hidden gap-6 md:flex">
             {isLoggedIn && (
               <>
                 <button
                   onClick={() => navigate('/performers')}
-                  className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
+                  className="p-2 transition-colors rounded-lg hover:bg-purple-300"
                   title={t('HEADER.PERFORMERS')}
                 >
-                  <Users className="h-5 w-5 text-gray-700" />
+                  <Users className="w-5 h-5 text-gray-700" />
                 </button>
                 <button
                   onClick={() => navigate('/members/performer')}
-                  className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
+                  className="p-2 transition-colors rounded-lg hover:bg-purple-300"
                   title={t('HEADER.PERFORMER')}
                 >
-                  <UserCircle className="h-5 w-5 text-gray-700" />
+                  <UserCircle className="w-5 h-5 text-gray-700" />
                 </button>
                 {/*<button*/}
-                {/*  className="p-2 rounded-lg hover:bg-purple-300 transition-colors"*/}
+                {/*  className="p-2 transition-colors rounded-lg hover:bg-purple-300"*/}
                 {/*  title={t('NOTIFICATIONS')}*/}
                 {/*>*/}
-                {/*  <Bell className="h-5 w-5 text-gray-700" />*/}
+                {/*  <Bell className="w-5 h-5 text-gray-700" />*/}
                 {/*</button>*/}
               </>
             )}
@@ -93,12 +95,12 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setShowAccountMenu(!showAccountMenu)}
-                className="p-2 rounded-lg hover:bg-purple-300 transition-colors"
+                className="p-2 transition-colors rounded-lg hover:bg-purple-300"
               >
                 {isLoggedIn ? (
-                  <UserCircle className="h-5 w-5 text-gray-700" />
+                  <UserCircle className={`w-5 h-5  text-gray-700`} />
                 ) : (
-                  <LogIn className="h-5 w-5 text-gray-700" />
+                  <LogIn className={`w-5 h-5 text-gray-700`} />
                 )}
               </button>
 
@@ -117,15 +119,15 @@ export default function Header() {
                           navigate('/members/profile');
                           setShowAccountMenu(false);
                         }}
-                        className="w-full px-4 py-2 text-start text-sm text-gray-700 hover:bg-purple-50"
+                        className="w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
                       >
                         {t('HEADER.PROFILE')}
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="w-full px-4 py-2 text-start text-sm text-gray-700 hover:bg-purple-50 flex items-center gap-2"
+                        className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
                       >
-                        <LogOut className="h-4 w-4" />
+                        <LogOut className="w-4 h-4" />
                         {t('LOGOUT')}
                       </button>
                     </>
@@ -135,9 +137,9 @@ export default function Header() {
                         navigate('/login');
                         setShowAccountMenu(false);
                       }}
-                      className="w-full px-4 py-2 text-start text-sm text-gray-700 hover:bg-purple-50 flex items-center gap-2"
+                      className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
                     >
-                      <LogIn className="h-4 w-4" />
+                      <LogIn className="w-4 h-4" />
                       {t('LOGIN')}
                     </button>
                   )}

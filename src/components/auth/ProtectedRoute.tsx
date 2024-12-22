@@ -89,9 +89,9 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (isAuthorized === null) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 text-purple-600 animate-spin mx-auto" />
+          <Loader2 className="w-8 h-8 mx-auto text-purple-600 animate-spin" />
           <p className="mt-2 text-sm text-gray-600">{t('GEN.CHECKING_AUTH')}</p>
         </div>
       </div>
