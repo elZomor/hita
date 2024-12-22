@@ -352,7 +352,26 @@
     "SEARCH_PLACEHOLDER": "Search by name or username",
     "SHOW_BIO": "Show full bio"
   },
-  "ABOUTUS": {
-    "ABOUTUS": "About Us"
+  "ABOUT_US": {
+    "ABOUT_US": "About Us",
+    "ABOUT_TEAM": "About Team",
+    "DESCRIPTION_ONE": "We are a passionate team of creators, dreamers, and innovators from diverse backgrounds united by a shared love for theater. Our mission is to shine a spotlight on the incredible talents that bring stories to life on stage.",
+    "DESCRIPTION_TWO": "From seasoned developers to theater enthusiasts and storytellers. It all started with (Mahmoud Metwally) idea on Institute group, hence our team came together with one goal: to bridge the gap between exceptional talents and those seeking to create unforgettable productions. We believe in the power of collaboration and the magic that happens when creative minds unite.",
+    "DESCRIPTION_THREE": "With this platform, we aim to celebrate the artistry, dedication, and hard work of everyone behind the curtain—bringing them closer to the opportunities they deserve. Welcome to a community where talent meets possibility!",
+    "ZOMOR": {
+      "NAME": "Mohamed Elzomor",
+      "TITLE": "Senior Software Engineer",
+      "BIO": "Software engineer, music composer and a post-grad student in Drama and Theatrical Criticism, Faculty of Arts, Ain Shams Uni."
+    },
+    "DUA": {
+      "NAME": "Duaa Moustafa",
+      "TITLE": "Senior Product Owner",
+      "BIO": "Ex-Tester and Product Owner"
+    },
+    "HOSSAM": {
+      "NAME": "Hossam Salem",
+      "TITLE": "Senior Software Engineer",
+      "BIO": "Front End developer, student in Higher Institute of Theatrical Arts"
+    }
   }
 }

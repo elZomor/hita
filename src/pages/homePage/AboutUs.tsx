@@ -1,37 +1,59 @@
-import React from 'react';
 import Container from '../../components/container/Container';
 import { useTranslation } from 'react-i18next';
+import TeamCard from './TeamCard.tsx';
+import Zomor from '../../assets/images/zomor.jpeg';
+import Hossam from '../../assets/images/Hossam.jpg';
 
 const AboutUs = () => {
   const { t } = useTranslation();
+  const teamMembers = [
+    {
+      name: t('ABOUT_US.ZOMOR.NAME'),
+      title: t('ABOUT_US.ZOMOR.TITLE'),
+      bio: t('ABOUT_US.ZOMOR.BIO'),
+      imageUrl: Zomor,
+    },
+    {
+      name: t('ABOUT_US.DUA.NAME'),
+      title: t('ABOUT_US.DUA.TITLE'),
+      bio: t('ABOUT_US.DUA.BIO'),
+      imageUrl:
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+    },
+    {
+      name: t('ABOUT_US.HOSSAM.NAME'),
+      title: t('ABOUT_US.HOSSAM.TITLE'),
+      bio: t('ABOUT_US.HOSSAM.BIO'),
+      imageUrl: Hossam,
+    },
+  ];
 
   return (
     <div className="w-full p-3 bg-[#f5f5f5]">
       <Container>
         <h1 className="text-3xl font-bold mb-7 text-slate-800">
-          {t('ABOUTUS.ABOUTUS')}
+          {t('ABOUT_US.ABOUT_US')}
         </h1>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <div className="flex items-center justify-center p-5 text-center bg-white shadow-md rounded-xl text-slate-600">
-            We are a passionate team of creators, dreamers, and innovators from
-            diverse backgrounds united by a shared love for theater. Our mission
-            is to shine a spotlight on the incredible talents that bring stories
-            to life on stage.
-          </div>
-          <div className="flex items-center justify-center p-5 text-center bg-white shadow-md rounded-xl text-slate-600">
-            From seasoned developers to theater enthusiasts and storytellers,
-            our team came together with one goal: to bridge the gap between
-            exceptional talents and those seeking to create unforgettable
-            productions. We believe in the power of collaboration and the magic
-            that happens when creative minds unite.
-          </div>
-          <div className="flex items-center justify-center p-5 text-center bg-white shadow-md rounded-xl text-slate-600">
-            With this platform, we aim to celebrate the artistry, dedication,
-            and hard work of everyone behind the curtain—bringing them closer to
-            the opportunities they deserve. Welcome to a community where talent
-            meets possibility!
-          </div>
+        <div className="p-5 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
+          <div>{t('ABOUT_US.DESCRIPTION_ONE')}</div>
+          <div>{t('ABOUT_US.DESCRIPTION_TWO')}</div>
+          <div>{t('ABOUT_US.DESCRIPTION_THREE')}</div>
+        </div>
+
+        <h1 className="mt-10 text-3xl font-bold mb-7 text-slate-800">
+          {t('ABOUT_US.ABOUT_TEAM')}
+        </h1>
+        <div className="p-5  gap-5 grid grid-cols-1 md:grid-cols-3 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
+          {teamMembers.map((member) => (
+            <TeamCard
+              key={member.name}
+              name={member.name}
+              title={member.title}
+              bio={member.bio}
+              imageUrl={member.imageUrl}
+            />
+          ))}
         </div>
       </Container>
     </div>
