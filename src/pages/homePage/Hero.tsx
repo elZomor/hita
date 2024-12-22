@@ -5,7 +5,7 @@ import HeroImage1 from '../../assets/images/heroBg1.jpg';
 import HeroImage2 from '../../assets/images/heroBg2.jpg';
 import HeroImage3 from '../../assets/images/heroBg3.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';

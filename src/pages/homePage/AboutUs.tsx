@@ -3,7 +3,7 @@ import Container from '../../components/container/Container';
 import { useTranslation } from 'react-i18next';
 
 const AboutUs = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="w-full p-3 bg-[#f5f5f5]">

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
-import logo from '../../assets/logo.png';
+// import logo from '../../assets/logo.png';
 import Container from '../container/Container.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';

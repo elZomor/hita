@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import Container from '../container/Container';
-import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
-  const location = useLocation();
 
   // const isHomePage = location.pathname === '/';
   const isHomePage = false;
