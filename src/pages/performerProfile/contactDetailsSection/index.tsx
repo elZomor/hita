@@ -90,8 +90,8 @@ export default function ContactDetailsSection({
       setEditingIndex(null);
       setCurrentContact(null);
       setIsAdding(false);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -107,8 +107,8 @@ export default function ContactDetailsSection({
 
       const { data: getData } = await get_request(`hita/contact-details`);
       setContacts(mapContactDetailsResponseToContactDetails(getData.data));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
     setEditingIndex(null);
     setCurrentContact(null);

@@ -158,8 +158,8 @@ export default function GallerySection({
       if (updatedImage.isProfilePicture) {
         refreshPerformerPage();
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -179,8 +179,8 @@ export default function GallerySection({
       if (newImages.length === 0) {
         refreshPerformerPage();
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
     setEditingIndex(null);
     setCurrentImage(null);

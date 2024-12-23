@@ -73,8 +73,8 @@ export default function PerformerDetailsSection({
       trackEvent('performer_profile_personal_info_update');
       refreshPerformerPage();
       setEditMode(false);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -85,24 +85,14 @@ export default function PerformerDetailsSection({
   }, [isEditMode]);
   const handleCopyPath = () => {
     const currentPath = window.location.origin + location.pathname;
-    navigator.clipboard
-      .writeText(currentPath)
-      .then(() => {
-        trackEvent('performer_profile_personal_info_copy_profile');
-        setSnackbar({
-          open: true,
-          message: t('PERFORMER_PAGE.PERSONAL_INFO.COPIED'),
-          type: 'success',
-        });
-      })
-      .catch((err) => {
-        console.error('Failed to copy path: ', err);
-        setSnackbar({
-          open: true,
-          message: t('PERFORMER_PAGE.PERSONAL_INFO.COPY_FAILED'),
-          type: 'error',
-        });
+    navigator.clipboard.writeText(currentPath).then(() => {
+      trackEvent('performer_profile_personal_info_copy_profile');
+      setSnackbar({
+        open: true,
+        message: t('PERFORMER_PAGE.PERSONAL_INFO.COPIED'),
+        type: 'success',
       });
+    });
   };
 
   const getGenderIcon = (gender: string) => {
@@ -136,11 +126,12 @@ export default function PerformerDetailsSection({
     grade,
     graduationYear,
     studyType,
+    isPostGrad,
   }: Performer) => {
     const gradeYear = graduationYear
       ? `${t('GRADUATED_IN')}: ${graduationYear}`
       : t(`GRADE_${grade}`);
-    return `${gradeYear} (${t(studyType)})`;
+    return `${gradeYear} ${isPostGrad ? ' - ' + t('GEN.POST_GRAD') : ''} (${t(studyType)})`;
   };
 
   const handleEdit = () => {

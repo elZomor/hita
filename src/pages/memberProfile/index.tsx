@@ -95,7 +95,8 @@ export function MemberProfilePage() {
                   </span>
                   {member.grade
                     ? t('GEN.' + member.grade)
-                    : member.graduationYear}
+                    : `${member.graduationYear}` +
+                      (member.isPostGrad ? ` - ${t('GEN.POST_GRAD')}` : '')}
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <span className="font-medium">{t('GEN.STUDY_TYPE')}:</span>{' '}

@@ -61,6 +61,7 @@
   "CANCEL": "إلغاء",
   "VIEW_IMAGE": "عرض الصورة",
   "GEN": {
+    "POST_GRAD": "طالب دراسات عليا",
     "ACTING": "قسم تمثيل وإخراج مسرحي",
     "DRAMA": "قسم دراما ونقد مسرحي",
     "DECOR": "قسم ديكور مسرحي",
@@ -116,6 +117,7 @@
     "ACADEMIC_INFORMATION": "المعلومات الأكاديمية",
     "DEPARTMENT": "القسم",
     "IS_GRADUATED": "خريج؟",
+    "IS_POST_GRAD": "طالب دراسات عليا؟",
     "CURRENT_GRADE": "الفرقة الحالية",
     "GRADUATION_YEAR": "سنة التخرج",
     "STUDY_TYPE": "نوع الدراسة",

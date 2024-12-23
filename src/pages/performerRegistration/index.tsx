@@ -216,8 +216,7 @@ export function PerformerForm() {
         });
         navigate(`/performers/${data.data.user}`);
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
       setSnackbar({
         open: true,
         message: 'Failed to submit form. Please try again.',
