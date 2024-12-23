@@ -1,14 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GalleryCard } from './GalleryCard';
 import { GalleryForm } from './GalleryForm';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { clsx } from 'clsx';
 import Section from '../../../components/shared/section/Section.tsx';
 import { AddButton } from '../../../components/shared/AddButton.tsx';
-import { ImageModal } from '../../../components/shared/imageModal';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { FaLock } from 'react-icons/fa6';
+import 'swiper/swiper-bundle.css';
 import {
   Gallery,
   mapGalleryResponseToGallery,
@@ -21,6 +18,8 @@ import {
 } from '../../../utils/restUtils.ts';
 import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
+import { GallerySwiper } from './GallerySwiper.tsx';
+import SwiperImageModal from './SwiperImageModal.tsx';
 
 interface GallerySectionProps {
   images: Gallery[];
@@ -36,15 +35,10 @@ export default function GallerySection({
   refreshPerformerPage,
 }: GallerySectionProps) {
   const { isEditMode } = useEditMode();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [images, setImages] = useState(initialImages);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isAdding, setIsAdding] = useState(false);
-  const isEnglish = i18n.language === 'en';
-  const [selectedImage, setSelectedImage] = useState<{
-    url: string;
-    description?: string;
-  } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<Gallery | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -57,62 +51,7 @@ export default function GallerySection({
     message: '',
     type: 'success',
   });
-  // Touch handling
-  const touchStartX = useRef<number>(0);
-  const touchEndX = useRef<number>(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    const difference = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 50;
-
-    if (Math.abs(difference) > minSwipeDistance) {
-      if (difference > 0) {
-        handleNext();
-      } else {
-        handlePrevious();
-      }
-    }
-  };
-
-  const handlePrevious = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-      scrollToImage(activeIndex - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (activeIndex < images.length - 1) {
-      setActiveIndex(activeIndex + 1);
-      scrollToImage(activeIndex + 1);
-    }
-  };
-
-  const scrollToImage = (index: number) => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const imageElements = container.getElementsByClassName('gallery-image');
-    if (imageElements[index]) {
-      const imageElement = imageElements[index] as HTMLElement;
-      container.scrollTo({
-        left:
-          imageElement.offsetLeft -
-          container.offsetWidth / 2 +
-          imageElement.offsetWidth / 2,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const handleAdd = () => {
     const newImage = {
@@ -196,12 +135,49 @@ export default function GallerySection({
     setIsAdding(false);
   };
 
-  const handleView = (image: { imagePath: string; description?: string }) => {
-    setSelectedImage({
-      url: image.imagePath,
-      description: image.description,
-    });
+  const openModal = (index: number) => {
+    setActiveIndex(index);
+    setIsImageModalOpen(true);
   };
+
+  const closeModal = () => {
+    setIsImageModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isImageModalOpen) {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isImageModalOpen]);
+
+  const [slidesPerView, setSlidesPerView] = useState(4);
+
+  useEffect(() => {
+    const updateSlidesPerView = () => {
+      if (window.innerWidth <= 768) {
+        setSlidesPerView(2); // 1 slide for mobile
+      } else {
+        setSlidesPerView(4); // Default slides for desktop
+      }
+    };
+
+    updateSlidesPerView(); // Initial check
+    window.addEventListener('resize', updateSlidesPerView); // Listen for resize events
+
+    return () => {
+      window.removeEventListener('resize', updateSlidesPerView); // Cleanup on unmount
+    };
+  }, []);
+
+  // Number of slides per row
+  const totalSlides = images.length; // Total number of slides
+  const rows = Math.ceil(totalSlides / slidesPerView);
 
   return (
     <Section
@@ -234,77 +210,15 @@ export default function GallerySection({
       ) : (
         <>
           <div className="relative">
-            {images.length > 1 && (
-              <>
-                <button
-                  onClick={isEnglish ? handlePrevious : handleNext}
-                  disabled={
-                    isEnglish
-                      ? activeIndex === 0
-                      : activeIndex === images.length - 1
-                  }
-                  className={clsx(
-                    'absolute left-0 top-1/2 -translate-y-1/2 z-10',
-                    'p-2 rounded-full text-white transition-colors',
-                    (activeIndex === 0 && isEnglish) ||
-                      (activeIndex === images.length - 1 && !isEnglish)
-                      ? 'bg-black/30 cursor-not-allowed'
-                      : 'bg-black/50 hover:bg-black/70'
-                  )}
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  onClick={isEnglish ? handleNext : handlePrevious}
-                  disabled={
-                    isEnglish
-                      ? activeIndex === images.length - 1
-                      : activeIndex === 0
-                  }
-                  className={clsx(
-                    'absolute right-0 top-1/2 -translate-y-1/2 z-10',
-                    'p-2 rounded-full text-white transition-colors',
-                    (activeIndex === images.length - 1 && isEnglish) ||
-                      (activeIndex === 0 && !isEnglish)
-                      ? 'bg-black/30 cursor-not-allowed'
-                      : 'bg-black/50 hover:bg-black/70'
-                  )}
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </>
-            )}
-
-            {/* Image Gallery */}
-            <div
-              ref={scrollContainerRef}
-              className="overflow-x-auto scrollbar-hide"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <div className="flex gap-6 p-4">
-                {images.map((image, index) => (
-                  <div
-                    key={index}
-                    className={clsx(
-                      'gallery-image flex-shrink-0 w-64 transition-all duration-300',
-                      index === activeIndex
-                        ? 'scale-100'
-                        : 'scale-90 opacity-50'
-                    )}
-                  >
-                    <GalleryCard
-                      image={image}
-                      onEdit={() => handleEdit(index)}
-                      onDelete={() => handleDelete(image)}
-                      onView={() => handleView(image)}
-                      isEditing={false}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <GallerySwiper
+              slidesPerView={slidesPerView}
+              rows={rows}
+              images={images}
+              onClick={openModal}
+              isEditing={isEditMode}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
 
             {/* Empty State */}
             {images.length === 0 && (
@@ -324,12 +238,13 @@ export default function GallerySection({
             )}
           </div>
 
-          <ImageModal
-            isOpen={!!selectedImage}
-            imageUrl={selectedImage?.url || ''}
-            altText={selectedImage?.description || ''}
-            onClose={() => setSelectedImage(null)}
-          />
+          {isImageModalOpen && (
+            <SwiperImageModal
+              closeModal={closeModal}
+              activeIndex={activeIndex}
+              images={images}
+            />
+          )}
         </>
       )}
       <Modal
