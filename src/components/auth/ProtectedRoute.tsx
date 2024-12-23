@@ -50,18 +50,12 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     } else {
       allowedSet = PATHS_MAP[path];
     }
-    console.log('******************************');
-    console.log(memberStatus);
-    console.log(allowedSet);
-    console.log(allowedSet.has(memberStatus));
-    console.log('******************************');
     setIsAuthorized(allowedSet.has(memberStatus));
   };
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        console.log('Checking auth for path:', path || location.pathname);
         if (!isLoggedIn()) {
           checkPaths(path || location.pathname, 'ANONYMOUS');
           return;
@@ -74,7 +68,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
           }
           checkPaths(path || location.pathname, data.data.status);
           return;
-          console.log(data.data.status);
         } else {
           navigate('/login');
         }

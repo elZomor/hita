@@ -160,8 +160,6 @@ export function MemberRegistration() {
         `hita/members`,
         mapMemberFormDataToRequest(formData)
       );
-      console.log('responseData');
-      console.log(data);
       const responseData = data.data;
       if (data.status === 'SUCCESS') {
         setSnackbar({

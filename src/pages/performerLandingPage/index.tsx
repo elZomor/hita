@@ -17,12 +17,10 @@ export function PerformerLandingPage() {
         if (data.data['status'] === 'NOT_REGISTERED') {
           navigate('/landing');
         }
-        console.log(data.data['has_performer']);
         if (data.data['performer'] === true) {
           navigate(`/performers/${data.data['username']}`);
         }
-      } catch (error) {
-        console.log(error);
+      } catch {
         setError(
           'Failed to check registration status. Please try again later.'
         );

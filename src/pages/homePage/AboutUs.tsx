@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TeamCard from './TeamCard.tsx';
 import Zomor from '../../assets/images/zomor.jpeg';
 import Hossam from '../../assets/images/Hossam.jpg';
+import Dua from '../../assets/images/Dua.jpeg';
 
 const AboutUs = () => {
   const { t } = useTranslation();
@@ -17,8 +18,7 @@ const AboutUs = () => {
       name: t('ABOUT_US.DUA.NAME'),
       title: t('ABOUT_US.DUA.TITLE'),
       bio: t('ABOUT_US.DUA.BIO'),
-      imageUrl:
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+      imageUrl: Dua,
     },
     {
       name: t('ABOUT_US.HOSSAM.NAME'),

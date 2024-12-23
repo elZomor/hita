@@ -51,8 +51,7 @@ export function LoginPage() {
           message: 'Successfully logged in with Google!',
           type: 'success',
         });
-      } catch (error) {
-        console.log(error);
+      } catch {
         setSnackbar({
           open: true,
           message: 'Failed to login with Google. Please try again.',

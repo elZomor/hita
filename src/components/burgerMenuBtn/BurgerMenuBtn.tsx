@@ -1,15 +1,9 @@
-import { useLocation } from 'react-router-dom';
-
 interface BurgerMenuBtnProps {
   clickHandler: () => void;
   isOpen: boolean;
 }
 
 const BurgerMenuBtn = ({ clickHandler, isOpen }: BurgerMenuBtnProps) => {
-  const location = useLocation();
-
-  const isHomePage = location.pathname === '/';
-
   return (
     <button
       onClick={clickHandler}
@@ -20,17 +14,17 @@ const BurgerMenuBtn = ({ clickHandler, isOpen }: BurgerMenuBtnProps) => {
         <span
           className={`w-full h-0.5 bg-gray-700 transition-all duration-300 ${
             isOpen ? 'rotate-45 translate-y-2' : ''
-          } ${isHomePage ? 'bg-purple-300' : 'bg-gray-700'}`}
+          } ${'bg-gray-700'}`}
         />
         <span
           className={`w-full h-0.5 bg-gray-700 transition-opacity duration-300 ${
             isOpen ? 'opacity-0' : ''
-          } ${isHomePage ? 'bg-purple-300' : 'bg-gray-700'}`}
+          } ${'bg-gray-700'}`}
         />
         <span
           className={`w-full h-0.5 bg-gray-700 transition-all duration-300 ${
             isOpen ? '-rotate-45 -translate-y-2' : ''
-          } ${isHomePage ? 'bg-purple-300' : 'bg-gray-700'}`}
+          } ${'bg-gray-700'}`}
         />
       </div>
     </button>

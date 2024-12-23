@@ -73,8 +73,6 @@ export default function AchievementSection({
 
   const handleSave = async (updatedAchievement: Achievement) => {
     try {
-      console.log('currentAchievement');
-      console.log(currentAchievement);
       if (currentAchievement?.id === undefined) {
         await post_request(
           `hita/achievements`,
@@ -97,8 +95,6 @@ export default function AchievementSection({
   };
 
   const handleDelete = (achievement: Achievement) => {
-    console.log('achievement');
-    console.log(achievement);
     setCurrentAchievement(achievement);
     setShowDeleteModal(true);
   };

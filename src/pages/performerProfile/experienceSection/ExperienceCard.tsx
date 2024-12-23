@@ -31,8 +31,6 @@ export function ExperienceCard({
         return 'bg-activityCardColors-960';
     }
   };
-  console.log('showType');
-  console.log(experience.showType);
 
   return (
     <div

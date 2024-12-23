@@ -58,8 +58,6 @@ export function Filters({
     removedFilters: Record<string, string | null>,
     removeKey: boolean
   ) => {
-    console.log('remove filters');
-    console.log(prevFilters);
     const updatedFilters = { ...prevFilters };
     if (removeKey) {
       Object.keys(removedFilters).map((filter) => {
@@ -70,12 +68,6 @@ export function Filters({
     } else {
       Object.entries(removedFilters).forEach(([key, value]) => {
         if (key in updatedFilters) {
-          console.log('removed');
-          console.log(
-            updatedFilters[key].filter(
-              (filteredValue) => filteredValue !== value
-            )
-          );
           updatedFilters[key] = updatedFilters[key].filter(
             (filteredValue) => filteredValue !== value
           );
@@ -93,13 +85,9 @@ export function Filters({
     addedFilters: Record<string, string>,
     override: boolean
   ) => {
-    console.log('add filters');
-    console.log(prevFilters);
     const updatedFilters = { ...prevFilters };
 
     Object.entries(addedFilters).map(([key, value]) => {
-      console.log('updatedFilters');
-      console.log(updatedFilters);
       if (override) {
         updatedFilters[key] = [value];
       } else {

@@ -55,7 +55,6 @@ export function Hero() {
           dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
           key={i18n.language}
           pagination={true}
-          // navigation={true}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -63,10 +62,7 @@ export function Hero() {
           loop
           modules={[Pagination, Autoplay]}
           className="h-full "
-          // spaceBetween={50}
           slidesPerView={1}
-          // onSlideChange={() => console.log('slide change')}
-          // onSwiper={(swiper) => console.log(swiper)}
         >
           <SwiperSlide key="slide_1">
             <div

@@ -1,8 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import DatePicker, { registerLocale } from 'react-datepicker';
-import { ar } from 'date-fns/locale/ar';
 import Select from 'react-select';
-import { CalendarIcon } from 'lucide-react';
 import { NewPerformerFormData } from '../../types/performer-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FormField } from '../../components/shared/forms/FormField.tsx';
@@ -10,6 +7,9 @@ import { RadioField } from '../../components/shared/forms/RadioField.tsx';
 import { useTranslation } from 'react-i18next';
 import { DropDownOptions } from '../../models/shared.ts';
 import { StepButton } from '../../components/shared/stepButton.tsx';
+import localeValues from 'antd/es/locale/ar_EG';
+import dayjs from 'dayjs';
+import { CustomDatePicker } from '../../components/shared/CustomDatePicker.tsx';
 
 interface PersonalInfoStepProps {
   onComplete: (data: NewPerformerFormData) => void;
@@ -27,13 +27,10 @@ export function NewPersonalInfoStep({
     handleSubmit,
     formState: { errors },
   } = useFormContext<NewPerformerFormData>();
-  console.log('errors');
-  console.log(errors);
   const bio = watch('personalInfo.bio') || '';
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 16);
   const { t, i18n } = useTranslation();
-  registerLocale(i18n.language, ar);
 
   const addTranslationPrefix = (text: string) => {
     return t('PERFORMER_REG.PERSONAL_INFO.' + text);
@@ -64,17 +61,20 @@ export function NewPersonalInfoStep({
         error={errors.personalInfo?.dateOfBirth?.message}
       >
         <div className="relative">
-          <DatePicker
-            locale={i18n.language}
-            dateFormat="dd/MM/YYYY"
-            selected={watch('personalInfo.dateOfBirth')}
-            onChange={(date) => setValue('personalInfo.dateOfBirth', date!)}
+          <CustomDatePicker
+            locale={i18n.language === 'ar' ? localeValues : undefined}
+            direction={i18n.language === 'ar' ? 'rtl' : 'ltr'}
             maxDate={maxDate}
-            showYearDropdown
-            dropdownMode="select"
-            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            value={
+              watch('personalInfo.dateOfBirth') &&
+              dayjs(watch('personalInfo.dateOfBirth'))
+            }
+            onChange={(date) =>
+              date
+                ? setValue('personalInfo.dateOfBirth', date.toDate())
+                : setValue('personalInfo.dateOfBirth', undefined)
+            }
           />
-          <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
         </div>
       </FormField>
 

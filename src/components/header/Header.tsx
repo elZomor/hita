@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
-// import logo from '../../assets/logo.png';
+import logo from '../../assets/images/logo.png';
 import Container from '../container/Container.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
@@ -51,17 +51,19 @@ export default function Header() {
     <header
       className={`top-0 z-50 w-full h-16 sticky bg-purple-200 border-b border-gray-200`}
     >
-      <Container classess="h-full flex items-center justify-end">
-        <div className="flex items-center justify-between">
+      <Container classess="px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          {/* <div className="flex items-center h-full cursor-pointer">
-            <img
-              src={logo}
-              alt="Actogram"
-              className="object-cover w-full h-full"
-              onClick={() => navigate('/')}
-            />
-          </div> */}
+          {
+            <div className="flex items-center h-full cursor-pointer">
+              <img
+                src={logo}
+                alt="Actogram"
+                className="object-cover w-full h-full"
+                onClick={() => navigate('/')}
+              />
+            </div>
+          }
 
           {/* Desktop Navigation */}
           <div className="items-center hidden gap-6 md:flex">

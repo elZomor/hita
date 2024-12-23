@@ -68,8 +68,8 @@ const PerformerProfile: React.FC = () => {
     try {
       await delete_request(`hita/performers/${username}`);
       trackEvent('performer_delete_confirm');
-    } catch (e) {
-      console.log(e);
+    } catch {
+      // Intentionally left empty
     } finally {
       setIsLoading(false);
       setShowDeleteModal(false);

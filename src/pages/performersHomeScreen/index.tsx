@@ -111,7 +111,6 @@ const PerformerHome: React.FC = () => {
       setSearchText('');
       setDebouncedText('');
     }
-    console.log(filters);
     if (Object.keys(filters).length !== 0) {
       setFilters({});
     }
