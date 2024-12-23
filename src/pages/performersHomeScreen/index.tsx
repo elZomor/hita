@@ -131,7 +131,7 @@ const PerformerHome: React.FC = () => {
   }, [showMobileFilters]);
 
   return (
-    <Container>
+    <Container classess="w-full">
       <div className="py-8">
         <div className="flex flex-col gap-4 mb-6">
           <div className="flex items-center gap-4">

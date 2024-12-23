@@ -24,7 +24,10 @@ export const CustomDatePicker = ({
   };
   return (
     <ConfigProvider locale={locale} direction={direction}>
-      <Space direction="horizontal" style={{ display: 'flex', width: '100%'! }}>
+      <Space
+        direction="horizontal"
+        style={{ display: 'flex', width: '100%', position: 'relative' }} // Ensuring parent has enough space
+      >
         <DatePicker
           format="DD/MM/YYYY"
           disabledDate={disableFutureDates}
@@ -42,6 +45,8 @@ export const CustomDatePicker = ({
             outline: 'none', // focus:ring-2 equivalent
             boxShadow: '0 0 0 1px #d1d5db', // focus:ring-purple-500 equivalent
             borderColor: 'transparent', // focus:border-transparent
+            position: 'relative',
+            zIndex: 10, // Ensure it appears above other elements if needed
           }}
         />
       </Space>

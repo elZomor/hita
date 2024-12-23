@@ -39,7 +39,7 @@ const SwiperImageModal = ({
           modules={[Grid, Navigation]}
           initialSlide={activeIndex}
           spaceBetween={8}
-          navigation
+          navigation={window.innerWidth >= 768}
           loop={false}
           className="swiper-modal"
         >

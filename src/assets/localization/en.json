@@ -111,6 +111,7 @@
     "FIRST_NAME": "First Name",
     "LAST_NAME": "Last Name",
     "NICK_NAME": "Nick Name",
+    "NICK_NAME_HINT": "Your nickname is different than your real name, or could be your family name (Do not type your name again) Optional field.",
     "GENDER": "Gender",
     "MALE": "Male",
     "FEMALE": "Female",
@@ -174,6 +175,7 @@
     },
     "PERSONAL_INFO": {
       "USERNAME": "Username (Showing in performer URL)",
+      "USERNAME_HINT": "Your username will be your unique identifier, has to be english, more than 8 characters, not including spaces.",
       "PERSONAL_INFO": "Personal Information",
       "DATE_OF_BIRTH": "Date of Birth",
       "SKILLS": "Skills",

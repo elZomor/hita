@@ -42,8 +42,10 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   };
 
   const checkPaths = (path: string, memberStatus: MemberStatus) => {
+    if (path.includes('landing') && memberStatus === 'ANONYMOUS') {
+      navigate('/login');
+    }
     let allowedSet: Set<MemberStatus>;
-
     if (path.includes('performers') && !path.includes('registration')) {
       const key = '/performers/*';
       allowedSet = PATHS_MAP[key];
