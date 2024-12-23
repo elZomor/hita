@@ -59,7 +59,7 @@ export default function Header() {
               <img
                 src={logo}
                 alt="Actogram"
-                className="object-cover w-full h-full"
+                className="object-cover max-w-full max-h-full"
                 onClick={() => navigate('/')}
               />
             </div>
