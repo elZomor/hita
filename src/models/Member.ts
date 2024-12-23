@@ -98,8 +98,6 @@ export const mapMemberViewOneResponseToMemberViewOne = (
 };
 
 export const mapMemberFormDataToRequest = (data: MemberFormData) => {
-  console.log('data');
-  console.log(data);
   return {
     first_name: data.firstName,
     last_name: data.lastName,

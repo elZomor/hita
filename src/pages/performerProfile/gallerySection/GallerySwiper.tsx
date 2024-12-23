@@ -23,8 +23,6 @@ export const GallerySwiper = ({
   slidesPerView,
   rows,
 }: GallerySwiperCardProps) => {
-  console.log('isEditing');
-  console.log(isEditing);
   return (
     <Swiper
       modules={[Grid, Navigation]} // Include Grid and Navigation modules

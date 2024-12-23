@@ -51,6 +51,11 @@ const SwiperImageModal = ({
                   alt={`Image ${index}`}
                   className="max-h-full max-w-full"
                 />
+                {image.description && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-65 text-white p-2 text-center">
+                    {image.description}
+                  </div>
+                )}
               </div>
             </SwiperSlide>
           ))}
