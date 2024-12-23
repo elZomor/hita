@@ -13,6 +13,7 @@ export interface Performer {
   department: string;
   grade?: string;
   graduationYear?: number;
+  isPostGrad: boolean;
   gender: string;
   age?: number;
   dateOfBirth?: Date;
@@ -97,6 +98,7 @@ export interface PerformerResponse {
   status: string;
   graduation_year: number;
   grade?: string;
+  is_post_grad: boolean;
   gender: string;
   age?: number;
   study_type: string;
@@ -146,6 +148,7 @@ export const mapPerformerResponseToPerformer = (
       ? new Date(performerResponse.date_of_birth!)
       : undefined,
   total_experiences: performerResponse.total_experiences,
+  isPostGrad: performerResponse.is_post_grad,
 });
 
 export const mapExperienceResponseToExperience = (

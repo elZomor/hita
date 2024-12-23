@@ -89,8 +89,8 @@ export default function AchievementSection({
       setEditingIndex(null);
       setCurrentAchievement(null);
       setIsAdding(false);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -107,8 +107,8 @@ export default function AchievementSection({
       const { data: getData } = await get_request(`hita/achievements`);
       setEditingIndex(null);
       setAchievements(mapAchievementsResponseToAchievements(getData.data));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
     setEditingIndex(null);
     setCurrentAchievement(null);

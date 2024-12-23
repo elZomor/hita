@@ -71,8 +71,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         } else {
           navigate('/login');
         }
-      } catch (error) {
-        console.error('Auth check failed:', error);
+      } catch {
         setIsAuthorized(false);
       }
     };

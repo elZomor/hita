@@ -71,8 +71,7 @@ export function NewPerformerForm() {
       });
       trackEvent('performer_created');
       navigate(`/performers/${data.data.username}`);
-    } catch (error) {
-      console.error(error);
+    } catch {
       setSnackbar({
         open: true,
         message: 'Failed to submit form. Please try again.',

@@ -125,8 +125,7 @@ export const uploadShowReel = async (
 export const getUserId = () => {
   try {
     return jwtDecode<Record<string, any>>(getAccessToken()!)['user_id'];
-  } catch (error) {
-    console.error('Invalid JWT:', error);
-    throw new Error('Failed to decode JWT');
+  } catch {
+    // No Implementation
   }
 };

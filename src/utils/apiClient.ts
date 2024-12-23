@@ -42,8 +42,7 @@ apiClient.interceptors.response.use(
           originalRequest.headers['Authorization'] =
             `Bearer ${data.accessToken}`;
           return apiClient(originalRequest);
-        } catch (refreshError) {
-          console.error('Refresh token expired or invalid', refreshError);
+        } catch {
           handleLogout();
         }
       } else {

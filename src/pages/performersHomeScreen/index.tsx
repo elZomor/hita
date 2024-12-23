@@ -90,8 +90,8 @@ const PerformerHome: React.FC = () => {
 
         setPerformers(performerList);
         setTotalPages(data.total_pages);
-      } catch (error) {
-        console.error('Failed to fetch performers:', error);
+      } catch {
+        // No Implementation
       } finally {
         setLoading(false);
       }

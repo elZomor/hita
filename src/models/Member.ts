@@ -22,6 +22,7 @@ export interface MemberFormData {
   graduationYear?: number;
   grade?: number;
   studyType: string;
+  isPostGrad: boolean;
 }
 
 export interface MemberViewOne {
@@ -31,6 +32,7 @@ export interface MemberViewOne {
   department: string;
   grade?: string;
   isGraduated: boolean;
+  isPostGrad: boolean;
   graduationYear?: number;
   studyType: string;
   location: string;
@@ -82,6 +84,7 @@ export const mapMemberViewOneResponseToMemberViewOne = (
     nickName: data['nick_name'],
     department: data['department'],
     isGraduated: data['is_graduated'],
+    isPostGrad: data['is_post_grad'],
     grade: data['grade']
       ? 'GRADE_' + toWords(data['grade']).toUpperCase()
       : undefined,
@@ -103,6 +106,7 @@ export const mapMemberFormDataToRequest = (data: MemberFormData) => {
     department: data.department,
     study_type: data.studyType,
     is_graduated: data.isGraduated,
+    is_post_grad: data.isPostGrad,
     year_of_graduation: data.graduationYear,
     gender: data.gender,
   };

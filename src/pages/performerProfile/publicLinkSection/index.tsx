@@ -84,8 +84,8 @@ export function PublicLinksSection({
       setEditingIndex(null);
       setCurrentLink(null);
       setIsAdding(false);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -101,8 +101,8 @@ export function PublicLinksSection({
 
       const { data: getData } = await get_request(`hita/public-channels`);
       setLinks(mapPublicLinksResponseToPublicLinks(getData.data));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
     setEditingIndex(null);
     setCurrentLink(null);

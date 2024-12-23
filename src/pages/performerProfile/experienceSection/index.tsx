@@ -104,8 +104,8 @@ export default function ExperienceSection({
       setEditingIndex(null);
       setCurrentExperience(null);
       setIsAdding(false);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
   };
 
@@ -122,8 +122,8 @@ export default function ExperienceSection({
       const { data: getData } = await get_request(`hita/experiences`);
       setEditingIndex(null);
       setExperiences(mapExperienceResponseToExperience(getData.data));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // No Implementation
     }
     setEditingIndex(null);
     setCurrentExperience(null);

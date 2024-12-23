@@ -116,8 +116,8 @@ const PerformerProfile: React.FC = () => {
       const performer = mapSinglePerformerResponseToSinglePerformer(data.data);
       setPermissions(data.permissions);
       setPerformer(performer);
-    } catch (error) {
-      console.error('Failed to fetch performer:', error);
+    } catch {
+      // No Implementation
     } finally {
       setLoading(false);
     }

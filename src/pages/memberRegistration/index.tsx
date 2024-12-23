@@ -42,6 +42,7 @@ const schema = z
     }),
     department: z.string().min(1, 'Department is required'),
     isGraduated: z.boolean(),
+    isPostGrad: z.boolean(),
     graduationYear: z.number().optional(),
     grade: z.number().optional(),
     studyType: z.string().min(1, 'Study type is required'),
@@ -95,6 +96,7 @@ export function MemberRegistration() {
       department: '',
       isGraduated: false,
       studyType: '',
+      isPostGrad: false,
     },
   });
 
@@ -112,10 +114,8 @@ export function MemberRegistration() {
           })
         );
         setDepartments(departments);
-      } catch (error) {
-        console.error('Failed to fetch actors:', error);
-      } finally {
-        // setLoading(false);
+      } catch {
+        // No Implementation
       }
     }
 
@@ -133,10 +133,8 @@ export function MemberRegistration() {
           })
         );
         setStudyTypes(studyTypes);
-      } catch (error) {
-        console.error('Failed to fetch actors:', error);
-      } finally {
-        // setLoading(false);
+      } catch {
+        // No Implementation
       }
     }
 
@@ -170,7 +168,6 @@ export function MemberRegistration() {
         trackEvent('member_created');
         navigate('/landing');
       } else {
-        console.error(responseData);
         const errorString = `Please fix The following errors:\n${objectToFormattedString(responseData.data)}`;
         setFormError(errorString);
         setSnackbar({
@@ -179,8 +176,7 @@ export function MemberRegistration() {
           type: 'error',
         });
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
       setFormError('errorMessage');
       setSnackbar({
         open: true,
@@ -398,6 +394,16 @@ export function MemberRegistration() {
                           </option>
                         ))}
                       </select>
+                      {isGraduated && (
+                        <div className="col-span-4 flex items-end mb-4">
+                          <input
+                            type="checkbox"
+                            {...register('isPostGrad')}
+                            className="mx-2 rounded border-gray-300 text-purple-600 transition-colors focus:ring-purple-500 h-5 w-5"
+                          />
+                          {t('MEMBER_REGISTRATION.IS_POST_GRAD')}
+                        </div>
+                      )}
                     </SelectField>
                   </div>
                 </div>

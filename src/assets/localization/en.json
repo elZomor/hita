@@ -61,6 +61,7 @@
   "CANCEL": "Cancel",
   "VIEW_IMAGE": "View Image",
   "GEN": {
+    "POST_GRAD": "Post-Grad student",
     "ACTING": "Acting and Theatrical Directing Department",
     "DRAMA": "Drama and Theatrical Criticism Department",
     "DECOR": "Theatrical Decor Department",
@@ -116,6 +117,7 @@
     "ACADEMIC_INFORMATION": "Academic Info",
     "DEPARTMENT": "Department",
     "IS_GRADUATED": "Graduated?",
+    "IS_POST_GRAD": "Post-Grad student?",
     "CURRENT_GRADE": "Current Grade",
     "GRADUATION_YEAR": "Graduation Year",
     "STUDY_TYPE": "Study Type",
