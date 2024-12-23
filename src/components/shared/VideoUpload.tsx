@@ -54,7 +54,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
       if (handleSavedSuccessfully) {
         handleSavedSuccessfully();
       }
-    } catch (error) {
+    } catch {
       setUploadStatus('error');
       setErrorMessage('Failed to upload video');
     }

@@ -125,7 +125,7 @@ export const uploadShowReel = async (
 export const getUserId = () => {
   try {
     return jwtDecode<Record<string, any>>(getAccessToken()!)['user_id'];
-  } catch  {
+  } catch {
     // No Implementation
   }
 };

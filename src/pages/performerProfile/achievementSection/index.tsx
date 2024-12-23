@@ -107,7 +107,7 @@ export default function AchievementSection({
       const { data: getData } = await get_request(`hita/achievements`);
       setEditingIndex(null);
       setAchievements(mapAchievementsResponseToAchievements(getData.data));
-    } catch  {
+    } catch {
       // No Implementation
     }
     setEditingIndex(null);

@@ -71,7 +71,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         } else {
           navigate('/login');
         }
-      } catch (error) {
+      } catch {
         setIsAuthorized(false);
       }
     };
