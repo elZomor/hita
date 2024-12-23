@@ -276,6 +276,9 @@ export function MemberRegistration() {
                 label={t('MEMBER_REGISTRATION.NICK_NAME')}
                 error={errors.nickName?.message}
               >
+                <span className="text-sm font-medium text-gray-500">
+                  {t('MEMBER_REGISTRATION.NICK_NAME_HINT')}
+                </span>
                 <input
                   type="text"
                   {...register('nickName')}

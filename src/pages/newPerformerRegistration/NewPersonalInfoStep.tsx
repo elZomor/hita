@@ -48,6 +48,9 @@ export function NewPersonalInfoStep({
         required
       >
         <div className="space-y-2">
+          <span className="text-sm font-medium text-gray-500">
+            {addTranslationPrefix('USERNAME_HINT')}
+          </span>
           <input
             type="text"
             {...register('personalInfo.username')}
