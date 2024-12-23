@@ -28,8 +28,8 @@ export const ShowReelSection = ({
       await delete_request(`hita/show-reel/delete`);
       setShowDeleteModal(false);
       setShowReel(false);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      // Intentionally left empty
     }
   };
   const [showDeleteModal, setShowDeleteModal] = useState(false);

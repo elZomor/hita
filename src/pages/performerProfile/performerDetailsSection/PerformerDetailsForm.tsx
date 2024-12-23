@@ -6,10 +6,11 @@ import { FormField } from '../../../components/shared/forms/FormField.tsx';
 import { useEffect, useState } from 'react';
 import { DropDownOptions } from '../../../models/shared.ts';
 import { get_request } from '../../../utils/restUtils.ts';
-import DatePicker from 'react-datepicker';
-import { CalendarIcon } from 'lucide-react';
 import { RadioField } from '../../../components/shared/forms/RadioField.tsx';
 import { z } from 'zod';
+import localeValues from 'antd/es/locale/ar_EG';
+import dayjs from 'dayjs';
+import { CustomDatePicker } from '../../../components/shared/CustomDatePicker.tsx';
 
 interface PerformerDetailsFormProps {
   performer: any;
@@ -22,6 +23,7 @@ interface PerformerDetailsFormProps {
 
 const maxDate = new Date();
 maxDate.setFullYear(maxDate.getFullYear() - 16);
+
 const personalInfoSchema = z.object({
   dateOfBirth: z
     .date()
@@ -88,7 +90,6 @@ export function PerformerDetailsForm({
       isGalleryProtected,
     },
   });
-  console.log(errors);
 
   return (
     <form
@@ -101,17 +102,17 @@ export function PerformerDetailsForm({
           error={getErrorMessage(errors.dateOfBirth?.message)}
         >
           <div className="relative">
-            <DatePicker
-              locale={i18n.language}
-              dateFormat="dd/MM/YYYY"
-              selected={watch('dateOfBirth')}
-              onChange={(date) => setValue('dateOfBirth', date!)}
+            <CustomDatePicker
+              locale={i18n.language === 'ar' ? localeValues : undefined}
+              direction={i18n.language === 'ar' ? 'rtl' : 'ltr'}
               maxDate={maxDate}
-              showYearDropdown
-              dropdownMode="select"
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              value={watch('dateOfBirth') && dayjs(watch('dateOfBirth'))}
+              onChange={(date) =>
+                date
+                  ? setValue('dateOfBirth', date.toDate())
+                  : setValue('dateOfBirth', undefined)
+              }
             />
-            <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
           </div>
         </FormField>
 

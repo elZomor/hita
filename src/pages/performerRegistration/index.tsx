@@ -100,11 +100,7 @@ export function PerformerForm() {
     mode: 'onChange',
   });
 
-  const {
-    trigger,
-    formState: { errors },
-  } = methods;
-  console.log(errors);
+  const { trigger } = methods;
   const validateStep = async (step: FormStep): Promise<boolean> => {
     switch (step) {
       case 'personal-info':

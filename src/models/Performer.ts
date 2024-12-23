@@ -231,7 +231,6 @@ export const mapSinglePerformerResponseToSinglePerformer = (
 };
 
 export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
-  console.log(data);
   const personalInfo = data['personalInfo'];
   const experiencesSection = data['experiences']?.map(
     (experience: Record<string, any>) => ({

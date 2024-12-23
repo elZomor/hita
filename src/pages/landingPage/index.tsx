@@ -32,8 +32,7 @@ export function LandingPage() {
         if (status === 'APPROVED') {
           navigate('/performers');
         }
-      } catch (error) {
-        console.log(error);
+      } catch {
         setError(
           'Failed to check registration status. Please try again later.'
         );
