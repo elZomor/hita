@@ -41,7 +41,7 @@ export const GallerySwiper = ({
               src={image.imagePath}
               alt={`Image ${index}`}
               onClick={() => onClick(index)}
-              className="object-cover w-40 h-40 hover:cursor-pointer"
+              className="object-contain w-40 h-40 hover:cursor-pointer"
             />
             {isEditing && (
               <div className="absolute inset-0 rounded-lg transition-all duration-200 flex items-center justify-center pointer-events-auto">

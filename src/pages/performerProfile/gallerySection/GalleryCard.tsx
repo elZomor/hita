@@ -28,7 +28,7 @@ export function GalleryCard({
         <img
           src={image.imagePath}
           alt={image.description}
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-contain rounded-lg"
         />
         {!isEditing && (
           <div className="absolute inset-0 rounded-lg transition-all duration-200 flex items-center justify-center pointer-events-auto">

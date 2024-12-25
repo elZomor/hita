@@ -30,7 +30,7 @@ export function LandingPage() {
         setStatus(status);
 
         if (status === 'APPROVED') {
-          navigate('/performers');
+          navigate('/artists');
         }
       } catch {
         setError(

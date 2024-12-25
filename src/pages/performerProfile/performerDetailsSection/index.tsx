@@ -176,7 +176,7 @@ export default function PerformerDetailsSection({
             <img
               src={performer.profilePicture}
               alt={performer.name}
-              className="w-full h-full rounded-xl object-cover shadow-lg transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-full rounded-xl object-contain shadow-lg transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-xl transition-all duration-300 flex items-center justify-center"></div>
           </div>

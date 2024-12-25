@@ -18,7 +18,7 @@ export function PerformerLandingPage() {
           navigate('/landing');
         }
         if (data.data['performer'] === true) {
-          navigate(`/performers/${data.data['username']}`);
+          navigate(`/artists/${data.data['username']}`);
         }
       } catch {
         setError(
@@ -87,7 +87,7 @@ export function PerformerLandingPage() {
           {t('LANDING_PAGE.CREATE_PERFORMER')}
         </p>
         <button
-          onClick={() => navigate('/performers/registration')}
+          onClick={() => navigate('/artists/registration')}
           className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
         >
           {t('LANDING_PAGE.REGISTER_NOW')}

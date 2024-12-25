@@ -45,7 +45,7 @@ export const App = () => {
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route
-                path="/performers"
+                path="/artists"
                 element={
                   <ProtectedRoute>
                     <HomeScreen />
@@ -53,7 +53,7 @@ export const App = () => {
                 }
               />
               <Route
-                path="/performers/:username"
+                path="/artists/:username"
                 element={
                   <ProtectedRoute>
                     <EditModeProvider>
@@ -63,7 +63,7 @@ export const App = () => {
                 }
               />
               <Route
-                path="/performers/registration"
+                path="/artists/registration"
                 element={
                   <ProtectedRoute>
                     <NewPerformerForm />

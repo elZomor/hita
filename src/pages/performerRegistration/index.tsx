@@ -214,7 +214,7 @@ export function PerformerForm() {
           message: 'Form submitted successfully!',
           type: 'success',
         });
-        navigate(`/performers/${data.data.user}`);
+        navigate(`/artists/${data.data.user}`);
       }
     } catch {
       setSnackbar({

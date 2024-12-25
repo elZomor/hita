@@ -29,7 +29,7 @@ const MobileMenu = ({ closeMenu, isLoggedIn, onLogout }: MobileMenuProps) => {
               {isLoggedIn && (
                 <>
                   <button
-                    onClick={() => handleNavigation('/performers')}
+                    onClick={() => handleNavigation('/artists')}
                     className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
                   >
                     <Users className="h-5 w-5" />
