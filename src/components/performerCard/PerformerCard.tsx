@@ -135,7 +135,9 @@ export function ActorCard({ actor }: ActorCardProps) {
               </div>
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                 <GraduationCap className="flex-shrink-0 w-4 h-4" />
-                <span className="break-words">{t(actor.department)}</span>
+                <span className="break-words">
+                  {t('DEPARTMENTS.' + actor.department)}
+                </span>
               </div>
             </div>
           </div>
@@ -146,7 +148,7 @@ export function ActorCard({ actor }: ActorCardProps) {
                 key={skill}
                 className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
               >
-                {t(skill)}
+                {t('SKILLS.' + skill)}
               </span>
             ))}
           </div>
