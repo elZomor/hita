@@ -222,7 +222,7 @@ export function PerformerDetailsForm({
             <Select
               isMulti
               options={skillsOptions.map((skill) => ({
-                label: t(skill.label),
+                label: t('SKILLS.' + skill.label),
                 value: skill.value,
               }))}
               className="react-select "
@@ -235,7 +235,7 @@ export function PerformerDetailsForm({
               }}
               value={skillsOptions.map((option) => {
                 return watch('skills')?.includes(option.value)
-                  ? { value: option.value, label: t(option.label) }
+                  ? { value: option.value, label: t('SKILLS.' + option.label) }
                   : null;
               })}
               placeholder={''}

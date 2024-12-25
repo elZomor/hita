@@ -297,7 +297,7 @@ export function Filters({
                   }}
                 />
                 <span className="mx-2 text-sm text-gray-600">
-                  {t(department)}
+                  {t('DEPARTMENTS.' + department)}
                 </span>
               </label>
             ))}
@@ -319,7 +319,9 @@ export function Filters({
                     handleCheckBoxFilter(e.target.checked, skill, 'skills');
                   }}
                 />
-                <span className="mx-2 text-sm text-gray-600">{t(skill)}</span>
+                <span className="mx-2 text-sm text-gray-600">
+                  {t('SKILLS.' + skill)}
+                </span>
               </label>
             ))}
           </div>

@@ -36,7 +36,7 @@ export function PublicLinksForm({
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await get_request('hita/contact-types');
+      const { data } = await get_request('hita/public-channels/types');
       setPublicLinkTypes(
         data.data.map(
           (contactType: string): DropDownOptions => ({

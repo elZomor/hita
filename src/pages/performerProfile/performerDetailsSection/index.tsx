@@ -235,7 +235,7 @@ export default function PerformerDetailsSection({
               <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                 <GraduationCap className="h-4 w-4 flex-shrink-0" />
                 <span className="break-words">
-                  {t(performer.department)} -{' '}
+                  {t('DEPARTMENTS.' + performer.department)} -{' '}
                   {getGradeOrGraduationYear(performer)}
                 </span>
               </div>
@@ -249,7 +249,7 @@ export default function PerformerDetailsSection({
                       key={skill}
                       className="inline-flex items-center px-2 py-1 rounded-full text-xs md:text-sm font-medium bg-purple-100 text-purple-800"
                     >
-                      {t(skill)}
+                      {t('SKILLS.' + skill)}
                     </span>
                   ))}
                 </div>

@@ -43,6 +43,7 @@ export function PerformerForm() {
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
   const [contactTypes, setContactTypes] = useState<DropDownOptions[]>([]);
+  const [publicLinkTypes, setPublicLinkTypes] = useState<DropDownOptions[]>([]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -71,6 +72,20 @@ export function PerformerForm() {
           (contactType: string): DropDownOptions => ({
             value: contactType,
             label: contactType,
+          })
+        )
+      );
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await get_request('hita/public-channels/types');
+      setPublicLinkTypes(
+        data.data.map(
+          (publicLinkType: string): DropDownOptions => ({
+            value: publicLinkType,
+            label: publicLinkType,
           })
         )
       );
@@ -263,7 +278,7 @@ export function PerformerForm() {
       case 'public-links':
         return (
           <PublicLinksStep
-            publicLinkTypes={contactTypes}
+            publicLinkTypes={publicLinkTypes}
             onComplete={handleSubmit}
             isLastStep
           />

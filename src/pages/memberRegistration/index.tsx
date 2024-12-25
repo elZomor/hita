@@ -350,7 +350,7 @@ export function MemberRegistration() {
                         </option>
                         {departments.map((dept) => (
                           <option key={dept.id} value={dept.name}>
-                            {t(dept.name)}
+                            {t('DEPARTMENTS.' + dept.name)}
                           </option>
                         ))}
                       </select>
