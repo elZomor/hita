@@ -60,7 +60,7 @@ export function ExperienceCard({
                   key={index}
                   className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
                 >
-                  {t(role)}
+                  {t('SKILLS.' + role)}
                 </span>
               ))}
             </div>

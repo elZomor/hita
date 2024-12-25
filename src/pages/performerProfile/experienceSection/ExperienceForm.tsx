@@ -246,7 +246,7 @@ export function ExperienceForm({
               isMulti
               options={skillsOptions.map(
                 (skill): DropDownOptions => ({
-                  label: t(skill.label),
+                  label: t('SKILLS.' + skill.label),
                   value: skill.value,
                 })
               )}
@@ -254,7 +254,7 @@ export function ExperienceForm({
               classNamePrefix="react-select"
               value={skillsOptions.map((option) => {
                 return watch(`roles`)?.includes(option?.value as string)
-                  ? { value: option.value, label: t(option.label) }
+                  ? { value: option.value, label: t('SKILLS.' + option.label) }
                   : null;
               })}
               onChange={(selected) => {
