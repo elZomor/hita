@@ -73,7 +73,7 @@ const PerformerProfile: React.FC = () => {
     } finally {
       setIsLoading(false);
       setShowDeleteModal(false);
-      navigate('/performers');
+      navigate('/artists');
     }
   };
 

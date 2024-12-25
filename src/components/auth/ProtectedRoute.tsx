@@ -27,8 +27,8 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   const PATHS_MAP: Record<string, Set<MemberStatus>> = {
     '/login': new Set(['ANONYMOUS']),
-    '/performers/*': new Set(['APPROVED', 'PERFORMER']),
-    '/performers/registration': new Set(['APPROVED']),
+    '/artists/*': new Set(['APPROVED', 'PERFORMER']),
+    '/artists/registration': new Set(['APPROVED']),
     '/members/profile': new Set(['PENDING', 'APPROVED', 'PERFORMER']),
     '/members/registration': new Set(['NOT_REGISTERED']),
     '/members/performer': new Set(['APPROVED', 'PERFORMER']),
@@ -46,8 +46,8 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       navigate('/login');
     }
     let allowedSet: Set<MemberStatus>;
-    if (path.includes('performers') && !path.includes('registration')) {
-      const key = '/performers/*';
+    if (path.includes('artists') && !path.includes('registration')) {
+      const key = '/artists/*';
       allowedSet = PATHS_MAP[key];
     } else {
       allowedSet = PATHS_MAP[path];

@@ -70,7 +70,7 @@ export default function Header() {
             {isLoggedIn && (
               <>
                 <button
-                  onClick={() => navigate('/performers')}
+                  onClick={() => navigate('/artists')}
                   className="p-2 transition-colors rounded-lg hover:bg-purple-300"
                   title={t('HEADER.PERFORMERS')}
                 >

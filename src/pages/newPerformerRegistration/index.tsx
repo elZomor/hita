@@ -70,7 +70,7 @@ export function NewPerformerForm() {
         type: 'success',
       });
       trackEvent('performer_created');
-      navigate(`/performers/${data.data.username}`);
+      navigate(`/artists/${data.data.username}`);
     } catch {
       setSnackbar({
         open: true,

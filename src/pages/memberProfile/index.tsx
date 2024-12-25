@@ -119,14 +119,14 @@ export function MemberProfilePage() {
                     </span>
                     {member.hasPerformer ? (
                       <a
-                        href={'/performers/' + member.username}
+                        href={'/artists/' + member.username}
                         className="text-purple-600 hover:text-purple-700 hover:underline"
                       >
                         {t('MEMBER_PROFILE.VIEW_PERFORMER')}
                       </a>
                     ) : (
                       <button
-                        onClick={() => navigate('/performers/registration')}
+                        onClick={() => navigate('/artists/registration')}
                         className="text-sm font-medium text-purple-600 hover:text-purple-700 hover:underline"
                       >
                         {t('MEMBER_PROFILE.CREATE_PERFORMER')}

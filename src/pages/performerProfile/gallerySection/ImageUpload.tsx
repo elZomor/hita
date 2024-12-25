@@ -58,7 +58,7 @@ export function ImageUpload({
             <img
               src={previewUrl}
               alt="Preview"
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-contain rounded-lg"
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
               <div className="text-white">

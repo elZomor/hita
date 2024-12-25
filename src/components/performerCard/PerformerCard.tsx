@@ -23,7 +23,7 @@ export function ActorCard({ actor }: ActorCardProps) {
       e.stopPropagation();
       return;
     }
-    navigate(`/performers/${actor?.username}`);
+    navigate(`/artists/${actor?.username}`);
   };
 
   const handleImageClick = (e: React.MouseEvent) => {
@@ -55,7 +55,7 @@ export function ActorCard({ actor }: ActorCardProps) {
       >
         <div className="relative h-[320px] md:h-[300px] rounded-md overflow-hidden group">
           <img
-            className="absolute top-0 left-0 w-full h-full object-cover"
+            className="absolute top-0 left-0 w-full h-full object-contain"
             src={actor.profilePicture}
             alt={actor.name}
           />
