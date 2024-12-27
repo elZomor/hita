@@ -179,7 +179,21 @@
   "LOGIN_PAGE": {
     "WELCOME_BACK": "Welcome",
     "CONTINUE_WITH_GOOGLE": "Continue with your google account",
-    "PLEASE_SIGN_IN": "Please sign in to continue."
+    "PLEASE_SIGN_IN": "Please sign in to continue.",
+    "CONTINUE_WITH": "Or continue with username or email",
+    "EMAIL_OR_USERNAME": "Email address or username",
+    "PASSWORD": "Password",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGN_IN": "Sign In",
+    "NO_ACCOUNT": "Don't have an account?",
+    "HAVE_ACCOUNT": "You have an account?",
+    "SIGN_UP": "Sign Up",
+    "EMAIL": "Email address",
+    "CONFIRM_PASSWORD": "Re-Enter your password",
+    "AGREE_TAC": "Agree on our Terms And Conditions",
+    "AGREE_PP": "Agree on our Privacy Policy",
+    "CLICK_HERE": "Read Agreement",
+    "APPROVE": "Approve"
   },
   "LANDING_PAGE": {
     "APPLICATION_UNDER_REVIEW": "Application Under Review",

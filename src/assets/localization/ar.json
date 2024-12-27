@@ -179,7 +179,21 @@
   "LOGIN_PAGE": {
     "WELCOME_BACK": "أهلاً بيك",
     "CONTINUE_WITH_GOOGLE": "الاستمرار باستخدام حساب جووجل",
-    "PLEASE_SIGN_IN": "يُرجى تسجيل الدخول للاستمرار في الموقع."
+    "PLEASE_SIGN_IN": "يُرجى تسجيل الدخول للاستمرار في الموقع.",
+    "CONTINUE_WITH": "أو الاستمرار بالحساب أو البريد الإليكتروني",
+    "EMAIL_OR_USERNAME": "اسم الحساب أو البريد الإليكتروني",
+    "PASSWORD": "الرمز السري",
+    "FORGOT_PASSWORD": "نسيت الرمز السري؟",
+    "SIGN_IN": "تسجيل الدخول",
+    "NO_ACCOUNT": "ليس لديك حساب؟",
+    "HAVE_ACCOUNT": "لديك حساب؟",
+    "SIGN_UP": "سجّل معانا",
+    "EMAIL": "البريد الإليكتروني",
+    "CONFIRM_PASSWORD": "أعد إدخال الرمز السري",
+    "AGREE_TAC": "الموافقة على الشروط",
+    "AGREE_PP": "الموافقة على سياسة الخصوصية",
+    "CLICK_HERE": "اقرأ هنا",
+    "APPROVE": "موافقة"
   },
   "LANDING_PAGE": {
     "APPLICATION_UNDER_REVIEW": "بياناتك تحت المراجعة دلوقتي",
