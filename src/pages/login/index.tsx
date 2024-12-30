@@ -3,13 +3,13 @@ import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { get_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 import SocialMediaLogin from './SocialMediaLogin.tsx';
-import Login from './Login.tsx';
-import Signup from './Signup.tsx';
+// import Login from './Login.tsx';
+// import Signup from './Signup.tsx';
 
 export function LoginPage() {
   const [tacText, setTacText] = useState('');
   const [ppText, setPPText] = useState('');
-  const [showSignUp, setShowSignUp] = useState(false);
+  // const [showSignUp, setShowSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
@@ -34,7 +34,7 @@ export function LoginPage() {
         setPPText(data['content']);
       }
     };
-    fetchData();
+    fetchData().then();
   }, []);
 
   return (
@@ -52,39 +52,38 @@ export function LoginPage() {
         <div className="mt-8 sm:mx-auto sm:w-full md:max-w-[65%]">
           <div className="bg-white py-8 px-4 shadow-sm rounded-lg sm:px-10">
             <SocialMediaLogin
-              isLoading={isLoading}
               setIsLoading={setIsLoading}
               setSnackbar={setSnackbar}
             />
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
-                    {t('LOGIN_PAGE.CONTINUE_WITH')}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {showSignUp ? (
-              <Signup
-                setShowSignUp={setShowSignUp}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                setSnackbar={setSnackbar}
-                tacText={tacText}
-                ppText={ppText}
-              />
-            ) : (
-              <Login
-                setShowSignUp={setShowSignUp}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                setSnackbar={setSnackbar}
-              />
-            )}
+            {/*<div className="mt-6">*/}
+            {/*  <div className="relative">*/}
+            {/*    <div className="absolute inset-0 flex items-center">*/}
+            {/*      <div className="w-full border-t border-gray-300" />*/}
+            {/*    </div>*/}
+            {/*    <div className="relative flex justify-center text-sm">*/}
+            {/*      <span className="px-2 bg-white text-gray-500">*/}
+            {/*        {t('LOGIN_PAGE.CONTINUE_WITH')}*/}
+            {/*      </span>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
+            {/*{showSignUp ? (*/}
+            {/*  <Signup*/}
+            {/*    setShowSignUp={setShowSignUp}*/}
+            {/*    isLoading={isLoading}*/}
+            {/*    setIsLoading={setIsLoading}*/}
+            {/*    setSnackbar={setSnackbar}*/}
+            {/*    tacText={tacText}*/}
+            {/*    ppText={ppText}*/}
+            {/*  />*/}
+            {/*) : (*/}
+            {/*  <Login*/}
+            {/*    setShowSignUp={setShowSignUp}*/}
+            {/*    isLoading={isLoading}*/}
+            {/*    setIsLoading={setIsLoading}*/}
+            {/*    setSnackbar={setSnackbar}*/}
+            {/*  />*/}
+            {/*)}*/}
           </div>
         </div>
       </div>

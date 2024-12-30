@@ -35,8 +35,8 @@ export function Snackbar({
         className={clsx(
           'flex items-center gap-2 p-4 rounded-lg shadow-lg max-w-md animate-slideIn',
           type === 'success'
-            ? 'bg-green-50 text-green-900'
-            : 'bg-red-50 text-red-900'
+            ? 'bg-green-900 text-green-50'
+            : 'bg-red-900 text-red-50'
         )}
       >
         {type === 'success' ? (

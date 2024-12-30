@@ -4,6 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { getUserId, post_request } from '../../utils/restUtils.ts';
+import { setAccessToken, setRefreshToken } from '../../utils/tokenUtils.ts';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   email: z.string(),
@@ -31,6 +35,8 @@ const Login = ({
 }: LoginFormDataProps) => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { identifyUser } = useAmplitude();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -40,12 +46,17 @@ const Login = ({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (formData: LoginFormData) => {
     setIsLoading(true);
-    console.log(data);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { data } = await post_request('token/', {
+        username: formData.email,
+        password: formData.password,
+      });
+      setAccessToken(data.access);
+      setRefreshToken(data.refresh);
+      identifyUser(getUserId());
+      navigate('/landing');
       setSnackbar({
         open: true,
         message: 'Successfully logged in!',
@@ -72,7 +83,7 @@ const Login = ({
             </div>
             <input
               {...register('email')}
-              type="email"
+              type="text"
               placeholder={t('LOGIN_PAGE.EMAIL_OR_USERNAME')}
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             />
