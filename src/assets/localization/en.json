@@ -179,7 +179,27 @@
   "LOGIN_PAGE": {
     "WELCOME_BACK": "Welcome",
     "CONTINUE_WITH_GOOGLE": "Continue with your google account",
-    "PLEASE_SIGN_IN": "Please sign in to continue."
+    "PLEASE_SIGN_IN": "Please sign in to continue.",
+    "CONTINUE_WITH": "Or continue with username or email",
+    "EMAIL_OR_USERNAME": "Email address or username",
+    "PASSWORD": "Password",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGN_IN": "Sign In",
+    "NO_ACCOUNT": "Don't have an account?",
+    "HAVE_ACCOUNT": "You have an account?",
+    "SIGN_UP": "Sign Up",
+    "EMAIL": "Email address",
+    "CONFIRM_PASSWORD": "Re-Enter your password",
+    "AGREE_TAC": "Agree on our Terms And Conditions",
+    "NOT_AGREE_TAC": "You must agree on our Terms And Conditions",
+    "AGREE_PP": "Agree on our Privacy Policy",
+    "NOT_AGREE_PP": "You must agree on our Privacy Policy",
+    "CLICK_HERE": "Read Agreement",
+    "APPROVE": "Approve",
+    "PASSWORD_NOT_MATCH": "Passwords do not match",
+    "PASSWORD_CHECK": "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&#).",
+    "EMAIL_CHECK": "Invalid email",
+    "ALREADY_REGISTERED": "Email is already registered"
   },
   "LANDING_PAGE": {
     "APPLICATION_UNDER_REVIEW": "Application Under Review",
@@ -189,7 +209,10 @@
     "REGISTER_NOW": "Register Now",
     "TRY_AGAIN": "Try Again",
     "CHECKING_STATUS": "Checking your status...",
-    "CREATE_PERFORMER": "Create your performer profile now to impress the world with your talents."
+    "CREATE_PERFORMER": "Create your performer profile now to impress the world with your talents.",
+    "WAITING_CONFIRMATION": "Waiting for mail confirmation",
+    "WAITING_CONFIRMATION_MESSAGE": "Please check your mail, we have send you a link to confirm your identity, please follow it.",
+    "RESEND_MAIL": "Not received? Resend email"
   },
   "MEMBER_PROFILE": {
     "APPROVED": "Approved",

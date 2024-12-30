@@ -6,6 +6,7 @@ import { isLoggedIn } from '../../utils/tokenUtils.ts';
 import { get_request } from '../../utils/restUtils.ts';
 import { UnauthorizedPage } from '../shared/unauthorized';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
 
 interface ProtectedRouteProps {
   children: React.ReactElement;
@@ -13,6 +14,7 @@ interface ProtectedRouteProps {
 
 type MemberStatus =
   | 'ANONYMOUS'
+  | 'NOT_CONFIRMED'
   | 'NOT_REGISTERED'
   | 'PENDING'
   | 'APPROVED'
@@ -35,6 +37,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     '/landing': new Set([
       'ANONYMOUS',
       'NOT_REGISTERED',
+      'NOT_CONFIRMED',
       'PENDING',
       'APPROVED',
       'PERFORMER',
@@ -73,8 +76,16 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         } else {
           navigate('/login');
         }
-      } catch {
-        setIsAuthorized(false);
+      } catch (error) {
+        if (
+          error instanceof AxiosError &&
+          error?.response?.data?.code === 'user_inactive'
+        ) {
+          checkPaths(path || location.pathname, 'NOT_CONFIRMED');
+          return;
+        } else {
+          setIsAuthorized(false);
+        }
       }
     };
 
