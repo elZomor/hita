@@ -24,6 +24,7 @@ export function LoginPage() {
   });
 
   useEffect(() => {
+    console.log(isLoading);
     const fetchData = async () => {
       if (tacText === '') {
         const { data } = await get_request('auth/policy/terms-and-conditions');
