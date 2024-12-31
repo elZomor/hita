@@ -4,6 +4,7 @@ import TeamCard from './TeamCard.tsx';
 import Zomor from '../../assets/images/zomor.jpeg';
 import Hossam from '../../assets/images/Hossam.jpg';
 import Dua from '../../assets/images/Dua.jpeg';
+import Sara from '../../assets/images/Sara.jpeg';
 
 const AboutUs = () => {
   const { t } = useTranslation();
@@ -13,6 +14,12 @@ const AboutUs = () => {
       title: t('ABOUT_US.ZOMOR.TITLE'),
       bio: t('ABOUT_US.ZOMOR.BIO'),
       imageUrl: Zomor,
+    },
+    {
+      name: t('ABOUT_US.SARA.NAME'),
+      title: t('ABOUT_US.SARA.TITLE'),
+      bio: t('ABOUT_US.SARA.BIO'),
+      imageUrl: Sara,
     },
     {
       name: t('ABOUT_US.DUA.NAME'),
@@ -44,7 +51,7 @@ const AboutUs = () => {
         <h1 className="mt-10 text-3xl font-bold mb-7 text-slate-800">
           {t('ABOUT_US.ABOUT_TEAM')}
         </h1>
-        <div className="p-5  gap-5 grid grid-cols-1 md:grid-cols-3 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
+        <div className="p-5 gap-5 grid grid-cols-1 md:grid-cols-4 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
           {teamMembers.map((member) => (
             <TeamCard
               key={member.name}

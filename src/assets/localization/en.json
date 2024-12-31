@@ -216,8 +216,8 @@
   "LANDING_PAGE": {
     "APPLICATION_UNDER_REVIEW": "Application Under Review",
     "PENDING_MESSAGE": "Thank you for your interest! Your application is currently being reviewed by our team. We'll send you an e-mail you once the review process is complete.",
-    "WELCOME": "Welcome to ActorsList",
-    "WELCOME_MESSAGE": "Join our community of talented actors and start showcasing your work to the world.",
+    "WELCOME": "Welcome to Actogram",
+    "WELCOME_MESSAGE": "Join our and meet talented artists, and show the world your work.",
     "REGISTER_NOW": "Register Now",
     "TRY_AGAIN": "Try Again",
     "CHECKING_STATUS": "Checking your status...",
@@ -446,6 +446,11 @@
       "NAME": "Doaa Mostafa",
       "TITLE": "Product Manager",
       "BIO": "A product manager, graduated from Faculty of Computer Science and Artificial Intelligence, Ain Shams Uni., passionate about blending life with technology and crafting impactful, user-centered solutions."
+    },
+    "SARA": {
+      "NAME": "Sara Nagi",
+      "TITLE": "Senior test automation engineer",
+      "BIO": "Test automation engineer, graduated from faculty of engineering Cairo University. Passionate about code and books."
     },
     "HOSSAM": {
       "NAME": "Hossam Salem",
