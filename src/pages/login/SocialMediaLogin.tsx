@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 import { useTranslation } from 'react-i18next';
 import { GoogleLogin } from '@react-oauth/google';
+import { useEffect } from 'react';
 
 type SocialMediaLoginProps = {
   setIsLoading: (state: boolean) => void;
@@ -20,6 +21,10 @@ const SocialMediaLogin = ({
   const navigate = useNavigate();
   const { identifyUser } = useAmplitude();
   const { t } = useTranslation();
+  const isInAppBrowser = () => {
+    const ua = navigator.userAgent;
+    return /FBAN|FBAV|Instagram|Messenger|WhatsApp|Snapchat|Twitter/i.test(ua);
+  };
 
   const onSuccessHandler = async (response: any) => {
     setIsLoading(true);
@@ -42,6 +47,13 @@ const SocialMediaLogin = ({
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isInAppBrowser()) {
+      const currentUrl = window.location.href;
+      window.location.replace(currentUrl);
+    }
+  }, []);
 
   const onErrorHandler = () => {
     setSnackbar({
