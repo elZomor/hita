@@ -3,6 +3,8 @@ import { Snackbar } from '../../components/shared/snackBar/SnackBar.tsx';
 import { get_request } from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 import SocialMediaLogin from './SocialMediaLogin.tsx';
+import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import InAppBrowser from './InAppBrowser.tsx';
 // import Login from './Login.tsx';
 // import Signup from './Signup.tsx';
 
@@ -12,7 +14,12 @@ export function LoginPage() {
   // const [showSignUp, setShowSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
-
+  const isInAppBrowser =
+    /FBAN|FBAV|Instagram|Messenger|WhatsApp|Snapchat|Twitter/i.test(
+      navigator.userAgent
+    );
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const { trackEvent } = useAmplitude();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -37,6 +44,22 @@ export function LoginPage() {
     };
     fetchData().then();
   }, []);
+
+  const openExternalBrowser = () => {
+    if (isInAppBrowser) {
+      const currentUrl = window.location.href;
+      if (isIOS) {
+        trackEvent('ios');
+        window.open(currentUrl, '_blank', 'noopener,noreferrer');
+      } else {
+        trackEvent('android');
+        window.location.href = currentUrl;
+      }
+    }
+  };
+  if (isInAppBrowser) {
+    return <InAppBrowser onClick={openExternalBrowser} />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

@@ -101,6 +101,9 @@
     "HAIR_DRESSER": "كوافير"
   },
   "GEN": {
+    "UNSUPPORTED_BROWSER": "هذا المتصفح غير مدعوم",
+    "UNSUPPORTED_BROWSER_MSG": "الرجاء فتح متصفح الهاتف للاستكمال",
+    "OPEN_IN_BROWSER": "افتح المتصفح",
     "POST_GRAD": "طالب دراسات عليا",
     "ACTING": "قسم تمثيل وإخراج مسرحي",
     "DRAMA": "قسم دراما ونقد مسرحي",
