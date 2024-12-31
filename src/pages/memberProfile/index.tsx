@@ -86,7 +86,7 @@ export function MemberProfilePage() {
                   <span className="font-medium">
                     {t('GEN.DEPARTMENT')}:
                   </span>{' '}
-                  {t(`GEN.${member.department}`)}
+                  {t(`DEPARTMENTS.${member.department}`)}
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <GraduationCap className="h-5 w-5 text-gray-400" />

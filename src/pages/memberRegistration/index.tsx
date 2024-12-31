@@ -32,34 +32,6 @@ function objectToFormattedString(items: Record<string, any>): string {
     .join('\n');
 }
 
-const schema = z
-  .object({
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().min(1, 'Last name is required'),
-    nickName: z.string().optional(),
-    gender: z.enum(['M', 'F', '']).refine((val) => val !== '', {
-      message: 'Gender is required',
-    }),
-    department: z.string().min(1, 'Department is required'),
-    isGraduated: z.boolean(),
-    isPostGrad: z.boolean(),
-    graduationYear: z.number().optional(),
-    grade: z.number().optional(),
-    studyType: z.string().min(1, 'Study type is required'),
-  })
-  .refine(
-    (data) => {
-      if (data.isGraduated) {
-        return !!data.graduationYear;
-      }
-      return !!data.grade;
-    },
-    {
-      message: 'Either graduation year or grade is required',
-      path: ['graduationYear'],
-    }
-  );
-
 export function MemberRegistration() {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [studyTypes, setStudyTypes] = useState<StudyType[]>([]);
@@ -78,7 +50,39 @@ export function MemberRegistration() {
   });
 
   const { t } = useTranslation();
-
+  const schema = z
+    .object({
+      firstName: z
+        .string()
+        .min(1, t('MEMBER_REGISTRATION.FIRST_NAME_REQ'))
+        .regex(/^[\u0621-\u064A\s]+$/, t('MEMBER_REGISTRATION.FIRST_NAME_AR')),
+      lastName: z
+        .string()
+        .min(1, t('MEMBER_REGISTRATION.LAST_NAME_REQ'))
+        .regex(/^[\u0621-\u064A\s]+$/, t('MEMBER_REGISTRATION.LAST_NAME_AR')),
+      nickName: z.string().optional(),
+      gender: z.enum(['M', 'F', '']).refine((val) => val !== '', {
+        message: t('MEMBER_REGISTRATION.GENDER_REQ'),
+      }),
+      department: z.string().min(1, t('MEMBER_REGISTRATION.DEP_REQ')),
+      isGraduated: z.boolean(),
+      isPostGrad: z.boolean(),
+      graduationYear: z.number().optional(),
+      grade: z.number().optional(),
+      studyType: z.string().min(1, t('MEMBER_REGISTRATION.STUDY_TYPE_REQ')),
+    })
+    .refine(
+      (data) => {
+        if (data.isGraduated) {
+          return !!data.graduationYear;
+        }
+        return !!data.grade;
+      },
+      {
+        message: t('MEMBER_REGISTRATION.GRAD_OR_GRADE_REQ'),
+        path: ['graduationYear'],
+      }
+    );
   const {
     register,
     handleSubmit,
