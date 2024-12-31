@@ -42,6 +42,7 @@ export default function GallerySection({
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<Gallery | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -80,6 +81,7 @@ export default function GallerySection({
 
   const handleSave = async (updatedImage: Gallery) => {
     try {
+      setIsUploading(true);
       if (currentImage?.id === undefined) {
         await upload_file(`hita/gallery`, mapFormDataToRequest(updatedImage));
       } else {
@@ -99,6 +101,8 @@ export default function GallerySection({
       }
     } catch {
       // No Implementation
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -206,6 +210,7 @@ export default function GallerySection({
           image={images[editingIndex]}
           onSave={handleSave}
           onCancel={handleCancel}
+          isUploading={isUploading}
         />
       ) : (
         <>

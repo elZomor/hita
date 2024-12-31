@@ -22,9 +22,15 @@ interface GalleryFormProps {
   image: Gallery;
   onSave: (image: Gallery) => void;
   onCancel: () => void;
+  isUploading: boolean;
 }
 
-export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
+export function GalleryForm({
+  image,
+  onSave,
+  onCancel,
+  isUploading,
+}: GalleryFormProps) {
   const { t } = useTranslation();
   const {
     register,
@@ -45,7 +51,9 @@ export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
       onSubmit={handleSubmit(onSave)}
       className="bg-white border border-gray-200 rounded-lg p-6 space-y-4"
     >
-      <div className="space-y-6">
+      <div
+        className={`space-y-6 ${isUploading ? 'pointer-events-none opacity-50' : ''}`}
+      >
         <ImageUpload
           currentImage={image.imagePath}
           onImageUpload={handleImageUpload}
@@ -86,13 +94,15 @@ export function GalleryForm({ image, onSave, onCancel }: GalleryFormProps) {
         <button
           type="button"
           onClick={onCancel}
-          className="flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+          className={`flex items-center justify-center px-3 py-2 border text-sm font-medium rounded-md ${isUploading ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500`}
+          disabled={isUploading}
         >
           {t('CANCEL')}
         </button>
         <button
           type="submit"
-          className="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+          className={`flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white ${isUploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500`}
+          disabled={isUploading}
         >
           {t('SAVE')}
         </button>
