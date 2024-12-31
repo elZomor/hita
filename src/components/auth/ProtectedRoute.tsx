@@ -48,6 +48,9 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     if (path.includes('landing') && memberStatus === 'ANONYMOUS') {
       navigate('/login');
     }
+    if (path.includes('login') && memberStatus !== 'ANONYMOUS') {
+      navigate('/landing');
+    }
     let allowedSet: Set<MemberStatus>;
     if (path.includes('artists') && !path.includes('registration')) {
       const key = '/artists/*';
