@@ -49,10 +49,12 @@ export function LoginPage() {
     if (isInAppBrowser) {
       const currentUrl = window.location.href;
       if (isIOS) {
-        trackEvent('ios');
-        window.open(currentUrl, '_blank', 'noopener,noreferrer');
+        trackEvent('ios_' + currentUrl);
+
+        window.open(currentUrl, '_blank');
       } else {
-        trackEvent('android');
+        const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
+        trackEvent('android_' + intentUrl);
         window.location.href = currentUrl;
       }
     }
