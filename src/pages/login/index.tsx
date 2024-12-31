@@ -50,12 +50,11 @@ export function LoginPage() {
       const currentUrl = window.location.href;
       if (isIOS) {
         trackEvent('ios_' + currentUrl);
-
         window.open(currentUrl, '_blank');
       } else {
         const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
         trackEvent('android_' + intentUrl);
-        window.location.href = currentUrl;
+        window.open(intentUrl, '_blank');
       }
     }
   };
