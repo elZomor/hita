@@ -24,13 +24,13 @@ export function Hero() {
               <div
                 className={`text-center ${i18n.language === 'ar' ? 'md:text-right' : 'md:text-left'}`}
               >
-                <h1 className="flex flex-col gap-5 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
+                <h1 className="flex flex-col gap-5 text-4xl font-extrabold leading-[60px] text-white sm:text-5xl md:text-6xl">
                   <span className="block">{t('GEN.APP_NAME')}</span>
                   <span className="block text-purple-300">
                     {t('GEN.SLOGAN')}
                   </span>
                 </h1>
-                <p className="mt-3 text-base text-purple-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <p className="mt-3 text-base text-purple-200 sm:mt-5 sm:text-lg sm:max-w-xl leading-[30px] sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   {t('GEN.APP_DESCRIPTION')}
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
