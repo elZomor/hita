@@ -101,6 +101,9 @@
     "HAIR_DRESSER": "Hair Dresser"
   },
   "GEN": {
+    "UNSUPPORTED_BROWSER": "Unsupported Browser Detected",
+    "UNSUPPORTED_BROWSER_MSG": "Please open this link in your default browser to continue.",
+    "OPEN_IN_BROWSER": "Open in Browser",
     "POST_GRAD": "Post-Grad student",
     "ACTING": "Acting and Theatrical Directing Department",
     "DRAMA": "Drama and Theatrical Criticism Department",
