@@ -96,7 +96,7 @@ export function PublicLinksCard({
       {showInfo && link.linkInfo && (
         <div className="absolute bottom-[-3.5rem] left-1/2 transform -translate-x-1/2 bg-white p-2 rounded shadow-lg text-xs flex items-center gap-2 z-10">
           <a
-            href="#"
+            href={link.linkInfo ? link.linkInfo : '#'}
             onClick={handleUrlClick}
             className="text-blue-500 hover:underline"
           >
