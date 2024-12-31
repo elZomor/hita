@@ -101,6 +101,7 @@
     "HAIR_DRESSER": "كوافير"
   },
   "GEN": {
+    "PAGE_DID_NOT_OPEN": "لم يتم فتح الصفحة تلقائياً، تم نسخ الرابط، يمكنك لصقه في المتصفح الخارجي",
     "UNSUPPORTED_BROWSER": "هذا المتصفح غير مدعوم",
     "UNSUPPORTED_BROWSER_MSG": "الرجاء فتح متصفح الهاتف للاستكمال",
     "OPEN_IN_BROWSER": "افتح المتصفح",

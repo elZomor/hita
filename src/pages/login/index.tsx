@@ -49,11 +49,29 @@ export function LoginPage() {
     if (isInAppBrowser) {
       const currentUrl = window.location.href;
       if (isIOS) {
-        trackEvent('ios_' + currentUrl);
-        window.open(currentUrl, '_blank');
+        trackEvent('ios_login');
+        const a = document.createElement('a');
+        a.href = currentUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.click();
+
+        setTimeout(() => {
+          const copyToClipboard = async () => {
+            try {
+              await navigator.clipboard.writeText(currentUrl);
+              alert(t('GEN.PAGE_DID_NOT_OPEN'));
+            } catch {
+              alert(
+                "The link didn't open automatically. Please open this page in Safari manually."
+              );
+            }
+          };
+          copyToClipboard();
+        }, 1000);
       } else {
         const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-        trackEvent('android_' + intentUrl);
+        trackEvent('android_login');
         window.open(intentUrl, '_blank');
       }
     }
