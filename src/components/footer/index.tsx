@@ -24,7 +24,7 @@ const Footer = () => {
             <p
               className={`text-sm ${isHomePage ? 'text-white' : 'text-black'}`}
             >
-              {t('GEN.FOR_DETAILS')}: info@eg-theater.online
+              {t('GEN.FOR_DETAILS')}: support@play-cast.com
             </p>
           </div>
           {/*<div className="grid grid-cols-2 gap-8 md:grid-cols-4">*/}
