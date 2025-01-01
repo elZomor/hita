@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/logo.svg';
 import Container from '../container/Container.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
@@ -55,7 +55,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           {
-            <div className="flex items-center h-full cursor-pointer">
+            <div className="flex items-center cursor-pointer w-[160px] h-[150px]">
               <img
                 src={logo}
                 alt="Actogram"
