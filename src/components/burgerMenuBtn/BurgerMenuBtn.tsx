@@ -12,17 +12,17 @@ const BurgerMenuBtn = ({ clickHandler, isOpen }: BurgerMenuBtnProps) => {
     >
       <div className="relative flex flex-col justify-between w-6 h-5">
         <span
-          className={`w-full h-0.5 bg-gray-700 transition-all duration-300 ${
+          className={`w-full h-0.5 bg-white transition-all duration-300 ${
             isOpen ? 'rotate-45 translate-y-2' : ''
           } ${'bg-gray-700'}`}
         />
         <span
-          className={`w-full h-0.5 bg-gray-700 transition-opacity duration-300 ${
+          className={`w-full h-0.5 bg-white transition-opacity duration-300 ${
             isOpen ? 'opacity-0' : ''
           } ${'bg-gray-700'}`}
         />
         <span
-          className={`w-full h-0.5 bg-gray-700 transition-all duration-300 ${
+          className={`w-full h-0.5 bg-white transition-all duration-300 ${
             isOpen ? '-rotate-45 -translate-y-2' : ''
           } ${'bg-gray-700'}`}
         />
