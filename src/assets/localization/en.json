@@ -142,12 +142,12 @@
   },
   "HEADER": {
     "PROFILE": "Profile",
-    "PERFORMERS": "Performers",
+    "PERFORMERS": "Artists",
     "OTHER_LANGUAGE": "عربي",
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "NOTIFICATIONS": "Notifications",
-    "PERFORMER": "Performer Page"
+    "PERFORMER": "Artist Page"
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "Member Registration",

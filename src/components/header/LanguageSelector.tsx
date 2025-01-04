@@ -1,13 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import egyFlag from '../../assets/icons/egypt-flag.svg';
+import ukFlag from '../../assets/icons/uk-flag.svg';
 
 type LanguageSelectorProps = {
   closeMenu?: () => void;
 };
 
+type LanguageData = {
+  language: string;
+  icon: string | JSX.Element;
+};
+
 export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
   const { i18n, t } = useTranslation();
   const { trackEvent } = useAmplitude();
+  const isMobile = window.innerWidth < 768;
 
   const handleLanguageChange = (lang: string) => {
     trackEvent('lang_' + lang);
@@ -17,14 +25,14 @@ export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
       closeMenu();
     }
   };
-  const otherLanguage: Record<string, Record<string, string>> = {
+  const otherLanguage: Record<string, LanguageData> = {
     ar: {
       language: 'en',
-      icon: '🇬🇧',
+      icon: isMobile ? <img src={ukFlag} alt="ukFlag" /> : 'English',
     },
     en: {
       language: 'ar',
-      icon: '🇪🇬',
+      icon: isMobile ? <img src={egyFlag} alt="egyFlag" /> : 'عربي',
     },
   };
 
