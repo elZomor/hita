@@ -55,7 +55,7 @@ export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
     >
       <div className="relative">
         <button
-          className={`p-2 rounded-lg text-purple-350 text-lg hover:text-purple-300 text-[17px] font-semibold`}
+          className={`p-2 rounded-lg text-purple-350 text-lg hover:text-purple-300 text-[17px]`}
         >
           {otherLanguage[i18n.language].icon}
         </button>

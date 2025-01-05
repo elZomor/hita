@@ -61,9 +61,9 @@ export function Pagination({
         className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {i18n.language === 'en' ? (
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="w-4 h-4" />
         ) : (
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="w-4 h-4" />
         )}
       </button>
 
@@ -94,9 +94,9 @@ export function Pagination({
         className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {i18n.language === 'en' ? (
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="w-4 h-4" />
         ) : (
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="w-4 h-4" />
         )}
       </button>
     </nav>

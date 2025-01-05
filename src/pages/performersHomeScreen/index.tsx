@@ -14,13 +14,17 @@ import { NoResults } from './NoResults.tsx';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 1;
 
 const PerformerHome: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [performers, setPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get('page')) || 1
+  );
   const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
@@ -31,6 +35,7 @@ const PerformerHome: React.FC = () => {
   const [skills, setSkills] = useState<string[]>([]);
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const { trackEvent } = useAmplitude();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +107,12 @@ const PerformerHome: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    navigate({
+      pathname: location.pathname,
+      search: searchParams.toString(),
+    });
+    searchParams.set('page', page.toString());
+    setSearchParams(searchParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -129,6 +140,12 @@ const PerformerHome: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [showMobileFilters]);
+
+  const resetPageNumber = () => {
+    setCurrentPage(1);
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  };
 
   return (
     <Container classess="w-full">
@@ -175,6 +192,7 @@ const PerformerHome: React.FC = () => {
                 departments={departments}
                 nameFilter={debouncedText}
                 key={refreshKey}
+                resetPageNumber={resetPageNumber}
               />
             </div>
           </aside>
@@ -225,6 +243,7 @@ const PerformerHome: React.FC = () => {
                       departments={departments}
                       nameFilter={debouncedText}
                       key={refreshKey}
+                      resetPageNumber={resetPageNumber}
                     />
                   </div>
                 </div>
