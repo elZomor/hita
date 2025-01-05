@@ -15,7 +15,6 @@ type LanguageData = {
 export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
   const { i18n, t } = useTranslation();
   const { trackEvent } = useAmplitude();
-  const isMobile = window.innerWidth < 768;
 
   const handleLanguageChange = (lang: string) => {
     trackEvent('lang_' + lang);
@@ -28,11 +27,22 @@ export function LanguageSelector({ closeMenu }: LanguageSelectorProps) {
   const otherLanguage: Record<string, LanguageData> = {
     ar: {
       language: 'en',
-      icon: isMobile ? <img src={ukFlag} alt="ukFlag" /> : 'English',
+      icon: (
+        <>
+          {' '}
+          <img className="block md:hidden" src={ukFlag} alt="ukFlag" />
+          <span className="hidden md:block">English</span>
+        </>
+      ),
     },
     en: {
       language: 'ar',
-      icon: isMobile ? <img src={egyFlag} alt="egyFlag" /> : 'عربي',
+      icon: (
+        <>
+          <img className="block md:hidden" src={egyFlag} alt="egyFlag" />
+          <span className="hidden md:block">عربي</span>
+        </>
+      ),
     },
   };
 

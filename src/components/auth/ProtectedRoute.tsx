@@ -7,6 +7,7 @@ import { get_request } from '../../utils/restUtils.ts';
 import { UnauthorizedPage } from '../shared/unauthorized';
 import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
+import { useMember } from '../../contexts/memberContext.tsx';
 
 interface ProtectedRouteProps {
   children: React.ReactElement;
@@ -26,6 +27,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const location = useLocation();
   const { path } = getRouteProps(children);
   const { t } = useTranslation();
+  const { setMemberName } = useMember();
 
   const PATHS_MAP: Record<string, Set<MemberStatus>> = {
     '/login': new Set(['ANONYMOUS']),
@@ -70,6 +72,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         }
         const { data, status } = await get_request('hita/members/status');
         if (status === 200) {
+          setMemberName(data.data?.name);
           if (data.data.performer) {
             checkPaths(path || location.pathname, 'PERFORMER');
             return;
