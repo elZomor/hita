@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 export type IData = {
   name: string;
   status: string;
+  username: string;
 };
 interface MemberContextType {
   memberData: IData;
@@ -12,7 +13,11 @@ interface MemberContextType {
 const MemberContext = createContext<MemberContextType | undefined>(undefined);
 
 export function MemberProvider({ children }: { children: ReactNode }) {
-  const [memberData, setMemberData] = useState<IData>({ name: '', status: '' });
+  const [memberData, setMemberData] = useState<IData>({
+    name: '',
+    status: '',
+    username: '',
+  });
 
   return (
     <MemberContext.Provider value={{ memberData, setMemberData }}>

@@ -9,6 +9,7 @@ interface MobileMenuProps {
   isLoggedIn: boolean;
   onLogout: () => void;
   memberData: IData;
+  isPage: () => string;
 }
 
 const MobileMenu = ({
@@ -16,6 +17,7 @@ const MobileMenu = ({
   isLoggedIn,
   onLogout,
   memberData,
+  isPage,
 }: MobileMenuProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -23,6 +25,10 @@ const MobileMenu = ({
   const handleNavigation = (path: string) => {
     navigate(path);
     closeMenu();
+  };
+
+  const isStatus = (status: string) => {
+    return memberData?.status === status;
   };
 
   return (
@@ -33,29 +39,38 @@ const MobileMenu = ({
         <div className="flex flex-col h-full">
           <div className="py-4 overflow-y-auto">
             <nav className="px-2 space-y-1">
-              {isLoggedIn && memberData?.status === 'APPROVED' && (
+              {isLoggedIn && (
                 <>
-                  <button
-                    onClick={() => handleNavigation('/artists')}
-                    className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
-                  >
-                    <Users className="w-5 h-5" />
-                    {t('HEADER.PERFORMERS')}
-                  </button>
-                  <button
-                    onClick={() => handleNavigation('/members/performer')}
-                    className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
-                  >
-                    <UserCircle className="w-5 h-5" />
-                    {t('HEADER.PERFORMER')}
-                  </button>
-                  <button
-                    onClick={() => handleNavigation('/members/profile')}
-                    className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
-                  >
-                    <UserCircle className="w-5 h-5" />
-                    {t('HEADER.PROFILE')}
-                  </button>
+                  <div className="w-full px-3 py-2 mb-4 text-2xl font-bold text-black">
+                    {memberData?.name}
+                  </div>
+                  {isStatus('APPROVED') && (
+                    <button
+                      onClick={() => handleNavigation('/artists')}
+                      className={`flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50 ${isPage() === 'performers' ? 'bg-purple-400' : ''}`}
+                    >
+                      <Users className="w-5 h-5" />
+                      {t('HEADER.PERFORMERS')}
+                    </button>
+                  )}
+                  {isStatus('APPROVED') && (
+                    <button
+                      onClick={() => handleNavigation('/members/performer')}
+                      className={`flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50 ${isPage() === 'performer' ? 'bg-purple-400' : ''}`}
+                    >
+                      <UserCircle className="w-5 h-5" />
+                      {t('HEADER.PERFORMER')}
+                    </button>
+                  )}
+                  {!isStatus('NOT_REGISTERED') && (
+                    <button
+                      onClick={() => handleNavigation('/members/profile')}
+                      className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50"
+                    >
+                      <UserCircle className="w-5 h-5" />
+                      {t('HEADER.PROFILE')}
+                    </button>
+                  )}
 
                   {/*<button className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50">*/}
                   {/*  <Bell className="w-5 h-5" />*/}

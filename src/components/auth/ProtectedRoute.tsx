@@ -72,8 +72,8 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         }
         const { data, status } = await get_request('hita/members/status');
         if (status === 200) {
-          const { name, status } = data.data;
-          setMemberData({ status, name });
+          const { name, status, username } = data.data;
+          setMemberData({ status, name, username });
           if (data.data.performer) {
             checkPaths(path || location.pathname, 'PERFORMER');
             return;
