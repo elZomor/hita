@@ -16,7 +16,7 @@ import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
 import { PerformerLandingPage } from './pages/performerLandingPage';
 import { EditModeProvider } from './contexts/EditModeContext.tsx';
-import { MemberProvider } from './contexts/memberContext.tsx';
+import { MemberProvider } from './contexts/MemberContext.tsx';
 import { NewPerformerForm } from './pages/newPerformerRegistration';
 import { ScrollToTop } from './hooks/ScrollToTop.tsx';
 import { useAmplitude } from './hooks/useAmplitude.tsx';
