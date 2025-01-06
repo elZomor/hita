@@ -9,7 +9,7 @@ import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import { LanguageSelector } from './LanguageSelector.tsx';
 import { clsx } from 'clsx';
-import { useMember } from '../../contexts/memberContext.tsx';
+import { useMember } from '../../contexts/MemberContext.tsx';
 
 export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -21,7 +21,7 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const routName = pathname?.split('/');
-  const { memberName } = useMember();
+  const { memberData } = useMember();
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -70,7 +70,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="items-center hidden h-full gap-6 md:flex">
-            {isLoggedIn && (
+            {isLoggedIn && memberData?.status === 'APPROVED' && (
               <>
                 <button
                   onClick={() => navigate('/artists')}
@@ -108,7 +108,7 @@ export default function Header() {
                     <UserCircle
                       className={`w-5 h-5  text-purple-350 hover:text-purple-300`}
                     />
-                    <span className="text-purple-350">{memberName}</span>
+                    <span className="text-purple-350">{memberData?.name}</span>
                     <img src={arrowDown} alt="arrow" />
                   </div>
                 ) : (

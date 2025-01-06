@@ -1,17 +1,21 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
+type IData = {
+  name: string;
+  status: string;
+};
 interface MemberContextType {
-  memberName: string;
-  setMemberName: (value: string) => void;
+  memberData: IData;
+  setMemberData: (value: IData) => void;
 }
 
 const MemberContext = createContext<MemberContextType | undefined>(undefined);
 
 export function MemberProvider({ children }: { children: ReactNode }) {
-  const [memberName, setMemberName] = useState<string>('');
+  const [memberData, setMemberData] = useState<IData>({ name: '', status: '' });
 
   return (
-    <MemberContext.Provider value={{ memberName, setMemberName }}>
+    <MemberContext.Provider value={{ memberData, setMemberData }}>
       {children}
     </MemberContext.Provider>
   );
