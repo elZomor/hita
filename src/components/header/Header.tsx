@@ -175,6 +175,7 @@ export default function Header() {
             closeMenu={() => setShowMobileMenu(false)}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
+            memberData={memberData}
           />
         )}
       </Container>

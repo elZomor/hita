@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-type IData = {
+export type IData = {
   name: string;
   status: string;
 };
