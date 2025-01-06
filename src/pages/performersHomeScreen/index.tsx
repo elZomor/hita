@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 9;
 
 const PerformerHome: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

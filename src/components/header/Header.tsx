@@ -20,7 +20,7 @@ export default function Header() {
   const isRTL = i18n.language === 'ar';
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
-  const routName = pathname?.split('/');
+  const routeName = pathname?.split('/');
   const { memberData } = useMember();
 
   useEffect(() => {
@@ -52,6 +52,27 @@ export default function Header() {
     };
   }, []);
 
+  const isStatus = (status: string) => {
+    return memberData?.status === status;
+  };
+
+  const isPage = () => {
+    let page = '';
+
+    if (routeName[1] === 'artists') {
+      if (
+        routeName[2] === 'registration' ||
+        routeName[2] === memberData?.username
+      ) {
+        page = 'performer';
+      } else {
+        page = 'performers';
+      }
+    }
+
+    return page;
+  };
+
   return (
     <header className={`top-0 z-50 w-full h-20 sticky bg-black shadow-md`}>
       <Container classess="px-4 sm:px-6 lg:px-8 w-full h-full">
@@ -70,11 +91,11 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="items-center hidden h-full gap-6 md:flex">
-            {isLoggedIn && memberData?.status === 'APPROVED' && (
+            {isLoggedIn && isStatus('APPROVED') && (
               <>
                 <button
                   onClick={() => navigate('/artists')}
-                  className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px] ${routName[1] === 'artists' && !routName[2] ? 'border-b-[4px] border-purple-350' : ''}`}
+                  className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px] ${isPage() === 'performers' ? 'border-b-[4px] border-purple-350' : ''}`}
                   // title={t('HEADER.PERFORMERS')}
                 >
                   {t('HEADER.PERFORMERS')}
@@ -82,7 +103,7 @@ export default function Header() {
                 </button>
                 <button
                   onClick={() => navigate('/members/performer')}
-                  className={`h-full p-2 text-[17px] text-purple-350 transition-colors hover:text-purple-300 font-semibold ${routName[2] ? 'border-b-[4px] border-purple-350' : ''}`}
+                  className={`h-full p-2 text-[17px] text-purple-350 transition-colors hover:text-purple-300 font-semibold ${isPage() === 'performer' ? 'border-b-[4px] border-purple-350' : ''}`}
                 >
                   {t('HEADER.PERFORMER')}
                   {/* <UserCircle className="w-5 h-5 text-gray-700" /> */}
@@ -126,15 +147,17 @@ export default function Header() {
                 >
                   {isLoggedIn ? (
                     <>
-                      <button
-                        onClick={() => {
-                          navigate('/members/profile');
-                          setShowAccountMenu(false);
-                        }}
-                        className="w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
-                      >
-                        {t('HEADER.PROFILE')}
-                      </button>
+                      {!isStatus('NOT_REGISTERED') && (
+                        <button
+                          onClick={() => {
+                            navigate('/members/profile');
+                            setShowAccountMenu(false);
+                          }}
+                          className="w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
+                        >
+                          {t('HEADER.PROFILE')}
+                        </button>
+                      )}
                       <button
                         onClick={handleLogout}
                         className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
@@ -176,6 +199,7 @@ export default function Header() {
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
             memberData={memberData}
+            isPage={isPage}
           />
         )}
       </Container>

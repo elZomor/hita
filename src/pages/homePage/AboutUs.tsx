@@ -52,7 +52,6 @@ const AboutUs = () => {
           {t('ABOUT_US.ABOUT_TEAM')}
         </h1>
         <div className="grid w-full grid-cols-1 gap-5 p-5 mx-auto bg-purple-100 shadow-md md:grid-cols-4 rounded-xl text-slate-600">
-          {/* <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-4 rounded-xl text-slate-600"> */}
           {teamMembers.map((member) => (
             <TeamCard
               key={member.name}
