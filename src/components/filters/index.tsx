@@ -11,6 +11,7 @@ type FilterProps = {
   skills: string[];
   departments: string[];
   nameFilter: string;
+  resetPageNumber: () => void;
 };
 
 export function Filters({
@@ -19,6 +20,7 @@ export function Filters({
   skills,
   departments,
   nameFilter,
+  resetPageNumber,
 }: FilterProps) {
   const [filters, setFilters] =
     useState<Record<string, string[]>>(initialFilters);
@@ -150,6 +152,7 @@ export function Filters({
       minVal: minAgeVal,
       maxVal: maxAgeVal,
     });
+    resetPageNumber();
   };
   const handleHeightFilter = (startVal: number, endVal: number) => {
     trackEvent('filter_height');
@@ -161,6 +164,7 @@ export function Filters({
       minVal: minHeightVal,
       maxVal: maxHeightVal,
     });
+    resetPageNumber();
   };
   const handleWeightFilter = (startVal: number, endVal: number) => {
     trackEvent('filter_weight');
@@ -172,6 +176,7 @@ export function Filters({
       minVal: minWeightVal,
       maxVal: maxWeightVal,
     });
+    resetPageNumber();
   };
   const handleExperienceFilter = (startVal: number, endVal: number) => {
     trackEvent('filter_experience');
@@ -183,6 +188,7 @@ export function Filters({
       minVal: minExperiencesVal,
       maxVal: maxExperiencesVal,
     });
+    resetPageNumber();
   };
 
   const handleCheckBoxFilter = (
@@ -203,10 +209,10 @@ export function Filters({
   };
 
   return (
-    <div className="bg-white lg:rounded-lg lg:border lg:border-gray-200 p-4">
+    <div className="p-4 bg-white lg:rounded-lg lg:border lg:border-gray-200">
       <div className="space-y-6">
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.AGE')}
           </h4>
           <div className="space-y-2">
@@ -218,7 +224,7 @@ export function Filters({
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.HEIGHT')}
           </h4>
           <div className="">
@@ -230,7 +236,7 @@ export function Filters({
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.WEIGHT')}
           </h4>
           <div className="space-y-2">
@@ -242,7 +248,7 @@ export function Filters({
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.TOTAL_EXPERIENCES')}
           </h4>
           <div className="space-y-2">
@@ -255,7 +261,7 @@ export function Filters({
         </div>
 
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.GENDER')}
           </h4>
           <div className="space-y-2">
@@ -263,10 +269,11 @@ export function Filters({
               <label key={gender} className="flex items-center">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                  className="text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                   checked={filters['gender']?.includes(gender)}
                   onChange={(e) => {
                     handleCheckBoxFilter(e.target.checked, gender, 'gender');
+                    resetPageNumber();
                   }}
                 />
                 <span className="mx-2 text-sm text-gray-600">
@@ -278,7 +285,7 @@ export function Filters({
         </div>
 
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.DEPARTMENT')}
           </h4>
           <div className="space-y-2">
@@ -286,7 +293,7 @@ export function Filters({
               <label key={department} className="flex items-center">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                  className="text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                   checked={filters['department']?.includes(department)}
                   onChange={(e) => {
                     handleCheckBoxFilter(
@@ -294,6 +301,7 @@ export function Filters({
                       department,
                       'department'
                     );
+                    resetPageNumber();
                   }}
                 />
                 <span className="mx-2 text-sm text-gray-600">
@@ -305,7 +313,7 @@ export function Filters({
         </div>
 
         <div>
-          <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <h4 className="mb-3 text-sm font-medium text-gray-900">
             {t('PERFORMER_HOME.SKILL')}
           </h4>
           <div className="space-y-2">
@@ -313,10 +321,11 @@ export function Filters({
               <label key={skill} className="flex items-center">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                  className="text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                   checked={filters['skills']?.includes(skill)}
                   onChange={(e) => {
                     handleCheckBoxFilter(e.target.checked, skill, 'skills');
+                    resetPageNumber();
                   }}
                 />
                 <span className="mx-2 text-sm text-gray-600">
