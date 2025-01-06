@@ -9,6 +9,7 @@ export default {
           100: '#fef3c7', // Gentle highlight
           200: '#fde68a', // Subtle, warm accent
           300: '#fcd34d', // Bright for buttons or active states
+          350: '#d7b991',
           400: '#fbbf24', // Warm and attention-grabbing
           500: '#f59e0b', // Strong focus color
           600: '#d97706', // Deep accent

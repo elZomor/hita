@@ -156,11 +156,11 @@ const PerformerProfile: React.FC = () => {
   }
 
   return (
-    <Container>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <Container classess="w-full">
+      <div className="w-full py-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Main Content */}
-          <div className="lg:col-span-9 space-y-8">
+          <div className="space-y-8 lg:col-span-9">
             <div className="block md:hidden ">
               <PageNav
                 activeSection={activeSection}
@@ -170,7 +170,7 @@ const PerformerProfile: React.FC = () => {
                 (isEditMode ? (
                   <button
                     type="button"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                     onClick={handleCloseEdit}
                   >
                     {t('GEN.CLOSE_EDIT')}
@@ -179,7 +179,7 @@ const PerformerProfile: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       onClick={handleEdit}
                     >
                       {t('GEN.EDIT')}
@@ -237,12 +237,12 @@ const PerformerProfile: React.FC = () => {
 
           {/* Page Navigation */}
           <div className="lg:col-span-3">
-            <div className="sticky top-10 flex flex-col items-stretch gap-4 pt-8">
+            <div className="sticky flex flex-col items-stretch gap-4 pt-8 top-14">
               {permissions.includes('CAN_EDIT') &&
                 (isEditMode ? (
                   <button
                     type="button"
-                    className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                    className="items-center justify-center hidden w-full px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md md:flex hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                     onClick={handleCloseEdit}
                   >
                     {t('GEN.CLOSE_EDIT')}
@@ -251,7 +251,7 @@ const PerformerProfile: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      className="hidden w-full md:flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                      className="items-center justify-center hidden w-full px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md md:flex hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       onClick={handleEdit}
                     >
                       {t('GEN.EDIT')}
@@ -260,13 +260,13 @@ const PerformerProfile: React.FC = () => {
                       type="button"
                       onClick={handleClickDelete}
                       disabled={isLoading}
-                      className="w-full px-6 py-3 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                      className="w-full px-6 py-3 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
                     >
                       {t('GEN.DELETE')}
                     </button>
                   </>
                 ))}
-              <div className="w-full hidden md:block">
+              <div className="hidden w-full md:block">
                 <PageNav
                   activeSection={activeSection}
                   onSectionClick={scrollToSection}

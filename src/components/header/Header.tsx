@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
+import { LogIn, LogOut, UserCircle } from 'lucide-react';
 import logo from '../../assets/images/logo.svg';
+import arrowDown from '../../assets/icons/arrowDown.svg';
 import Container from '../container/Container.tsx';
 import BurgerMenuBtn from '../burgerMenuBtn/BurgerMenuBtn.tsx';
 import MobileMenu from '../mobileMenu/MobileMenu.tsx';
 import { LanguageSelector } from './LanguageSelector.tsx';
 import { clsx } from 'clsx';
+import { useMember } from '../../contexts/MemberContext.tsx';
 
 export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -17,6 +19,9 @@ export default function Header() {
   const isLoggedIn = !!localStorage.getItem('accessToken');
   const isRTL = i18n.language === 'ar';
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const routeName = pathname?.split('/');
+  const { memberData } = useMember();
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -47,15 +52,34 @@ export default function Header() {
     };
   }, []);
 
+  const isStatus = (status: string) => {
+    return memberData?.status === status;
+  };
+
+  const isPage = () => {
+    let page = '';
+
+    if (routeName[1] === 'artists') {
+      if (
+        routeName[2] === 'registration' ||
+        routeName[2] === memberData?.username
+      ) {
+        page = 'performer';
+      } else {
+        page = 'performers';
+      }
+    }
+
+    return page;
+  };
+
   return (
-    <header
-      className={`top-0 z-50 w-full h-16 sticky bg-purple-200 border-b border-gray-200`}
-    >
-      <Container classess="px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex items-center justify-between h-16">
+    <header className={`top-0 z-50 w-full h-20 sticky bg-black shadow-md`}>
+      <Container classess="px-4 sm:px-6 lg:px-8 w-full h-full">
+        <div className="flex items-center justify-between w-full h-full">
           {/* Logo */}
           {
-            <div className="flex items-center cursor-pointer w-[150px] h-[160px]">
+            <div className="flex items-center cursor-pointer w-[150px]">
               <img
                 src={logo}
                 alt="Actogram"
@@ -66,22 +90,23 @@ export default function Header() {
           }
 
           {/* Desktop Navigation */}
-          <div className="items-center hidden gap-6 md:flex">
-            {isLoggedIn && (
+          <div className="items-center hidden h-full gap-6 md:flex">
+            {isLoggedIn && isStatus('APPROVED') && (
               <>
                 <button
                   onClick={() => navigate('/artists')}
-                  className="p-2 transition-colors rounded-lg hover:bg-purple-300"
-                  title={t('HEADER.PERFORMERS')}
+                  className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px] ${isPage() === 'performers' ? 'border-b-[4px] border-purple-350' : ''}`}
+                  // title={t('HEADER.PERFORMERS')}
                 >
-                  <Users className="w-5 h-5 text-gray-700" />
+                  {t('HEADER.PERFORMERS')}
+                  {/* <Users className="w-5 h-5 text-gray-700" /> */}
                 </button>
                 <button
                   onClick={() => navigate('/members/performer')}
-                  className="p-2 transition-colors rounded-lg hover:bg-purple-300"
-                  title={t('HEADER.PERFORMER')}
+                  className={`h-full p-2 text-[17px] text-purple-350 transition-colors hover:text-purple-300 font-semibold ${isPage() === 'performer' ? 'border-b-[4px] border-purple-350' : ''}`}
                 >
-                  <UserCircle className="w-5 h-5 text-gray-700" />
+                  {t('HEADER.PERFORMER')}
+                  {/* <UserCircle className="w-5 h-5 text-gray-700" /> */}
                 </button>
                 {/*<button*/}
                 {/*  className="p-2 transition-colors rounded-lg hover:bg-purple-300"*/}
@@ -97,12 +122,18 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setShowAccountMenu(!showAccountMenu)}
-                className="p-2 transition-colors rounded-lg hover:bg-purple-300"
+                className="p-2 transition-colors rounded-lg"
               >
                 {isLoggedIn ? (
-                  <UserCircle className={`w-5 h-5  text-gray-700`} />
+                  <div className="flex items-center gap-2">
+                    <UserCircle
+                      className={`w-5 h-5  text-purple-350 hover:text-purple-300`}
+                    />
+                    <span className="text-purple-350">{memberData?.name}</span>
+                    <img src={arrowDown} alt="arrow" />
+                  </div>
                 ) : (
-                  <LogIn className={`w-5 h-5 text-gray-700`} />
+                  <LogIn className={`w-5 h-5 text-purple-350`} />
                 )}
               </button>
 
@@ -116,15 +147,17 @@ export default function Header() {
                 >
                   {isLoggedIn ? (
                     <>
-                      <button
-                        onClick={() => {
-                          navigate('/members/profile');
-                          setShowAccountMenu(false);
-                        }}
-                        className="w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
-                      >
-                        {t('HEADER.PROFILE')}
-                      </button>
+                      {!isStatus('NOT_REGISTERED') && (
+                        <button
+                          onClick={() => {
+                            navigate('/members/profile');
+                            setShowAccountMenu(false);
+                          }}
+                          className="w-full px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
+                        >
+                          {t('HEADER.PROFILE')}
+                        </button>
+                      )}
                       <button
                         onClick={handleLogout}
                         className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700 text-start hover:bg-purple-50"
@@ -165,6 +198,8 @@ export default function Header() {
             closeMenu={() => setShowMobileMenu(false)}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
+            memberData={memberData}
+            isPage={isPage}
           />
         )}
       </Container>

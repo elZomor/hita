@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/shared/notFound';
 import { ProtectedRoute } from './components/auth/ProtectedRoute.tsx';
 import { PerformerLandingPage } from './pages/performerLandingPage';
 import { EditModeProvider } from './contexts/EditModeContext.tsx';
+import { MemberProvider } from './contexts/MemberContext.tsx';
 import { NewPerformerForm } from './pages/newPerformerRegistration';
 import { ScrollToTop } from './hooks/ScrollToTop.tsx';
 import { useAmplitude } from './hooks/useAmplitude.tsx';
@@ -38,86 +39,88 @@ export const App = () => {
 
   return (
     <Suspense fallback="Loading...">
-      <BrowserRouter>
-        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-          <ScrollToTop />
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route
-                path="/artists"
-                element={
-                  <ProtectedRoute>
-                    <HomeScreen />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/artists/:username"
-                element={
-                  <ProtectedRoute>
-                    <EditModeProvider>
-                      <PerformerProfile />
-                    </EditModeProvider>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/artists/registration"
-                element={
-                  <ProtectedRoute>
-                    <NewPerformerForm />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/members/profile"
-                element={
-                  <ProtectedRoute>
-                    <MemberProfilePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/members/performer"
-                element={
-                  <ProtectedRoute>
-                    <PerformerLandingPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/login"
-                element={
-                  <ProtectedRoute>
-                    <LoginPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/landing"
-                element={
-                  <ProtectedRoute>
-                    <LandingPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/members/registration"
-                element={
-                  <ProtectedRoute>
-                    <MemberRegistration />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="*"
-                element={<NotFoundComponent resourceName={'Page'} />}
-              />
-            </Route>
-          </Routes>
-        </GoogleOAuthProvider>
-      </BrowserRouter>
+      <MemberProvider>
+        <BrowserRouter>
+          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <ScrollToTop />
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route
+                  path="/artists"
+                  element={
+                    <ProtectedRoute>
+                      <HomeScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/artists/:username"
+                  element={
+                    <ProtectedRoute>
+                      <EditModeProvider>
+                        <PerformerProfile />
+                      </EditModeProvider>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/artists/registration"
+                  element={
+                    <ProtectedRoute>
+                      <NewPerformerForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/members/profile"
+                  element={
+                    <ProtectedRoute>
+                      <MemberProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/members/performer"
+                  element={
+                    <ProtectedRoute>
+                      <PerformerLandingPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <ProtectedRoute>
+                      <LoginPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/landing"
+                  element={
+                    <ProtectedRoute>
+                      <LandingPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/members/registration"
+                  element={
+                    <ProtectedRoute>
+                      <MemberRegistration />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="*"
+                  element={<NotFoundComponent resourceName={'Page'} />}
+                />
+              </Route>
+            </Routes>
+          </GoogleOAuthProvider>
+        </BrowserRouter>
+      </MemberProvider>
     </Suspense>
   );
 };

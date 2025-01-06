@@ -36,22 +36,22 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="w-full p-3 bg-[#f5f5f5]">
-      <Container>
-        <h1 className="text-3xl font-bold mb-7 text-slate-800">
+    <div className="w-full p-3">
+      <Container classess="w-full">
+        <h1 className="text-3xl font-bold border-slate-800 rtl:border-r-8 rtl:pr-5 ltr:border-l-8 ltr:pl-5 mb-7 text-slate-800">
           {t('ABOUT_US.ABOUT_US')}
         </h1>
 
-        <div className="p-5 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
+        <div className="w-full text-lg leading-7 bg-purple-100 p-7 rounded-xl text-slate-600">
           <div>{t('ABOUT_US.DESCRIPTION_ONE')}</div>
           <div>{t('ABOUT_US.DESCRIPTION_TWO')}</div>
           <div>{t('ABOUT_US.DESCRIPTION_THREE')}</div>
         </div>
 
-        <h1 className="mt-10 text-3xl font-bold mb-7 text-slate-800">
+        <h1 className="mt-10 text-3xl font-bold mb-7 text-slate-800 border-slate-800 rtl:border-r-8 rtl:pr-5 ltr:border-l-8 ltr:pl-5">
           {t('ABOUT_US.ABOUT_TEAM')}
         </h1>
-        <div className="p-5 gap-5 grid grid-cols-1 md:grid-cols-4 bg-purple-100 w-full mx-auto shadow-md rounded-xl text-slate-600">
+        <div className="grid w-full grid-cols-1 gap-5 p-5 mx-auto bg-purple-100 shadow-md md:grid-cols-4 rounded-xl text-slate-600">
           {teamMembers.map((member) => (
             <TeamCard
               key={member.name}

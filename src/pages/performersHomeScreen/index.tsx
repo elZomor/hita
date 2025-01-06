@@ -14,13 +14,17 @@ import { NoResults } from './NoResults.tsx';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 9;
 
 const PerformerHome: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [performers, setPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get('page')) || 1
+  );
   const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
@@ -31,6 +35,7 @@ const PerformerHome: React.FC = () => {
   const [skills, setSkills] = useState<string[]>([]);
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const { trackEvent } = useAmplitude();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +107,12 @@ const PerformerHome: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    navigate({
+      pathname: location.pathname,
+      search: searchParams.toString(),
+    });
+    searchParams.set('page', page.toString());
+    setSearchParams(searchParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -130,6 +141,12 @@ const PerformerHome: React.FC = () => {
     };
   }, [showMobileFilters]);
 
+  const resetPageNumber = () => {
+    setCurrentPage(1);
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  };
+
   return (
     <Container classess="w-full">
       <div className="py-8">
@@ -141,7 +158,7 @@ const PerformerHome: React.FC = () => {
               </div>
               <input
                 type="text"
-                className="block w-full py-3 pl-10 pr-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none focus:border-transparent"
+                className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none focus:border-transparent"
                 placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
@@ -149,7 +166,7 @@ const PerformerHome: React.FC = () => {
             </div>
             <button
               onClick={() => setShowMobileFilters(true)}
-              className="lg:hidden inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg lg:hidden hover:bg-gray-50"
             >
               <SlidersHorizontal className="w-5 h-5" />
               {t('PERFORMER_HOME.FILTERS')}
@@ -157,13 +174,13 @@ const PerformerHome: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* Desktop Filters */}
-          <aside className="hidden lg:block lg:w-64 flex-shrink-0">
+          <aside className="flex-shrink-0 hidden lg:block lg:w-64">
             <div className="sticky top-20">
               <button
                 onClick={handleClearFilter}
-                className="flex w-full items-center justify-center px-2 py-2 mb-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                className="flex items-center justify-center w-full px-2 py-2 mb-4 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 title="ClearFilters"
               >
                 {t('PERFORMER_HOME.CLEAR_FILTERS')}
@@ -175,6 +192,7 @@ const PerformerHome: React.FC = () => {
                 departments={departments}
                 nameFilter={debouncedText}
                 key={refreshKey}
+                resetPageNumber={resetPageNumber}
               />
             </div>
           </aside>
@@ -187,7 +205,7 @@ const PerformerHome: React.FC = () => {
                 onClick={() => setShowMobileFilters(false)}
               />
               <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl">
-                <div className="h-full flex flex-col">
+                <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between p-4 border-b">
                     <h2 className="text-lg font-semibold text-gray-900">
                       {t('PERFORMER_HOME.FILTERS')}
@@ -225,6 +243,7 @@ const PerformerHome: React.FC = () => {
                       departments={departments}
                       nameFilter={debouncedText}
                       key={refreshKey}
+                      resetPageNumber={resetPageNumber}
                     />
                   </div>
                 </div>
