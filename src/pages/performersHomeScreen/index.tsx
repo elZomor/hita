@@ -14,7 +14,7 @@ import { NoResults } from './NoResults.tsx';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -35,7 +35,6 @@ const PerformerHome: React.FC = () => {
   const [skills, setSkills] = useState<string[]>([]);
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const { trackEvent } = useAmplitude();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,10 +106,6 @@ const PerformerHome: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    navigate({
-      pathname: location.pathname,
-      search: searchParams.toString(),
-    });
     searchParams.set('page', page.toString());
     setSearchParams(searchParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -161,7 +156,10 @@ const PerformerHome: React.FC = () => {
                 className="block w-full py-3 pl-10 pr-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none focus:border-transparent"
                 placeholder={t('PERFORMER_HOME.SEARCH_PLACEHOLDER')}
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => {
+                  resetPageNumber();
+                  setSearchText(e.target.value);
+                }}
               />
             </div>
             <button
