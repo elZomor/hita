@@ -12,6 +12,7 @@ import { clsx } from 'clsx';
 import { useMember } from '../../contexts/MemberContext.tsx';
 import { Snackbar } from '../shared/snackBar/SnackBar.tsx';
 import { useAmplitude } from '../../hooks/useAmplitude.tsx';
+import InvitationModal from './InvitationModal.tsx';
 
 export default function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -25,6 +26,8 @@ export default function Header() {
   const routeName = pathname?.split('/');
   const { memberData } = useMember();
   const { trackEvent } = useAmplitude();
+  const [showInvitationModal, setShowInvitationModal] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -46,6 +49,15 @@ export default function Header() {
     setShowAccountMenu(false);
   };
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      headerRef.current &&
+      !headerRef.current.contains(event.target as Node)
+    ) {
+      setShowInvitationModal(false);
+    }
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -54,6 +66,13 @@ export default function Header() {
       setShowAccountMenu(false);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
   useEffect(() => {
     // Add event listener to detect clicks outside
@@ -89,6 +108,7 @@ export default function Header() {
       `${window.location.origin}/members/registration?${memberData.invitationCode}`
     );
     setShowMobileMenu(false);
+    setShowInvitationModal(false);
     trackEvent('invite');
     setSnackbar({
       open: true,
@@ -99,7 +119,10 @@ export default function Header() {
 
   return (
     <>
-      <header className={`top-0 z-50 w-full h-20 sticky bg-black shadow-md`}>
+      <header
+        className={`top-0 z-50 w-full h-20 sticky bg-black shadow-md`}
+        ref={headerRef}
+      >
         <Container classess="px-4 sm:px-6 lg:px-8 w-full h-full">
           <div className="flex items-center justify-between w-full h-full">
             {/* Logo */}
@@ -119,7 +142,7 @@ export default function Header() {
               {isLoggedIn && isStatus('APPROVED') && (
                 <>
                   <button
-                    onClick={handleCopyInvitation}
+                    onClick={() => setShowInvitationModal(true)}
                     className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px]`}
                   >
                     {t('HEADER.INVITE')}
@@ -223,7 +246,7 @@ export default function Header() {
               onLogout={handleLogout}
               memberData={memberData}
               isPage={isPage}
-              handleCopyInvitation={handleCopyInvitation}
+              handleCopyInvitation={() => setShowInvitationModal(true)}
             />
           )}
         </Container>
@@ -233,6 +256,11 @@ export default function Header() {
         message={snackbar.message}
         type={snackbar.type}
         onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+      />
+      <InvitationModal
+        isOpen={showInvitationModal}
+        onClose={() => setShowInvitationModal(false)}
+        onConfirm={handleCopyInvitation}
       />
     </>
   );

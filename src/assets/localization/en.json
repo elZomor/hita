@@ -149,7 +149,9 @@
     "NOTIFICATIONS": "Notifications",
     "PERFORMER": "Artist Page",
     "INVITE": "Invite your friends",
-    "INVITATION_LINK_COPIED": "Invitation link has been copied"
+    "INVITATION_LINK_COPIED": "Invitation link has been copied",
+    "COPY_INVITATION": "Copy invitation link",
+    "INVITATION_TEXT": "Now you can invite your friends with your code, they will be approved automatically as per your invitation."
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "Member Registration",
