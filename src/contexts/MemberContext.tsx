@@ -4,7 +4,9 @@ export type IData = {
   name: string;
   status: string;
   username: string;
+  invitationCode: string;
 };
+
 interface MemberContextType {
   memberData: IData;
   setMemberData: (value: IData) => void;
@@ -17,6 +19,7 @@ export function MemberProvider({ children }: { children: ReactNode }) {
     name: '',
     status: '',
     username: '',
+    invitationCode: '',
   });
 
   return (

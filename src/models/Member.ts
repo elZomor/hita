@@ -97,7 +97,10 @@ export const mapMemberViewOneResponseToMemberViewOne = (
   };
 };
 
-export const mapMemberFormDataToRequest = (data: MemberFormData) => {
+export const mapMemberFormDataToRequest = (
+  data: MemberFormData,
+  invitationCode: string
+) => {
   return {
     first_name: data.firstName,
     last_name: data.lastName,
@@ -109,5 +112,6 @@ export const mapMemberFormDataToRequest = (data: MemberFormData) => {
     is_post_grad: data.isPostGrad,
     year_of_graduation: data.graduationYear,
     gender: data.gender,
+    invitation_code: invitationCode,
   };
 };

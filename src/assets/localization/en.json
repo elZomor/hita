@@ -147,7 +147,9 @@
     "LOGIN": "Login",
     "LOGOUT": "Logout",
     "NOTIFICATIONS": "Notifications",
-    "PERFORMER": "Artist Page"
+    "PERFORMER": "Artist Page",
+    "INVITE": "Invite your friends",
+    "INVITATION_LINK_COPIED": "Invitation link has been copied"
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "Member Registration",

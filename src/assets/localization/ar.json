@@ -147,7 +147,9 @@
     "LOGIN": "تسجيل الدخول",
     "LOGOUT": "تسجيل الخروج",
     "NOTIFICATIONS": "الإشعارات",
-    "PERFORMER": "الملف الفني"
+    "PERFORMER": "الملف الفني",
+    "INVITE": "ضيف أصدقاءك",
+    "INVITATION_LINK_COPIED": "تم نسخ رابط دعوة الأصدقاء"
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "تسجيل عضوية",
