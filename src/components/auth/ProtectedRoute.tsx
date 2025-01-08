@@ -74,6 +74,10 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         if (status === 200) {
           const { name, status, username } = data.data;
           setMemberData({ status, name, username });
+          localStorage.setItem(
+            'memberData',
+            JSON.stringify({ status, name, username })
+          );
           if (data.data.performer) {
             checkPaths(path || location.pathname, 'PERFORMER');
             return;
