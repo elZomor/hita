@@ -15,12 +15,16 @@ interface MemberContextType {
 const MemberContext = createContext<MemberContextType | undefined>(undefined);
 
 export function MemberProvider({ children }: { children: ReactNode }) {
-  const [memberData, setMemberData] = useState<IData>({
-    name: '',
-    status: '',
-    username: '',
-    invitationCode: '',
-  });
+  const [memberData, setMemberData] = useState<IData>(
+    localStorage.getItem('memberData')
+      ? JSON.parse(localStorage.getItem('memberData') || '')
+      : {
+          name: '',
+          status: '',
+          username: '',
+          invitationCode: '',
+        }
+  );
 
   return (
     <MemberContext.Provider value={{ memberData, setMemberData }}>

@@ -16,4 +16,5 @@ export const isLoggedIn = () => {
 export const removeTokens = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
+  localStorage.removeItem('memberData');
 };
