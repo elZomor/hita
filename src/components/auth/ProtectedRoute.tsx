@@ -53,6 +53,15 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     if (path.includes('login') && memberStatus !== 'ANONYMOUS') {
       navigate('/landing');
     }
+    if (
+      path.includes('/members/registration') &&
+      memberStatus === 'ANONYMOUS'
+    ) {
+      const referralLink = location.pathname + location.search;
+      sessionStorage.setItem('referralLink', referralLink);
+      navigate('/login');
+      return;
+    }
     let allowedSet: Set<MemberStatus>;
     if (path.includes('artists') && !path.includes('registration')) {
       const key = '/artists/*';
@@ -72,12 +81,13 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         }
         const { data, status } = await get_request('hita/members/status');
         if (status === 200) {
-          const { name, status, username } = data.data;
-          setMemberData({ status, name, username });
-          localStorage.setItem(
-            'memberData',
-            JSON.stringify({ status, name, username })
-          );
+          const {
+            name,
+            status,
+            username,
+            invitation_code: invitationCode,
+          } = data.data;
+          setMemberData({ status, name, username, invitationCode });
           if (data.data.performer) {
             checkPaths(path || location.pathname, 'PERFORMER');
             return;

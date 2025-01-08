@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LogIn, LogOut, UserCircle, Users } from 'lucide-react';
+import { LogIn, LogOut, Share2, UserCircle, Users } from 'lucide-react';
 import { LanguageSelector } from '../header/LanguageSelector.tsx';
 import { IData } from '../../contexts/MemberContext.tsx';
 
@@ -10,6 +10,7 @@ interface MobileMenuProps {
   onLogout: () => void;
   memberData: IData;
   isPage: () => string;
+  handleCopyInvitation: () => void;
 }
 
 const MobileMenu = ({
@@ -18,6 +19,7 @@ const MobileMenu = ({
   onLogout,
   memberData,
   isPage,
+  handleCopyInvitation,
 }: MobileMenuProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -71,11 +73,15 @@ const MobileMenu = ({
                       {t('HEADER.PROFILE')}
                     </button>
                   )}
-
-                  {/*<button className="flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50">*/}
-                  {/*  <Bell className="w-5 h-5" />*/}
-                  {/*  {t('HEADER.NOTIFICATIONS')}*/}
-                  {/*</button>*/}
+                  {isStatus('APPROVED') && (
+                    <button
+                      onClick={handleCopyInvitation}
+                      className={`flex items-center w-full gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-50`}
+                    >
+                      <Share2 className="w-5 h-5" />
+                      {t('HEADER.INVITE')}
+                    </button>
+                  )}
                 </>
               )}
 

@@ -157,10 +157,11 @@ export function MemberRegistration() {
 
   const onSubmit = async (formData: MemberFormData) => {
     setIsSubmitting(true);
+    const invitationCode = location.search.replace('?', '');
     try {
       const { data } = await post_request(
         `hita/members`,
-        mapMemberFormDataToRequest(formData)
+        mapMemberFormDataToRequest(formData, invitationCode)
       );
       const responseData = data.data;
       if (data.status === 'SUCCESS') {

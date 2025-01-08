@@ -26,7 +26,13 @@ const SocialMediaLogin = ({
     try {
       await get_login_token(response.credential);
       identifyUser(getUserId());
-      navigate('/landing');
+      const referralLink = sessionStorage.getItem('referralLink');
+      if (referralLink) {
+        sessionStorage.removeItem('referralLink');
+        navigate(referralLink);
+      } else {
+        navigate('/landing');
+      }
       setSnackbar({
         open: true,
         message: 'Successfully logged in with Google!',
