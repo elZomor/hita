@@ -7,7 +7,7 @@ const BurgerMenuBtn = ({ clickHandler, isOpen }: BurgerMenuBtnProps) => {
   return (
     <button
       onClick={clickHandler}
-      className="p-2 transition-colors rounded-lg hover:bg-purple-300"
+      className="transition-colors rounded-lg hover:bg-purple-300"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
     >
       <div className="relative flex flex-col justify-between w-6 h-5">
