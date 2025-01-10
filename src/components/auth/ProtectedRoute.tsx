@@ -88,6 +88,10 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
             invitation_code: invitationCode,
           } = data.data;
           setMemberData({ status, name, username, invitationCode });
+          localStorage.setItem(
+            'memberData',
+            JSON.stringify({ status, name, username, invitationCode })
+          );
           if (data.data.performer) {
             checkPaths(path || location.pathname, 'PERFORMER');
             return;
