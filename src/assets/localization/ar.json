@@ -147,7 +147,11 @@
     "LOGIN": "تسجيل الدخول",
     "LOGOUT": "تسجيل الخروج",
     "NOTIFICATIONS": "الإشعارات",
-    "PERFORMER": "الملف الفني"
+    "PERFORMER": "الملف الفني",
+    "INVITE": "ضيف أصدقاءك",
+    "INVITATION_LINK_COPIED": "تم نسخ رابط دعوة الأصدقاء",
+    "COPY_INVITATION": "نسخ الرابط",
+    "INVITATION_TEXT": "دلوقتي تقدر تضيف أصدقائك للموقع عن طريق الرابط ده اللي موجود فيه الكود بتاعك، وهيتم الموافقة عليهم تلقائياً بسبب دعوتك."
   },
   "MEMBER_REGISTRATION": {
     "MEMBER_REGISTRATION": "تسجيل عضوية",

@@ -39,9 +39,9 @@ export function ActorCard({ actor }: ActorCardProps) {
   const getGenderIcon = (gender: string) => {
     switch (gender.toLowerCase()) {
       case 'm':
-        return <FaMale className="text-blue-500 h-5 w-5" />;
+        return <FaMale className="w-5 h-5 text-blue-500" />;
       case 'f':
-        return <FaFemale className="text-pink-500 h-5 w-5" />;
+        return <FaFemale className="w-5 h-5 text-pink-500" />;
       default:
         return null;
     }
@@ -51,11 +51,11 @@ export function ActorCard({ actor }: ActorCardProps) {
     <>
       <div
         onClick={handleCardClick}
-        className="cursor-pointer h-full w-[95%] m-auto max-w-[350px] transition-shadow duration-200 bg-white border border-gray-200 shadow-sm overflow-hidden rounded-xl hover:shadow-md"
+        className="w-full h-full overflow-hidden transition-shadow duration-200 bg-white border border-gray-200 shadow-sm cursor-pointer rounded-xl hover:shadow-md"
       >
-        <div className="relative h-[320px] md:h-[300px] rounded-md overflow-hidden group">
+        <div className="relative h-[400px] md:h-[330px] rounded-md overflow-hidden group">
           <img
-            className="absolute top-0 left-0 w-full h-full object-contain"
+            className="absolute top-0 left-0 object-contain w-full h-full"
             src={actor.profilePicture}
             alt={actor.name}
           />
@@ -63,29 +63,29 @@ export function ActorCard({ actor }: ActorCardProps) {
           {/* Mobile view eye icon */}
           <button
             onClick={handleImageClick}
-            className="image-view-button md:hidden absolute top-2 right-2 p-2 rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-opacity"
+            className="absolute p-2 text-white transition-opacity bg-black bg-opacity-50 rounded-full image-view-button md:hidden top-2 right-2 hover:bg-opacity-70"
           >
-            <Eye className="h-5 w-5" />
+            <Eye className="w-5 h-5" />
           </button>
 
           {/* Desktop view hover overlay */}
           <div
             onClick={handleImageClick}
-            className="image-view-button hidden md:flex absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer"
+            className="absolute inset-0 items-center justify-center hidden transition-all duration-200 bg-black bg-opacity-0 opacity-0 cursor-pointer image-view-button md:flex group-hover:bg-opacity-50 group-hover:opacity-100"
           >
-            <span className="text-white font-medium flex items-center gap-2">
-              <Eye className="h-5 w-5" />
+            <span className="flex items-center gap-2 font-medium text-white">
+              <Eye className="w-5 h-5" />
               {t('VIEW_IMAGE')}
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 p-2 mb-2">
+        <div className="flex flex-col gap-2 p-4 mb-2">
           <div className="flex items-start gap-3">
             <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center px-2">
-                  <h3 className="pr-1 text-lg font-semibold text-gray-900 break-words">
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center">
+                  <h3 className="text-xl font-semibold text-gray-800 break-words">
                     {actor.name}
                     {actor.nickName !== null && actor.nickName !== ''
                       ? `(${actor.nickName})`
@@ -105,36 +105,40 @@ export function ActorCard({ actor }: ActorCardProps) {
                   />
                 </div>
               </div>
-              <div className="flex justify-between items-center w-full px-2">
+              <div className="flex items-center justify-between w-full">
                 {actor.age !== 0 && actor.age !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
-                      {actor.age} {t('YEARS_OLD')}
+                      <span className="font-bold"> {actor.age}</span>{' '}
+                      {t('YEARS_OLD')}
                     </span>
                   </div>
                 )}
                 {actor.height !== 0 && actor.height !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
-                      {actor.height} {t('CM')}
+                      <span className="font-bold"> {actor.height}</span>{' '}
+                      {t('CM')}
                     </span>
                   </div>
                 )}
                 {actor.weight !== 0 && actor.weight !== null && (
                   <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
                     <span className="break-words">
-                      {actor.weight} {t('KG')}
+                      <span className="font-bold">{actor.weight}</span>{' '}
+                      {t('KG')}
                     </span>
                   </div>
                 )}
               </div>
               <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
-                <span className="break-words px-2">
-                  {actor.total_experiences} {t('PERFORMER_HOME.SHOWS')}
+                <span className="break-words">
+                  <span className="font-bold">{actor.total_experiences}</span>{' '}
+                  {t('PERFORMER_HOME.SHOWS')}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
-                <GraduationCap className="flex-shrink-0 w-4 h-4" />
+              <div className="flex items-center gap-1.5 text-sm text-gray-500 my-1">
+                <GraduationCap className="flex-shrink-0 w-4 h-4 " />
                 <span className="break-words">
                   {t('DEPARTMENTS.' + actor.department)}
                 </span>
@@ -177,7 +181,7 @@ export function ActorCard({ actor }: ActorCardProps) {
             </button>
 
             {isBioLong && showFullBio && (
-              <div className="absolute bottom-full left-0 w-full bg-purple-100 border border-gray-200 rounded-lg p-2 shadow-lg z-10">
+              <div className="absolute left-0 z-10 w-full p-2 bg-purple-100 border border-gray-200 rounded-lg shadow-lg bottom-full">
                 <p className="text-sm text-gray-700">{actor.biography}</p>
               </div>
             )}
