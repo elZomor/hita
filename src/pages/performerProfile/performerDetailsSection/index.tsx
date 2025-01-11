@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, School } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FaFemale, FaMale } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
@@ -231,12 +231,16 @@ export default function PerformerDetailsSection({
                   {performer.weight && `${performer.weight} ${t('KG')}`}
                 </p>
               )}
-
+              <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
+                <School className="h-4 w-4 flex-shrink-0" />
+                <span className="break-words">
+                  {t('FACULTIES.' + performer.faculty)}
+                </span>
+              </div>
               <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                 <GraduationCap className="h-4 w-4 flex-shrink-0" />
                 <span className="break-words">
-                  {t('DEPARTMENTS.' + performer.department)} -{' '}
-                  {getGradeOrGraduationYear(performer)}
+                  {`${t('DEPARTMENTS.' + performer.department)} - ${getGradeOrGraduationYear(performer)}`}
                 </span>
               </div>
             </div>
