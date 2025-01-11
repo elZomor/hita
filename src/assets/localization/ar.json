@@ -60,11 +60,23 @@
   "SAVE": "حفظ",
   "CANCEL": "إلغاء",
   "VIEW_IMAGE": "عرض الصورة",
+  "FACULTIES": {
+    "CINEMA_INST": "المعهد العالي للسينما",
+    "THEATER_INST": "المعهد العالي للفنون المسرحية"
+  },
   "DEPARTMENTS": {
     "ACTING_DEP": "قسم التمثيل والإخراج المسرحي",
     "DRAMA_DEP": "قسم الدراما والنقد المسرحي",
     "DECOR_DEP": "قسم الديكور المسرحي",
-    "TECH_DEP": "قسم التقنيات المسرحية"
+    "TECH_DEP": "قسم التقنيات المسرحية",
+    "SCREENWRITING_DEP": "قسم السيناريو",
+    "CINEMATOGRAPHY_DEP": "قسم التصوير",
+    "DIRECTING_DEP": "قسم الإخراج",
+    "ANIMATION_DEP": "قسم الرسوم المتحركة",
+    "EDITING_DEP": "قسم المونتاج",
+    "PRODUCTION_DEP": "قسم الإنتاج",
+    "SOUND_ENGINEERING_DEP": "قسم هندسة الصوت",
+    "SET_DESIGN_DEP": "قسم هندسة المناظر"
   },
   "SKILLS": {
     "ACTOR": "ممثل/ة",
@@ -123,6 +135,7 @@
     "STUDY_TYPE": "نوع الدراسة",
     "LOCATION": "المكان",
     "LOADING": "جاري التحميل...",
+    "SUBMITTING": "جاري التسجيل...",
     "APP_NAME": "أكتوجرام",
     "SLOGAN": "الممثلين! على الخشبة...",
     "APP_DESCRIPTION": "تواصل مع فنانين موهوبين، اكتشف فرص جديدة، واظهر مواهبك للعالم.",
@@ -190,7 +203,8 @@
     "RESET_TITLE": "مسح البيانات",
     "RESET_CONFIRM": "نعم، متأكد",
     "RESET_CANCEL": "لا، أريد الاستمرار",
-    "GRAD_OR_GRADE_REQ": "يجب تحديد الدفعة الحالية أو سنة التخرج"
+    "GRAD_OR_GRADE_REQ": "يجب تحديد الدفعة الحالية أو سنة التخرج",
+    "FACULTY": "المعهد"
   },
   "LOGIN_PAGE": {
     "WELCOME_BACK": "أهلاً بيك",
@@ -433,7 +447,8 @@
     "DEPARTMENT": "القسم",
     "SKILL": "المهارات",
     "SEARCH_PLACEHOLDER": "ابحث بالاسم أو اسم المستخدم",
-    "SHOW_BIO": "أظهر النبذة كاملة"
+    "SHOW_BIO": "أظهر النبذة كاملة",
+    "FACULTIES": "المعاهد"
   },
   "ABOUT_US": {
     "ABOUT_US": "عن الموقع",

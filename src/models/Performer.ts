@@ -10,6 +10,7 @@ export interface Performer {
   skills?: string[];
   status: string;
   biography: string;
+  faculty: string;
   department: string;
   grade?: string;
   graduationYear?: number;
@@ -91,6 +92,7 @@ export interface SinglePerformer {
 export interface PerformerResponse {
   username: string;
   full_name: string;
+  faculty: string;
   department: string;
   skills_tags: string[];
   biography: string;
@@ -127,6 +129,7 @@ export const mapPerformerResponseToPerformer = (
 ): Performer => ({
   username: performerResponse.username,
   name: performerResponse.full_name,
+  faculty: performerResponse.faculty,
   department: performerResponse.department,
   skills: performerResponse.skills_tags,
   biography: performerResponse.biography,
