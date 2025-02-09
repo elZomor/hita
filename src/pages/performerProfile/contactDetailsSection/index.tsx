@@ -141,7 +141,7 @@ export default function ContactDetailsSection({
         </div>
       }
     >
-      {memberData.username === '' ? (
+      {memberData.status !== 'APPROVED' ? (
         <div className="flex items-center p-2 border border-gray-300 rounded-md">
           <LoginRequiredSection />
         </div>
