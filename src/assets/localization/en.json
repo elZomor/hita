@@ -101,6 +101,7 @@
     "HAIR_DRESSER": "Hair Dresser"
   },
   "GEN": {
+    "LOGIN_REQUIRED": "Please login to view this section.",
     "PAGE_DID_NOT_OPEN": "The link didn't open automatically. The URL has been copied to your clipboard. You can paste it in Safari.",
     "UNSUPPORTED_BROWSER": "Unsupported Browser Detected",
     "UNSUPPORTED_BROWSER_MSG": "Please open this link in your default browser to continue.",

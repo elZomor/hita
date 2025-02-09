@@ -18,6 +18,8 @@ import {
 import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 import { FaLock } from 'react-icons/fa6';
+import LoginRequiredSection from '../../../components/shared/LoginRequiredSection.tsx';
+import { useMember } from '../../../contexts/MemberContext.tsx';
 
 interface ContactDetailsSectionProps {
   contacts: ContactDetail[];
@@ -28,7 +30,6 @@ interface ContactDetailsSectionProps {
 export default function ContactDetailsSection({
   contacts: initialContacts,
   isLocked,
-  showLock,
 }: ContactDetailsSectionProps) {
   const { isEditMode } = useEditMode();
   const { t } = useTranslation();
@@ -39,6 +40,7 @@ export default function ContactDetailsSection({
     null
   );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { memberData } = useMember();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -139,12 +141,9 @@ export default function ContactDetailsSection({
         </div>
       }
     >
-      {showLock ? (
-        <div className="flex items-center gap-2 p-2 bg-gray-100 border border-gray-300 rounded-md">
-          <FaLock className="text-gray-500" size={16} />
-          <span className="text-gray-700 text-sm">
-            {t('PERFORMER_PAGE.CONTACT_DETAILS.LOCKED_SECTION')}
-          </span>
+      {memberData.username === '' ? (
+        <div className="flex items-center p-2 border border-gray-300 rounded-md">
+          <LoginRequiredSection />
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">

@@ -140,6 +140,12 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="items-center hidden h-full gap-6 md:flex">
+              <button
+                onClick={() => navigate('/artists')}
+                className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px] ${isPage() === 'performers' ? 'border-b-[4px] border-purple-350' : ''}`}
+              >
+                {t('HEADER.PERFORMERS')}
+              </button>
               {isLoggedIn && isStatus('APPROVED') && (
                 <>
                   <button
@@ -147,12 +153,6 @@ export default function Header() {
                     className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px]`}
                   >
                     {t('HEADER.INVITE')}
-                  </button>
-                  <button
-                    onClick={() => navigate('/artists')}
-                    className={`p-2 text-purple-350 transition-colors hover:text-purple-300 h-full font-semibold text-[17px] ${isPage() === 'performers' ? 'border-b-[4px] border-purple-350' : ''}`}
-                  >
-                    {t('HEADER.PERFORMERS')}
                   </button>
                   <button
                     onClick={() => navigate('/members/performer')}
