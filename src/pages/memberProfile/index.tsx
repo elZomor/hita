@@ -32,7 +32,7 @@ export function MemberProfilePage() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-5xl mx-auto px-2 sm:px-3 lg:px-8 py-8">
       {member === undefined ? (
         <LoadingComponent />
       ) : (
@@ -78,9 +78,16 @@ export function MemberProfilePage() {
           </div>
 
           {/* Details Section */}
-          <div className="px-6 py-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="px-3 py-6 space-y-6">
+            <div className="grid grid-cols-1 gap-6">
               <div className="space-y-4">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <School className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">
+                    {t('MEMBER_REGISTRATION.FACULTY')}:
+                  </span>{' '}
+                  {t(`FACULTIES.${member.faculty}`)}
+                </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <School className="h-5 w-5 text-gray-400" />
                   <span className="font-medium">

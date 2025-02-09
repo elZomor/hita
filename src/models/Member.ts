@@ -23,6 +23,7 @@ export interface MemberFormData {
   grade?: number;
   studyType: string;
   isPostGrad: boolean;
+  faculty: string;
 }
 
 export interface MemberViewOne {
@@ -39,6 +40,7 @@ export interface MemberViewOne {
   gender: 'M' | 'F' | '';
   status: StatusConfig;
   hasPerformer: boolean;
+  faculty: string;
 }
 
 interface StatusConfig {
@@ -83,6 +85,7 @@ export const mapMemberViewOneResponseToMemberViewOne = (
     fullName: data['full_name'],
     nickName: data['nick_name'],
     department: data['department'],
+    faculty: data['faculty'],
     isGraduated: data['is_graduated'],
     isPostGrad: data['is_post_grad'],
     grade: data['grade']
@@ -112,6 +115,7 @@ export const mapMemberFormDataToRequest = (
     is_post_grad: data.isPostGrad,
     year_of_graduation: data.graduationYear,
     gender: data.gender,
+    faculty: data.faculty,
     invitation_code: invitationCode,
   };
 };

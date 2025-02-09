@@ -60,11 +60,23 @@
   "SAVE": "Save",
   "CANCEL": "Cancel",
   "VIEW_IMAGE": "View Image",
+  "FACULTIES": {
+    "CINEMA_INST": "Higher Institute of Cinema",
+    "THEATER_INST": "Higher Institute of Theatrical Arts"
+  },
   "DEPARTMENTS": {
     "ACTING_DEP": "Acting and Theatrical Directing Department",
     "DRAMA_DEP": "Drama and Theatrical Criticism Department",
     "DECOR_DEP": "Theatrical Decor Department",
-    "TECH_DEP": "Theatrical Techniques Department"
+    "TECH_DEP": "Theatrical Techniques Department",
+    "SCREENWRITING_DEP": "Screen Writing",
+    "CINEMATOGRAPHY_DEP": "Cinematography",
+    "DIRECTING_DEP": "Directing",
+    "ANIMATION_DEP": "Animation",
+    "EDITING_DEP": "Editing",
+    "PRODUCTION_DEP": "Production",
+    "SOUND_ENGINEERING_DEP": "Sound Engineering",
+    "SET_DESIGN_DEP": "Set Design"
   },
   "SKILLS": {
     "ACTOR": "Actor",
@@ -124,6 +136,7 @@
     "STUDY_TYPE": "Study Type",
     "LOCATION": "Location",
     "LOADING": "Loading...",
+    "SUBMITTING": "Submitting...",
     "APP_NAME": "Actogram",
     "SLOGAN": "Acotrs! On stage...",
     "APP_DESCRIPTION": "Connect with talented actors, discover new opportunities, and bring your creative vision to life.",
@@ -191,7 +204,8 @@
     "RESET_TITLE": "Reset Form",
     "RESET_CONFIRM": "Yes, Reset",
     "RESET_CANCEL": "No, Continue",
-    "GRAD_OR_GRADE_REQ": "You must set graduation year or grade"
+    "GRAD_OR_GRADE_REQ": "You must set graduation year or grade",
+    "FACULTY": "Institute"
   },
   "LOGIN_PAGE": {
     "WELCOME_BACK": "Welcome",
@@ -434,7 +448,8 @@
     "DEPARTMENT": "Department",
     "SKILL": "Skill",
     "SEARCH_PLACEHOLDER": "Search by name or username",
-    "SHOW_BIO": "Show full bio"
+    "SHOW_BIO": "Show full bio",
+    "FACULTIES": "Institutes"
   },
   "ABOUT_US": {
     "ABOUT_US": "About Us",

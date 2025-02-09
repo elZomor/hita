@@ -9,7 +9,7 @@ type FilterProps = {
   updateFilter: (filtersList: Record<string, string[]>) => void;
   initialFilters: Record<string, string[]>;
   skills: string[];
-  departments: string[];
+  faculties: string[];
   nameFilter: string;
   resetPageNumber: () => void;
 };
@@ -18,7 +18,7 @@ export function Filters({
   updateFilter,
   initialFilters,
   skills,
-  departments,
+  faculties,
   nameFilter,
   resetPageNumber,
 }: FilterProps) {
@@ -286,26 +286,22 @@ export function Filters({
 
         <div>
           <h4 className="mb-3 text-sm font-medium text-gray-900">
-            {t('PERFORMER_HOME.DEPARTMENT')}
+            {t('PERFORMER_HOME.FACULTIES')}
           </h4>
           <div className="space-y-2">
-            {departments.map((department) => (
-              <label key={department} className="flex items-center">
+            {faculties.map((fac) => (
+              <label key={fac} className="flex items-center">
                 <input
                   type="checkbox"
                   className="text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                  checked={filters['department']?.includes(department)}
+                  checked={filters['faculty']?.includes(fac)}
                   onChange={(e) => {
-                    handleCheckBoxFilter(
-                      e.target.checked,
-                      department,
-                      'department'
-                    );
+                    handleCheckBoxFilter(e.target.checked, fac, 'faculty');
                     resetPageNumber();
                   }}
                 />
                 <span className="mx-2 text-sm text-gray-600">
-                  {t('DEPARTMENTS.' + department)}
+                  {t('FACULTIES.' + fac)}
                 </span>
               </label>
             ))}

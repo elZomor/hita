@@ -33,7 +33,8 @@ function objectToFormattedString(items: Record<string, any>): string {
 }
 
 export function MemberRegistration() {
-  const [departments, setDepartments] = useState<Department[]>([]);
+  const [departments, setdepartments] = useState<Department[]>([]);
+  const [faculties, setFaculties] = useState<Department[]>([]);
   const [studyTypes, setStudyTypes] = useState<StudyType[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
@@ -64,6 +65,7 @@ export function MemberRegistration() {
       gender: z.enum(['M', 'F', '']).refine((val) => val !== '', {
         message: t('MEMBER_REGISTRATION.GENDER_REQ'),
       }),
+      faculty: z.string().min(1, t('MEMBER_REGISTRATION.FACULTY_REQ')),
       department: z.string().min(1, t('MEMBER_REGISTRATION.DEP_REQ')),
       isGraduated: z.boolean(),
       isPostGrad: z.boolean(),
@@ -97,6 +99,7 @@ export function MemberRegistration() {
       lastName: '',
       nickName: '',
       gender: '',
+      faculty: '',
       department: '',
       isGraduated: false,
       studyType: '',
@@ -107,24 +110,51 @@ export function MemberRegistration() {
   const isGraduated = watch('isGraduated');
   const navigate = useNavigate();
   const { trackEvent } = useAmplitude();
+  const faculty = watch('faculty');
+
   useEffect(() => {
+    async function fetchFaculties() {
+      try {
+        const { data } = await get_request(`hita/faculties`);
+        const faculties: Department[] = data.data.map(
+          (faculty: string, index: number) => ({
+            id: index,
+            name: faculty,
+          })
+        );
+        setFaculties(faculties);
+      } catch {
+        // No Implementation
+      }
+    }
+
+    fetchFaculties();
+  }, []);
+
+  useEffect(() => {
+    if (faculty === '') {
+      return;
+    }
+
     async function fetchDepartments() {
       try {
-        const { data } = await get_request(`hita/departments`);
+        const { data } = await get_request(
+          `hita/departments?faculty=${faculty}`
+        );
         const departments: Department[] = data.data.map(
           (department: string, index: number) => ({
             id: index,
             name: department,
           })
         );
-        setDepartments(departments);
+        setdepartments(departments);
       } catch {
         // No Implementation
       }
     }
 
     fetchDepartments();
-  }, []);
+  }, [faculty]);
 
   useEffect(() => {
     async function fetchStudyTypes() {
@@ -342,6 +372,27 @@ export function MemberRegistration() {
                 <div className="grid grid-cols-12 gap-6">
                   <div className="col-span-8">
                     <SelectField
+                      label={t('MEMBER_REGISTRATION.FACULTY')}
+                      error={errors.faculty?.message}
+                      required
+                    >
+                      <select
+                        {...register('faculty')}
+                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm transition-colors focus:border-purple-500 focus:ring-purple-500 h-12 px-4"
+                      >
+                        <option value="">
+                          --{t('MEMBER_REGISTRATION.CHOOSE')}--
+                        </option>
+                        {faculties.map((fac) => (
+                          <option key={fac.id} value={fac.name}>
+                            {t('FACULTIES.' + fac.name)}
+                          </option>
+                        ))}
+                      </select>
+                    </SelectField>
+                  </div>
+                  <div className="col-span-8">
+                    <SelectField
                       label={t('MEMBER_REGISTRATION.DEPARTMENT')}
                       error={errors.department?.message}
                       required
@@ -479,7 +530,7 @@ export function MemberRegistration() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Submitting...
+                  {t('GEN.SUBMITTING')}
                 </span>
               ) : (
                 t('MEMBER_REGISTRATION.CONFIRM')
