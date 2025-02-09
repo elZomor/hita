@@ -29,21 +29,23 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { t } = useTranslation();
   const { setMemberData } = useMember();
 
+  const ALL_ALLOWED_SET: Set<MemberStatus> = new Set([
+    'ANONYMOUS',
+    'NOT_REGISTERED',
+    'NOT_CONFIRMED',
+    'PENDING',
+    'APPROVED',
+    'PERFORMER',
+  ]);
+
   const PATHS_MAP: Record<string, Set<MemberStatus>> = {
     '/login': new Set(['ANONYMOUS']),
-    '/artists/*': new Set(['APPROVED', 'PERFORMER']),
+    '/artists/*': ALL_ALLOWED_SET,
     '/artists/registration': new Set(['APPROVED']),
     '/members/profile': new Set(['PENDING', 'APPROVED', 'PERFORMER']),
     '/members/registration': new Set(['NOT_REGISTERED']),
     '/members/performer': new Set(['APPROVED', 'PERFORMER']),
-    '/landing': new Set([
-      'ANONYMOUS',
-      'NOT_REGISTERED',
-      'NOT_CONFIRMED',
-      'PENDING',
-      'APPROVED',
-      'PERFORMER',
-    ]),
+    '/landing': ALL_ALLOWED_SET,
   };
 
   const checkPaths = (path: string, memberStatus: MemberStatus) => {
