@@ -16,6 +16,7 @@ import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { patch_request } from '../../../utils/restUtils.ts';
 import { format } from 'date-fns';
 import { useAmplitude } from '../../../hooks/useAmplitude.tsx';
+import { baseUrl } from '../../../constants.ts';
 
 type PerformerDetailsSectionProps = {
   performer: Performer;
@@ -84,7 +85,7 @@ export default function PerformerDetailsSection({
     }
   }, [isEditMode]);
   const handleCopyPath = () => {
-    const currentPath = window.location.origin + location.pathname;
+    const currentPath = `${baseUrl}/hita/performers/${username}/profile-meta`;
     navigator.clipboard.writeText(currentPath).then(() => {
       trackEvent('performer_profile_personal_info_copy_profile');
       setSnackbar({
