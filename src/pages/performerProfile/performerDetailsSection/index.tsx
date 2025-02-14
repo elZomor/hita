@@ -10,7 +10,6 @@ import { EditButton } from '../../../components/shared/EditButton.tsx';
 import { ImageModal } from '../../../components/shared/imageModal';
 import { MdMoneyOffCsred, MdOutlineAttachMoney } from 'react-icons/md';
 import { FaRegCopy } from 'react-icons/fa6';
-import { useLocation } from 'react-router-dom';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { patch_request } from '../../../utils/restUtils.ts';
@@ -34,7 +33,6 @@ export default function PerformerDetailsSection({
   refreshPerformerPage,
 }: PerformerDetailsSectionProps) {
   const { t, i18n } = useTranslation();
-  const location = useLocation();
   const { isEditMode, setEditMode } = useEditMode();
   const performer = initialPerformer;
   const [showImageModal, setShowImageModal] = useState(false);
