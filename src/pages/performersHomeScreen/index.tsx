@@ -31,7 +31,7 @@ const PerformerHome: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, string[]>>({});
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const { t } = useTranslation();
-  const [departments, setDepartments] = useState<string[]>([]);
+  const [faculties, setFaculties] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const { trackEvent } = useAmplitude();
@@ -45,12 +45,12 @@ const PerformerHome: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    async function fetchDepartments() {
-      const { data } = await get_request(`hita/departments`);
-      setDepartments(data.data);
+    async function fetchFaculties() {
+      const { data } = await get_request(`hita/faculties`);
+      setFaculties(data.data);
     }
 
-    fetchDepartments();
+    fetchFaculties();
   }, []);
 
   const buildQueryParams = () => {
@@ -187,7 +187,7 @@ const PerformerHome: React.FC = () => {
                 updateFilter={setFilters}
                 initialFilters={filters}
                 skills={skills}
-                departments={departments}
+                faculties={faculties}
                 nameFilter={debouncedText}
                 key={refreshKey}
                 resetPageNumber={resetPageNumber}
@@ -238,7 +238,7 @@ const PerformerHome: React.FC = () => {
                       updateFilter={setFilters}
                       initialFilters={filters}
                       skills={skills}
-                      departments={departments}
+                      faculties={faculties}
                       nameFilter={debouncedText}
                       key={refreshKey}
                       resetPageNumber={resetPageNumber}
