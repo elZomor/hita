@@ -15,7 +15,7 @@ jobs:
           node-version: 22.8.0
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
