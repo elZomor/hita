@@ -233,7 +233,6 @@ export default function PerformerDetailsSection({
               <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                 <GraduationCap className="h-4 w-4 flex-shrink-0" />
                 <span className="break-words">
-
                   {getGradeOrGraduationYear(performer)}
                 </span>
               </div>
