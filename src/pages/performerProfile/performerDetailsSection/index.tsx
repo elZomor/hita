@@ -124,13 +124,12 @@ export default function PerformerDetailsSection({
   const getGradeOrGraduationYear = ({
     grade,
     graduationYear,
-    studyType,
     isPostGrad,
   }: Performer) => {
     const gradeYear = graduationYear
       ? `${t('GRADUATED_IN')}: ${graduationYear}`
       : t(`GRADE_${grade}`);
-    return `${gradeYear} ${isPostGrad ? ' - ' + t('GEN.POST_GRAD') : ''} (${t(studyType)})`;
+    return `${gradeYear} ${isPostGrad ? ' - ' + t('GEN.POST_GRAD') : ''}`;
   };
 
   const handleEdit = () => {
@@ -234,7 +233,6 @@ export default function PerformerDetailsSection({
               <div className="flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                 <GraduationCap className="h-4 w-4 flex-shrink-0" />
                 <span className="break-words">
-                  {t('DEPARTMENTS.' + performer.department)} -{' '}
                   {getGradeOrGraduationYear(performer)}
                 </span>
               </div>
