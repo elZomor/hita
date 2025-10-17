@@ -1,4 +1,4 @@
-import { Banknote, Eye, GraduationCap } from 'lucide-react';
+import { Banknote, Eye } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import { Performer } from '../../models/Performer.ts';
@@ -135,12 +135,6 @@ export function ActorCard({ actor }: ActorCardProps) {
                 <span className="break-words">
                   <span className="font-bold">{actor.total_experiences}</span>{' '}
                   {t('PERFORMER_HOME.SHOWS')}
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 text-sm text-gray-500 my-1">
-                <GraduationCap className="flex-shrink-0 w-4 h-4 " />
-                <span className="break-words">
-                  {t('DEPARTMENTS.' + actor.department)}
                 </span>
               </div>
             </div>
