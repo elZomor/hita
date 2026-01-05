@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { Experience } from '../../../models/Performer.ts';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
 import { DropDownOptions } from '../../../models/shared.ts';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { get_request } from '../../../utils/restUtils.ts';
 
 interface ExperienceFormProps {
@@ -131,9 +131,25 @@ export function ExperienceForm({
     return null;
   };
 
+  const filteredServerErrors = useMemo(() => {
+    if (!serverErrors) {
+      return null;
+    }
+    const updatedErrors: Record<string, string[]> = { ...serverErrors };
+    if (selectedShowType !== 'THEATER') {
+      delete updatedErrors.venue;
+      delete updatedErrors.duration;
+      delete updatedErrors.festival_name;
+    }
+    if (selectedShowType !== 'TV' && selectedShowType !== 'MOVIE') {
+      delete updatedErrors.producer;
+    }
+    return Object.keys(updatedErrors).length ? updatedErrors : null;
+  }, [serverErrors, selectedShowType]);
+
   const getServerError = (key: string) => {
-    if (!serverErrors) return undefined;
-    return serverErrors[key]?.join(' ');
+    if (!filteredServerErrors) return undefined;
+    return filteredServerErrors[key]?.join(' ');
   };
 
   const translateError = (error?: string) => {
