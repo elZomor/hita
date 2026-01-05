@@ -13,12 +13,14 @@ interface ExperienceFormProps {
   experience: Experience;
   onSave: (experience: Experience) => void;
   onCancel: () => void;
+  serverErrors?: Record<string, string[]> | null;
 }
 
 export function ExperienceForm({
   experience,
   onSave,
   onCancel,
+  serverErrors,
 }: ExperienceFormProps) {
   const { t } = useTranslation();
   const {
@@ -111,6 +113,12 @@ export function ExperienceForm({
       );
     }
     return null;
+  };
+
+  const getServerError = (key: keyof typeof serverErrors | string) => {
+    if (!serverErrors) return undefined;
+    const errorEntry = (serverErrors as Record<string, string[]>)[key];
+    return errorEntry?.join(' ');
   };
 
   const TheaterInfo = (showType: string) => (
@@ -271,7 +279,7 @@ export function ExperienceForm({
         </div>
         <FormField
           label={addTranslationPrefix('ROLE_NAME')}
-          error={errors.roleName?.message}
+          error={errors.roleName?.message || getServerError('role_name')}
           required={false}
         >
           <input
@@ -282,7 +290,7 @@ export function ExperienceForm({
         </FormField>
         <FormField
           label={addTranslationPrefix('ROLE_BRIEF')}
-          error={errors.brief?.message}
+          error={errors.brief?.message || getServerError('role_brief')}
           required={false}
         >
           <input

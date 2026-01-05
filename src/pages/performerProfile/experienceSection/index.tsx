@@ -5,6 +5,7 @@ import {
 } from '../../../models/Performer.ts';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 import { AddButton } from '../../../components/shared/AddButton.tsx';
 import { ExperienceCard } from './ExperienceCard.tsx';
 import { ExperienceForm } from './ExperienceForm.tsx';
@@ -44,6 +45,7 @@ export default function ExperienceSection({
     message: '',
     type: 'success',
   });
+  const [serverErrors, setServerErrors] = useState<Record<string, string[]> | null>(null);
 
   const handleAdd = () => {
     const newExperience: Experience = {
@@ -63,11 +65,13 @@ export default function ExperienceSection({
     setIsAdding(true);
     setExperiences([newExperience, ...experiences]);
     setEditingIndex(0);
+    setServerErrors(null);
   };
 
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setCurrentExperience(experiences[index]);
+    setServerErrors(null);
   };
   const mapFormDataToRequest = (
     formData: Record<string, any>
@@ -104,8 +108,23 @@ export default function ExperienceSection({
       setEditingIndex(null);
       setCurrentExperience(null);
       setIsAdding(false);
-    } catch {
-      // No Implementation
+      setServerErrors(null);
+    } catch (error) {
+      const axiosError = error as AxiosError<{
+        data?: Record<string, string[]>;
+        message?: string;
+      }>;
+      const responseData = axiosError.response?.data;
+      if (responseData?.data) {
+        setServerErrors(responseData.data);
+      }
+      setSnackbar({
+        open: true,
+        message:
+          responseData?.message ||
+          t('PERFORMER_PAGE.EXPERIENCE.SAVE_ERROR'),
+        type: 'error',
+      });
     }
   };
 
@@ -137,6 +156,7 @@ export default function ExperienceSection({
     setEditingIndex(null);
     setCurrentExperience(null);
     setIsAdding(false);
+    setServerErrors(null);
   };
 
   return (
@@ -162,6 +182,7 @@ export default function ExperienceSection({
                     experience={experience}
                     onSave={handleSave}
                     onCancel={handleCancel}
+                    serverErrors={serverErrors}
                   />
                 </div>
               );
