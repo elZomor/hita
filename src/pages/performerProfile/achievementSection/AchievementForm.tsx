@@ -6,6 +6,7 @@ import { achievementSchema } from '../../../types/performer-form.ts';
 import { FormField } from '../../../components/shared/forms/FormField.tsx';
 import { Achievement } from '../../../models/Performer.ts';
 import Select from 'react-select';
+import { useEffect } from 'react';
 
 interface AchievementFormProps {
   achievement: Achievement;
@@ -28,11 +29,17 @@ export function AchievementForm({
     handleSubmit,
     watch,
     setValue,
+    reset,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(achievementSchema),
     defaultValues: achievement,
   });
+  useEffect(() => {
+    reset(achievement);
+    clearErrors();
+  }, [achievement, reset, clearErrors]);
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from(
     { length: currentYear - 1980 + 1 },
