@@ -55,7 +55,10 @@ export default function ExperienceSection({
     message: '',
     type: 'success',
   });
-  const [serverErrors, setServerErrors] = useState<Record<string, string[]> | null>(null);
+  const [serverErrors, setServerErrors] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
 
   const handleAdd = () => {
     const newExperience: Experience = {

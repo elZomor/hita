@@ -187,8 +187,8 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
             </p>
             <p className="mt-2 text-xs text-gray-500">
               {addTranslationPrefix('SUPPORTED_FORMATS')}: MP4, MOV, AVI, WebM (
-              {addTranslationPrefix('MAX_SIZE')}: 200{addTranslationPrefix('MB')}
-              )
+              {addTranslationPrefix('MAX_SIZE')}: 200
+              {addTranslationPrefix('MB')})
             </p>
           </>
         )}
