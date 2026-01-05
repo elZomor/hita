@@ -14,6 +14,7 @@ interface ExperienceFormProps {
   onSave: (experience: Experience) => void;
   onCancel: () => void;
   serverErrors?: Record<string, string[]> | null;
+  onShowTypeChange?: () => void;
 }
 
 export function ExperienceForm({
@@ -21,6 +22,7 @@ export function ExperienceForm({
   onSave,
   onCancel,
   serverErrors,
+  onShowTypeChange,
 }: ExperienceFormProps) {
   const { t } = useTranslation();
   const {
@@ -29,6 +31,7 @@ export function ExperienceForm({
     watch,
     setValue,
     clearErrors,
+    resetField,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(experienceSchema),
@@ -36,6 +39,7 @@ export function ExperienceForm({
       ...experience,
       duration: experience.duration || undefined,
     },
+    shouldUnregister: true,
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
 
@@ -65,6 +69,10 @@ export function ExperienceForm({
     { value: 'RADIO', label: addTranslationPrefix('RADIO') },
     { value: 'DUBBING', label: addTranslationPrefix('DUBBING') },
   ];
+  const showTypeOptions = SHOW_TYPES.map((option) => ({
+    value: option.value,
+    label: t(option.label),
+  }));
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from(
     { length: currentYear - 1980 + 1 },
@@ -239,17 +247,25 @@ export function ExperienceForm({
           required
         >
           <Select
-            options={SHOW_TYPES.map((showType) => ({
-              label: t(showType.label),
-              value: showType.value,
-            }))}
+            options={showTypeOptions}
             className="react-select"
             classNamePrefix="react-select"
             onChange={(selected) => {
-              setValue(`showType`, selected?.value as string, {
+              const newType = selected?.value as string;
+              setValue(`showType`, newType, {
                 shouldValidate: true,
                 shouldDirty: true,
               });
+              if (newType !== 'THEATER') {
+                resetField('venue', { defaultValue: undefined });
+                resetField('duration', { defaultValue: undefined });
+                resetField('festivalName', { defaultValue: undefined });
+              }
+              if (newType !== 'TV' && newType !== 'MOVIE') {
+                resetField('producer', { defaultValue: undefined });
+              }
+              clearErrors();
+              onShowTypeChange?.();
             }}
             value={SHOW_TYPES.map((option) => {
               return watch(`showType`)?.includes(option.value as string)
