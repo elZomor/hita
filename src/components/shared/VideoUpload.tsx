@@ -116,6 +116,20 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    onDropRejected: (fileRejections) => {
+      const rejection = fileRejections[0];
+      if (rejection) {
+        const error = rejection.errors[0];
+        if (error.code === 'file-too-large') {
+          setErrorMessage(t('PERFORMER_PAGE.SHOW_REEL.FILE_TOO_LARGE'));
+        } else if (error.code === 'file-invalid-type') {
+          setErrorMessage(t('PERFORMER_PAGE.SHOW_REEL.INVALID_FILE_TYPE'));
+        } else {
+          setErrorMessage(error.message);
+        }
+        setUploadStatus('error');
+      }
+    },
     accept: ACCEPTED_VIDEO_TYPES,
     maxFiles: 1,
     maxSize: MAX_FILE_SIZE,
@@ -159,26 +173,24 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
             </p>
             <p className="mt-2 text-xs text-gray-500">
               {addTranslationPrefix('SUPPORTED_FORMATS')}: MP4, MOV, AVI, WebM (
-              {addTranslationPrefix('MAX_SIZE')}: 50{addTranslationPrefix('MB')}
+              {addTranslationPrefix('MAX_SIZE')}: 200{addTranslationPrefix('MB')}
               )
             </p>
           </>
         )}
       </div>
 
-      {selectedFile && (
+      {selectedFile && uploadStatus !== 'uploading' && (
         <div className="mt-4 flex">
           <button
             onClick={handleUpload}
             className="bg-purple-500 text-white px-4 py-2 mx-3 rounded hover:bg-purple-600"
-            disabled={uploadStatus === 'uploading'}
           >
             {t('SAVE')}
           </button>
           <button
             onClick={handleCancel}
             className="bg-gray-300 text-gray-700 px-4 py-2 mx-3 rounded hover:bg-gray-400"
-            disabled={uploadStatus === 'uploading'}
           >
             {t('CANCEL')}
           </button>

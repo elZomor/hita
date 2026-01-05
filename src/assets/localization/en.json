@@ -451,6 +451,8 @@
       "MB": "Mb",
       "UPLOADING": "Uploading...",
       "UPLOAD_SUCCESS": "Video uploaded successfully!",
+      "FILE_TOO_LARGE": "File size exceeds 200MB limit",
+      "INVALID_FILE_TYPE": "Invalid file type. Supported formats: MP4, MOV, AVI, WebM",
       "DELETE_TITLE": "Delete show-reel",
       "DELETE_FORM": "Are you sure you want to delete this show-reel?",
       "DELETE_CONFIRM": "Yes, delete",
