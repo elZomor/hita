@@ -19,6 +19,16 @@ import {
 import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
 
+const FIELD_ERROR_TRANSLATIONS: Record<string, string> = {
+  show_name: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.SHOW_NAME_MAX',
+  role_name: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLE_NAME_MAX',
+  role_brief: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLE_BRIEF_MAX',
+  director: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DIRECTOR_MAX',
+  venue: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.VENUE_MAX',
+  festival_name: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.FESTIVAL_NAME_MAX',
+  producer: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.PRODUCER_MAX',
+};
+
 interface ExperienceSectionProps {
   experiences: Experience[];
 }
@@ -116,13 +126,25 @@ export default function ExperienceSection({
       }>;
       const responseData = axiosError.response?.data;
       if (responseData?.data) {
-        setServerErrors(responseData.data);
+        const transformedErrors: Record<string, string[]> = {};
+        Object.entries(responseData.data).forEach(([field, messages]) => {
+          if (FIELD_ERROR_TRANSLATIONS[field]) {
+            transformedErrors[field] = [FIELD_ERROR_TRANSLATIONS[field]];
+          } else {
+            transformedErrors[field] = messages;
+          }
+        });
+        setServerErrors(transformedErrors);
+      } else {
+        setServerErrors(null);
       }
+      const backendMessage =
+        responseData?.message === 'Data not create successfully!'
+          ? t('PERFORMER_PAGE.EXPERIENCE.DATA_NOT_CREATED')
+          : responseData?.message;
       setSnackbar({
         open: true,
-        message:
-          responseData?.message ||
-          t('PERFORMER_PAGE.EXPERIENCE.SAVE_ERROR'),
+        message: backendMessage || t('PERFORMER_PAGE.EXPERIENCE.SAVE_ERROR'),
         type: 'error',
       });
     }

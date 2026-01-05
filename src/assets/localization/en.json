@@ -409,7 +409,17 @@
       "ROLE_NAME": "Role (Character) name",
       "BRIEF": "About the role",
       "PARTICIPATED_IN_FESTIVAL": "Participated in the following festivals",
-      "SAVE_ERROR": "Failed to save experience. Please review highlighted fields."
+      "SAVE_ERROR": "Failed to save experience. Please review highlighted fields.",
+      "DATA_NOT_CREATED": "Unable to save experience. Please try again.",
+      "ERRORS": {
+        "SHOW_NAME_MAX": "Show name must be 100 characters or fewer.",
+        "ROLE_NAME_MAX": "Role name must be 20 characters or fewer.",
+        "ROLE_BRIEF_MAX": "Role brief must be 50 characters or fewer.",
+        "DIRECTOR_MAX": "Director name must be 20 characters or fewer.",
+        "VENUE_MAX": "Venue must be 50 characters or fewer.",
+        "FESTIVAL_NAME_MAX": "Festival name must be 50 characters or fewer.",
+        "PRODUCER_MAX": "Producer must be 30 characters or fewer."
+      }
     },
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "Achievements and trophies",
@@ -418,7 +428,13 @@
       "DELETE_TITLE": "Delete achievement",
       "DELETE_FORM": "Are you sure you want to delete this achievement?",
       "DELETE_CONFIRM": "Yes, delete",
-      "DELETE_CANCEL": "No, cancel"
+      "DELETE_CANCEL": "No, cancel",
+      "ERRORS": {
+        "RANK_MAX": "Rank must be 50 characters or fewer.",
+        "FIELD_MAX": "Field must be 50 characters or fewer.",
+        "SHOW_NAME_MAX": "Show name must be 50 characters or fewer.",
+        "FESTIVAL_NAME_MAX": "Festival name must be 50 characters or fewer."
+      }
     },
     "PUBLIC_LINKS": {
       "PUBLIC_LINKS": "Public Channels",

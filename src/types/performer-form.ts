@@ -137,17 +137,43 @@ export const personalInfoSchema = z.object({
 
 export const experienceSchema = z
   .object({
-    showName: z.string().min(1, 'Show name is required'),
-    director: z.string().min(1, 'Director is required'),
-    venue: z.string().nullable().optional(),
-    producer: z.string().nullable().optional(),
-    roleName: z.string().nullable().optional(),
-    brief: z.string().nullable().optional(),
+    showName: z
+      .string()
+      .min(1, 'Show name is required')
+      .max(100, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.SHOW_NAME_MAX'),
+    director: z
+      .string()
+      .min(1, 'Director is required')
+      .max(20, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DIRECTOR_MAX'),
+    venue: z
+      .string()
+      .max(50, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.VENUE_MAX')
+      .nullable()
+      .optional(),
+    producer: z
+      .string()
+      .max(30, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.PRODUCER_MAX')
+      .nullable()
+      .optional(),
+    roleName: z
+      .string()
+      .max(20, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLE_NAME_MAX')
+      .nullable()
+      .optional(),
+    brief: z
+      .string()
+      .max(50, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLE_BRIEF_MAX')
+      .nullable()
+      .optional(),
     showType: z.string().min(1, 'Show type is required'),
     roles: z.array(z.string()).min(1, 'At least one role is required'),
     year: z.number().min(1900).max(new Date().getFullYear()),
     duration: z.number().nullable().optional(),
-    festivalName: z.string().nullable().optional(),
+    festivalName: z
+      .string()
+      .max(50, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.FESTIVAL_NAME_MAX')
+      .nullable()
+      .optional(),
   })
   .superRefine((data, ctx) => {
     if (data.showType === 'THEATER') {
@@ -185,10 +211,22 @@ export const experienceSchema = z
   });
 
 export const achievementSchema = z.object({
-  rank: z.string().min(1, 'Rank is required'),
-  field: z.string().min(1, 'Field is required'),
-  showName: z.string().min(1, 'Show name is required'),
-  festivalName: z.string().min(1, 'Festival name is required'),
+  rank: z
+    .string()
+    .min(1, 'Rank is required')
+    .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.RANK_MAX'),
+  field: z
+    .string()
+    .min(1, 'Field is required')
+    .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FIELD_MAX'),
+  showName: z
+    .string()
+    .min(1, 'Show name is required')
+    .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.SHOW_NAME_MAX'),
+  festivalName: z
+    .string()
+    .min(1, 'Festival name is required')
+    .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FESTIVAL_NAME_MAX'),
   year: z.number().min(1900).max(new Date().getFullYear()),
 });
 
