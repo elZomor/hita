@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { get_blob_video } from '../utils/restUtils.ts';
+
+// Cloudflare Worker URL for media streaming
+const CF_WORKER_URL = import.meta.env.VITE_CF_WORKER_URL || '';
 
 interface VideoStreamState {
   loading: boolean;
@@ -7,7 +9,7 @@ interface VideoStreamState {
   videoUrl: string | null;
 }
 
-export const useVideoStream = (videoId: string) => {
+export const useVideoStream = (fileKey: string) => {
   const [state, setState] = useState<VideoStreamState>({
     loading: true,
     error: null,
@@ -15,26 +17,32 @@ export const useVideoStream = (videoId: string) => {
   });
 
   useEffect(() => {
-    const fetchVideo = async () => {
-      try {
-        const { data } = await get_blob_video(videoId);
-        setState({
-          loading: false,
-          error: null,
-          videoUrl: URL.createObjectURL(data),
-        });
-      } catch (error) {
-        setState({
-          loading: false,
-          error:
-            error instanceof Error ? error.message : 'Failed to load video',
-          videoUrl: null,
-        });
-      }
-    };
+    if (!fileKey) {
+      setState({
+        loading: false,
+        error: 'No video file specified',
+        videoUrl: null,
+      });
+      return;
+    }
 
-    fetchVideo();
-  }, [videoId]);
+    // Use Cloudflare Worker for streaming with Range request support
+    if (CF_WORKER_URL) {
+      setState({
+        loading: false,
+        error: null,
+        videoUrl: `${CF_WORKER_URL}/${fileKey}`,
+      });
+    } else {
+      // Fallback to direct S3 URL if CF Worker not configured
+      // This should be replaced with the actual S3 bucket URL
+      setState({
+        loading: false,
+        error: null,
+        videoUrl: fileKey,
+      });
+    }
+  }, [fileKey]);
 
   return state;
 };

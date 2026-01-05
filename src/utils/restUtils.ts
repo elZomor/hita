@@ -122,6 +122,18 @@ export const uploadShowReel = async (
   });
 };
 
+// New presigned URL functions for direct S3 upload
+export const getPresignedUploadUrl = async (params: {
+  content_type: string;
+  file_extension: string;
+}) => {
+  return apiClient.post('hita/show-reel/presigned-url', params);
+};
+
+export const confirmShowReelUpload = async (params: { file_key: string }) => {
+  return apiClient.post('hita/show-reel/confirm-upload', params);
+};
+
 export const getUserId = () => {
   try {
     return jwtDecode<Record<string, any>>(getAccessToken()!)['user_id'];

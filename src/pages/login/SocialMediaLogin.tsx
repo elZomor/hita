@@ -35,13 +35,13 @@ const SocialMediaLogin = ({
       }
       setSnackbar({
         open: true,
-        message: 'Successfully logged in with Google!',
+        message: t('SUCCESS.GOOGLE_LOGIN_SUCCESS'),
         type: 'success',
       });
     } catch {
       setSnackbar({
         open: true,
-        message: 'Failed to login with Google. Please try again.',
+        message: t('ERRORS.GOOGLE_LOGIN_FAILED'),
         type: 'error',
       });
     } finally {
@@ -52,7 +52,7 @@ const SocialMediaLogin = ({
   const onErrorHandler = () => {
     setSnackbar({
       open: true,
-      message: 'Failed to login with Google. Please try again.',
+      message: t('ERRORS.GOOGLE_LOGIN_FAILED'),
       type: 'error',
     });
     setIsLoading(false);

@@ -86,6 +86,7 @@ export interface SinglePerformer {
   galleryObject: GalleryObject;
   publicLinks: PublicLink[];
   hasShowReel: boolean;
+  showReelFileKey: string | null;
 }
 
 export interface PerformerResponse {
@@ -120,6 +121,7 @@ export interface SinglePerformerResponse {
   gallery: Gallery[];
   public_channels: PublicLink[];
   has_show_reel: boolean;
+  show_reel_file_key: string | null;
 }
 
 export const mapPerformerResponseToPerformer = (
@@ -230,6 +232,7 @@ export const mapSinglePerformerResponseToSinglePerformer = (
     },
     publicLinks: mapPublicLinksResponseToPublicLinks(response.public_channels),
     hasShowReel: response.has_show_reel,
+    showReelFileKey: response.show_reel_file_key,
   };
 };
 

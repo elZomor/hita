@@ -59,14 +59,14 @@ const Login = ({
       navigate('/landing');
       setSnackbar({
         open: true,
-        message: 'Successfully logged in!',
+        message: t('SUCCESS.LOGIN_SUCCESS'),
         type: 'success',
       });
     } catch (error) {
       console.log(error);
       setSnackbar({
         open: true,
-        message: 'Failed to login. Please try again.',
+        message: t('ERRORS.LOGIN_FAILED'),
         type: 'error',
       });
     } finally {

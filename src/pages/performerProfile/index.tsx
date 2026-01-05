@@ -202,6 +202,7 @@ const PerformerProfile: React.FC = () => {
               <ShowReelSection
                 username={username!}
                 hasShowReel={performer.hasShowReel!}
+                showReelFileKey={performer.showReelFileKey}
               />
             </div>
 

@@ -132,7 +132,7 @@ const Signup = ({
       console.log(status);
       setSnackbar({
         open: true,
-        message: 'Successfully logged in!',
+        message: t('SUCCESS.LOGIN_SUCCESS'),
         type: 'success',
       });
     } catch (error) {
@@ -149,7 +149,7 @@ const Signup = ({
       } else {
         setSnackbar({
           open: true,
-          message: 'Failed to login. Please try again.',
+          message: t('ERRORS.LOGIN_FAILED'),
           type: 'error',
         });
       }

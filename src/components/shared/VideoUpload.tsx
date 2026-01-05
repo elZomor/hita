@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AlertCircle, CheckCircle, File, Upload, X } from 'lucide-react';
-import { uploadShowReel } from '../../utils/restUtils.ts';
+import {
+  getPresignedUploadUrl,
+  confirmShowReelUpload,
+} from '../../utils/restUtils.ts';
 import { useTranslation } from 'react-i18next';
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_FILE_SIZE = 200 * 1024 * 1024; // 200MB (increased for direct S3 upload)
 const ACCEPTED_VIDEO_TYPES = {
   'video/mp4': ['.mp4'],
   'video/quicktime': ['.mov'],
@@ -13,7 +16,7 @@ const ACCEPTED_VIDEO_TYPES = {
 };
 
 type VideoUploadProps = {
-  handleSavedSuccessfully?: () => void;
+  handleSavedSuccessfully?: (fileKey: string) => void;
 };
 
 export const VideoUpload: React.FC<VideoUploadProps> = ({
@@ -33,7 +36,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE) {
-      setErrorMessage('File size exceeds 50MB limit');
+      setErrorMessage('File size exceeds 200MB limit');
       setUploadStatus('error');
       return;
     }
@@ -49,10 +52,54 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     try {
       setUploadStatus('uploading');
       setUploadProgress(0);
-      await uploadShowReel(selectedFile, setUploadProgress);
+
+      // Get file extension from name
+      const fileExtension = selectedFile.name.split('.').pop() || 'mp4';
+
+      // Step 1: Get presigned URL from backend
+      setUploadProgress(5);
+      const { data: presignedData } = await getPresignedUploadUrl({
+        content_type: selectedFile.type,
+        file_extension: fileExtension,
+      });
+
+      const { upload_url, file_key } = presignedData.data;
+
+      // Step 2: Upload directly to S3
+      setUploadProgress(10);
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', upload_url, true);
+        xhr.setRequestHeader('Content-Type', selectedFile.type);
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            // Progress from 10% to 90%
+            const percent = Math.round((event.loaded / event.total) * 80) + 10;
+            setUploadProgress(percent);
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            resolve();
+          } else {
+            reject(new Error(`Upload failed with status ${xhr.status}`));
+          }
+        };
+
+        xhr.onerror = () => reject(new Error('Upload failed'));
+        xhr.send(selectedFile);
+      });
+
+      // Step 3: Confirm upload with backend
+      setUploadProgress(95);
+      await confirmShowReelUpload({ file_key });
+
+      setUploadProgress(100);
       setUploadStatus('success');
       if (handleSavedSuccessfully) {
-        handleSavedSuccessfully();
+        handleSavedSuccessfully(file_key);
       }
     } catch {
       setUploadStatus('error');
