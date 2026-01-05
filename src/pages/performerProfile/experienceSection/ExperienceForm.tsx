@@ -80,7 +80,7 @@ export function ExperienceForm({
           {TheaterInfo(showType)}
           <FormField
             label={addTranslationPrefix('FESTIVAL_NAME')}
-            error={errors.festivalName?.message}
+            error={getFieldError(errors.festivalName?.message, 'festival_name')}
             required={true}
           >
             <input
@@ -99,7 +99,10 @@ export function ExperienceForm({
           {showType === 'MOVIE' && (
             <FormField
               label={addTranslationPrefix('FESTIVAL_NAME')}
-              error={errors.festivalName?.message}
+              error={getFieldError(
+                errors.festivalName?.message,
+                'festival_name'
+              )}
               required={false}
             >
               <input
@@ -115,17 +118,32 @@ export function ExperienceForm({
     return null;
   };
 
-  const getServerError = (key: keyof typeof serverErrors | string) => {
+  const getServerError = (key: string) => {
     if (!serverErrors) return undefined;
-    const errorEntry = (serverErrors as Record<string, string[]>)[key];
-    return errorEntry?.join(' ');
+    return serverErrors[key]?.join(' ');
+  };
+
+  const translateError = (error?: string) => {
+    if (!error) return undefined;
+    return error.startsWith('PERFORMER_PAGE.') ? t(error) : error;
+  };
+
+  const getFieldError = (formError?: string, serverKey?: string) => {
+    const translatedFormError = translateError(formError);
+    if (translatedFormError) {
+      return translatedFormError;
+    }
+    if (!serverKey) {
+      return undefined;
+    }
+    return translateError(getServerError(serverKey));
   };
 
   const TheaterInfo = (showType: string) => (
     <>
       <FormField
         label={addTranslationPrefix('VENUE')}
-        error={errors.venue?.message}
+        error={getFieldError(errors.venue?.message, 'venue')}
         required={showType === 'THEATER'}
       >
         <input
@@ -156,7 +174,7 @@ export function ExperienceForm({
     <>
       <FormField
         label={addTranslationPrefix('PRODUCER')}
-        error={errors.producer?.message}
+        error={getFieldError(errors.producer?.message, 'producer')}
         required={showType === 'TV' || showType === 'MOVIE'}
       >
         <input
@@ -176,7 +194,7 @@ export function ExperienceForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label={addTranslationPrefix('SHOW_NAME')}
-          error={errors.showName?.message}
+          error={getFieldError(errors.showName?.message, 'show_name')}
           required
         >
           <input
@@ -212,7 +230,7 @@ export function ExperienceForm({
 
         <FormField
           label={addTranslationPrefix('DIRECTOR')}
-          error={errors.director?.message}
+          error={getFieldError(errors.director?.message, 'director')}
           required
         >
           <input
@@ -279,7 +297,7 @@ export function ExperienceForm({
         </div>
         <FormField
           label={addTranslationPrefix('ROLE_NAME')}
-          error={errors.roleName?.message || getServerError('role_name')}
+          error={getFieldError(errors.roleName?.message, 'role_name')}
           required={false}
         >
           <input
@@ -290,7 +308,7 @@ export function ExperienceForm({
         </FormField>
         <FormField
           label={addTranslationPrefix('ROLE_BRIEF')}
-          error={errors.brief?.message || getServerError('role_brief')}
+          error={getFieldError(errors.brief?.message, 'role_brief')}
           required={false}
         >
           <input

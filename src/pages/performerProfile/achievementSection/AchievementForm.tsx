@@ -19,6 +19,10 @@ export function AchievementForm({
   onCancel,
 }: AchievementFormProps) {
   const { t } = useTranslation();
+  const translateError = (error?: string) => {
+    if (!error) return undefined;
+    return error.startsWith('PERFORMER_PAGE.') ? t(error) : error;
+  };
   const {
     register,
     handleSubmit,
@@ -49,7 +53,7 @@ export function AchievementForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label={addTranslationPrefix('RANK')}
-          error={errors.rank?.message}
+          error={translateError(errors.rank?.message)}
           required
         >
           <input
@@ -64,7 +68,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('FIELD')}
-          error={errors.field?.message}
+          error={translateError(errors.field?.message)}
           required
         >
           <input
@@ -79,7 +83,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('SHOW_NAME')}
-          error={errors.showName?.message}
+          error={translateError(errors.showName?.message)}
           required
         >
           <input
@@ -94,7 +98,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('FESTIVAL_NAME')}
-          error={errors.festivalName?.message}
+          error={translateError(errors.festivalName?.message)}
           required
         >
           <input
