@@ -28,6 +28,7 @@ export function ExperienceForm({
     handleSubmit,
     watch,
     setValue,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(experienceSchema),
@@ -73,7 +74,19 @@ export function ExperienceForm({
     })
   );
 
-  const getConditionalFields = (showType: string) => {
+  const selectedShowType = watch('showType');
+
+  useEffect(() => {
+    if (!selectedShowType) return;
+    if (selectedShowType !== 'THEATER') {
+      clearErrors(['venue', 'duration', 'festivalName']);
+    }
+    if (selectedShowType !== 'TV' && selectedShowType !== 'MOVIE') {
+      clearErrors('producer');
+    }
+  }, [selectedShowType, clearErrors]);
+
+  const getConditionalFields = (showType?: string) => {
     if (showType === 'THEATER') {
       return (
         <>
@@ -217,7 +230,10 @@ export function ExperienceForm({
             className="react-select"
             classNamePrefix="react-select"
             onChange={(selected) => {
-              setValue(`showType`, selected?.value as string);
+              setValue(`showType`, selected?.value as string, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
             }}
             value={SHOW_TYPES.map((option) => {
               return watch(`showType`)?.includes(option.value as string)
@@ -317,7 +333,7 @@ export function ExperienceForm({
             className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
         </FormField>
-        {getConditionalFields(watch(`showType`))}
+        {getConditionalFields(selectedShowType)}
       </div>
 
       <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
