@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AlertCircle, CheckCircle, File, Upload, X } from 'lucide-react';
 import {
@@ -28,6 +28,8 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     'idle' | 'uploading' | 'success' | 'error'
   >('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const uploadRequestRef = useRef<XMLHttpRequest | null>(null);
+  const uploadCancelledRef = useRef(false);
   const { t } = useTranslation();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -36,7 +38,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE) {
-      setErrorMessage('File size exceeds 200MB limit');
+      setErrorMessage(t('PERFORMER_PAGE.SHOW_REEL.FILE_TOO_LARGE'));
       setUploadStatus('error');
       return;
     }
@@ -52,6 +54,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     try {
       setUploadStatus('uploading');
       setUploadProgress(0);
+      uploadCancelledRef.current = false;
 
       // Get file extension from name
       const fileExtension = selectedFile.name.split('.').pop() || 'mp4';
@@ -69,6 +72,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
       setUploadProgress(10);
       await new Promise<void>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
+        uploadRequestRef.current = xhr;
         xhr.open('PUT', upload_url, true);
         xhr.setRequestHeader('Content-Type', selectedFile.type);
 
@@ -89,6 +93,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
         };
 
         xhr.onerror = () => reject(new Error('Upload failed'));
+        xhr.onabort = () => reject(new Error('Upload aborted'));
         xhr.send(selectedFile);
       });
 
@@ -101,16 +106,25 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
       if (handleSavedSuccessfully) {
         handleSavedSuccessfully(file_key);
       }
-    } catch {
-      setUploadStatus('error');
-      setErrorMessage('Failed to upload video');
+    } catch (error) {
+      if (!uploadCancelledRef.current) {
+        setUploadStatus('error');
+        setErrorMessage(t('PERFORMER_PAGE.SHOW_REEL.UPLOAD_FAILED'));
+      }
     }
+    uploadRequestRef.current = null;
+    uploadCancelledRef.current = false;
   };
 
   const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
+    if (uploadStatus === 'uploading' && uploadRequestRef.current) {
+      uploadCancelledRef.current = true;
+      uploadRequestRef.current.abort();
+    }
     setSelectedFile(null);
     setUploadStatus('idle');
+    setUploadProgress(0);
     setErrorMessage('');
   };
 
@@ -133,6 +147,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
     accept: ACCEPTED_VIDEO_TYPES,
     maxFiles: 1,
     maxSize: MAX_FILE_SIZE,
+    disabled: uploadStatus === 'uploading',
   });
 
   const addTranslationPrefix = (text: string) => {
@@ -145,7 +160,6 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
         {...getRootProps()}
         className={`relative border-2 border-dashed rounded-lg p-3 md:p-6 text-center cursor-pointer transition-colors
           ${isDragActive ? 'border-purple-500 bg-purple-50' : 'border-gray-300 hover:border-purple-400'}
-          ${uploadStatus === 'uploading' ? 'pointer-events-none' : ''}
         `}
       >
         <input {...getInputProps()} disabled={uploadStatus === 'uploading'} />
@@ -180,11 +194,16 @@ export const VideoUpload: React.FC<VideoUploadProps> = ({
         )}
       </div>
 
-      {selectedFile && uploadStatus !== 'uploading' && (
+      {selectedFile && (
         <div className="mt-4 flex">
           <button
             onClick={handleUpload}
-            className="bg-purple-500 text-white px-4 py-2 mx-3 rounded hover:bg-purple-600"
+            disabled={uploadStatus === 'uploading'}
+            className={`bg-purple-500 text-white px-4 py-2 mx-3 rounded ${
+              uploadStatus === 'uploading'
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-purple-600'
+            }`}
           >
             {t('SAVE')}
           </button>
