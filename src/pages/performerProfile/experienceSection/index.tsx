@@ -208,6 +208,7 @@ export default function ExperienceSection({
                     onSave={handleSave}
                     onCancel={handleCancel}
                     serverErrors={serverErrors}
+                    onShowTypeChange={() => setServerErrors(null)}
                   />
                 </div>
               );
