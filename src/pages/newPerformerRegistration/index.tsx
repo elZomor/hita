@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import {
   NewPerformerFormData,
   newPerformerFormSchema,
@@ -19,6 +20,7 @@ export function NewPerformerForm() {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const navigate = useNavigate();
   const { trackEvent } = useAmplitude();
+  const { t } = useTranslation();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -66,7 +68,7 @@ export function NewPerformerForm() {
       const { data } = await post_request('hita/performers', requestData);
       setSnackbar({
         open: true,
-        message: 'Form submitted successfully!',
+        message: t('SUCCESS.FORM_SUBMITTED'),
         type: 'success',
       });
       trackEvent('performer_created');
@@ -74,7 +76,7 @@ export function NewPerformerForm() {
     } catch {
       setSnackbar({
         open: true,
-        message: 'Failed to submit form. Please try again.',
+        message: t('ERRORS.FORM_SUBMIT_FAILED'),
         type: 'error',
       });
     }

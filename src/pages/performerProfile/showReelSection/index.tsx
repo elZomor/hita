@@ -2,23 +2,28 @@ import { VideoModal } from '../../../components/shared/VideoModal.tsx';
 import { useState } from 'react';
 import Section from '../../../components/shared/section/Section.tsx';
 import { useTranslation } from 'react-i18next';
-import { baseUrl } from '../../../constants.ts';
 import { Play, Trash2 } from 'lucide-react';
 import { useEditMode } from '../../../contexts/EditModeContext.tsx';
 import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
 import { delete_request } from '../../../utils/restUtils.ts';
 import { VideoUpload } from '../../../components/shared/VideoUpload.tsx';
 
+// Cloudflare Worker URL for media streaming
+const CF_WORKER_URL = import.meta.env.VITE_CF_WORKER_URL || '';
+
 type ShowReelSectionProps = {
   username: string;
   hasShowReel: boolean;
+  showReelFileKey: string | null;
 };
 
 export const ShowReelSection = ({
   username,
   hasShowReel,
+  showReelFileKey,
 }: ShowReelSectionProps) => {
   const [showReel, setShowReel] = useState(hasShowReel);
+  const [fileKey, setFileKey] = useState<string | null>(showReelFileKey);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
   const { isEditMode } = useEditMode();
@@ -28,13 +33,15 @@ export const ShowReelSection = ({
       await delete_request(`hita/show-reel/delete`);
       setShowDeleteModal(false);
       setShowReel(false);
+      setFileKey(null);
     } catch {
       // Intentionally left empty
     }
   };
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const handleSavedSuccessfully = () => {
+  const handleSavedSuccessfully = (newFileKey: string) => {
     setShowReel(true);
+    setFileKey(newFileKey);
   };
 
   const IconOnVideo = () => {
@@ -85,7 +92,7 @@ export const ShowReelSection = ({
       </div>
       <VideoModal
         isOpen={isModalOpen}
-        videoUrl={`${baseUrl}/hita/show-reel/${username}/stream`}
+        videoUrl={CF_WORKER_URL && fileKey ? `${CF_WORKER_URL}/${fileKey}` : ''}
         title={`${username} Show Reel`}
         onClose={() => setIsModalOpen(false)}
       />

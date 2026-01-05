@@ -167,25 +167,25 @@ export function MemberRegistration() {
       if (data.status === 'SUCCESS') {
         setSnackbar({
           open: true,
-          message: 'Form submitted successfully!',
+          message: t('SUCCESS.FORM_SUBMITTED'),
           type: 'success',
         });
         trackEvent('member_created');
         navigate('/landing');
       } else {
-        const errorString = `Please fix The following errors:\n${objectToFormattedString(responseData.data)}`;
+        const errorString = `${t('ERRORS.FIX_ERRORS_ABOVE')}\n${objectToFormattedString(responseData.data)}`;
         setFormError(errorString);
         setSnackbar({
           open: true,
-          message: 'Please fix the errors above.',
+          message: t('ERRORS.FIX_ERRORS_ABOVE'),
           type: 'error',
         });
       }
     } catch {
-      setFormError('errorMessage');
+      setFormError(t('ERRORS.GENERIC'));
       setSnackbar({
         open: true,
-        message: 'error',
+        message: t('ERRORS.FORM_SUBMIT_FAILED'),
         type: 'error',
       });
     } finally {

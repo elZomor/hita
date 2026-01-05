@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import { StepIndicator } from './StepIndicator';
 import { PersonalInfoStep } from './PersonalInfoStep';
 import { ExperiencesStep } from './ExperiencesStep';
@@ -32,6 +33,7 @@ export function PerformerForm() {
   const [showExitModal, setShowExitModal] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [snackbar, setSnackbar] = useState<{
     open: boolean;
     message: string;
@@ -141,7 +143,7 @@ export function PerformerForm() {
     if (!isValid) {
       setSnackbar({
         open: true,
-        message: 'Please fix the errors before proceeding',
+        message: t('ERRORS.FIX_ERRORS_BEFORE_PROCEEDING'),
         type: 'error',
       });
       return;
@@ -175,7 +177,9 @@ export function PerformerForm() {
       if (!isValid) {
         setSnackbar({
           open: true,
-          message: `Please complete ${STEPS[i].label} before proceeding`,
+          message: t('ERRORS.COMPLETE_STEP_BEFORE_PROCEEDING', {
+            step: STEPS[i].label,
+          }),
           type: 'error',
         });
         return;
@@ -200,7 +204,7 @@ export function PerformerForm() {
     if (!isValid) {
       setSnackbar({
         open: true,
-        message: 'Please fix the errors before proceeding',
+        message: t('ERRORS.FIX_ERRORS_BEFORE_PROCEEDING'),
         type: 'error',
       });
       return;
@@ -226,7 +230,7 @@ export function PerformerForm() {
         );
         setSnackbar({
           open: true,
-          message: 'Form submitted successfully!',
+          message: t('SUCCESS.FORM_SUBMITTED'),
           type: 'success',
         });
         navigate(`/artists/${data.data.user}`);
@@ -234,7 +238,7 @@ export function PerformerForm() {
     } catch {
       setSnackbar({
         open: true,
-        message: 'Failed to submit form. Please try again.',
+        message: t('ERRORS.FORM_SUBMIT_FAILED'),
         type: 'error',
       });
     }
