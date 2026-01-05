@@ -408,7 +408,8 @@
       "DELETE_CANCEL": "لا",
       "ROLE_NAME": "اسم الدور (الشخصية)",
       "BRIEF": "عن الدور",
-      "PARTICIPATED_IN_FESTIVAL": "شارك في المهرجانات التالية"
+      "PARTICIPATED_IN_FESTIVAL": "شارك في المهرجانات التالية",
+      "SAVE_ERROR": "فشل حفظ الخبرة. راجع الحقول المحددة."
     },
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "الإنجازات والجوائز",

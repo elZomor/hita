@@ -408,7 +408,8 @@
       "DELETE_CANCEL": "No, cancel",
       "ROLE_NAME": "Role (Character) name",
       "BRIEF": "About the role",
-      "PARTICIPATED_IN_FESTIVAL": "Participated in the following festivals"
+      "PARTICIPATED_IN_FESTIVAL": "Participated in the following festivals",
+      "SAVE_ERROR": "Failed to save experience. Please review highlighted fields."
     },
     "ACHIEVEMENT": {
       "ACHIEVEMENTS": "Achievements and trophies",
