@@ -12,18 +12,38 @@ interface AchievementFormProps {
   achievement: Achievement;
   onSave: (achievement: Achievement) => void;
   onCancel: () => void;
+  serverErrors?: Record<string, string[]> | null;
 }
 
 export function AchievementForm({
   achievement,
   onSave,
   onCancel,
+  serverErrors,
 }: AchievementFormProps) {
   const { t } = useTranslation();
+
   const translateError = (error?: string) => {
     if (!error) return undefined;
     return error.startsWith('PERFORMER_PAGE.') ? t(error) : error;
   };
+
+  const getServerError = (key: string) => {
+    if (!serverErrors) return undefined;
+    return serverErrors[key]?.join(' ');
+  };
+
+  const getFieldError = (formError?: string, serverKey?: string) => {
+    const translatedFormError = translateError(formError);
+    if (translatedFormError) {
+      return translatedFormError;
+    }
+    if (!serverKey) {
+      return undefined;
+    }
+    return translateError(getServerError(serverKey));
+  };
+
   const {
     register,
     handleSubmit,
@@ -36,6 +56,7 @@ export function AchievementForm({
     resolver: zodResolver(achievementSchema),
     defaultValues: achievement,
   });
+
   useEffect(() => {
     reset(achievement);
     clearErrors();
@@ -60,7 +81,7 @@ export function AchievementForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label={addTranslationPrefix('RANK')}
-          error={translateError(errors.rank?.message)}
+          error={getFieldError(errors.rank?.message, 'position')}
           required
         >
           <input
@@ -75,7 +96,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('FIELD')}
-          error={translateError(errors.field?.message)}
+          error={getFieldError(errors.field?.message, 'field')}
           required
         >
           <input
@@ -90,7 +111,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('SHOW_NAME')}
-          error={translateError(errors.showName?.message)}
+          error={getFieldError(errors.showName?.message, 'show_name')}
           required
         >
           <input
@@ -105,7 +126,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('FESTIVAL_NAME')}
-          error={translateError(errors.festivalName?.message)}
+          error={getFieldError(errors.festivalName?.message, 'festival_name')}
           required
         >
           <input
@@ -120,7 +141,7 @@ export function AchievementForm({
 
         <FormField
           label={addTranslationPrefix('YEAR')}
-          error={errors.year?.message}
+          error={getFieldError(errors.year?.message, 'year')}
           required
         >
           <Select

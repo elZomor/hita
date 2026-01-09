@@ -22,6 +22,7 @@ export interface Experience {
   roleName: string | null;
   brief: string | null;
   showType: string;
+  festivalName: string | null;
 }
 
 export interface Achievement {
@@ -139,11 +140,11 @@ export const experienceSchema = z
   .object({
     showName: z
       .string()
-      .min(1, 'Show name is required')
+      .min(1, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.SHOW_NAME_REQUIRED')
       .max(100, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.SHOW_NAME_MAX'),
     director: z
       .string()
-      .min(1, 'Director is required')
+      .min(1, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DIRECTOR_REQUIRED')
       .max(20, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DIRECTOR_MAX'),
     venue: z
       .string()
@@ -165,10 +166,13 @@ export const experienceSchema = z
       .max(50, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLE_BRIEF_MAX')
       .nullable()
       .optional(),
-    showType: z.string().min(1, 'Show type is required'),
-    roles: z.array(z.string()).min(1, 'At least one role is required'),
-    year: z.number().min(1900).max(new Date().getFullYear()),
-    duration: z.number().nullable().optional(),
+    showType: z.string().min(1, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.SHOW_TYPE_REQUIRED'),
+    roles: z.array(z.string()).min(1, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.ROLES_REQUIRED'),
+    year: z
+      .number()
+      .min(1900, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.YEAR_INVALID')
+      .max(new Date().getFullYear(), 'PERFORMER_PAGE.EXPERIENCE.ERRORS.YEAR_INVALID'),
+    duration: z.number().positive().nullable().optional(),
     festivalName: z
       .string()
       .max(50, 'PERFORMER_PAGE.EXPERIENCE.ERRORS.FESTIVAL_NAME_MAX')
@@ -177,34 +181,41 @@ export const experienceSchema = z
   })
   .superRefine((data, ctx) => {
     if (data.showType === 'THEATER') {
-      if (!data.venue) {
+      if (!data.venue || data.venue.trim() === '') {
         ctx.addIssue({
-          code: 'custom', // Required code property
+          code: z.ZodIssueCode.custom,
           path: ['venue'],
-          message: 'Venue is required when showType is Theater',
+          message: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.VENUE_REQUIRED',
         });
       }
 
       if (data.duration === null || data.duration === undefined) {
         ctx.addIssue({
-          code: 'custom', // Required code property
+          code: z.ZodIssueCode.custom,
           path: ['duration'],
-          message: 'Duration is required when showType is Theater',
+          message: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DURATION_REQUIRED',
+        });
+      } else if (data.duration <= 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['duration'],
+          message: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.DURATION_POSITIVE',
         });
       }
-      if (data.festivalName === null || data.festivalName === undefined) {
+
+      if (!data.festivalName || data.festivalName.trim() === '') {
         ctx.addIssue({
-          code: 'custom', // Required code property
+          code: z.ZodIssueCode.custom,
           path: ['festivalName'],
-          message: 'festivalName is required when showType is Theater',
+          message: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.FESTIVAL_NAME_REQUIRED',
         });
       }
     } else if (data.showType === 'TV' || data.showType === 'MOVIE') {
-      if (!data.producer) {
+      if (!data.producer || data.producer.trim() === '') {
         ctx.addIssue({
-          code: 'custom', // Required code property
+          code: z.ZodIssueCode.custom,
           path: ['producer'],
-          message: 'producer is required when showType is Movie or TV',
+          message: 'PERFORMER_PAGE.EXPERIENCE.ERRORS.PRODUCER_REQUIRED',
         });
       }
     }
@@ -213,21 +224,24 @@ export const experienceSchema = z
 export const achievementSchema = z.object({
   rank: z
     .string()
-    .min(1, 'Rank is required')
+    .min(1, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.RANK_REQUIRED')
     .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.RANK_MAX'),
   field: z
     .string()
-    .min(1, 'Field is required')
+    .min(1, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FIELD_REQUIRED')
     .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FIELD_MAX'),
   showName: z
     .string()
-    .min(1, 'Show name is required')
+    .min(1, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.SHOW_NAME_REQUIRED')
     .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.SHOW_NAME_MAX'),
   festivalName: z
     .string()
-    .min(1, 'Festival name is required')
+    .min(1, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FESTIVAL_NAME_REQUIRED')
     .max(50, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FESTIVAL_NAME_MAX'),
-  year: z.number().min(1900).max(new Date().getFullYear()),
+  year: z
+    .number()
+    .min(1900, 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.YEAR_INVALID')
+    .max(new Date().getFullYear(), 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.YEAR_INVALID'),
 });
 
 export const contactDetailSchema = z.object({

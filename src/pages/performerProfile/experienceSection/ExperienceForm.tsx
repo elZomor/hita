@@ -84,15 +84,6 @@ export function ExperienceForm({
 
   const selectedShowType = watch('showType');
 
-  useEffect(() => {
-    if (!selectedShowType) return;
-    if (selectedShowType !== 'THEATER') {
-      clearErrors(['venue', 'duration', 'festivalName']);
-    }
-    if (selectedShowType !== 'TV' && selectedShowType !== 'MOVIE') {
-      clearErrors('producer');
-    }
-  }, [selectedShowType, clearErrors]);
 
   const getConditionalFields = (showType?: string) => {
     if (showType === 'THEATER') {
@@ -144,11 +135,16 @@ export function ExperienceForm({
       return null;
     }
     const updatedErrors: Record<string, string[]> = { ...serverErrors };
+    // venue and duration are only for THEATER
     if (selectedShowType !== 'THEATER') {
       delete updatedErrors.venue;
       delete updatedErrors.duration;
+    }
+    // festivalName is for THEATER (required) and MOVIE (optional)
+    if (selectedShowType !== 'THEATER' && selectedShowType !== 'MOVIE') {
       delete updatedErrors.festival_name;
     }
+    // producer is only for TV and MOVIE
     if (selectedShowType !== 'TV' && selectedShowType !== 'MOVIE') {
       delete updatedErrors.producer;
     }
@@ -191,8 +187,8 @@ export function ExperienceForm({
       </FormField>
       <FormField
         label={addTranslationPrefix('DURATION_NIGHTS')}
-        error={errors.duration?.message}
-        required={showType === 'THEATER'} // Only required if showType is 'THEATER'
+        error={getFieldError(errors.duration?.message, 'duration')}
+        required={showType === 'THEATER'}
       >
         <input
           type="number"
@@ -243,7 +239,7 @@ export function ExperienceForm({
 
         <FormField
           label={addTranslationPrefix('SHOW_TYPE')}
-          error={errors.showType?.message}
+          error={getFieldError(errors.showType?.message, 'show_type')}
           required
         >
           <Select
@@ -252,26 +248,31 @@ export function ExperienceForm({
             classNamePrefix="react-select"
             onChange={(selected) => {
               const newType = selected?.value as string;
-              setValue(`showType`, newType, {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
+              // First clear all errors before changing anything
+              clearErrors();
+              // Reset fields that are no longer relevant BEFORE setting the new type
               if (newType !== 'THEATER') {
                 resetField('venue', { defaultValue: undefined });
                 resetField('duration', { defaultValue: undefined });
-                resetField('festivalName', { defaultValue: undefined });
               }
-              if (newType !== 'TV' && newType !== 'MOVIE') {
+              if (newType === 'THEATER' || newType === 'RADIO' || newType === 'DUBBING') {
                 resetField('producer', { defaultValue: undefined });
               }
-              clearErrors();
+              if (newType !== 'THEATER' && newType !== 'MOVIE') {
+                resetField('festivalName', { defaultValue: undefined });
+              }
+              // Set the new type WITHOUT triggering validation
+              setValue(`showType`, newType, {
+                shouldValidate: false,
+                shouldDirty: true,
+              });
               onShowTypeChange?.();
             }}
-            value={SHOW_TYPES.map((option) => {
-              return watch(`showType`)?.includes(option.value as string)
-                ? { value: option.value, label: t(option.label) }
-                : null;
-            })}
+            value={
+              showTypeOptions.find(
+                (option) => option.value === watch('showType')
+              ) || null
+            }
             placeholder=""
           />
         </FormField>
@@ -290,7 +291,7 @@ export function ExperienceForm({
 
         <FormField
           label={addTranslationPrefix('YEAR')}
-          error={errors.year?.message}
+          error={getFieldError(errors.year?.message, 'year')}
           required
         >
           <Select
@@ -313,7 +314,7 @@ export function ExperienceForm({
         <div className="md:col-span-2">
           <FormField
             label={addTranslationPrefix('ROLES')}
-            error={errors.roles?.message}
+            error={getFieldError(errors.roles?.message, 'roles')}
             required
           >
             <Select
@@ -326,11 +327,14 @@ export function ExperienceForm({
               )}
               className="react-select"
               classNamePrefix="react-select"
-              value={skillsOptions.map((option) => {
-                return watch(`roles`)?.includes(option?.value as string)
-                  ? { value: option.value, label: t('SKILLS.' + option.label) }
-                  : null;
-              })}
+              value={skillsOptions
+                .filter((option) =>
+                  watch('roles')?.includes(option?.value as string)
+                )
+                .map((option) => ({
+                  value: option.value,
+                  label: t('SKILLS.' + option.label),
+                }))}
               onChange={(selected) => {
                 setValue(
                   `roles`,
