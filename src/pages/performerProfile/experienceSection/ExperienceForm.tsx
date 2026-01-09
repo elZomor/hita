@@ -32,6 +32,7 @@ export function ExperienceForm({
     setValue,
     clearErrors,
     resetField,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(experienceSchema),
@@ -39,9 +40,17 @@ export function ExperienceForm({
       ...experience,
       duration: experience.duration || undefined,
     },
-    shouldUnregister: true,
   });
   const [skillsOptions, setSkillsOptions] = useState<DropDownOptions[]>([]);
+
+  // Reset form when experience prop changes (e.g., when editing different experience)
+  useEffect(() => {
+    reset({
+      ...experience,
+      duration: experience.duration || undefined,
+    });
+    clearErrors();
+  }, [experience, reset, clearErrors]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,17 +71,13 @@ export function ExperienceForm({
     return t('PERFORMER_REG.EXPERIENCE_SECTION.' + text);
   };
 
-  const SHOW_TYPES: DropDownOptions[] = [
+  const showTypeOptions: { value: string; label: string }[] = [
     { value: 'THEATER', label: addTranslationPrefix('THEATER') },
     { value: 'TV', label: addTranslationPrefix('TV') },
     { value: 'MOVIE', label: addTranslationPrefix('MOVIE') },
     { value: 'RADIO', label: addTranslationPrefix('RADIO') },
     { value: 'DUBBING', label: addTranslationPrefix('DUBBING') },
   ];
-  const showTypeOptions = SHOW_TYPES.map((option) => ({
-    value: option.value,
-    label: t(option.label),
-  }));
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from(
     { length: currentYear - 1980 + 1 },
@@ -327,14 +332,17 @@ export function ExperienceForm({
               )}
               className="react-select"
               classNamePrefix="react-select"
-              value={skillsOptions
-                .filter((option) =>
-                  watch('roles')?.includes(option?.value as string)
-                )
-                .map((option) => ({
-                  value: option.value,
-                  label: t('SKILLS.' + option.label),
-                }))}
+              value={(watch('roles') || []).map((role: string) => {
+                const matchedOption = skillsOptions.find(
+                  (opt) => opt.value === role
+                );
+                return {
+                  value: role,
+                  label: matchedOption
+                    ? t('SKILLS.' + matchedOption.label)
+                    : t('SKILLS.' + role),
+                };
+              })}
               onChange={(selected) => {
                 setValue(
                   `roles`,

@@ -278,16 +278,19 @@ export function ExperiencesStep({
                       )}
                       className="react-select"
                       classNamePrefix="react-select"
-                      value={skillsOptions
-                        .filter((option) =>
-                          watch(`experiences.${index}.roles`)?.includes(
-                            option?.value as string
-                          )
-                        )
-                        .map((option) => ({
-                          value: option.value,
-                          label: t(option.label),
-                        }))}
+                      value={(watch(`experiences.${index}.roles`) || []).map(
+                        (role: string) => {
+                          const matchedOption = skillsOptions.find(
+                            (opt) => opt.value === role
+                          );
+                          return {
+                            value: role,
+                            label: matchedOption
+                              ? t(matchedOption.label)
+                              : t('SKILLS.' + role),
+                          };
+                        }
+                      )}
                       onChange={(selected) => {
                         setValue(
                           `experiences.${index}.roles`,
