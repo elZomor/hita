@@ -412,13 +412,24 @@
       "SAVE_ERROR": "Failed to save experience. Please review highlighted fields.",
       "DATA_NOT_CREATED": "Unable to save experience. Please try again.",
       "ERRORS": {
+        "SHOW_NAME_REQUIRED": "Show name is required.",
         "SHOW_NAME_MAX": "Show name must be 100 characters or fewer.",
-        "ROLE_NAME_MAX": "Role name must be 20 characters or fewer.",
-        "ROLE_BRIEF_MAX": "Role brief must be 50 characters or fewer.",
+        "DIRECTOR_REQUIRED": "Director name is required.",
         "DIRECTOR_MAX": "Director name must be 20 characters or fewer.",
+        "SHOW_TYPE_REQUIRED": "Show type is required.",
+        "ROLES_REQUIRED": "At least one role is required.",
+        "YEAR_INVALID": "Year must be between 1900 and the current year.",
+        "VENUE_REQUIRED": "Venue is required for Theater shows.",
         "VENUE_MAX": "Venue must be 50 characters or fewer.",
+        "DURATION_REQUIRED": "Duration is required for Theater shows.",
+        "DURATION_POSITIVE": "Duration must be a positive number.",
+        "DURATION_INVALID": "Duration must be a valid number.",
+        "FESTIVAL_NAME_REQUIRED": "Festival name is required for Theater shows.",
         "FESTIVAL_NAME_MAX": "Festival name must be 50 characters or fewer.",
-        "PRODUCER_MAX": "Producer must be 30 characters or fewer."
+        "PRODUCER_REQUIRED": "Producer is required for TV and Movie shows.",
+        "PRODUCER_MAX": "Producer must be 30 characters or fewer.",
+        "ROLE_NAME_MAX": "Role name must be 20 characters or fewer.",
+        "ROLE_BRIEF_MAX": "Role brief must be 50 characters or fewer."
       }
     },
     "ACHIEVEMENT": {
@@ -429,11 +440,18 @@
       "DELETE_FORM": "Are you sure you want to delete this achievement?",
       "DELETE_CONFIRM": "Yes, delete",
       "DELETE_CANCEL": "No, cancel",
+      "SAVE_ERROR": "Failed to save achievement. Please review highlighted fields.",
+      "DATA_NOT_CREATED": "Unable to save achievement. Please try again.",
       "ERRORS": {
+        "RANK_REQUIRED": "Rank/Position is required.",
         "RANK_MAX": "Rank must be 50 characters or fewer.",
+        "FIELD_REQUIRED": "Field is required.",
         "FIELD_MAX": "Field must be 50 characters or fewer.",
+        "SHOW_NAME_REQUIRED": "Show name is required.",
         "SHOW_NAME_MAX": "Show name must be 50 characters or fewer.",
-        "FESTIVAL_NAME_MAX": "Festival name must be 50 characters or fewer."
+        "FESTIVAL_NAME_REQUIRED": "Festival name is required.",
+        "FESTIVAL_NAME_MAX": "Festival name must be 50 characters or fewer.",
+        "YEAR_INVALID": "Year must be between 1900 and the current year."
       }
     },
     "PUBLIC_LINKS": {

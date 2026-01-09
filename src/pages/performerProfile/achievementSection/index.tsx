@@ -17,6 +17,15 @@ import {
 } from '../../../utils/restUtils.ts';
 import { Modal } from '../../../components/shared/confirmModal/ConfirmModal.tsx';
 import { Snackbar } from '../../../components/shared/snackBar/SnackBar.tsx';
+import { AxiosError } from 'axios';
+
+const FIELD_ERROR_TRANSLATIONS: Record<string, string> = {
+  position: 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.RANK_MAX',
+  field: 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FIELD_MAX',
+  show_name: 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.SHOW_NAME_MAX',
+  festival_name: 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.FESTIVAL_NAME_MAX',
+  year: 'PERFORMER_PAGE.ACHIEVEMENT.ERRORS.YEAR_INVALID',
+};
 
 interface AchievementSectionProps {
   achievements: Achievement[];
@@ -42,6 +51,11 @@ export default function AchievementSection({
     message: '',
     type: 'success',
   });
+  const [serverErrors, setServerErrors] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
+
   const handleAdd = () => {
     const newAchievement = {
       id: 0,
@@ -54,11 +68,13 @@ export default function AchievementSection({
     setIsAdding(true);
     setAchievements([newAchievement, ...achievements]);
     setEditingIndex(0);
+    setServerErrors(null);
   };
 
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setCurrentAchievement(achievements[index]);
+    setServerErrors(null);
   };
 
   const mapFormDataToRequest = (
@@ -89,8 +105,35 @@ export default function AchievementSection({
       setEditingIndex(null);
       setCurrentAchievement(null);
       setIsAdding(false);
-    } catch {
-      // No Implementation
+      setServerErrors(null);
+    } catch (error) {
+      const axiosError = error as AxiosError<{
+        data?: Record<string, string[]>;
+        message?: string;
+      }>;
+      const responseData = axiosError.response?.data;
+      if (responseData?.data) {
+        const transformedErrors: Record<string, string[]> = {};
+        Object.entries(responseData.data).forEach(([field, messages]) => {
+          if (FIELD_ERROR_TRANSLATIONS[field]) {
+            transformedErrors[field] = [FIELD_ERROR_TRANSLATIONS[field]];
+          } else {
+            transformedErrors[field] = messages;
+          }
+        });
+        setServerErrors(transformedErrors);
+      } else {
+        setServerErrors(null);
+      }
+      const backendMessage =
+        responseData?.message === 'Data not create successfully!'
+          ? t('PERFORMER_PAGE.ACHIEVEMENT.DATA_NOT_CREATED')
+          : responseData?.message;
+      setSnackbar({
+        open: true,
+        message: backendMessage || t('PERFORMER_PAGE.ACHIEVEMENT.SAVE_ERROR'),
+        type: 'error',
+      });
     }
   };
 
@@ -122,6 +165,7 @@ export default function AchievementSection({
     setEditingIndex(null);
     setCurrentAchievement(null);
     setIsAdding(false);
+    setServerErrors(null);
   };
 
   return (
@@ -147,6 +191,7 @@ export default function AchievementSection({
                     achievement={achievement}
                     onSave={handleSave}
                     onCancel={handleCancel}
+                    serverErrors={serverErrors}
                   />
                 </div>
               );
