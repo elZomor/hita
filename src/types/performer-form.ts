@@ -22,6 +22,7 @@ export interface Experience {
   roleName: string | null;
   brief: string | null;
   showType: string;
+  festivalName: string | null;
 }
 
 export interface Achievement {

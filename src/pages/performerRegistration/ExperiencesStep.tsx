@@ -50,9 +50,41 @@ export function ExperiencesStep({
 
   const getConditionalFields = (showType: string, index: number) => {
     if (showType === 'THEATER') {
-      return TheaterInfo(showType, index);
+      return (
+        <>
+          {TheaterInfo(showType, index)}
+          <FormField
+            label={addTranslationPrefix('FESTIVAL_NAME')}
+            error={errors.experiences?.[index]?.festivalName?.message}
+            required={true}
+          >
+            <input
+              type="text"
+              {...register(`experiences.${index}.festivalName`)}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+          </FormField>
+        </>
+      );
     } else if (showType === 'TV' || showType === 'MOVIE') {
-      return MediaInfo(showType, index);
+      return (
+        <>
+          {MediaInfo(showType, index)}
+          {showType === 'MOVIE' && (
+            <FormField
+              label={addTranslationPrefix('FESTIVAL_NAME')}
+              error={errors.experiences?.[index]?.festivalName?.message}
+              required={false}
+            >
+              <input
+                type="text"
+                {...register(`experiences.${index}.festivalName`)}
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </FormField>
+          )}
+        </>
+      );
     }
     return null;
   };
@@ -124,6 +156,7 @@ export function ExperiencesStep({
               producer: null,
               roleName: null,
               brief: null,
+              festivalName: null,
             })
           }
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100"
@@ -181,13 +214,15 @@ export function ExperiencesStep({
                         selected?.value as string
                       );
                     }}
-                    value={SHOW_TYPES.map((option) => {
-                      return watch(`experiences.${index}.showType`)?.includes(
-                        option.value as string
-                      )
-                        ? { value: option.value, label: t(option.label) }
-                        : null;
-                    })}
+                    value={
+                      SHOW_TYPES.map((option) => ({
+                        label: t(option.label),
+                        value: option.value,
+                      })).find(
+                        (option) =>
+                          option.value === watch(`experiences.${index}.showType`)
+                      ) || null
+                    }
                     placeholder=""
                   />
                 </FormField>
@@ -243,13 +278,16 @@ export function ExperiencesStep({
                       )}
                       className="react-select"
                       classNamePrefix="react-select"
-                      value={skillsOptions.map((option) => {
-                        return watch(`experiences.${index}.roles`)?.includes(
-                          option?.value as string
+                      value={skillsOptions
+                        .filter((option) =>
+                          watch(`experiences.${index}.roles`)?.includes(
+                            option?.value as string
+                          )
                         )
-                          ? { value: option.value, label: t(option.label) }
-                          : null;
-                      })}
+                        .map((option) => ({
+                          value: option.value,
+                          label: t(option.label),
+                        }))}
                       onChange={(selected) => {
                         setValue(
                           `experiences.${index}.roles`,

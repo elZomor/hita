@@ -250,6 +250,7 @@ export const mapPerformerRegisterToRequest = (data: Record<string, any>) => {
       roles: experience['roles'],
       year: experience['year'],
       duration: experience['duration'],
+      festival_name: experience['festivalName'],
     })
   );
   const achievementsSection = data['achievements']?.map(
